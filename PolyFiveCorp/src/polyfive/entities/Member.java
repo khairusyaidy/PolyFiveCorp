@@ -1,5 +1,5 @@
 package polyfive.entities;
 
 public class Member {
-// resolved the conflic
+// resolved the conflic67
 }
