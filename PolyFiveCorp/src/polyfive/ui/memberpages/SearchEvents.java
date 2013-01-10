@@ -1,36 +1,34 @@
 package polyfive.ui.memberpages;
-import polyfive.ui.adminpages.*;
-import polyfive.ui.images.*;
-import polyfive.ui.master.*;
-import polyfive.ui.misc.MultiLineCellRenderer;
-import polyfive.ui.publicpages.*;
 
+import polyfive.entities.dao.EventDetailsDao;
+import polyfive.ui.master.*;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Component;
 import java.awt.Font;
-import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
-import javax.swing.JSeparator;
 import java.awt.Cursor;
-import javax.swing.JTextArea;
-import javax.swing.DropMode;
+
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextArea;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.AncestorEvent;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.JCheckBox;
 import java.awt.Dimension;
+import java.util.ArrayList;
+
 import javax.swing.border.EtchedBorder;
+
 
 public class SearchEvents extends MasterPanel {
 	private JTextField textField;
@@ -48,6 +46,7 @@ public class SearchEvents extends MasterPanel {
 		setSize(new Dimension(1366, 768));
 		setFocusable(false);
 		setBackground(Color.BLACK);
+		
 		setLayout(null);
 		
 		textField = new JTextField();
@@ -77,47 +76,36 @@ public class SearchEvents extends MasterPanel {
 			    f.setVisible(true);
 			}
 		});
-		button.setIcon(new ImageIcon(SearchEvents.class.getResource("/polyFive/ui/images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(SearchEvents2.class.getResource("/polyFive/ui/images/p5cicon7575.png")));
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		//adding table here + scrollpane
+		
+		JTable table = new JTable(new JTableModel()); 
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(359, 208, 660, 397);
 		add(scrollPane);
+		table.setFillsViewportHeight(true);	
 		
-		
-		table = new JTable() ;
-		table.setEnabled(false);
- 
-		scrollPane.setViewportView(table);
+		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+		table.getColumn("Button1").setCellRenderer(buttonRenderer);
+	//	table.getColumn("Button2").setCellRenderer(buttonRenderer);
+		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.setRowHeight(60);
-		table.getTableHeader().setReorderingAllowed(false);
-		table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		table.setCellSelectionEnabled(true);
-		table.setDefaultRenderer(String.class, new MultiLineCellRenderer());
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Rock N Roll\n27 July 2012", "TEST"},
-				{"Disney 28 July 2012", null},
-				{"", null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"List of Events", ""
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(253);
-		table.getColumnModel().getColumn(1).setPreferredWidth(15);
-		table.getColumnModel().getColumn(1).setMinWidth(10);
+		
+
+        
+    	
+        
+		
+		
+		//
+		
+		
 
 		
 		button_1 = new JButton("Back");
@@ -218,5 +206,87 @@ public class SearchEvents extends MasterPanel {
 		this();
 		f = frame;
 		// TODO Auto-generated constructor stub
+		
 	}
+	
+	public class JTableButtonRenderer implements TableCellRenderer {		
+		  @Override public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		    JButton button = (JButton)value;
+		    if (isSelected) {
+		      button.setForeground(table.getSelectionForeground());
+		      button.setBackground(table.getSelectionBackground());
+		    } else {
+		      button.setForeground(table.getForeground());
+		      button.setBackground(UIManager.getColor("Button.background"));
+		    }
+		    return button;	
+		  }
+		}
+	
+	
+	public class JTableButtonMouseListener extends MouseAdapter {
+		  private final JTable table;
+				
+		  public JTableButtonMouseListener(JTable table) {
+		    this.table = table;
+		  }
+
+		  @Override public void mouseClicked(MouseEvent e) {
+		    int column = table.getColumnModel().getColumnIndexAtX(e.getX());
+		    int row    = e.getY()/table.getRowHeight(); 
+
+		    if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
+		      Object value = table.getValueAt(row, column);
+		      if (value instanceof JButton) {
+		        ((JButton)value).doClick();
+		      }
+		    }
+		  }
+		}
+	
+	public static class JTableModel extends AbstractTableModel {
+		private static final long serialVersionUID = 1L;
+		private static final String[] COLUMN_NAMES = new String[] {"Event Names", "Date of Events", "Button1"};
+		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, JButton.class};
+		
+		ArrayList<polyfive.entities.EventDetails> eventDetails = EventDetailsDao.RetrieveAll();
+		
+		@Override public int getColumnCount() {
+			return COLUMN_NAMES.length;
+		}
+
+		@Override public int getRowCount() {
+			return 4;
+		}
+		
+		@Override public String getColumnName(int columnIndex) {
+	        return COLUMN_NAMES[columnIndex];
+	    }
+		
+		@Override public Class<?> getColumnClass(int columnIndex) {
+			return COLUMN_TYPES[columnIndex];
+		}
+		
+		@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
+			switch (columnIndex) {
+				case 0: return eventDetails.get(rowIndex).getEventName();
+				case 1: return "Text for 123"+rowIndex;
+			//	case 2: // fall through
+				case 2: final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
+						button.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(button), 
+										"Button clicked for row "+rowIndex);
+							}
+						});
+						return button;
+				default: return "Error";
+			}
+		}	
+	}
+	
+
+
+	
 }
+
