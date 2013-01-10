@@ -23,6 +23,8 @@ import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.io.IOException;
+
 import javax.swing.border.EtchedBorder;
 
 
@@ -63,12 +65,6 @@ public class EventDetailsRNR extends MasterPanel {
 		panel.add(txtTineshsRockNRoll);
 		txtTineshsRockNRoll.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon(EventDetailsRNR.class.getResource("/polyFive/ui/images/Map.PNG")));
-		lblNewLabel.setBounds(37, 11, 1200, 120);
-		panel.add(lblNewLabel);
-		
 		txtRockNRoll = new JTextField();
 		txtRockNRoll.setBackground(new Color(255, 255, 255));
 		txtRockNRoll.setForeground(new Color(0, 0, 0));
@@ -101,6 +97,28 @@ public class EventDetailsRNR extends MasterPanel {
 		btnProceedToPayment.setBackground(new Color(255, 165, 0));
 		btnProceedToPayment.setBounds(510, 468, 254, 55);
 		panel.add(btnProceedToPayment);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] cmd = new String[5];
+				cmd[0] = "cmd.exe";
+				cmd[1] = "/C";
+				cmd[2] = "start";
+				cmd[3] = "C:/Users/Khai/Desktop/Map/MapForRockAndRoll.html";
+				cmd[4] = "-fullscreen";
+				try {
+					Process p = Runtime.getRuntime().exec(cmd);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon(EventDetailsRNR.class.getResource("/polyfive/ui/images/Map.PNG")));
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setBounds(74, 11, 1124, 120);
+		panel.add(btnNewButton);
 		
 		JButton button = new JButton("Back");
 		button.setFocusPainted(false);

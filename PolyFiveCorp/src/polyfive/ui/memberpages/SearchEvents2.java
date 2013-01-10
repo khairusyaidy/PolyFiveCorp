@@ -1,6 +1,5 @@
 package polyfive.ui.memberpages;
 
-import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.master.*;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -15,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.Cursor;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
@@ -24,38 +24,33 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.JCheckBox;
 import java.awt.Dimension;
-import java.util.ArrayList;
-
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 
-public class SearchEvents extends MasterPanel {
-	private JTextField filterText;
+public class SearchEvents2 extends MasterPanel {
+	private JTextField textField;
 	private JButton button;
-	private static MainFrame f = null;
+	private MainFrame f = null;
 	private JTable table;
 	private int numberOfUsers;
 	private JTextArea textArea;
 	private JButton button_1;
-	private JTextField statusText;
 
 	/**
 	 * Create the panel.
 	 */
-	public SearchEvents() {
+	public SearchEvents2() {
 		setSize(new Dimension(1366, 768));
 		setFocusable(false);
 		setBackground(Color.BLACK);
 		
 		setLayout(null);
 		
-		filterText = new JTextField();
-		filterText.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		filterText.setBounds(359, 77, 470, 31);
-		add(filterText);
-		filterText.setColumns(10);
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textField.setBounds(361, 98, 470, 45);
+		add(textField);
+		textField.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("Search");
 		btnNewButton_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
@@ -64,7 +59,7 @@ public class SearchEvents extends MasterPanel {
 		btnNewButton_1.setBackground(new Color(255, 165, 0));
 		btnNewButton_1.setForeground(Color.DARK_GRAY);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnNewButton_1.setBounds(839, 75, 130, 36);
+		btnNewButton_1.setBounds(849, 95, 170, 50);
 		add(btnNewButton_1);
 		
 		button = new JButton("");
@@ -86,7 +81,7 @@ public class SearchEvents extends MasterPanel {
 		
 		//adding table here + scrollpane
 		
-		final JTable table = new JTable(new JTableModel()); 
+		JTable table = new JTable(new JTableModel()); 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(359, 208, 660, 397);
@@ -94,35 +89,16 @@ public class SearchEvents extends MasterPanel {
 		table.setFillsViewportHeight(true);	
 		
 		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
-		table.getColumn("Event Details").setCellRenderer(buttonRenderer);
-	//	table.getColumn("Button2").setCellRenderer(buttonRenderer);
+		table.getColumn("Button1").setCellRenderer(buttonRenderer);
+		table.getColumn("Button2").setCellRenderer(buttonRenderer);
 		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.setRowHeight(60);
-	
 		
+
+        
+    	
+        
 		
-		table.getSelectionModel().addListSelectionListener(
-		        new ListSelectionListener() {
-		            public void valueChanged(ListSelectionEvent event) {
-		                int viewRow = table.getSelectedRow();
-		                if (viewRow < 0) {
-		                    //Selection got filtered away.
-		                    statusText.setText("");
-		                } else {
-		                    int modelRow = 
-		                        table.convertRowIndexToModel(viewRow);
-		                    statusText.setText(
-		                        String.format("Selected Row in view: %d. " +
-		                            "Selected Row in model: %d.", 
-		                            viewRow, modelRow));
-		                }
-		            }
-		        }
-		);
-      
-		 //Whenever filterText changes, invoke newFilter.
-
-
 		
 		//
 		
@@ -209,11 +185,6 @@ public class SearchEvents extends MasterPanel {
 		btnRockNRoll.setBorder(null);
 		btnRockNRoll.setBounds(818, 630, 89, 23);
 		add(btnRockNRoll);
-		
-		statusText = new JTextField();
-		statusText.setBounds(359, 119, 470, 31);
-		add(statusText);
-		statusText.setColumns(10);
 
 	
 		
@@ -228,15 +199,12 @@ public class SearchEvents extends MasterPanel {
 	
 	
 	
-	public SearchEvents(MainFrame frame) {
+	public SearchEvents2(MainFrame frame) {
 		this();
 		f = frame;
 		// TODO Auto-generated constructor stub
 		
 	}
-	
-	
-	
 	
 	public class JTableButtonRenderer implements TableCellRenderer {		
 		  @Override public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -275,10 +243,8 @@ public class SearchEvents extends MasterPanel {
 	
 	public static class JTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
-		private static final String[] COLUMN_NAMES = new String[] {"Event Names", "Date of Events", "Event Details"};
-		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, JButton.class};
-		
-		ArrayList<polyfive.entities.EventDetails> eventDetails = EventDetailsDao.RetrieveAll();
+		private static final String[] COLUMN_NAMES = new String[] {"Id", "Stuff", "Button1", "Button2"};
+		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {Integer.class, String.class, JButton.class,  JButton.class};
 		
 		@Override public int getColumnCount() {
 			return COLUMN_NAMES.length;
@@ -295,31 +261,17 @@ public class SearchEvents extends MasterPanel {
 		@Override public Class<?> getColumnClass(int columnIndex) {
 			return COLUMN_TYPES[columnIndex];
 		}
-		
+
 		@Override public Object getValueAt(final int rowIndex, final int columnIndex) {
 			switch (columnIndex) {
-				case 0: return eventDetails.get(rowIndex).getEventName();
-				case 1: return eventDetails.get(rowIndex).getEventDate();
-			//	case 2: // fall through
-				case 2: final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
+				case 0: return rowIndex;
+				case 1: return "Text for "+rowIndex;
+				case 2: // fall through
+				case 3: final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
-								EventDetailsRNR eventDetailsRNR = f.getEventDetailsRNR();
-								EventDetails eventDetails = f.getEventDetails();
-								if (rowIndex == 0){
-							    f.getContentPane().removeAll();
-							    f.getContentPane().add(eventDetailsRNR);
-							    f.repaint();
-							    f.revalidate();
-							    f.setVisible(true);
-								}
-								else {
-									f.getContentPane().removeAll();
-								    f.getContentPane().add(eventDetails);
-								    f.repaint();
-								    f.revalidate();
-								    f.setVisible(true);
-								}
+								JOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(button), 
+										"Button clicked for row "+rowIndex);
 							}
 						});
 						return button;
@@ -327,5 +279,9 @@ public class SearchEvents extends MasterPanel {
 			}
 		}	
 	}
+	
+
+
+	
 }
 
