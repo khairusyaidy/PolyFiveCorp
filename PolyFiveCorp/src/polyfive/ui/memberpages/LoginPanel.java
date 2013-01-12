@@ -1,43 +1,108 @@
 package polyfive.ui.memberpages;
-import polyfive.ui.adminpages.*;
-import polyfive.ui.images.*;
-import polyfive.ui.master.*;
-import polyfive.ui.misc.DigitalClock;
-import polyfive.ui.publicpages.*;
-
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.Font;
-import javax.swing.JPasswordField;
-import java.awt.SystemColor;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import java.awt.Color;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import com.javaswingcomponents.clock.analog.JSCAnalogClock;
-import com.javaswingcomponents.clock.analog.plaf.darksteel.DarkSteelAnalogClockUI;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
+import polyfive.ui.master.MainFrame;
+import polyfive.ui.master.MasterPanel;
+import polyfive.ui.master.WelcomePanel;
+
+
 public class LoginPanel extends MasterPanel {
-	private JTextField txtEnterUsername;
+	private JTextField UsernameField;
 	private JPanel panel;
-	private JPasswordField passwordField;
+	private JPasswordField PasswordField;
 	private JButton btnBack;
 	private MainFrame f;
 	private JPanel panel_1;
-	private JButton btnNewButton;
+	private JButton Login;
 	private JButton btnResetPassword;
 	private JButton button;
+	
+	Connection con;
+	Statement stmt;
+	ResultSet rs;
+	
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
+	
+
+	
+	public void connect(){
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp","root","");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		try {
+			stmt = con.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		try {
+			rs = stmt.executeQuery("select * from users");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		String driver = "com.mysql.jdbc.Driver";
+		try {
+			Class.forName(driver);
+		} catch (Exception ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		
+		try {
+			while(rs.next())
+			{
+				System.out.println(rs.getString("Username") + " " + rs.getString("Password"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	
+
 	public LoginPanel() {
+		connect();
+		
 		setSize(new Dimension(1366, 768));
 		setBackground(SystemColor.text);
 		setLayout(null);
@@ -49,27 +114,27 @@ public class LoginPanel extends MasterPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		txtEnterUsername = new JTextField();
-		txtEnterUsername.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		txtEnterUsername.setToolTipText("Enter username");
-		txtEnterUsername.setBounds(224, 118, 350, 45);
-		panel.add(txtEnterUsername);
-		txtEnterUsername.setColumns(10);
+		UsernameField = new JTextField();
+		UsernameField.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		UsernameField.setToolTipText("Enter username");
+		UsernameField.setBounds(224, 118, 350, 45);
+		panel.add(UsernameField);
+		UsernameField.setColumns(10);
 		
 		JLabel lblNric = new JLabel("Password\r\n");
 		lblNric.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNric.setBounds(72, 181, 100, 45);
 		panel.add(lblNric);
 		
-		JLabel lblName = new JLabel("Name");
+		JLabel lblName = new JLabel("Username");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblName.setBounds(72, 118, 100, 45);
 		panel.add(lblName);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		passwordField.setBounds(224, 179, 350, 45);
-		panel.add(passwordField);
+		PasswordField = new JPasswordField();
+		PasswordField.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		PasswordField.setBounds(224, 179, 350, 45);
+		panel.add(PasswordField);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(LoginPanel.class.getResource("/polyFive/ui/images/p5cicon.png")));
@@ -78,6 +143,7 @@ public class LoginPanel extends MasterPanel {
 		add(label);
 		
 		btnBack = new JButton("Back");
+		btnBack.setFocusPainted(false);
 		btnBack.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,7 +159,6 @@ public class LoginPanel extends MasterPanel {
 		});
 		btnBack.setForeground(Color.DARK_GRAY);
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnBack.setFocusPainted(false);
 		btnBack.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
 		btnBack.setBackground(new Color(255, 165, 0));
 		btnBack.setAlignmentX(1.0f);
@@ -106,25 +171,89 @@ public class LoginPanel extends MasterPanel {
 		add(panel_1);
 		panel_1.setLayout(null);
 		
-		btnNewButton = new JButton("Login");
-		btnNewButton.addActionListener(new ActionListener() {
+		Login = new JButton("Login");
+		Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    MemberCalendar memberCalendar = f.getMemberCalendar();
+			  /* 
+			     MemberCalendar memberCalendar = f.getMemberCalendar();
 			    f.getContentPane().removeAll();
 			    f.getContentPane().add(memberCalendar);
 			    f.repaint();
 			    f.revalidate();
 			    f.setVisible(true);
+			    */
+				try {
+				String username = UsernameField.getText().trim();
+				String password = PasswordField.getText();
+				
+				String sql = "select Username, Password from Users where Username = '" +username+"'and Password ='"+password+"'";
+				rs = stmt.executeQuery(sql);
+				
+				
+				int count=0;
+				while(rs.next()){
+					count = count + 1;
+				}
+				
+				if(count == 1){
+					int telNo = Integer.parseInt(JOptionPane.showInputDialog( "Please enter your phone number below: "));
+
+					String sql2 = "select Username, Password, telNo from Users where Username = '" +username+"'and Password ='"+password+"' and telNo = '" + telNo+ "'";
+					rs = stmt.executeQuery(sql2);
+					
+					boolean telNodb = false;
+					while(rs.next()){
+						if (telNo == rs.getInt("telNo"))
+							telNodb = true;
+						else
+							telNodb = false;
+					}
+					
+					if (telNodb == true){
+					JOptionPane.showMessageDialog(null, "User Found, Access Granted", "PolyFive Corp", JOptionPane.PLAIN_MESSAGE);
+					
+					 MemberCalendar memberCalendar = f.getMemberCalendar();
+					    f.getContentPane().removeAll();
+					    f.getContentPane().add(memberCalendar);
+					    f.repaint();
+					    f.revalidate();
+					    f.setVisible(true);
+				}
+					else 
+						JOptionPane.showMessageDialog(null, "Telephone number is incorrect. Please try again. ", "PolyFive Corp", JOptionPane.ERROR_MESSAGE);
+						
+				}
+				
+				
+				
+				
+				else if (count > 1){
+					JOptionPane.showMessageDialog(null, "Duplicate User, Access Denied", "PolyFive Corp", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				else {
+					JOptionPane.showMessageDialog(null, "User not found / Incorrect password.", "PolyFive Corp", JOptionPane.ERROR_MESSAGE);
+					
+				}
+				
+				
+				
+				}
+				catch(Exception ex){
+				
+					System.out.println(ex);
+		
+				}
 			}
 		});
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setForeground(Color.DARK_GRAY);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnNewButton.setBackground(new Color(255, 165, 0));
-		btnNewButton.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
-		btnNewButton.setBounds(120, 0, 170, 50);
-		panel_1.add(btnNewButton);
+		Login.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		Login.setFocusPainted(false);
+		Login.setForeground(Color.DARK_GRAY);
+		Login.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		Login.setBackground(new Color(255, 165, 0));
+		Login.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		Login.setBounds(120, 0, 170, 50);
+		panel_1.add(Login);
 		
 		btnResetPassword = new JButton("Reset Password");
 		btnResetPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -157,10 +286,13 @@ public class LoginPanel extends MasterPanel {
 		super.setLayout();
 
 	}
+	
+	
 
 	public LoginPanel(MainFrame frame) {
 		this();
 		f = frame;
 		// TODO Auto-generated constructor stub
 	}
+	
 }
