@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
+import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 import polyfive.ui.master.WelcomePanel;
@@ -39,10 +40,7 @@ public class LoginPanel extends MasterPanel {
 	private JButton btnResetPassword;
 	private JButton button;
 	
-	Connection con;
-	Statement stmt;
-	ResultSet rs;
-	
+
 	/**
 	 * Create the panel.
 	 * @throws Exception 
@@ -50,7 +48,7 @@ public class LoginPanel extends MasterPanel {
 	
 
 	
-	public void connect(){
+	/*public void connect(){
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp","root","");
@@ -97,11 +95,12 @@ public class LoginPanel extends MasterPanel {
 		}
 	}
 
-
+*/
 	
 
 	public LoginPanel() {
-		connect();
+		DBConnectionManager.connect();
+		
 		
 		setSize(new Dimension(1366, 768));
 		setBackground(SystemColor.text);
@@ -187,11 +186,11 @@ public class LoginPanel extends MasterPanel {
 				String password = PasswordField.getText();
 				
 				String sql = "select Username, Password from Users where Username = '" +username+"'and Password ='"+password+"'";
-				rs = stmt.executeQuery(sql);
+				DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql);
 				
 				
 				int count=0;
-				while(rs.next()){
+				while(DBConnectionManager.rs.next()){
 					count = count + 1;
 				}
 				
@@ -199,11 +198,11 @@ public class LoginPanel extends MasterPanel {
 					int telNo = Integer.parseInt(JOptionPane.showInputDialog( "Please enter your phone number below: "));
 
 					String sql2 = "select Username, Password, telNo from Users where Username = '" +username+"'and Password ='"+password+"' and telNo = '" + telNo+ "'";
-					rs = stmt.executeQuery(sql2);
+					DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql2);
 					
 					boolean telNodb = false;
-					while(rs.next()){
-						if (telNo == rs.getInt("telNo"))
+					while(DBConnectionManager.rs.next()){
+						if (telNo == DBConnectionManager.rs.getInt("telNo"))
 							telNodb = true;
 						else
 							telNodb = false;
