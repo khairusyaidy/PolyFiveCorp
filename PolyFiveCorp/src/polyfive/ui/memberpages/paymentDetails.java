@@ -1,4 +1,5 @@
 package polyfive.ui.memberpages;
+
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -12,7 +13,6 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
-
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -22,52 +22,55 @@ import javax.swing.border.EtchedBorder;
 
 public class paymentDetails extends MasterPanel {
 	private MainFrame f;
+
 	/**
 	 * Create the panel.
 	 */
 	public paymentDetails() {
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
-		
+
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    MemberCalendar memberCalendar= f.getMemberCalendar();
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(memberCalendar);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
+				MemberCalendar memberCalendar = f.getMemberCalendar();
+				f.getContentPane().removeAll();
+				f.getContentPane().add(memberCalendar);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
 			}
 		});
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.setIcon(new ImageIcon(paymentDetails.class.getResource("/polyFive/ui/images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(paymentDetails.class
+				.getResource("/polyFive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-		
+
 		JTextArea txtrPayment = new JTextArea();
 		txtrPayment.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		txtrPayment.setText("Purchase Detail\r\n\r\n\r\nAmount");
 		txtrPayment.setEditable(false);
 		txtrPayment.setBounds(422, 257, 593, 205);
 		add(txtrPayment);
-		
+
 		JCheckBox chckbxEticket = new JCheckBox("E-Ticketing");
 		chckbxEticket.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		chckbxEticket.setBounds(422, 486, 149, 47);
 		add(chckbxEticket);
-		
+
 		JButton btnBack = new JButton("Back");
-		btnBack.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		btnBack.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    SeatAllocation seatAllocation = f.getSeatAllocation();
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(seatAllocation);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
+				SeatAllocation seatAllocation = f.getSeatAllocation();
+				f.getContentPane().removeAll();
+				f.getContentPane().add(seatAllocation);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
 			}
 		});
 		btnBack.setForeground(Color.DARK_GRAY);
@@ -75,17 +78,18 @@ public class paymentDetails extends MasterPanel {
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnBack.setBounds(21, 664, 150, 75);
 		add(btnBack);
-		
+
 		JButton btnNext = new JButton("Next");
-		btnNext.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		btnNext.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    PaymentPanel paymentPanel= f.getPaymentPanel();
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(paymentPanel);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
+				PaymentPanel paymentPanel = f.getPaymentPanel();
+				f.getContentPane().removeAll();
+				f.getContentPane().add(paymentPanel);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
 			}
 		});
 		btnNext.setForeground(Color.DARK_GRAY);
@@ -94,11 +98,10 @@ public class paymentDetails extends MasterPanel {
 		btnNext.setBounds(1115, 664, 150, 75);
 		add(btnNext);
 
-		
 		super.setLayout();
 
 	}
-	
+
 	public paymentDetails(MainFrame frame) {
 		this();
 		f = frame;

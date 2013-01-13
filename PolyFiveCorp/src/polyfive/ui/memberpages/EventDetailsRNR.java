@@ -1,4 +1,5 @@
 package polyfive.ui.memberpages;
+
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -27,7 +28,6 @@ import java.io.IOException;
 
 import javax.swing.border.EtchedBorder;
 
-
 public class EventDetailsRNR extends MasterPanel {
 	private JTextField txtTineshsRockNRoll;
 	private JTextField txtRockNRoll;
@@ -39,13 +39,11 @@ public class EventDetailsRNR extends MasterPanel {
 	public EventDetailsRNR() {
 		setSize(new Dimension(1366, 768));
 
-		
 		setForeground(Color.BLACK);
 		setBorder(new LineBorder(new Color(0, 0, 0), 0));
 		setBackground(Color.WHITE);
 		setLayout(null);
-		
-		
+
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setLayout(null);
@@ -55,16 +53,17 @@ public class EventDetailsRNR extends MasterPanel {
 		panel.setBounds(62, 117, 1247, 534);
 
 		add(panel);
-		
+
 		txtTineshsRockNRoll = new JTextField();
 		txtTineshsRockNRoll.setEditable(false);
 		txtTineshsRockNRoll.setBackground(new Color(255, 255, 255));
 		txtTineshsRockNRoll.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtTineshsRockNRoll.setText("Tinesh's Rock N Roll Concert\r\n27 November - 2 December 2012, Marina Bay Sands\r\n(Standing)");
+		txtTineshsRockNRoll
+				.setText("Tinesh's Rock N Roll Concert\r\n27 November - 2 December 2012, Marina Bay Sands\r\n(Standing)");
 		txtTineshsRockNRoll.setBounds(37, 168, 1200, 50);
 		panel.add(txtTineshsRockNRoll);
 		txtTineshsRockNRoll.setColumns(10);
-		
+
 		txtRockNRoll = new JTextField();
 		txtRockNRoll.setBackground(new Color(255, 255, 255));
 		txtRockNRoll.setForeground(new Color(0, 0, 0));
@@ -77,19 +76,21 @@ public class EventDetailsRNR extends MasterPanel {
 		txtRockNRoll.setBounds(37, 257, 1200, 200);
 		panel.add(txtRockNRoll);
 		txtRockNRoll.setColumns(10);
-		
+
 		JButton btnProceedToPayment = new JButton("Buy Ticket(s)");
 		btnProceedToPayment.setFocusPainted(false);
-		btnProceedToPayment.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
-		btnProceedToPayment.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnProceedToPayment.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
+		btnProceedToPayment.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    TicketsPurchase ticketsPurchase = f.getTicketsPurchase();
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(ticketsPurchase);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
+				TicketsPurchase ticketsPurchase = f.getTicketsPurchase();
+				f.getContentPane().removeAll();
+				f.getContentPane().add(ticketsPurchase);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
 			}
 		});
 		btnProceedToPayment.setForeground(Color.DARK_GRAY);
@@ -97,7 +98,7 @@ public class EventDetailsRNR extends MasterPanel {
 		btnProceedToPayment.setBackground(new Color(255, 165, 0));
 		btnProceedToPayment.setBounds(510, 468, 254, 55);
 		panel.add(btnProceedToPayment);
-		
+
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,23 +116,25 @@ public class EventDetailsRNR extends MasterPanel {
 				}
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(EventDetailsRNR.class.getResource("/polyfive/ui/images/Map.PNG")));
+		btnNewButton.setIcon(new ImageIcon(EventDetailsRNR.class
+				.getResource("/polyfive/ui/images/Map.PNG")));
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setBounds(74, 11, 1124, 120);
 		panel.add(btnNewButton);
-		
+
 		JButton button = new JButton("Back");
 		button.setFocusPainted(false);
-		button.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		button.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    SearchEvents searchEvents = f.getSearchEvents();
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(searchEvents);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
+				SearchEvents searchEvents = f.getSearchEvents();
+				f.getContentPane().removeAll();
+				f.getContentPane().add(searchEvents);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
 			}
 		});
 		button.setBounds(21, 664, 150, 75);
@@ -139,29 +142,29 @@ public class EventDetailsRNR extends MasterPanel {
 		button.setForeground(Color.DARK_GRAY);
 		button.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		button.setBackground(new Color(255, 165, 0));
-		
+
 		JButton button_1 = new JButton("");
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    MemberCalendar memberCalendar= f.getMemberCalendar();
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(memberCalendar);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
+				MemberCalendar memberCalendar = f.getMemberCalendar();
+				f.getContentPane().removeAll();
+				f.getContentPane().add(memberCalendar);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
 			}
 		});
-		button_1.setIcon(new ImageIcon(EventDetailsRNR.class.getResource("/polyFive/ui/images/p5cicon7575.png")));
+		button_1.setIcon(new ImageIcon(EventDetailsRNR.class
+				.getResource("/polyFive/ui/images/p5cicon7575.png")));
 		button_1.setBorder(null);
 		button_1.setBounds(21, 21, 75, 75);
 		add(button_1);
-		
+
 		super.setLayout();
-		
-		
+
 	}
-	
+
 	public EventDetailsRNR(MainFrame frame) {
 		this();
 		f = frame;

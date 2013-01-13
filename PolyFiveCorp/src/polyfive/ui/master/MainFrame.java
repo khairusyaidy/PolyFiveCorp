@@ -13,7 +13,6 @@ import java.awt.Frame;
 import java.awt.event.*;
 import java.awt.*;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,8 +20,8 @@ import java.awt.Dialog.ModalExclusionType;
 
 public class MainFrame extends JFrame {
 	private JPanel contentPane;
-	private JFrame myFrame ;
-	private static LoginPanel loginPanel; 
+	private JFrame myFrame;
+	private static LoginPanel loginPanel;
 	private static WelcomePanel welcomePanel;
 	private static FirstTimeUsers firstTimeUsers;
 	private static Register register;
@@ -36,67 +35,63 @@ public class MainFrame extends JFrame {
 	private static AccountDetails accountDetails;
 	private static paymentDetails paymentDetails;
 	private static PaymentPanel paymentPanel;
-	
+
 	public LoginPanel getLoginPanel() {
 		return loginPanel;
 	}
 
-
 	public WelcomePanel getWelcomePanel() {
 		return welcomePanel;
 	}
-	
-	public FirstTimeUsers getFirstTimeUsers(){
+
+	public FirstTimeUsers getFirstTimeUsers() {
 		return firstTimeUsers;
 	}
 
-	public Register getRegister(){
+	public Register getRegister() {
 		return register;
 	}
-	
-	public PublicCalendar getPublicCalendar(){
+
+	public PublicCalendar getPublicCalendar() {
 		return publicCalendar;
 	}
-	
-	public MemberCalendar getMemberCalendar(){
+
+	public MemberCalendar getMemberCalendar() {
 		return memberCalendar;
 	}
-	
-	public SearchEvents getSearchEvents(){
+
+	public SearchEvents getSearchEvents() {
 		return searchEvents;
 	}
-	
-	public EventDetails getEventDetails(){
+
+	public EventDetails getEventDetails() {
 		return eventDetails;
 	}
-	
-	public EventDetailsRNR getEventDetailsRNR(){
+
+	public EventDetailsRNR getEventDetailsRNR() {
 		return eventDetailsRNR;
 	}
-	
-	
-	public SeatAllocation getSeatAllocation(){
+
+	public SeatAllocation getSeatAllocation() {
 		return seatAllocation;
 	}
-	
-	public TicketsPurchase getTicketsPurchase(){
+
+	public TicketsPurchase getTicketsPurchase() {
 		return ticketsPurchase;
 	}
-	
-	public AccountDetails getAccountDetails(){
+
+	public AccountDetails getAccountDetails() {
 		return accountDetails;
 	}
-	
-	public paymentDetails getPaymentDetails(){
+
+	public paymentDetails getPaymentDetails() {
 		return paymentDetails;
-		
+
 	}
-	
-	public PaymentPanel getPaymentPanel(){
+
+	public PaymentPanel getPaymentPanel() {
 		return paymentPanel;
 	}
-	
-
 
 	/**
 	 * Launch the application.
@@ -121,8 +116,8 @@ public class MainFrame extends JFrame {
 					accountDetails = new AccountDetails(frame);
 					paymentDetails = new paymentDetails(frame);
 					paymentPanel = new PaymentPanel(frame);
-					
-					frame.setUndecorated(true); 
+
+					frame.setUndecorated(true);
 					frame.setExtendedState(frame.MAXIMIZED_BOTH);
 					frame.getContentPane().add(welcomePanel);
 					welcomePanel.setVisible(true);
@@ -132,10 +127,8 @@ public class MainFrame extends JFrame {
 				}
 			}
 		});
-		
-	}
 
-	
+	}
 
 	/**
 	 * Create the frame.
@@ -148,14 +141,7 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
-		
+
 	}
 
-	
-
-
-
-
-	
-	
 }
