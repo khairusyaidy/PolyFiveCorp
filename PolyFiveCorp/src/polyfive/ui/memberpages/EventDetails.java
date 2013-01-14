@@ -1,5 +1,6 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.Member;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -35,6 +36,8 @@ public class EventDetails extends MasterPanel {
 	 * Create the panel.
 	 */
 	public EventDetails(MainFrame frame) {
+		Member user = new Member();
+		user = f.getSession();
 		f = frame;
 		setSize(new Dimension(1366, 768));
 

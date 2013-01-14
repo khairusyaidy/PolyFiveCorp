@@ -210,7 +210,6 @@ public class LoginPanel extends MasterPanel {
 							user.setPhoneNumber(DBConnectionManager.rs.getInt("telNo"));
 							user.setPass_icNo(DBConnectionManager.rs.getString("pass_icNo"));
 							user.setRank(DBConnectionManager.rs.getInt("rank"));
-							System.out.println(user.getUsername());
 							
 							f.setSession(user);
 							

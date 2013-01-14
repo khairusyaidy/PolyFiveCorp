@@ -1,25 +1,24 @@
 package polyfive.ui.memberpages;
 
-import polyfive.ui.adminpages.*;
-import polyfive.ui.images.*;
+
+import polyfive.entities.Member;
 import polyfive.ui.master.*;
-import polyfive.ui.publicpages.*;
+
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
-import javax.swing.JTextArea;
+
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -37,7 +36,9 @@ public class EventDetailsRNR extends MasterPanel {
 	 * Create the panel.
 	 */
 	public EventDetailsRNR(MainFrame frame) {
-		frame = f;
+		Member user = new Member();
+		user = f.getSession();
+		f = frame;
 		setSize(new Dimension(1366, 768));
 
 		setForeground(Color.BLACK);
