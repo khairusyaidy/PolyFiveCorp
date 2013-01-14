@@ -38,7 +38,8 @@ public class SearchEvents2 extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SearchEvents2() {
+	public SearchEvents2(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setFocusable(false);
 		setBackground(Color.BLACK);
@@ -66,7 +67,7 @@ public class SearchEvents2 extends MasterPanel {
 		button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -103,7 +104,7 @@ public class SearchEvents2 extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -153,7 +154,7 @@ public class SearchEvents2 extends MasterPanel {
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventDetails eventDetails = f.getEventDetails();
+				EventDetails eventDetails = new EventDetails(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(eventDetails);
 				f.repaint();
@@ -170,7 +171,7 @@ public class SearchEvents2 extends MasterPanel {
 		btnRockNRoll.setFocusPainted(false);
 		btnRockNRoll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventDetailsRNR eventDetailsRNR = f.getEventDetailsRNR();
+				EventDetailsRNR eventDetailsRNR =new EventDetailsRNR(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(eventDetailsRNR);
 				f.repaint();
@@ -186,12 +187,6 @@ public class SearchEvents2 extends MasterPanel {
 
 	}
 
-	public SearchEvents2(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-
-	}
 
 	public class JTableButtonRenderer implements TableCellRenderer {
 		@Override

@@ -21,14 +21,15 @@ import javax.swing.JLabel;
 public class PaymentPanel extends MasterPanel {
 	private MainFrame f = null;
 
-	public PaymentPanel() {
+	public PaymentPanel(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
 
 		JButton button_1 = new JButton("");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WelcomePanel welcomePanel = f.getWelcomePanel();
+				WelcomePanel welcomePanel = new WelcomePanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(welcomePanel);
 				f.repaint();
@@ -73,7 +74,7 @@ public class PaymentPanel extends MasterPanel {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -105,11 +106,5 @@ public class PaymentPanel extends MasterPanel {
 
 		super.setLayout();
 
-	}
-
-	public PaymentPanel(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
 	}
 }

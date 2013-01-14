@@ -33,7 +33,8 @@ public class SeatAllocation extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SeatAllocation() {
+	public SeatAllocation(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setForeground(Color.BLACK);
 		setBorder(new LineBorder(new Color(0, 0, 0), 0));
@@ -377,7 +378,7 @@ public class SeatAllocation extends MasterPanel {
 		button.setBorder(null);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchEvents searchEvents = f.getSearchEvents();
+				SearchEvents searchEvents = new SearchEvents(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(searchEvents);
 				f.repaint();
@@ -395,7 +396,7 @@ public class SeatAllocation extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -414,7 +415,7 @@ public class SeatAllocation extends MasterPanel {
 				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				paymentDetails paymentDetails = f.getPaymentDetails();
+				paymentDetails paymentDetails =  new paymentDetails(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(paymentDetails);
 				f.repaint();
@@ -433,11 +434,7 @@ public class SeatAllocation extends MasterPanel {
 		super.setLayout();
 	}
 
-	public SeatAllocation(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
+
 
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {

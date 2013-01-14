@@ -43,7 +43,8 @@ public class SearchEvents extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SearchEvents() {
+	public SearchEvents(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setFocusable(false);
 		setBackground(Color.BLACK);
@@ -71,7 +72,7 @@ public class SearchEvents extends MasterPanel {
 		button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -178,7 +179,7 @@ public class SearchEvents extends MasterPanel {
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventDetails eventDetails = f.getEventDetails();
+				EventDetails eventDetails = new EventDetails(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(eventDetails);
 				f.repaint();
@@ -195,7 +196,7 @@ public class SearchEvents extends MasterPanel {
 		btnRockNRoll.setFocusPainted(false);
 		btnRockNRoll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventDetailsRNR eventDetailsRNR = f.getEventDetailsRNR();
+				EventDetailsRNR eventDetailsRNR = new EventDetailsRNR(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(eventDetailsRNR);
 				f.repaint();
@@ -216,12 +217,7 @@ public class SearchEvents extends MasterPanel {
 
 	}
 
-	public SearchEvents(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
 
-	}
 
 	public class JTableButtonRenderer implements TableCellRenderer {
 		@Override
@@ -291,7 +287,7 @@ public class SearchEvents extends MasterPanel {
 		public Class<?> getColumnClass(int columnIndex) {
 			return COLUMN_TYPES[columnIndex];
 		}
-
+		
 		@Override
 		public Object getValueAt(final int rowIndex, final int columnIndex) {
 			switch (columnIndex) {
@@ -304,9 +300,8 @@ public class SearchEvents extends MasterPanel {
 				final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						EventDetailsRNR eventDetailsRNR = f
-								.getEventDetailsRNR();
-						EventDetails eventDetails = f.getEventDetails();
+						EventDetailsRNR eventDetailsRNR = new EventDetailsRNR(f);
+						EventDetails eventDetails = new EventDetails(f);
 						if (rowIndex == 0) {
 							f.getContentPane().removeAll();
 							f.getContentPane().add(eventDetailsRNR);

@@ -41,7 +41,8 @@ public class TicketsPurchase extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public TicketsPurchase() {
+	public TicketsPurchase(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setBorder(new LineBorder(new Color(255, 140, 0), 0));
 		setBackground(Color.WHITE);
@@ -108,7 +109,7 @@ public class TicketsPurchase extends MasterPanel {
 		add(btnBack);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SearchEvents searchEvents = f.getSearchEvents();
+				SearchEvents searchEvents = new SearchEvents(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(searchEvents);
 				f.repaint();
@@ -134,7 +135,7 @@ public class TicketsPurchase extends MasterPanel {
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -156,10 +157,6 @@ public class TicketsPurchase extends MasterPanel {
 
 	}
 
-	public TicketsPurchase(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
+
 
 }

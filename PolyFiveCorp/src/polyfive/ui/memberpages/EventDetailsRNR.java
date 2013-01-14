@@ -36,7 +36,8 @@ public class EventDetailsRNR extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public EventDetailsRNR() {
+	public EventDetailsRNR(MainFrame frame) {
+		frame = f;
 		setSize(new Dimension(1366, 768));
 
 		setForeground(Color.BLACK);
@@ -85,7 +86,7 @@ public class EventDetailsRNR extends MasterPanel {
 				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TicketsPurchase ticketsPurchase = f.getTicketsPurchase();
+				TicketsPurchase ticketsPurchase = new TicketsPurchase(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(ticketsPurchase);
 				f.repaint();
@@ -129,7 +130,7 @@ public class EventDetailsRNR extends MasterPanel {
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchEvents searchEvents = f.getSearchEvents();
+				SearchEvents searchEvents = new SearchEvents(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(searchEvents);
 				f.repaint();
@@ -147,7 +148,7 @@ public class EventDetailsRNR extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -165,9 +166,4 @@ public class EventDetailsRNR extends MasterPanel {
 
 	}
 
-	public EventDetailsRNR(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
 }

@@ -49,7 +49,8 @@ public class Register extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Register() {
+	public Register(MainFrame frame) {
+		f = frame;
 		setBackground(new Color(255, 255, 255));
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
@@ -168,7 +169,7 @@ public class Register extends MasterPanel {
 		backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FirstTimeUsers firstTimeUsers = f.getFirstTimeUsers();
+				FirstTimeUsers firstTimeUsers = new FirstTimeUsers(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(firstTimeUsers);
 				f.repaint();
@@ -200,7 +201,7 @@ public class Register extends MasterPanel {
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WelcomePanel welcomePanel = f.getWelcomePanel();
+				WelcomePanel welcomePanel = new WelcomePanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(welcomePanel);
 				f.repaint();
@@ -216,9 +217,5 @@ public class Register extends MasterPanel {
 
 	}
 
-	public Register(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
+
 }

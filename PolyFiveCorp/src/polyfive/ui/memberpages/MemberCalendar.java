@@ -1,6 +1,7 @@
 package polyfive.ui.memberpages;
 
 import polyfive.entities.Member;
+import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -44,7 +45,12 @@ public class MemberCalendar extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MemberCalendar() {
+	public MemberCalendar(MainFrame frame) {
+		f = frame;
+		
+		DBConnectionManager.connect();
+		
+		
 		setSize(new Dimension(1366, 768));
 		setBackground(Color.WHITE);
 		setLayout(null);
@@ -65,7 +71,7 @@ public class MemberCalendar extends MasterPanel {
 		JButton btnFindEvents = new JButton("Find Events");
 		btnFindEvents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchEvents searchEvents = f.getSearchEvents();
+				SearchEvents searchEvents = new SearchEvents(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(searchEvents);
 				f.repaint();
@@ -110,26 +116,54 @@ public class MemberCalendar extends MasterPanel {
 		add(button);
 		
 		
-
-		JLabel lblNewLabel = new JLabel("Welcome, Khai ! ");
+		Member user = new Member();
+		user = f.getSession();
+		int rank = user.getRank();
+		String rankName = null;
+		
+		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AccountDetails accountDetails = f.getAccountDetails();
+				AccountDetails accountDetails = new AccountDetails(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(accountDetails);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
-				// /Nichola's Account Manager
+				// /Nicholas's Account Manager
 
 			}
 		});
-		lblNewLabel.setForeground(new Color(210, 105, 30));
+		switch (rank){
+		case 0: lblNewLabel.setForeground(Color.BLACK);
+		rankName = "Regular Member";
+		break;
+		case 1: lblNewLabel.setForeground(Color.BLUE);
+		rankName = "Basic";
+		break;
+		case 2: lblNewLabel.setForeground(new Color(210, 105, 30));
+		rankName = "Bronze";
+		break;
+		case 3: lblNewLabel.setForeground(new Color(105, 105, 105));
+		rankName = "Silver";
+		break;
+		case 4: lblNewLabel.setForeground(new Color(184, 134, 11));
+		rankName = "Gold";
+		break;
+		case 5: lblNewLabel.setForeground(new Color(255, 165, 0));
+		rankName = "Admin";
+		break;
+		}
+		lblNewLabel.setText("Welcome "+ user.getFirstName()+ " " + user.getLastName()+" (" + rankName + ")");
+		
+		
+		
+		
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(812, 11, 170, 35);
+		lblNewLabel.setBounds(513, 11, 469, 35);
 		add(lblNewLabel);
 
 		org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
@@ -143,9 +177,5 @@ public class MemberCalendar extends MasterPanel {
 		super.setLayout();
 	}
 
-	public MemberCalendar(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
+
 }

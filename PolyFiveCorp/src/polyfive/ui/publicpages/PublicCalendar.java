@@ -41,7 +41,8 @@ public class PublicCalendar extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PublicCalendar() {
+	public PublicCalendar(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setBackground(Color.WHITE);
 		setLayout(null);
@@ -50,7 +51,7 @@ public class PublicCalendar extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WelcomePanel welcomePanel = f.getWelcomePanel();
+				WelcomePanel welcomePanel = new WelcomePanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(welcomePanel);
 				f.repaint();
@@ -102,9 +103,5 @@ public class PublicCalendar extends MasterPanel {
 		super.setLayout();
 	}
 
-	public PublicCalendar(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
+
 }

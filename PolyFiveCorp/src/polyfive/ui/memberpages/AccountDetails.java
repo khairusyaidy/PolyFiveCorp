@@ -43,7 +43,8 @@ public class AccountDetails extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AccountDetails() {
+	public AccountDetails(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
 
@@ -332,7 +333,7 @@ public class AccountDetails extends MasterPanel {
 		JButton button_2 = new JButton("Back");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -354,7 +355,7 @@ public class AccountDetails extends MasterPanel {
 		JButton button_3 = new JButton("");
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar =new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -372,8 +373,5 @@ public class AccountDetails extends MasterPanel {
 
 	}
 
-	public AccountDetails(MainFrame frame) {
-		this();
-		f = frame;
-	}
+
 }

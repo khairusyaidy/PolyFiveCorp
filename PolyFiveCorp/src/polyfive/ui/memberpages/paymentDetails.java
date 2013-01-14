@@ -26,14 +26,15 @@ public class paymentDetails extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public paymentDetails() {
+	public paymentDetails(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
 
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -65,7 +66,7 @@ public class paymentDetails extends MasterPanel {
 				Color.DARK_GRAY, null));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SeatAllocation seatAllocation = f.getSeatAllocation();
+				SeatAllocation seatAllocation = new SeatAllocation(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(seatAllocation);
 				f.repaint();
@@ -84,7 +85,7 @@ public class paymentDetails extends MasterPanel {
 				Color.DARK_GRAY, null));
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PaymentPanel paymentPanel = f.getPaymentPanel();
+				PaymentPanel paymentPanel = new PaymentPanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(paymentPanel);
 				f.repaint();
@@ -102,9 +103,4 @@ public class paymentDetails extends MasterPanel {
 
 	}
 
-	public paymentDetails(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
 }

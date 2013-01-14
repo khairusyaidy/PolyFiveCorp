@@ -69,7 +69,8 @@ public class LoginPanel extends MasterPanel {
 	 * Auto-generated catch block e.printStackTrace(); } }
 	 */
 
-	public LoginPanel() {
+	public LoginPanel(MainFrame frame) {
+		f = frame;
 		DBConnectionManager.connect();
 
 		setSize(new Dimension(1366, 768));
@@ -153,6 +154,7 @@ public class LoginPanel extends MasterPanel {
 				try {
 					String username = UsernameField.getText().trim();
 					String password = PasswordField.getText();
+					
 
 					String sql = "select Username, Password from Users where Username = '"
 							+ username + "'and Password ='" + password + "'";
@@ -190,18 +192,33 @@ public class LoginPanel extends MasterPanel {
 							JOptionPane.showMessageDialog(null,
 									"User Found, Access Granted",
 									"PolyFive Corp", JOptionPane.PLAIN_MESSAGE);
-					/*		DBConnectionManager.rs.beforeFirst();
-							Member.getMember();
+							
+						//	Member user = new Member();
+							//user.setUsername("khai");
+							
+							//f.setSession(user);
+							
+						
+							DBConnectionManager.rs.beforeFirst();
+							Member user = new Member();
 							while (DBConnectionManager.rs.next()){
-							Member.getMember().setUsername(DBConnectionManager.rs.getString("firstName"));
-							System.out.println(Member.getMember().getUsername());
+							user.setUsername(DBConnectionManager.rs.getString("username"));
+							user.setFirstName(DBConnectionManager.rs.getString("firstName"));
+							user.setLastName(DBConnectionManager.rs.getString("lastName"));
+							user.setCreationDate(DBConnectionManager.rs.getString("creationDate"));
+							user.setEmail(DBConnectionManager.rs.getString("email"));
+							user.setPhoneNumber(DBConnectionManager.rs.getInt("telNo"));
+							user.setPass_icNo(DBConnectionManager.rs.getString("pass_icNo"));
+							user.setRank(DBConnectionManager.rs.getInt("rank"));
+							System.out.println(user.getUsername());
+							
+							f.setSession(user);
 							
 							}
-							*/
+							
 
 							
-							MemberCalendar memberCalendar = f
-									.getMemberCalendar();
+							MemberCalendar memberCalendar = new MemberCalendar(f);
 							f.getContentPane().removeAll();
 							f.getContentPane().add(memberCalendar);
 							f.repaint();
@@ -271,7 +288,7 @@ public class LoginPanel extends MasterPanel {
 				.getResource("/polyFive/ui/images/p5cicon7575.png")));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WelcomePanel welcomePanel = f.getWelcomePanel();
+				WelcomePanel welcomePanel = new WelcomePanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(welcomePanel);
 				f.repaint();
@@ -288,11 +305,7 @@ public class LoginPanel extends MasterPanel {
 
 	}
 
-	public LoginPanel(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
+	
 
 }
 

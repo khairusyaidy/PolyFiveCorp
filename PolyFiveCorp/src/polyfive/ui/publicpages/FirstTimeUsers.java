@@ -36,7 +36,8 @@ public class FirstTimeUsers extends MasterPanel {
 	/**
 	 * Create the panel.
 	 */
-	public FirstTimeUsers() {
+	public FirstTimeUsers(MainFrame frame) {
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setBorder(null);
 		setBackground(Color.WHITE);
@@ -55,7 +56,9 @@ public class FirstTimeUsers extends MasterPanel {
 		panel_4.setLayout(null);
 
 		JFormattedTextField frmtdtxtfldBasic = new JFormattedTextField();
-		frmtdtxtfldBasic.setForeground(new Color(0, 0, 255));
+		frmtdtxtfldBasic.setEditable(false);
+		frmtdtxtfldBasic.setText("BASIC");
+		frmtdtxtfldBasic.setForeground(Color.BLUE);
 		frmtdtxtfldBasic.setHorizontalAlignment(SwingConstants.CENTER);
 		frmtdtxtfldBasic.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		frmtdtxtfldBasic.setBounds(32, 11, 175, 31);
@@ -78,6 +81,7 @@ public class FirstTimeUsers extends MasterPanel {
 		panel_3.setLayout(null);
 
 		JFormattedTextField frmtdtxtfldBronze = new JFormattedTextField();
+		frmtdtxtfldBronze.setEditable(false);
 		frmtdtxtfldBronze.setForeground(new Color(210, 105, 30));
 		frmtdtxtfldBronze.setText("BRONZE");
 		frmtdtxtfldBronze.setHorizontalAlignment(SwingConstants.CENTER);
@@ -105,6 +109,7 @@ public class FirstTimeUsers extends MasterPanel {
 		panel_2.setLayout(null);
 
 		JFormattedTextField frmtdtxtfldSilver = new JFormattedTextField();
+		frmtdtxtfldSilver.setEditable(false);
 		frmtdtxtfldSilver.setForeground(new Color(105, 105, 105));
 		frmtdtxtfldSilver.setText("SILVER");
 		frmtdtxtfldSilver.setHorizontalAlignment(SwingConstants.CENTER);
@@ -113,6 +118,7 @@ public class FirstTimeUsers extends MasterPanel {
 		panel_2.add(frmtdtxtfldSilver);
 
 		JTextArea SilverTextArea = new JTextArea();
+		SilverTextArea.setEditable(false);
 		SilverTextArea.setCursor(Cursor
 				.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		SilverTextArea.setWrapStyleWord(true);
@@ -121,7 +127,6 @@ public class FirstTimeUsers extends MasterPanel {
 		SilverTextArea.setLineWrap(true);
 		SilverTextArea.setForeground(new Color(105, 105, 105));
 		SilverTextArea.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		SilverTextArea.setEditable(false);
 		SilverTextArea.setBorder(new LineBorder(new Color(0, 0, 0)));
 		SilverTextArea.setBounds(32, 71, 175, 312);
 		panel_2.add(SilverTextArea);
@@ -132,6 +137,7 @@ public class FirstTimeUsers extends MasterPanel {
 		panel_1.setLayout(null);
 
 		JFormattedTextField frmtdtxtfldGold = new JFormattedTextField();
+		frmtdtxtfldGold.setEditable(false);
 		frmtdtxtfldGold.setForeground(new Color(184, 134, 11));
 		frmtdtxtfldGold.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		frmtdtxtfldGold.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,7 +163,7 @@ public class FirstTimeUsers extends MasterPanel {
 				Color.DARK_GRAY, null));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WelcomePanel welcomePanel = f.getWelcomePanel();
+				WelcomePanel welcomePanel = new WelcomePanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(welcomePanel);
 				f.repaint();
@@ -175,7 +181,7 @@ public class FirstTimeUsers extends MasterPanel {
 		JButton btnNewButton_1 = new JButton("Register\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Register register = f.getRegister();
+				Register register = new Register(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(register);
 				f.repaint();
@@ -202,7 +208,7 @@ public class FirstTimeUsers extends MasterPanel {
 		JButton btnNewButton_2 = new JButton("");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MemberCalendar memberCalendar = f.getMemberCalendar();
+				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
@@ -221,9 +227,4 @@ public class FirstTimeUsers extends MasterPanel {
 		super.setLayout();
 	}
 
-	public FirstTimeUsers(MainFrame frame) {
-		this();
-		f = frame;
-		// TODO Auto-generated constructor stub
-	}
 }

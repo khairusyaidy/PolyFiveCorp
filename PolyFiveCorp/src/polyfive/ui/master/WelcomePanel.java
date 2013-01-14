@@ -57,7 +57,9 @@ public class WelcomePanel extends MasterPanel {
 	 * Create the panel.
 	 */
 
-	public WelcomePanel() {
+	public WelcomePanel(MainFrame frame) {
+		
+		f = frame;
 		setSize(new Dimension(1366, 768));
 		setMinimumSize(new Dimension(1366, 768));
 		setBackground(SystemColor.controlLtHighlight);
@@ -85,7 +87,7 @@ public class WelcomePanel extends MasterPanel {
 		JButton btnNewButton = new JButton("First time user\r\n");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FirstTimeUsers firstTimeUsers = f.getFirstTimeUsers();
+				FirstTimeUsers firstTimeUsers =  new FirstTimeUsers(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(firstTimeUsers);
 				f.repaint();
@@ -112,7 +114,7 @@ public class WelcomePanel extends MasterPanel {
 		JButton btnNewButton_1 = new JButton("    Login\r\n    ");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPanel loginPanel = f.getLoginPanel();
+				LoginPanel loginPanel = new LoginPanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(loginPanel);
 				f.repaint();
@@ -139,7 +141,7 @@ public class WelcomePanel extends MasterPanel {
 		JButton btnNewButton_2 = new JButton("  Public  ");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PublicCalendar publicUsers = f.getPublicCalendar();
+				PublicCalendar publicUsers = new PublicCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(publicUsers);
 				f.repaint();
@@ -167,7 +169,7 @@ public class WelcomePanel extends MasterPanel {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WelcomePanel welcomePanel = f.getWelcomePanel();
+				WelcomePanel welcomePanel = new WelcomePanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(welcomePanel);
 				f.repaint();
@@ -186,10 +188,6 @@ public class WelcomePanel extends MasterPanel {
 
 	}
 
-	public WelcomePanel(MainFrame frame) {
-		this();
-		f = frame;
-	}
 
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {

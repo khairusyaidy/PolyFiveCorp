@@ -1,5 +1,6 @@
 package polyfive.ui.master;
 
+import polyfive.entities.Member;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.memberpages.*;
@@ -35,6 +36,16 @@ public class MainFrame extends JFrame {
 	private static AccountDetails accountDetails;
 	private static paymentDetails paymentDetails;
 	private static PaymentPanel paymentPanel;
+	private static Member session;
+	
+
+	public static Member getSession() {
+		return session;
+	}
+
+	public static void setSession(Member session) {
+		MainFrame.session = session;
+	}
 
 	public LoginPanel getLoginPanel() {
 		return loginPanel;
@@ -103,6 +114,10 @@ public class MainFrame extends JFrame {
 				try {
 					MainFrame frame = new MainFrame();
 					welcomePanel = new WelcomePanel(frame);
+					
+					/*
+					
+					 
 					loginPanel = new LoginPanel(frame);
 					firstTimeUsers = new FirstTimeUsers(frame);
 					register = new Register(frame);
@@ -116,7 +131,7 @@ public class MainFrame extends JFrame {
 					accountDetails = new AccountDetails(frame);
 					paymentDetails = new paymentDetails(frame);
 					paymentPanel = new PaymentPanel(frame);
-
+*/
 					frame.setUndecorated(true);
 					frame.setExtendedState(frame.MAXIMIZED_BOTH);
 					frame.getContentPane().add(welcomePanel);
