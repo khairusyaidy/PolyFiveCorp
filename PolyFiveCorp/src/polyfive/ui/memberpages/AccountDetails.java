@@ -49,7 +49,8 @@ public class AccountDetails extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AccountDetails() {
+	public AccountDetails(MainFrame frame) {
+		f = frame;
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -495,14 +496,11 @@ public class AccountDetails extends JPanel {
 		feedbackText.setColumns(10);
 		
 		JLabel background = new JLabel("");
-		background.setIcon(new ImageIcon(AccountDetails.class.getResource("/images/ui/p5cbg.png")));
-		background.setBounds(10, 11, 1366, 768);
+		background.setIcon(new ImageIcon(AccountDetails.class.getResource("/polyfive/ui/images/p5cbg.png")));
+		background.setBounds(0, 0, 1366, 768);
 		add(background);
 
 	}
 	
-	public AccountDetails(MainFrame frame){
-		this();
-		f = frame;
-	}
+
 }

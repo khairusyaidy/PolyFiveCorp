@@ -86,7 +86,7 @@ public class LoginPanel extends MasterPanel {
 
 		UsernameField = new JTextField();
 		UsernameField.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		UsernameField.setToolTipText("Enter username");
+		UsernameField.setToolTipText("");
 		UsernameField.setBounds(224, 118, 350, 45);
 		panel.add(UsernameField);
 		UsernameField.setColumns(10);
