@@ -19,7 +19,7 @@ import java.awt.Dimension;
 
 public class MasterPanel extends JPanel {
 
-	private MainFrame f = null;
+	protected MainFrame f = null;
 
 	/**
 	 * Create the panel.
