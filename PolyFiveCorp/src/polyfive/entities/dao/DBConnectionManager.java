@@ -2,6 +2,7 @@ package polyfive.entities.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ public class DBConnectionManager {
 	public static String url;
 	public static Statement stmt;
 	public static ResultSet rs;
+	public static PreparedStatement pstmt = null;
 
 	public static Connection getConnection() {
 
@@ -68,6 +70,8 @@ public class DBConnectionManager {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
+		
+		
 
 		/*
 		 * try { while(rs.next()) { System.out.println(rs.getString("Username")

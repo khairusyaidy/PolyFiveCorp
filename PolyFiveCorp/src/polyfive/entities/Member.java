@@ -2,6 +2,7 @@ package polyfive.entities;
 
 public class Member {
 private String username;
+private String password;
 private String creationDate;
 private int rank;
 private int telNo;
@@ -9,9 +10,48 @@ private String email;
 private String pass_icNo;
 private String firstName;
 private String lastName;
+private String rankName;
 
 public Member(){
 	
+}
+
+
+
+public String getPassword() {
+	return password;
+}
+
+
+
+public void setPassword(String password) {
+	this.password = password;
+}
+
+
+
+public String setRankName(int rank) {
+	switch (rank){
+	case 0: this.rankName = "Guest";
+	break;
+	case 1: this.rankName = "Basic Member";
+	break;
+	case 2: this.rankName = "Bronze Member";
+	break;
+	case 3: this.rankName = "Silver Member";
+	break;
+	case 4: this.rankName = "Gold Member";
+	break;
+	case 5: this.rankName = "Admin";
+	break;
+	}
+	return rankName;
+}
+
+
+
+public void setRankName(String rankName) {
+	this.rankName = rankName;
 }
 
 

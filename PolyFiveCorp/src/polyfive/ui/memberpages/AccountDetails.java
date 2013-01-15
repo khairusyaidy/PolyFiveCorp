@@ -1,5 +1,7 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.Member;
+import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -12,6 +14,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,8 +24,12 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.sql.SQLException;
+
 import javax.swing.JPasswordField;
+import javax.swing.border.EtchedBorder;
 
 public class AccountDetails extends JPanel {
 	private JTextField creationDate;
@@ -41,25 +48,46 @@ public class AccountDetails extends JPanel {
 	private JTextField currentMember;
 	private JTextField upgradingTo;
 	private JPasswordField oldPass;
-	private JPasswordField confirmOld;
 	private JPasswordField newPass;
 	private JPasswordField confirmNew;
 	private JTextField feedbackText;
+	private JTextField feedbackText2;
 
 	/**
 	 * Create the panel.
 	 */
+
 	public AccountDetails(MainFrame frame) {
 		f = frame;
+		DBConnectionManager.getConnection();
+
+		Member user = new Member();
+		user = f.getSession();
+		String userName = user.getUsername();
+		int rankNo = user.getRank();
+		String rankName = user.setRankName(rankNo);
+
+		String sql = "select * from Users where Username = '" + userName + "'";
+		try {
+			DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		setLayout(null);
-		
+		setSize(new Dimension(1366, 768));
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(445, 471, 400, 204);
 		add(panel);
 		panel.setLayout(null);
-		
+
 		JButton btnGoldMember = new JButton("Gold Member\r\n");
+		btnGoldMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
+		btnGoldMember.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnGoldMember.setFocusPainted(false);
 		btnGoldMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				upgradingTo.setText("Gold Member");
@@ -67,11 +95,14 @@ public class AccountDetails extends JPanel {
 			}
 		});
 		btnGoldMember.setBackground(new Color(255, 165, 0));
-		btnGoldMember.setForeground(new Color(255, 255, 255));
-		btnGoldMember.setBounds(15, 11, 115, 125);
+		btnGoldMember.setForeground(Color.DARK_GRAY);
+		btnGoldMember.setBounds(10, 11, 120, 125);
 		panel.add(btnGoldMember);
-		
+
 		JButton btnSilverMember = new JButton("Silver Member");
+		btnSilverMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
+		btnSilverMember.setFocusPainted(false);
 		btnSilverMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				upgradingTo.setText("Silver Member");
@@ -79,11 +110,14 @@ public class AccountDetails extends JPanel {
 			}
 		});
 		btnSilverMember.setBackground(new Color(255, 165, 0));
-		btnSilverMember.setForeground(new Color(255, 255, 255));
-		btnSilverMember.setBounds(140, 11, 115, 125);
+		btnSilverMember.setForeground(Color.DARK_GRAY);
+		btnSilverMember.setBounds(140, 11, 121, 125);
 		panel.add(btnSilverMember);
-		
+
 		JButton btnBronzeMember = new JButton("Bronze Member");
+		btnBronzeMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
+		btnBronzeMember.setFocusPainted(false);
 		btnBronzeMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				upgradingTo.setText("Bronze Member");
@@ -91,233 +125,343 @@ public class AccountDetails extends JPanel {
 			}
 		});
 		btnBronzeMember.setBackground(new Color(255, 165, 0));
-		btnBronzeMember.setForeground(new Color(255, 255, 255));
-		btnBronzeMember.setBounds(265, 11, 115, 125);
+		btnBronzeMember.setForeground(Color.DARK_GRAY);
+		btnBronzeMember.setBounds(271, 12, 123, 125);
 		panel.add(btnBronzeMember);
-		
+
+		if (rankNo >= 4) {
+			btnGoldMember.setEnabled(false);
+			btnSilverMember.setEnabled(false);
+			btnBronzeMember.setEnabled(false);
+		} else if (rankNo >= 3) {
+			btnSilverMember.setEnabled(false);
+			btnBronzeMember.setEnabled(false);
+		} else if (rankNo >= 2) {
+			btnBronzeMember.setEnabled(false);
+		}
+
 		currentMember = new JTextField();
 		currentMember.setEditable(false);
 		currentMember.setText("Basic Member\r\n");
 		currentMember.setBounds(140, 147, 240, 20);
 		panel.add(currentMember);
 		currentMember.setColumns(10);
-		
+
 		JLabel lblCurrentMember = new JLabel("You are currently a:");
 		lblCurrentMember.setBounds(15, 147, 115, 14);
 		panel.add(lblCurrentMember);
-		
+
 		upgradingTo = new JTextField();
 		upgradingTo.setText("Basic Member\r\n");
 		upgradingTo.setEditable(false);
 		upgradingTo.setColumns(10);
 		upgradingTo.setBounds(140, 173, 240, 20);
 		panel.add(upgradingTo);
-		
+
 		JLabel lblUpgradingTo = new JLabel("Upgrading to:");
 		lblUpgradingTo.setBounds(15, 176, 115, 14);
 		panel.add(lblUpgradingTo);
-		
+
 		JPanel accountManagement = new JPanel();
 		accountManagement.setBorder(new LineBorder(new Color(0, 0, 0)));
 		accountManagement.setBounds(35, 471, 400, 204);
 		add(accountManagement);
 		accountManagement.setLayout(null);
-		
+
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(10, 37, 77, 14);
 		accountManagement.add(lblPassword);
-		
+
 		JLabel lblNewPassword = new JLabel("New Password:");
-		lblNewPassword.setBounds(10, 99, 77, 14);
+		lblNewPassword.setBounds(10, 70, 77, 14);
 		accountManagement.add(lblNewPassword);
-		
-		JLabel lblConfirmOld = new JLabel("Confirm Old:");
-		lblConfirmOld.setBounds(10, 68, 77, 14);
-		accountManagement.add(lblConfirmOld);
-		
+
 		JLabel lblConfirmNew = new JLabel("Confirm New:");
-		lblConfirmNew.setBounds(10, 130, 77, 14);
+		lblConfirmNew.setBounds(10, 99, 77, 14);
 		accountManagement.add(lblConfirmNew);
-		
+
 		JButton resetPasswords = new JButton("Reset Changes");
 		resetPasswords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				oldPass.setText("");
-				confirmOld.setText("");
 				newPass.setText("");
 				confirmNew.setText("");
 				feedbackText.setText("Successfully cleared passwords entered.");
-				//WARNING: DOES NOT CURRENTLY WORK
+				// WARNING: DOES NOT CURRENTLY WORK
 			}
 		});
-		resetPasswords.setForeground(Color.WHITE);
-		resetPasswords.setBorder(null);
+		resetPasswords.setForeground(Color.DARK_GRAY);
+		resetPasswords.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		resetPasswords.setBackground(new Color(255, 165, 0));
 		resetPasswords.setBounds(10, 158, 185, 35);
 		accountManagement.add(resetPasswords);
-		
+
 		JButton confirmPasswords = new JButton("Confirm Changes");
 		confirmPasswords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (oldPass == confirmOld && newPass == confirmNew){
-						oldPass.setText("");
-						confirmOld.setText("");
-						newPass.setText("");
-						confirmNew.setText("");
-						feedbackText.setText("Password has been changed successfully.");
+
+				Member userChangePass = new Member();
+				userChangePass = f.getSession();
+
+				String oldPassword = userChangePass.getPassword();
+
+				String oldPassTf = null;
+				oldPassTf  = oldPass.getText();
+				String newPassTf = null;
+				newPassTf = newPass.getText();
+				String newPassTf2 = null;
+				newPassTf2 = confirmNew.getText();
+				
+				boolean matchPassword = false;
+				boolean matchPassword2 = false;
+				
+				
+				if(!oldPassTf.isEmpty() && !newPassTf.isEmpty() && !newPassTf2.isEmpty()){
+					if(!oldPass.getText().equals(oldPassword)  ){
+						feedbackText.setText("Password does not match your previous password.");
+						matchPassword = false;
+					}
+
+					 if ( !newPassTf.equals(newPassTf2) && oldPass.getText().equals(oldPassword)){
+						feedbackText2.setText("New password does not match.");
+						feedbackText.setText("");
+						matchPassword2 = false;
+					}
+					
+					
+					else if (newPassTf.equals(newPassTf2) && (oldPass.getText().equals(oldPassword)) ){
+						
+						
+						try {
+
+							String sql3 = "update Users set password='"
+									+ newPass.getText() + "' where username='"
+									+ userChangePass.getUsername() + "' ";
+							DBConnectionManager.pstmt = DBConnectionManager.con
+									.prepareStatement(sql3);
+							DBConnectionManager.pstmt.execute();
+							feedbackText.setText("Your password have been changed.");
+							feedbackText2.setText("");
+							oldPass.setText("");
+							newPass.setText("");
+							confirmNew.setText("");
+							
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, e1);
+							e1.printStackTrace();
+						}
+						
+
+						String sql2 = "select * from Users where Username = '"
+								+ userChangePass.getUsername() + "'";
+
+						try {
+							DBConnectionManager.rs = DBConnectionManager.stmt
+									.executeQuery(sql2);
+							while (DBConnectionManager.rs.next()) {
+								userChangePass.setFirstName(DBConnectionManager.rs
+										.getString("firstName"));
+								userChangePass.setLastName(DBConnectionManager.rs
+										.getString("lastName"));
+								userChangePass.setPassword(DBConnectionManager.rs
+										.getString("password"));
+								userChangePass.setEmail(DBConnectionManager.rs
+										.getString("email"));
+								userChangePass
+										.setPhoneNumber(DBConnectionManager.rs
+												.getInt("telNo"));
+								userChangePass.setPass_icNo(DBConnectionManager.rs
+										.getString("pass_icNo"));
+								userChangePass.setRank(DBConnectionManager.rs
+										.getInt("rank"));
+
+								f.setSession(userChangePass);
+
+							}
+
+						} catch (SQLException ex) {
+							// TODO Auto-generated catch block
+							ex.printStackTrace();
+						}
+						}
 				}
-			}
+				
+				else if ( oldPassTf.isEmpty() || newPassTf.isEmpty() || newPassTf.isEmpty() )
+					feedbackText.setText("Please complete the field");
+				
+			
+				
+				
+
+				}
+
+
 		});
-		confirmPasswords.setForeground(Color.WHITE);
-		confirmPasswords.setBorder(null);
+		confirmPasswords.setForeground(Color.DARK_GRAY);
+		confirmPasswords.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		confirmPasswords.setBackground(new Color(255, 165, 0));
 		confirmPasswords.setBounds(205, 158, 185, 35);
 		accountManagement.add(confirmPasswords);
-		
+
 		JLabel lblPasswords = new JLabel("Password Changes:");
 		lblPasswords.setBounds(10, 11, 116, 14);
 		accountManagement.add(lblPasswords);
-		
+
 		oldPass = new JPasswordField();
 		oldPass.setBounds(97, 34, 280, 20);
 		accountManagement.add(oldPass);
-		
-		confirmOld = new JPasswordField();
-		confirmOld.setBounds(97, 65, 280, 20);
-		accountManagement.add(confirmOld);
-		
+
 		newPass = new JPasswordField();
-		newPass.setBounds(97, 96, 280, 20);
+		newPass.setBounds(97, 67, 280, 20);
 		accountManagement.add(newPass);
-		
+
 		confirmNew = new JPasswordField();
-		confirmNew.setBounds(97, 127, 280, 20);
+		confirmNew.setBounds(97, 96, 280, 20);
 		accountManagement.add(confirmNew);
-		
+
 		JLabel lblPoly5Corp = new JLabel("POLYFIVE CORP");
 		lblPoly5Corp.setBounds(35, 30, 185, 35);
 		lblPoly5Corp.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		add(lblPoly5Corp);
-		
+
 		JComboBox chooseLanguage = new JComboBox();
 		chooseLanguage.setBounds(1120, 30, 225, 45);
-		chooseLanguage.setModel(new DefaultComboBoxModel(new String[] {"Select Language", "English", "Tamil", "Malay", "Mandarin"}));
+		chooseLanguage.setModel(new DefaultComboBoxModel(new String[] {
+				"Select Language", "English", "Tamil", "Malay", "Mandarin" }));
 		add(chooseLanguage);
-		
+
 		JPanel topBar = new JPanel();
 		topBar.setBounds(35, 90, 1292, 45);
 		add(topBar);
 		topBar.setLayout(null);
-		
-		JLabel lblYouAreLogged = new JLabel("You are logged in as: Basic Member");
+
+		JLabel lblYouAreLogged = new JLabel("You are logged in as: "
+				+ user.getFirstName() + " " + user.getLastName() + " ("
+				+ rankName + ")");
 		lblYouAreLogged.setBounds(5, 5, 800, 35);
 		topBar.add(lblYouAreLogged);
 		lblYouAreLogged.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		
+
 		JButton LogOutButton = new JButton("Log Out");
-		LogOutButton.setForeground(new Color(255, 255, 255));
+		LogOutButton.setFocusPainted(false);
+		LogOutButton.setForeground(Color.DARK_GRAY);
 		LogOutButton.setBackground(new Color(255, 165, 0));
-		LogOutButton.setBorder(null);
+		LogOutButton.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		LogOutButton.setBounds(1190, 5, 100, 35);
 		topBar.add(LogOutButton);
-		
+
 		JButton ReturnButton = new JButton("Back");
-		ReturnButton.setForeground(new Color(255, 255, 255));
+		ReturnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MemberCalendar memberCalendar = new MemberCalendar(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(memberCalendar);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+			}
+		});
+		ReturnButton.setFocusPainted(false);
+		ReturnButton.setForeground(Color.DARK_GRAY);
 		ReturnButton.setBackground(new Color(255, 165, 0));
-		ReturnButton.setBorder(null);
+		ReturnButton.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		ReturnButton.setBounds(1085, 5, 100, 35);
 		topBar.add(ReturnButton);
-		
+
 		JPanel account = new JPanel();
 		account.setBorder(new LineBorder(new Color(0, 0, 0)));
 		account.setBounds(35, 175, 400, 285);
 		add(account);
 		account.setLayout(null);
-		
+
 		JLabel lblAccountDetails = new JLabel("Account Details:");
 		lblAccountDetails.setBounds(10, 10, 120, 20);
 		account.add(lblAccountDetails);
-		
+
 		JLabel lblCreationDate = new JLabel("Creation Date:");
 		lblCreationDate.setBounds(10, 50, 90, 20);
 		account.add(lblCreationDate);
-		
+
 		creationDate = new JTextField();
-		creationDate.setText("2 November 2011");
+		creationDate.setText(user.getCreationDate());
 		creationDate.setEditable(false);
-		creationDate.setBounds(97, 50, 280, 20);
+		creationDate.setBounds(127, 50, 250, 20);
 		account.add(creationDate);
 		creationDate.setColumns(10);
-		
+
 		JLabel lblRank = new JLabel("Rank:");
 		lblRank.setBounds(10, 81, 90, 20);
 		account.add(lblRank);
-		
+
 		rank = new JTextField();
-		rank.setText("Basic\r\n");
+		rank.setText(rankName + "\r\n");
 		rank.setEditable(false);
 		rank.setColumns(10);
-		rank.setBounds(97, 81, 280, 20);
+		rank.setBounds(127, 81, 250, 20);
 		account.add(rank);
-		
+
 		phoneNumber = new JTextField();
-		phoneNumber.setText("81590435\r\n");
+		phoneNumber.setText(user.getPhoneNumber() + "\r\n");
 		phoneNumber.setEditable(false);
 		phoneNumber.setColumns(10);
-		phoneNumber.setBounds(97, 112, 280, 20);
+		phoneNumber.setBounds(127, 112, 250, 20);
 		account.add(phoneNumber);
-		
+
 		JLabel lblPhoneNumber = new JLabel("Phone Number:");
 		lblPhoneNumber.setBounds(10, 112, 90, 20);
 		account.add(lblPhoneNumber);
-		
+
 		email = new JTextField();
-		email.setText("p5c@polyfive.org");
+		email.setText(user.getEmail());
 		email.setEditable(false);
 		email.setColumns(10);
-		email.setBounds(97, 143, 280, 20);
+		email.setBounds(127, 143, 250, 20);
 		account.add(email);
-		
+
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(10, 143, 90, 20);
 		account.add(lblEmail);
-		
+
 		passportIC = new JTextField();
-		passportIC.setText("S12345678K");
+		passportIC.setText(user.getPass_icNo());
 		passportIC.setEditable(false);
 		passportIC.setColumns(10);
-		passportIC.setBounds(97, 174, 280, 20);
+		passportIC.setBounds(127, 174, 250, 20);
 		account.add(passportIC);
-		
+
 		JLabel lblPassportIC = new JLabel("Passport/IC:");
 		lblPassportIC.setBounds(10, 174, 90, 20);
 		account.add(lblPassportIC);
-		
+
 		paymentMethod = new JTextField();
 		paymentMethod.setText("Credit Card");
 		paymentMethod.setEditable(false);
 		paymentMethod.setColumns(10);
-		paymentMethod.setBounds(97, 205, 280, 20);
+		paymentMethod.setBounds(127, 205, 250, 20);
 		account.add(paymentMethod);
-		
+
 		JLabel lblPaymentMethod = new JLabel("Payment Method:");
 		lblPaymentMethod.setBounds(10, 205, 90, 20);
 		account.add(lblPaymentMethod);
-		
+
 		JButton changeDetails = new JButton("Change Details");
-		changeDetails.setForeground(new Color(255, 255, 255));
+		changeDetails.setForeground(Color.DARK_GRAY);
 		changeDetails.setFocusPainted(false);
-		changeDetails.setBorder(null);
+		changeDetails.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		changeDetails.setBackground(new Color(255, 165, 0));
 		changeDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				newCreationDate.setEditable(true);
-		        newPhoneNumber.setEditable(true);
-		        newEmail.setEditable(true);
-		        newPassportIC.setEditable(true);
-		        newPaymentMethod.setEditable(true);
-		        
-		        String date = creationDate.getText();
+				newPhoneNumber.setEditable(true);
+				newEmail.setEditable(true);
+				newPassportIC.setEditable(true);
+				newPaymentMethod.setEditable(true);
+
+				String date = creationDate.getText();
 				newCreationDate.setText(date);
 				String ra = rank.getText();
 				newRank.setText(ra);
@@ -329,178 +473,246 @@ public class AccountDetails extends JPanel {
 				newPassportIC.setText(passIC);
 				String pay = paymentMethod.getText();
 				newPaymentMethod.setText(pay);
-		        
+
 			}
 		});
 		changeDetails.setBounds(10, 236, 185, 35);
 		account.add(changeDetails);
-		
-		JButton lockChanges = new JButton("Lock Changes");
+
+		JButton lockChanges = new JButton("Refresh");
+		lockChanges.setFocusPainted(false);
 		lockChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				        newCreationDate.setEditable(false);
-				        newPhoneNumber.setEditable(false);
-				        newEmail.setEditable(false);
-				        newPassportIC.setEditable(false);
-				        newPaymentMethod.setEditable(false);		        
+				/*
+				 * newCreationDate.setEditable(false);
+				 * newPhoneNumber.setEditable(false);
+				 * newEmail.setEditable(false);
+				 * newPassportIC.setEditable(false);
+				 * newPaymentMethod.setEditable(false);
+				 */
+				Member userRefresh = new Member();
+				userRefresh = f.getSession();
+				String rankName = userRefresh.setRankName(userRefresh.getRank());
+				rank.setText(rankName + "\r\n");
+				phoneNumber.setText(userRefresh.getPhoneNumber() + "\r\n");
+				email.setText(userRefresh.getEmail());
+				passportIC.setText(userRefresh.getPass_icNo());
+
 			}
+
 		});
-		lockChanges.setForeground(new Color(255, 255, 255));
-		lockChanges.setBorder(null);
+		lockChanges.setForeground(Color.DARK_GRAY);
+		lockChanges.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		lockChanges.setBackground(new Color(255, 165, 0));
 		lockChanges.setBounds(205, 236, 185, 35);
 		account.add(lockChanges);
-		
+
 		JPanel editDetails = new JPanel();
 		editDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
 		editDetails.setLayout(null);
 		editDetails.setBounds(445, 175, 400, 285);
 		add(editDetails);
-		
+
 		JLabel lblNewDetails = new JLabel("New Account Details:");
 		lblNewDetails.setBounds(10, 10, 120, 20);
 		editDetails.add(lblNewDetails);
-		
+
 		JLabel lblNewCreationDate = new JLabel("Creation Date:");
 		lblNewCreationDate.setBounds(10, 50, 90, 20);
 		editDetails.add(lblNewCreationDate);
-		
+
 		newCreationDate = new JTextField();
 		newCreationDate.setEditable(false);
 		newCreationDate.setColumns(10);
-		newCreationDate.setBounds(97, 50, 280, 20);
+		newCreationDate.setBounds(127, 50, 250, 20);
 		editDetails.add(newCreationDate);
-		
+
 		JLabel lblNewRank = new JLabel("Rank:");
 		lblNewRank.setBounds(10, 81, 90, 20);
 		editDetails.add(lblNewRank);
-		
+
 		newRank = new JTextField();
 		newRank.setEditable(false);
 		newRank.setColumns(10);
-		newRank.setBounds(97, 81, 280, 20);
+		newRank.setBounds(127, 81, 250, 20);
 		editDetails.add(newRank);
-		
+
 		newPhoneNumber = new JTextField();
 		newPhoneNumber.setEditable(false);
 		newPhoneNumber.setColumns(10);
-		newPhoneNumber.setBounds(97, 112, 280, 20);
+		newPhoneNumber.setBounds(127, 112, 250, 20);
 		editDetails.add(newPhoneNumber);
-		
+
 		JLabel lblNewPhoneNumber = new JLabel("Phone Number:");
 		lblNewPhoneNumber.setBounds(10, 112, 90, 20);
 		editDetails.add(lblNewPhoneNumber);
-		
+
 		newEmail = new JTextField();
 		newEmail.setEditable(false);
 		newEmail.setColumns(10);
-		newEmail.setBounds(97, 143, 280, 20);
+		newEmail.setBounds(127, 143, 250, 20);
 		editDetails.add(newEmail);
-		
+
 		JLabel lblNewEmail = new JLabel("Email:");
 		lblNewEmail.setBounds(10, 143, 90, 20);
 		editDetails.add(lblNewEmail);
-		
+
 		newPassportIC = new JTextField();
 		newPassportIC.setEditable(false);
 		newPassportIC.setColumns(10);
-		newPassportIC.setBounds(97, 174, 280, 20);
+		newPassportIC.setBounds(127, 174, 250, 20);
 		editDetails.add(newPassportIC);
-		
+
 		JLabel lblNewPassportIC = new JLabel("Passport/IC:");
 		lblNewPassportIC.setBounds(10, 174, 90, 20);
 		editDetails.add(lblNewPassportIC);
-		
+
 		newPaymentMethod = new JTextField();
 		newPaymentMethod.setEditable(false);
 		newPaymentMethod.setColumns(10);
-		newPaymentMethod.setBounds(97, 205, 280, 20);
+		newPaymentMethod.setBounds(127, 205, 250, 20);
 		editDetails.add(newPaymentMethod);
-		
+
 		JLabel lblNewPaymentMethod = new JLabel("Payment Method:");
 		lblNewPaymentMethod.setBounds(10, 205, 90, 20);
 		editDetails.add(lblNewPaymentMethod);
-		
+
 		JButton confirmChanges = new JButton("Confirm Changes");
+		confirmChanges.setFocusPainted(false);
 		confirmChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String date = newCreationDate.getText();
-				creationDate.setText(date);
-				String ra = newRank.getText();
-				rank.setText(ra);
-				String phoneNum = newPhoneNumber.getText();
-				phoneNumber.setText(phoneNum);
+				// String date = newCreationDate.getText();
+				// creationDate.setText(date);
+				// String ra = newRank.getText();
+				// rank.setText(ra);
+
+				String telNo = newPhoneNumber.getText();
+				// phoneNumber.setText(phoneNum);
 				String em = newEmail.getText();
-				email.setText(em);
+				// email.setText(em);
 				String passIC = newPassportIC.getText();
-				passportIC.setText(passIC);
+				// passportIC.setText(passIC);
 				String pay = newPaymentMethod.getText();
-				paymentMethod.setText(pay);
+				// paymentMethod.setText(pay);
+
+				try {
+					Member userChangeDetails = new Member();
+					userChangeDetails = f.getSession();
+
+					String sql3 = "update Users set telNo='" + telNo
+							+ "' , email='" + em + "', pass_IcNo='" + passIC
+							+ "' where username='"
+							+ userChangeDetails.getUsername() + "' ";
+					DBConnectionManager.pstmt = DBConnectionManager.con
+							.prepareStatement(sql3);
+					DBConnectionManager.pstmt.execute();
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(null, e);
+					e.printStackTrace();
+				}
 				feedbackText.setText("Your new details have been changed.");
+
+				// update Member variable
+				Member userUpdateDetails = new Member();
+				userUpdateDetails = f.getSession();
+				String sql2 = "select * from Users where Username = '"
+						+ userUpdateDetails.getUsername() + "'";
+
+				try {
+					DBConnectionManager.rs = DBConnectionManager.stmt
+							.executeQuery(sql2);
+					while (DBConnectionManager.rs.next()) {
+						// userUpdateDetails.setFirstName(DBConnectionManager.rs.getString("firstName"));
+						// userUpdateDetails.setLastName(DBConnectionManager.rs.getString("lastName"));
+						userUpdateDetails.setEmail(DBConnectionManager.rs
+								.getString("email"));
+						userUpdateDetails.setPhoneNumber(DBConnectionManager.rs
+								.getInt("telNo"));
+						userUpdateDetails.setPass_icNo(DBConnectionManager.rs
+								.getString("pass_icNo"));
+						userUpdateDetails.setRank(DBConnectionManager.rs
+								.getInt("rank"));
+
+						f.setSession(userUpdateDetails);
+
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 		});
-		confirmChanges.setForeground(new Color(255, 255, 255));
+		confirmChanges.setForeground(Color.DARK_GRAY);
 		confirmChanges.setBackground(new Color(255, 165, 0));
-		confirmChanges.setBorder(null);
+		confirmChanges.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		confirmChanges.setBounds(205, 236, 185, 35);
 		editDetails.add(confirmChanges);
-		
+
 		JButton resetChanges = new JButton("Reset Changes");
-		resetChanges.addActionListener(new ActionListener(){
-		    public void actionPerformed(ActionEvent e){
-		        newCreationDate.setText("");
-		        newRank.setText("");
-		        newPhoneNumber.setText("");
-		        newEmail.setText("");
-		        newPassportIC.setText("");
-		        newPaymentMethod.setText("");
-		        feedbackText.setText("Successfully cleared all new details entered.");
-		    }
+		resetChanges.setFocusPainted(false);
+		resetChanges.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newPhoneNumber.setText("");
+				newEmail.setText("");
+				newPassportIC.setText("");
+				newPaymentMethod.setText("");
+				feedbackText
+						.setText("Successfully cleared all new details entered.");
+			}
 		});
-		resetChanges.setBorder(null);
+		resetChanges.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+				Color.DARK_GRAY, null));
 		resetChanges.setBackground(new Color(255, 165, 0));
-		resetChanges.setForeground(new Color(255, 255, 255));
+		resetChanges.setForeground(Color.DARK_GRAY);
 		resetChanges.setBounds(10, 236, 185, 35);
 		editDetails.add(resetChanges);
-		
+
 		JPanel miscDetails = new JPanel();
 		miscDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
 		miscDetails.setBounds(855, 175, 470, 500);
 		add(miscDetails);
 		miscDetails.setLayout(null);
-		
+
 		JLabel lblTransactionHistory = new JLabel("Transaction History:");
 		lblTransactionHistory.setBounds(20, 11, 145, 14);
 		miscDetails.add(lblTransactionHistory);
-		
+
 		JLabel lblCurrentBookings = new JLabel("Current Bookings:");
 		lblCurrentBookings.setBounds(20, 201, 120, 14);
 		miscDetails.add(lblCurrentBookings);
-		
+
 		JPanel transactionHistory = new JPanel();
 		transactionHistory.setBorder(new LineBorder(new Color(0, 0, 0)));
 		transactionHistory.setBounds(20, 36, 425, 154);
 		miscDetails.add(transactionHistory);
 		transactionHistory.setLayout(null);
-		
+
 		JPanel currentBookings = new JPanel();
 		currentBookings.setBorder(new LineBorder(new Color(0, 0, 0)));
 		currentBookings.setBounds(20, 226, 425, 154);
 		miscDetails.add(currentBookings);
 		currentBookings.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		feedbackText = new JTextField();
 		feedbackText.setEditable(false);
 		feedbackText.setBounds(20, 391, 425, 20);
 		miscDetails.add(feedbackText);
 		feedbackText.setColumns(10);
 		
+		feedbackText2 = new JTextField();
+		feedbackText2.setEditable(false);
+		feedbackText2.setColumns(10);
+		feedbackText2.setBounds(20, 422, 425, 20);
+		miscDetails.add(feedbackText2);
+
 		JLabel background = new JLabel("");
-		background.setIcon(new ImageIcon(AccountDetails.class.getResource("/polyfive/ui/images/p5cbg.png")));
+		background.setIcon(new ImageIcon(AccountDetails.class
+				.getResource("/polyfive/ui/images/p5cbg.png")));
 		background.setBounds(0, 0, 1366, 768);
 		add(background);
 
 	}
-	
-
 }

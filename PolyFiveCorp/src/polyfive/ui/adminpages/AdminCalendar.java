@@ -1,58 +1,53 @@
 package polyfive.ui.adminpages;
 
-import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JList;
-import javax.swing.DropMode;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import java.awt.Rectangle;
-import java.awt.GridLayout;
-import java.util.Date;
-import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.Component;
+
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-import org.freixas.jcalendar.JCalendarCombo;
-import java.text.SimpleDateFormat;
-import org.freixas.jcalendar.*;
 
+import javax.swing.border.TitledBorder;
+
+import polyfive.ui.*;
+import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 import polyfive.ui.memberpages.AccountDetails;
+import polyfive.ui.memberpages.LoginPanel;
 import polyfive.ui.memberpages.SearchEvents;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.EtchedBorder;
 
-public class Calendar extends MasterPanel {
+public class AdminCalendar extends MasterPanel {
 
 	private MainFrame f = null;
 	/**
 	 * Create the panel.
 	 */
-	public Calendar(MainFrame frame) {
-
+	public AdminCalendar(MainFrame frame) {
+		f = frame;
+		DBConnectionManager.connect();
+		
+		setSize(new Dimension(1366, 768));
 		setBackground(Color.WHITE);
 		setLayout(null);
 		
-		JButton button_1 = new JButton("Back");
+		JButton button_1 = new JButton("Log Out");
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			  Calendar Calendar=new Calendar(f);
+			  LoginPanel loginPanel= new LoginPanel(f);
 			    f.getContentPane().removeAll();
-			    f.getContentPane().add(Calendar);
+			    f.getContentPane().add(loginPanel);
 			    f.repaint();
 			    f.revalidate();
 			    f.setVisible(true);
@@ -62,7 +57,7 @@ public class Calendar extends MasterPanel {
 		JButton btnFindEvents = new JButton("Find Events");
 		btnFindEvents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			  SearchEvents searchEvents = f.getSearchEvents();
+			  SearchEvents searchEvents = new SearchEvents(f);
 			    f.getContentPane().removeAll();
 			    f.getContentPane().add(searchEvents);
 			    f.repaint();
@@ -71,24 +66,24 @@ public class Calendar extends MasterPanel {
 				}
 		});
 		btnFindEvents.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnFindEvents.setForeground(Color.WHITE);
+		btnFindEvents.setForeground(Color.DARK_GRAY);
 		btnFindEvents.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnFindEvents.setFocusPainted(false);
-		btnFindEvents.setBorder(null);
+		btnFindEvents.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
 		btnFindEvents.setBackground(new Color(255, 165, 0));
 		btnFindEvents.setBounds(849, 95, 170, 50);
 		add(btnFindEvents);
-		button_1.setForeground(Color.WHITE);
+		button_1.setForeground(Color.DARK_GRAY);
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		button_1.setFocusPainted(false);
-		button_1.setBorder(null);
+		button_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
 		button_1.setBackground(new Color(255, 165, 0));
 		button_1.setBounds(21, 664, 150, 75);
 		add(button_1);
 		
 		JButton button = new JButton("");
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.setIcon(new ImageIcon(Calendar.class.getResource("/Images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(AdminCalendar.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
@@ -98,7 +93,7 @@ public class Calendar extends MasterPanel {
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			  AccountDetails accountDetails = f.getAccountDetails();
+			  AccountDetails accountDetails = new AccountDetails(f);
 			    f.getContentPane().removeAll();
 			    f.getContentPane().add(accountDetails);
 			    f.repaint();
@@ -131,9 +126,6 @@ public class Calendar extends MasterPanel {
 	
 
 	
-	//public Calendar(MainFrame frame) {
-		//this();
-		//f = frame;
-		// TODO Auto-generated constructor stub
-	}
+
+}
 }

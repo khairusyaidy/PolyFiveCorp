@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.border.EtchedBorder;
 
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
+import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 import polyfive.ui.master.WelcomePanel;
@@ -155,6 +157,7 @@ public class LoginPanel extends MasterPanel {
 					String username = UsernameField.getText().trim();
 					String password = PasswordField.getText();
 					
+					
 
 					String sql = "select Username, Password from Users where Username = '"
 							+ username + "'and Password ='" + password + "'";
@@ -167,28 +170,31 @@ public class LoginPanel extends MasterPanel {
 					}
 
 					if (count == 1) {
-						int telNo = Integer.parseInt(JOptionPane
-								.showInputDialog("Please enter your phone number below: "));
+						String pass_icNo = (JOptionPane
+								.showInputDialog(null,"Please enter your NRIC/Passport number below: \nCase sensitive "));
 
 						String sql2 = "select * from Users where Username = '"
 								+ username
 								+ "'and Password ='"
 								+ password
-								+ "' and telNo = '" + telNo + "'";
+								+ "' and pass_icNo = '"
+								+ pass_icNo
+								+ "'";
 						DBConnectionManager.rs = DBConnectionManager.stmt
 								.executeQuery(sql2);
-
-						boolean telNodb = false;
+						
+						boolean checkPass_icNo = false;
 						while (DBConnectionManager.rs.next()) {
-							if (telNo == DBConnectionManager.rs.getInt("telNo"))
-								telNodb = true;
+							if (pass_icNo.equals(DBConnectionManager.rs.getString("pass_icNo")))
+								checkPass_icNo = true;
 							else
-								telNodb = false;
+								checkPass_icNo = false;
 						}
 
 						
 						
-						if (telNodb == true) {
+						if (checkPass_icNo == true) {
+							
 							JOptionPane.showMessageDialog(null,
 									"User Found, Access Granted",
 									"PolyFive Corp", JOptionPane.PLAIN_MESSAGE);
@@ -203,6 +209,7 @@ public class LoginPanel extends MasterPanel {
 							Member user = new Member();
 							while (DBConnectionManager.rs.next()){
 							user.setUsername(DBConnectionManager.rs.getString("username"));
+							user.setPassword(DBConnectionManager.rs.getString("password"));
 							user.setFirstName(DBConnectionManager.rs.getString("firstName"));
 							user.setLastName(DBConnectionManager.rs.getString("lastName"));
 							user.setCreationDate(DBConnectionManager.rs.getString("creationDate"));
@@ -215,15 +222,27 @@ public class LoginPanel extends MasterPanel {
 							
 							}
 							
-
+							Member checkUserRank = new Member();
+							checkUserRank = f.getSession();
+							int rankNo = checkUserRank.getRank();
 							
+
+							if (rankNo <= 4){
 							MemberCalendar memberCalendar = new MemberCalendar(f);
 							f.getContentPane().removeAll();
 							f.getContentPane().add(memberCalendar);
 							f.repaint();
 							f.revalidate();
 							f.setVisible(true);
-						
+						}
+							else if (rankNo > 4){
+							AdminCalendar Calendar1 = new AdminCalendar(f);
+							f.getContentPane().removeAll();
+							f.getContentPane().add(Calendar1);
+							f.repaint();
+							f.revalidate();
+							f.setVisible(true);
+							}
 							
 						}
 					
@@ -232,7 +251,7 @@ public class LoginPanel extends MasterPanel {
 							JOptionPane
 									.showMessageDialog(
 											null,
-											"Telephone number is incorrect. Please try again. ",
+											"NRIC/Passport number is incorrect. Please try again. ",
 											"PolyFive Corp",
 											JOptionPane.ERROR_MESSAGE);
 						}

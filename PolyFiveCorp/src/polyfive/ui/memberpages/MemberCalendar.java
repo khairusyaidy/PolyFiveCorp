@@ -59,7 +59,7 @@ public class MemberCalendar extends MasterPanel {
 		btnLogOut.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPanel loginPanel = f.getLoginPanel();
+				LoginPanel loginPanel = new LoginPanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(loginPanel);
 				f.repaint();
