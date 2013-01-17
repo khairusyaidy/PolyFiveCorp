@@ -2,40 +2,21 @@ package polyfive.ui.memberpages;
 
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
-import polyfive.ui.adminpages.*;
-import polyfive.ui.images.*;
 import polyfive.ui.master.*;
-import polyfive.ui.publicpages.*;
-
-import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JList;
-import javax.swing.DropMode;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import java.awt.Rectangle;
-import java.awt.GridLayout;
-import java.util.Date;
 import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import org.freixas.jcalendar.JCalendarCombo;
-import java.text.SimpleDateFormat;
-import org.freixas.jcalendar.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import com.javaswingcomponents.clock.analog.JSCAnalogClock;
 
 public class MemberCalendar extends MasterPanel {
 

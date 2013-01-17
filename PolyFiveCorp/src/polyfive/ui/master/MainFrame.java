@@ -38,6 +38,8 @@ public class MainFrame extends JFrame {
 	private static paymentDetails paymentDetails;
 	private static PaymentPanel paymentPanel;
 	private static Member session;
+	private static adminAddEvent adminAddEvent;
+	private static addEvent addEvent;
 	
 
 	public static Member getSession() {
@@ -108,6 +110,18 @@ public class MainFrame extends JFrame {
 	public PaymentPanel getPaymentPanel() {
 		return paymentPanel;
 	}
+	
+	public adminAddEvent getAdminAddEvent() {
+		return adminAddEvent;
+	}
+	
+	public AdminCalendar adminCalendar() {
+		return adminCalendar;
+	}
+	
+	public addEvent addEvent(){
+		return addEvent;
+	}
 
 	/**
 	 * Launch the application.
@@ -136,6 +150,8 @@ public class MainFrame extends JFrame {
 					accountDetails = new AccountDetails(frame);
 					paymentDetails = new paymentDetails(frame);
 					paymentPanel = new PaymentPanel(frame);
+					adminAddEvent = new adminAddEvent(frame);
+					adminCalendar = new adminCalendar(frame);
 */
 					frame.setUndecorated(true);
 					frame.setExtendedState(frame.MAXIMIZED_BOTH);

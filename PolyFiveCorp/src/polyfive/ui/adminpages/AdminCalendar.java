@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
 import polyfive.ui.*;
+import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
@@ -88,25 +89,33 @@ public class AdminCalendar extends MasterPanel {
 		button.setBounds(21, 21, 75, 75);
 		add(button);
 		
-		JLabel lblNewLabel = new JLabel("Welcome, Khai ! ");
+		
+		
+		Member user = new Member();
+		user = f.getSession();
+		int rank = user.getRank();
+		String rankName = null;
+		
+		JLabel lblNewLabel = new JLabel();
+		lblNewLabel.setText("Welcome ");
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			  AccountDetails accountDetails = new AccountDetails(f);
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(accountDetails);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
-///Nichola's Account Manager
+				AccountDetails accountDetails = new AccountDetails(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(accountDetails);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+
 		
 			}
 		});
-		lblNewLabel.setForeground(Color.BLUE);
+		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(812, 11, 170, 35);
+		lblNewLabel.setBounds(587, 11, 395, 35);
 		add(lblNewLabel);
 		
 		org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
@@ -116,6 +125,27 @@ public class AdminCalendar extends MasterPanel {
 		calendar.setBounds(166, 191, 989, 427);
 		add(calendar);
 		
+		JButton addEvent = new JButton("Add Event");
+		addEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addEvent addEvent = new addEvent(f);
+			    f.getContentPane().removeAll();
+			    f.getContentPane().add(addEvent);
+			    f.repaint();
+			    f.revalidate();
+			    f.setVisible(true);
+				
+			}
+		});
+		addEvent.setForeground(Color.DARK_GRAY);
+		addEvent.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		addEvent.setFocusPainted(false);
+		addEvent.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		addEvent.setBackground(new Color(255, 165, 0));
+		addEvent.setBounds(181, 664, 150, 75);
+		add(addEvent);
+		
+
 		
 		
 		
@@ -123,9 +153,5 @@ public class AdminCalendar extends MasterPanel {
 		
 		super.setLayout();
 	
-	
-
-	
-
-}
+	}
 }

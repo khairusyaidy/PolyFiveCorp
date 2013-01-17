@@ -1,32 +1,31 @@
 package polyfive.ui.adminpages;
 
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-
 import java.awt.Cursor;
-import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
-import javax.swing.JSeparator;
-import java.awt.Component;
-import javax.swing.Box;
+import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
+import polyfive.ui.memberpages.SearchEvents;
+
+import javax.swing.border.EtchedBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class adminAddEvent extends MasterPanel {
 	private JTextField txtSearchKeyword;
+	private MainFrame f = null;
 
 
-	/**
-	 * Create the panel.
-	 */
-	public adminAddEvent() {
+
+	public adminAddEvent(MainFrame frame) {
+		f = frame;
+		
+		
 		setLayout(null);
 		
 		JButton button = new JButton("");
@@ -56,18 +55,48 @@ public class adminAddEvent extends MasterPanel {
 		txtrEventName.setBounds(465, 250, 493, 287);
 		add(txtrEventName);
 		
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(467, 577, 89, 23);
-		add(btnBack);
-		
-		JButton btnAddEvent = new JButton("Add Event");
-		btnAddEvent.setBounds(868, 577, 89, 23);
-		add(btnAddEvent);
-		
 		JButton btnModifyEvent = new JButton("Modify Event");
 		btnModifyEvent.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnModifyEvent.setBounds(968, 278, 109, 23);
 		add(btnModifyEvent);
+		
+		JButton Add_Event = new JButton("Add Event");
+		Add_Event.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				  adminAddEvent adminAddEvent = new adminAddEvent(f);
+				    f.getContentPane().removeAll();
+				    f.getContentPane().add(adminAddEvent);
+				    f.repaint();
+				    f.revalidate();
+				    f.setVisible(true);
+			}
+		});
+		Add_Event.setForeground(Color.DARK_GRAY);
+		Add_Event.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		Add_Event.setFocusPainted(false);
+		Add_Event.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		Add_Event.setBackground(new Color(255, 165, 0));
+		Add_Event.setBounds(808, 548, 150, 75);
+		add(Add_Event);
+		
+		JButton button_1 = new JButton("Back");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				  SearchEvents searchEvents = new SearchEvents(f);
+				    f.getContentPane().removeAll();
+				    f.getContentPane().add(searchEvents);
+				    f.repaint();
+				    f.revalidate();
+				    f.setVisible(true);
+			}
+		});
+		button_1.setForeground(Color.DARK_GRAY);
+		button_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		button_1.setFocusPainted(false);
+		button_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		button_1.setBackground(new Color(255, 165, 0));
+		button_1.setBounds(465, 548, 150, 75);
+		add(button_1);
 
 		super.setLayout();
 		

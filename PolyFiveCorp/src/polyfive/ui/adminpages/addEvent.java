@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.Cursor;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
+import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 ;
 
@@ -26,11 +26,10 @@ public class addEvent extends MasterPanel {
 	private JTextField tfEventName;
 	private JTextField tfAddress;
 	private JTextField tfCostOfTicket;
-
-	/**
-	 * Create the panel.
-	 */
-	public addEvent() {
+	
+	
+	
+	public addEvent(MainFrame frame) {
 		setBackground(Color.WHITE);
 		setLayout(null);
 		
