@@ -42,7 +42,7 @@ public class LoginPanel extends MasterPanel {
 	 * @throws Exception
 	 */
 
-	/*
+	/*/test
 	 * public void connect(){
 	 * 
 	 * try { con =
