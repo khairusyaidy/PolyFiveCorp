@@ -128,7 +128,7 @@ public class AdminCalendar extends MasterPanel {
 		JButton addEvent = new JButton("Add Event");
 		addEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addEvent addEvent = new addEvent(f);
+				AddEvent addEvent = new AddEvent(f);
 			    f.getContentPane().removeAll();
 			    f.getContentPane().add(addEvent);
 			    f.repaint();

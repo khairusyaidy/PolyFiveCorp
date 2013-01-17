@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
 	private static PaymentPanel paymentPanel;
 	private static Member session;
 	private static adminAddEvent adminAddEvent;
-	private static addEvent addEvent;
+	private static AddEvent addEvent;
 	
 
 	public static Member getSession() {
@@ -119,7 +119,7 @@ public class MainFrame extends JFrame {
 		return adminCalendar;
 	}
 	
-	public addEvent addEvent(){
+	public AddEvent addEvent(){
 		return addEvent;
 	}
 

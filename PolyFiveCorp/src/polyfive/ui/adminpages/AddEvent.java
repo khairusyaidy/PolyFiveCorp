@@ -14,7 +14,7 @@ import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 ;
 
-public class addEvent extends MasterPanel {
+public class AddEvent extends MasterPanel {
 	private JTextField txtWaypoint;
 	private JTextField txtEventName;
 	private JTextField txtAddress;
@@ -29,13 +29,13 @@ public class addEvent extends MasterPanel {
 	
 	
 	
-	public addEvent(MainFrame frame) {
+	public AddEvent(MainFrame frame) {
 		setBackground(Color.WHITE);
 		setLayout(null);
 		
 		JButton button = new JButton("");
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.setIcon(new ImageIcon(addEvent.class.getResource("/Images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(AddEvent.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
