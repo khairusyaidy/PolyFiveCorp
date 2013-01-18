@@ -28,7 +28,6 @@ public class MainFrame extends JFrame {
 	private static Register register;
 	private static PublicCalendar publicCalendar;
 	private static MemberCalendar memberCalendar;
-	private static AdminCalendar adminCalendar;
 	private static SearchEvents searchEvents;
 	private static EventDetails eventDetails;
 	private static EventDetailsRNR eventDetailsRNR;
@@ -40,7 +39,7 @@ public class MainFrame extends JFrame {
 	private static Member session;
 	private static adminAddEvent adminAddEvent;
 	private static AddEvent addEvent;
-	
+	private static AdminCalendar adminCalendar;
 
 	public static Member getSession() {
 		return session;
@@ -122,6 +121,7 @@ public class MainFrame extends JFrame {
 	public AddEvent addEvent(){
 		return addEvent;
 	}
+	
 
 	/**
 	 * Launch the application.

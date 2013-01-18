@@ -30,7 +30,7 @@ public class adminAddEvent extends MasterPanel {
 		
 		JButton button = new JButton("");
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.setIcon(new ImageIcon(adminAddEvent.class.getResource("/Images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(adminAddEvent.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
@@ -56,6 +56,7 @@ public class adminAddEvent extends MasterPanel {
 		add(txtrEventName);
 		
 		JButton btnModifyEvent = new JButton("Modify Event");
+		btnModifyEvent.setBackground(new Color(255, 165, 0));
 		btnModifyEvent.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnModifyEvent.setBounds(968, 278, 109, 23);
 		add(btnModifyEvent);
