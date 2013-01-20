@@ -1,5 +1,6 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.Member;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -396,12 +397,24 @@ public class SeatAllocation extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Member user = new Member();
+				user = f.getSession();
+				if(user.getRank() <= 4 ){
 				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
+				}
+				else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
 			}
 		});
 		button_1.setIcon(new ImageIcon(SeatAllocation.class

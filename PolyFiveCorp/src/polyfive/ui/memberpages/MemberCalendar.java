@@ -164,20 +164,6 @@ public class MemberCalendar extends MasterPanel {
 		eventDate.setBounds(268, 95, 543, 50);
 		add(eventDate);
 		eventDate.setColumns(10);
-		
-		JCalendar calendar = new JCalendar();
-		
-		calendar.getDayChooser();
-		System.out.println(calendar.getDayChooser());
-
-		
-		calendar.setBounds(268, 238, 751, 359);
-		
-		add(calendar);
-		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(80, 184, 91, 20);
-		add(dateChooser);
 
 		super.setLayout();
 	}

@@ -12,7 +12,9 @@ import javax.swing.JButton;
 
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
-import polyfive.entities.StoreEvents;
+import polyfive.ui.memberpages.MemberCalendar;
+import polyfive.entities.EventAttributes;
+import polyfive.entities.Member;
 import polyfive.entities.dao.EventDetailsDao;
 
 import java.awt.Font;
@@ -41,6 +43,28 @@ public class AddEvent extends MasterPanel {
 		setLayout(null);
 		
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Member user = new Member();
+				user = f.getSession();
+				if(user.getRank() <= 4 ){
+				MemberCalendar memberCalendar = new MemberCalendar(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(memberCalendar);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+				}
+				else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
+			}
+		});
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setIcon(new ImageIcon(AddEvent.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
@@ -158,7 +182,7 @@ public class AddEvent extends MasterPanel {
 				String eventAdd = tfAddress.getText();
 				String DOE = tfDateOfEvent.getText();
 				String des = taDescription.getText();
-				StoreEvents addEvent = new StoreEvents();
+				EventAttributes addEvent = new EventAttributes();
 				
 				
 				addEvent.setEventName(eventName);
@@ -168,7 +192,6 @@ public class AddEvent extends MasterPanel {
 				
 				EventDetailsDao.insertEventDetails(addEvent);
 				
-				f.setStoreEvents(addEvent);
 				}
 			});
 		AddEvent.setForeground(Color.DARK_GRAY);

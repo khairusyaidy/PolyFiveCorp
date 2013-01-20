@@ -8,8 +8,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+
+import polyfive.entities.Member;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
+import polyfive.ui.memberpages.MemberCalendar;
 import polyfive.ui.memberpages.SearchEvents;
 
 import javax.swing.border.EtchedBorder;
@@ -29,6 +32,28 @@ public class adminAddEvent extends MasterPanel {
 		setLayout(null);
 		
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Member user = new Member();
+				user = f.getSession();
+				if(user.getRank() <= 4 ){
+				MemberCalendar memberCalendar = new MemberCalendar(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(memberCalendar);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+				}
+				else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
+			}
+		});
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setIcon(new ImageIcon(adminAddEvent.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);

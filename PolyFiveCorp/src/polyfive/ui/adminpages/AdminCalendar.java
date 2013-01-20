@@ -58,9 +58,9 @@ public class AdminCalendar extends MasterPanel {
 		JButton btnFindEvents = new JButton("Find Events");
 		btnFindEvents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			  SearchEvents searchEvents = new SearchEvents(f);
+			  AdminSearchEvents adminSearchEvents = new AdminSearchEvents(f);
 			    f.getContentPane().removeAll();
-			    f.getContentPane().add(searchEvents);
+			    f.getContentPane().add(adminSearchEvents);
 			    f.repaint();
 			    f.revalidate();
 			    f.setVisible(true);
@@ -83,6 +83,10 @@ public class AdminCalendar extends MasterPanel {
 		add(logout);
 				
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setIcon(new ImageIcon(AdminCalendar.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);

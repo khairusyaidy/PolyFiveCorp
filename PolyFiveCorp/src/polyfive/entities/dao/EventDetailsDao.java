@@ -1,12 +1,13 @@
 package polyfive.entities.dao;
 
-import polyfive.entities.StoreEvents;
+import polyfive.entities.EventAttributes;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -14,13 +15,46 @@ import java.util.ArrayList;
 
 public class EventDetailsDao extends MasterPanel{
 	private static MainFrame f = null;
-	public static ArrayList<StoreEvents> RetrieveAll() {
-		ArrayList<StoreEvents> eventDetails = new ArrayList<>();
-		
-		StoreEvents event1 = new StoreEvents();
-		StoreEvents event2 = new StoreEvents();
-		StoreEvents event3 = new StoreEvents();
-		StoreEvents event4 = new StoreEvents();
+
+	public static ArrayList <EventAttributes> RetrieveAll() {
+		EventAttributes event = null;
+		ArrayList <EventAttributes> EventsList = new ArrayList<>();
+		Statement stmt = null;
+        String searchQuery = "select * from events";
+
+        try {
+            // connect to DB
+            currentCon = DBConnectionManager.getConnection();
+            stmt = currentCon.createStatement();
+            rs = stmt.executeQuery(searchQuery);
+            while (rs.next()) {
+            
+           //     String memberId = rs.getString("member_id");
+                String eventName = rs.getString("eventName");
+                String eventDate = rs.getString("eventDate");
+                String eventAdd = rs.getString("eventAdd");
+                String eventDes = rs.getString("eventDes");
+                event = new EventAttributes();
+                event.setEventName(eventName);
+                event.setEventDate(eventDate);
+                event.setEventAddress(eventAdd);
+                event.setDescription(eventDes);
+             //   member.setPassword(password);
+                EventsList.add(event);
+            }
+        } catch (Exception e) {
+         e.printStackTrace();
+        }
+
+return EventsList;
+
+
+
+	/*	
+		StoreEventsNonDB event1 = new StoreEventsNonDB();
+		StoreEventsNonDB event2 = new StoreEventsNonDB();
+		StoreEventsNonDB event3 = new StoreEventsNonDB();
+		StoreEventsNonDB event4 = new StoreEventsNonDB();
 
 		event1.setEventName("Rock and Roll");
 		event1.setEventDate("15 Jan 2012");
@@ -37,8 +71,8 @@ public class EventDetailsDao extends MasterPanel{
 		event4.setEventName("Event 4");
 		event4.setEventDate("18 Jan 2012");
 		eventDetails.add(event4);
-
-		return eventDetails;
+*/
+		
 	}
 
 	static Connection currentCon = null;
@@ -49,7 +83,7 @@ public class EventDetailsDao extends MasterPanel{
 
 	// added in another comment
 	// added in another comment to test conflict2
-	public static StoreEvents insertEventDetails(StoreEvents addEvent) {
+	public static EventAttributes insertEventDetails(EventAttributes addEvent) {
 		Statement stmt = null;
 		String eventName = addEvent.getEventName();
 		String eventDate = addEvent.getEventDate();
@@ -58,10 +92,19 @@ public class EventDetailsDao extends MasterPanel{
 		// get the last member ID 
 		try {
 			
-            // query for inserting into the table
 			currentCon = DBConnectionManager.getConnection();
-            stmt = currentCon.createStatement();
-            String query = "insert into Events(idEvents,eventName,eventDate,eventAdd,eventDes) values('0','"+eventName+"','"+eventDate+"','"+eventAdd+"','"+eventDes+"')";
+			stmt = currentCon.createStatement();
+			String getMax = "select Max(idEvent) from Events";
+			rs1 = stmt.executeQuery(getMax);
+			rs1.next();
+			int maxId = rs1.getInt(1);
+			int nextId = maxId + 1;
+			
+            // query for inserting into the table
+
+           
+            String query = "insert into Events(idEvent,eventName,eventDate,eventAdd,eventDes) values('"+nextId+"','"+eventName+"','"+eventDate+"','"+eventAdd+"','"+eventDes+"')";
+            
             pstmt = currentCon.prepareStatement(query);
             // inserting values
             
@@ -107,5 +150,41 @@ public class EventDetailsDao extends MasterPanel{
 		}
 		return addEvent;
 
+	}
+	
+	public static int getMax(){
+
+
+			Statement stmt = null;
+			try {
+				stmt = currentCon.createStatement();
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			String getMax = "select Max(idEvent) from Events";
+			ResultSet rs1 = null;
+			try {
+				rs1 = stmt.executeQuery(getMax);
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			try {
+				rs1.next();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			int maxId = 0;
+			try {
+				maxId = rs1.getInt(1);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int nextId = maxId + 1;
+
+		return nextId;
 	}
 }

@@ -1,7 +1,7 @@
 package polyfive.ui.master;
 
 import polyfive.entities.Member;
-import polyfive.entities.StoreEvents;
+import polyfive.entities.EventAttributes;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.memberpages.*;
@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
 	private static Register register;
 	private static PublicCalendar publicCalendar;
 	private static MemberCalendar memberCalendar;
-	private static SearchEvents searchEvents;
+	private static AdminSearchEvents searchEvents;
 	private static EventDetails eventDetails;
 	private static EventDetailsRNR eventDetailsRNR;
 	private static SeatAllocation seatAllocation;
@@ -41,13 +41,13 @@ public class MainFrame extends JFrame {
 	private static adminAddEvent adminAddEvent;
 	private static AddEvent addEvent;
 	private static AdminCalendar adminCalendar;
-	private static StoreEvents storeEvents;
+	private static EventAttributes storeEvents;
 
-	public static StoreEvents getStoreEvents() {
+	public static EventAttributes getStoreEvents() {
 		return storeEvents;
 	}
 
-	public static void setStoreEvents(StoreEvents storeEvents) {
+	public static void setStoreEvents(EventAttributes storeEvents) {
 		MainFrame.storeEvents = storeEvents;
 	}
 
@@ -87,7 +87,7 @@ public class MainFrame extends JFrame {
 		return adminCalendar;
 	}
 
-	public SearchEvents getSearchEvents() {
+	public AdminSearchEvents getSearchEvents() {
 		return searchEvents;
 	}
 

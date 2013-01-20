@@ -1,4 +1,4 @@
-package polyfive.ui.memberpages;
+package polyfive.ui.adminpages;
 
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
@@ -6,6 +6,11 @@ import polyfive.entities.dao.DBConnectionManager;
 import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.*;
+import polyfive.ui.memberpages.EventDetails;
+import polyfive.ui.memberpages.EventDetailsRNR;
+import polyfive.ui.memberpages.MemberCalendar;
+import polyfive.ui.memberpages.SearchEvents2;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -38,7 +43,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 
-public class SearchEvents extends MasterPanel {
+public class AdminSearchEvents extends MasterPanel {
 	
 	
 	private JTextField filterText;
@@ -54,7 +59,7 @@ public class SearchEvents extends MasterPanel {
 	 * Create the panel.
 	 */
 	
-	public SearchEvents(MainFrame frame) {
+	public AdminSearchEvents(MainFrame frame) {
 		
 		f = frame;
 		setSize(new Dimension(1366, 768));
@@ -104,8 +109,7 @@ public class SearchEvents extends MasterPanel {
 				}
 			}
 		});
-		button.setIcon(new ImageIcon(SearchEvents2.class
-				.getResource("/polyFive/ui/images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(AdminSearchEvents.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
@@ -299,9 +303,9 @@ public class SearchEvents extends MasterPanel {
 		
 		private static final long serialVersionUID = 1L;
 		private static final String[] COLUMN_NAMES = new String[] {
-				"Event Names", "Date of Events", "Event Details" };
+				"Event Names", "Date of Events", "Event Details"};
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {
-				String.class, String.class, JButton.class };
+				String.class, String.class, JButton.class};
 
 		ArrayList<polyfive.entities.EventAttributes> eventDetails = EventDetailsDao
 				.RetrieveAll();
@@ -375,6 +379,8 @@ public class SearchEvents extends MasterPanel {
 					
 				});
 				return button;
+		
+
 			default:
 				return "Error";
 			}

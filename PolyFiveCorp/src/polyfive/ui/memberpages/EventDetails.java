@@ -1,6 +1,8 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
+import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -16,6 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
@@ -25,6 +28,8 @@ import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.sql.SQLException;
+
 import javax.swing.border.EtchedBorder;
 
 public class EventDetails extends MasterPanel {
@@ -36,6 +41,7 @@ public class EventDetails extends MasterPanel {
 	 * Create the panel.
 	 */
 	public EventDetails(MainFrame frame) {
+		DBConnectionManager.getConnection();
 		Member user = new Member();
 		user = f.getSession();
 		f = frame;
@@ -46,6 +52,26 @@ public class EventDetails extends MasterPanel {
 		setBackground(Color.WHITE);
 		setLayout(null);
 
+		
+		EventAttributes eventAttributes = new EventAttributes();
+		eventAttributes = f.getStoreEvents();
+		String eventName = eventAttributes.getEventName();
+		String sql = "select * from Events where eventName= '" + eventName + "'";
+
+		try {
+			DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql);
+			while (DBConnectionManager.rs.next()){
+				eventAttributes.setEventAddress(DBConnectionManager.rs.getString("eventAdd"));
+				eventAttributes.setDescription(DBConnectionManager.rs.getString("eventDes"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
+		
+		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setLayout(null);
@@ -61,7 +87,7 @@ public class EventDetails extends MasterPanel {
 		txtDisneyLiveMickeys.setBackground(new Color(255, 255, 255));
 		txtDisneyLiveMickeys.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtDisneyLiveMickeys
-				.setText("Disney Live! Mickey's Rockin' Road Show\r\n27 November - 2 December 2012, Marina Bay Sands\r\n(Seating)");
+				.setText(eventAttributes.getEventAddress());
 		txtDisneyLiveMickeys.setBounds(37, 168, 1200, 50);
 		panel.add(txtDisneyLiveMickeys);
 		txtDisneyLiveMickeys.setColumns(10);
@@ -82,12 +108,14 @@ public class EventDetails extends MasterPanel {
 		txtHitTheRoad.setAlignmentX(Component.LEFT_ALIGNMENT);
 		txtHitTheRoad.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtHitTheRoad
-				.setText("Hit the road with Mickey Mouse and your favorite Disney friends!");
+				.setText(eventAttributes.getDescription());
 		txtHitTheRoad.setBounds(37, 257, 1200, 200);
 		panel.add(txtHitTheRoad);
 		txtHitTheRoad.setColumns(10);
 
 		JButton btnProceedToPayment = new JButton("Buy Ticket(s)");
+		if(user.getRank() >= 5)
+			btnProceedToPayment.setVisible(false);
 		btnProceedToPayment.setFocusPainted(false);
 		btnProceedToPayment.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
@@ -134,12 +162,24 @@ public class EventDetails extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Member user = new Member();
+				user = f.getSession();
+				if(user.getRank() <= 4 ){
 				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
+				}
+				else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
 			}
 		});
 		button_1.setIcon(new ImageIcon(EventDetails.class
@@ -147,10 +187,64 @@ public class EventDetails extends MasterPanel {
 		button_1.setBorder(null);
 		button_1.setBounds(21, 21, 75, 75);
 		add(button_1);
+		
+		JButton modify = new JButton("Modify");
+		if(user.getRank()>=5){
+			modify.setVisible(true);
+		}
+		else
+			modify.setVisible(false);
+		modify.setForeground(Color.DARK_GRAY);
+		modify.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		modify.setFocusPainted(false);
+		modify.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+						Color.DARK_GRAY, null));
+		modify.setBackground(new Color(255, 165, 0));
+		modify.setBounds(213, 664, 150, 75);
+		add(modify);
+		
+		JButton delete = new JButton("Delete");
+		delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			int reply =	JOptionPane.showConfirmDialog(null, "Warning! Are you sure you want to delete the event?");
+				if (reply == JOptionPane.YES_OPTION){
+					EventAttributes eventAttributes = new EventAttributes();
+					eventAttributes = f.getStoreEvents();
+					String eventName = eventAttributes.getEventName();
+					System.out.println(eventName);
+					String sql = "DELETE FROM events WHERE eventName ='"+eventName+"'";
+					try {
+						//DBConnectionManager.rs = DBConnectionManager.stmt.execute(sql);
+						DBConnectionManager.pstmt = DBConnectionManager.con
+								.prepareStatement(sql);
+						DBConnectionManager.pstmt.execute();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						System.out.println(e1);
+						e1.printStackTrace();
+					}	
+				}
+				else 
+					return;
+
+				
+			}
+		});
+		if(user.getRank()>=5){
+			delete.setVisible(true);
+		}
+		else
+			delete.setVisible(false);
+		delete.setForeground(Color.DARK_GRAY);
+		delete.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		delete.setFocusPainted(false);
+		delete.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+						Color.DARK_GRAY, null));
+		delete.setBackground(new Color(255, 165, 0));
+		delete.setBounds(407, 662, 150, 75);
+		add(delete);
 
 		super.setLayout();
 
 	}
-
-	
 }
