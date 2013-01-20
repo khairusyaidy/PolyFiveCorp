@@ -1,6 +1,6 @@
 package polyfive.entities;
 
-public class EventDetails {
+public class StoreEvents {
 	
 	private String tfEventName;
 	private String tfEventDate;
@@ -39,11 +39,11 @@ public class EventDetails {
 		txtDescription = description;
 	}
 
-	public EventDetails() {
+	public StoreEvents() {
 
 	}
 
-	public EventDetails(String eventName, String eventDate, String eventAddress, String description) {
+	public StoreEvents(String eventName, String eventDate, String eventAddress, String description) {
 		tfEventName = eventName;
 		tfEventDate = eventDate;
 		tfEventAddress = eventAddress;

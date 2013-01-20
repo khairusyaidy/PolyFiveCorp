@@ -1,6 +1,8 @@
 package polyfive.entities.dao;
 
-import polyfive.entities.EventDetails;
+import polyfive.entities.StoreEvents;
+import polyfive.ui.master.MainFrame;
+import polyfive.ui.master.MasterPanel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,14 +12,15 @@ import java.util.ArrayList;
 
 
 
-public class EventDetailsDao {
-	
-	public static ArrayList<EventDetails> RetrieveAll() {
-		ArrayList<EventDetails> eventDetails = new ArrayList<>();
-		EventDetails event1 = new EventDetails();
-		EventDetails event2 = new EventDetails();
-		EventDetails event3 = new EventDetails();
-		EventDetails event4 = new EventDetails();
+public class EventDetailsDao extends MasterPanel{
+	private static MainFrame f = null;
+	public static ArrayList<StoreEvents> RetrieveAll() {
+		ArrayList<StoreEvents> eventDetails = new ArrayList<>();
+		
+		StoreEvents event1 = new StoreEvents();
+		StoreEvents event2 = new StoreEvents();
+		StoreEvents event3 = new StoreEvents();
+		StoreEvents event4 = new StoreEvents();
 
 		event1.setEventName("Rock and Roll");
 		event1.setEventDate("15 Jan 2012");
@@ -46,25 +49,28 @@ public class EventDetailsDao {
 
 	// added in another comment
 	// added in another comment to test conflict2
-	public static EventDetails insertEventDetails(EventDetails eventDetails) {
-		
+	public static StoreEvents insertEventDetails(StoreEvents addEvent) {
 		Statement stmt = null;
-
+		String eventName = addEvent.getEventName();
+		String eventDate = addEvent.getEventDate();
+		String eventAdd = addEvent.getEventAddress();
+		String eventDes = addEvent.getDescription();
 		// get the last member ID 
 		try {
 			
             // query for inserting into the table
 			currentCon = DBConnectionManager.getConnection();
             stmt = currentCon.createStatement();
-            String query = "insert into Event(houseKeeping,facilities,staff,overall) values(?,?,?,?)";
+            String query = "insert into Events(idEvents,eventName,eventDate,eventAdd,eventDes) values('0','"+eventName+"','"+eventDate+"','"+eventAdd+"','"+eventDes+"')";
             pstmt = currentCon.prepareStatement(query);
             // inserting values
             
          
-            pstmt.setString(1,eventDetails.getEventName());
-            pstmt.setString(2,eventDetails.getEventDate());
-            pstmt.setString(3, eventDetails.getEventAddress());  
-            pstmt.setString(4,eventDetails.getDescription());
+     /*       pstmt.setString(1,addEvent.getEventName());
+            pstmt.setString(2,addEvent.getEventDate());
+            pstmt.setString(3, addEvent.getEventAddress());  
+            pstmt.setString(4,addEvent.getDescription());
+       */
             pstmt.executeUpdate();
             
 		} catch (Exception ex) {
@@ -99,7 +105,7 @@ public class EventDetailsDao {
 				currentCon = null;
 			}
 		}
-		return eventDetails;
+		return addEvent;
 
 	}
 }

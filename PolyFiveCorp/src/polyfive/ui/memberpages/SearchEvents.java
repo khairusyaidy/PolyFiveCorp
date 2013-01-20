@@ -265,7 +265,7 @@ public class SearchEvents extends MasterPanel {
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {
 				String.class, String.class, JButton.class };
 
-		ArrayList<polyfive.entities.EventDetails> eventDetails = EventDetailsDao
+		ArrayList<polyfive.entities.StoreEvents> eventDetails = EventDetailsDao
 				.RetrieveAll();
 
 		@Override

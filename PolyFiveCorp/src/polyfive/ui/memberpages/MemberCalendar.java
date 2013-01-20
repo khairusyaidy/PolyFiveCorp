@@ -17,10 +17,22 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
+
+import org.freixas.jcalendar.DateListener;
+import org.freixas.jcalendar.DateEvent;
+
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDayChooser;
+
+import javax.swing.JTextField;
+import com.toedter.calendar.JDateChooser;
+
 
 public class MemberCalendar extends MasterPanel {
 
 	private MainFrame f = null;
+	private JTextField eventDate;
 
 
 	/**
@@ -146,17 +158,27 @@ public class MemberCalendar extends MasterPanel {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(513, 11, 469, 35);
 		add(lblNewLabel);
+		System.out.println();
+		
+		eventDate = new JTextField();
+		eventDate.setBounds(268, 95, 543, 50);
+		add(eventDate);
+		eventDate.setColumns(10);
+		
+		JCalendar calendar = new JCalendar();
+		
+		calendar.getDayChooser();
+		System.out.println(calendar.getDayChooser());
 
-		org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
-		calendar.setDayOfWeekFont(new Font("Tahoma", Font.PLAIN, 18));
-		calendar.setDayFont(new Font("Tahoma", Font.PLAIN, 18));
-		calendar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
-		calendar.setBounds(268, 197, 887, 421);
+		
+		calendar.setBounds(268, 238, 751, 359);
+		
 		add(calendar);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(80, 184, 91, 20);
+		add(dateChooser);
 
 		super.setLayout();
 	}
-
-
 }

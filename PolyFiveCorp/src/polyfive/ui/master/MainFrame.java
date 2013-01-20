@@ -1,6 +1,7 @@
 package polyfive.ui.master;
 
 import polyfive.entities.Member;
+import polyfive.entities.StoreEvents;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.memberpages.*;
@@ -40,6 +41,15 @@ public class MainFrame extends JFrame {
 	private static adminAddEvent adminAddEvent;
 	private static AddEvent addEvent;
 	private static AdminCalendar adminCalendar;
+	private static StoreEvents storeEvents;
+
+	public static StoreEvents getStoreEvents() {
+		return storeEvents;
+	}
+
+	public static void setStoreEvents(StoreEvents storeEvents) {
+		MainFrame.storeEvents = storeEvents;
+	}
 
 	public static Member getSession() {
 		return session;

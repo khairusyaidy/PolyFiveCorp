@@ -47,7 +47,6 @@ import javax.swing.Action;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
-import com.javaswingcomponents.clock.analog.JSCAnalogClock;
 
 public class WelcomePanel extends MasterPanel {
 	private final Action action = new SwingAction();

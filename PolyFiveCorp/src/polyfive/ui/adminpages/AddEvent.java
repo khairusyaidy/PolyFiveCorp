@@ -12,7 +12,7 @@ import javax.swing.JButton;
 
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
-import polyfive.entities.EventDetails;
+import polyfive.entities.StoreEvents;
 import polyfive.entities.dao.EventDetailsDao;
 
 import java.awt.Font;
@@ -118,7 +118,7 @@ public class AddEvent extends MasterPanel {
 		add(tfDateOfEvent);
 		tfDateOfEvent.setColumns(10);
 		
-		JTextArea taDescription = new JTextArea();
+		final JTextArea taDescription = new JTextArea();
 		taDescription.setBounds(708, 383, 221, 201);
 		add(taDescription);
 		
@@ -144,7 +144,7 @@ public class AddEvent extends MasterPanel {
 		JButton AddEvent = new JButton("Add Event");
 		AddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				 EventDetails eventDetails = new EventDetails();
+		/*		 EventDetails eventDetails = new EventDetails();
 			     eventDetails.setEventName(tfEventName.getText());
 			     eventDetails.setEventAddress(tfAddress.getText());
 			     	adminAddEvent adminAddEvent = new adminAddEvent(f);
@@ -153,6 +153,22 @@ public class AddEvent extends MasterPanel {
 			     	f.repaint();
 					f.revalidate();
 					f.setVisible(true);
+			*/
+				String eventName = tfEventName.getText();
+				String eventAdd = tfAddress.getText();
+				String DOE = tfDateOfEvent.getText();
+				String des = taDescription.getText();
+				StoreEvents addEvent = new StoreEvents();
+				
+				
+				addEvent.setEventName(eventName);
+				addEvent.setEventAddress(eventAdd);
+				addEvent.setEventDate(DOE);
+				addEvent.setDescription(des);
+				
+				EventDetailsDao.insertEventDetails(addEvent);
+				
+				f.setStoreEvents(addEvent);
 				}
 			});
 		AddEvent.setForeground(Color.DARK_GRAY);
