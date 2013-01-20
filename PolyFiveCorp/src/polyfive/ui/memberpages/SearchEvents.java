@@ -265,8 +265,6 @@ public class SearchEvents extends MasterPanel {
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {
 				String.class, String.class, JButton.class };
 
-		ArrayList<polyfive.entities.EventDetails> eventDetails = EventDetailsDao
-				.RetrieveAll();
 
 		@Override
 		public int getColumnCount() {
@@ -292,9 +290,9 @@ public class SearchEvents extends MasterPanel {
 		public Object getValueAt(final int rowIndex, final int columnIndex) {
 			switch (columnIndex) {
 			case 0:
-				return eventDetails.get(rowIndex).getEventName();
+				return EventDetails.get(rowIndex).getEventName();
 			case 1:
-				return eventDetails.get(rowIndex).getEventDate();
+				return EventDetails.get(rowIndex).getEventDate();
 				// case 2: // fall through
 			case 2:
 				final JButton button = new JButton(COLUMN_NAMES[columnIndex]);

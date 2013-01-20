@@ -42,9 +42,9 @@ public class AdminCalendar extends MasterPanel {
 		setBackground(Color.WHITE);
 		setLayout(null);
 		
-		JButton button_1 = new JButton("Log Out");
-		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button_1.addActionListener(new ActionListener() {
+		JButton logout = new JButton("Log Out");
+		logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			  LoginPanel loginPanel= new LoginPanel(f);
 			    f.getContentPane().removeAll();
@@ -74,14 +74,14 @@ public class AdminCalendar extends MasterPanel {
 		btnFindEvents.setBackground(new Color(255, 165, 0));
 		btnFindEvents.setBounds(849, 95, 170, 50);
 		add(btnFindEvents);
-		button_1.setForeground(Color.DARK_GRAY);
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		button_1.setFocusPainted(false);
-		button_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
-		button_1.setBackground(new Color(255, 165, 0));
-		button_1.setBounds(21, 664, 150, 75);
-		add(button_1);
-		
+		logout.setForeground(Color.DARK_GRAY);
+		logout.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		logout.setFocusPainted(false);
+		logout.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		logout.setBackground(new Color(255, 165, 0));
+		logout.setBounds(21, 664, 150, 75);
+		add(logout);
+				
 		JButton button = new JButton("");
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setIcon(new ImageIcon(AdminCalendar.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
@@ -97,7 +97,7 @@ public class AdminCalendar extends MasterPanel {
 		String rankName = null;
 		
 		JLabel lblNewLabel = new JLabel();
-		lblNewLabel.setText("Welcome ");
+		lblNewLabel.setText("Welcome Timothy(Admin)");
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override

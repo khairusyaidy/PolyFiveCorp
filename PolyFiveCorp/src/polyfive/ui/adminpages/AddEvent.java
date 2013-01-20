@@ -12,6 +12,9 @@ import javax.swing.JButton;
 
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
+import polyfive.entities.EventDetails;
+import polyfive.entities.dao.EventDetailsDao;
+
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
@@ -21,7 +24,6 @@ import java.awt.event.ActionEvent;
 public class AddEvent extends MasterPanel {
 	private JTextField txtWaypoint;
 	private JTextField txtEventName;
-	private JTextField txtAddress;
 	private JTextField txtDateOfEvent;
 	private JTextField txtDescription;
 	private JTextField txtX;
@@ -29,6 +31,7 @@ public class AddEvent extends MasterPanel {
 	private JTextField tfEventName;
 	private JTextField tfAddress;
 	private MainFrame f = null;
+	private JTextField tfDateOfEvent;
 	
 	
 	
@@ -60,13 +63,13 @@ public class AddEvent extends MasterPanel {
 		add(txtEventName);
 		txtEventName.setColumns(10);
 		
-		txtAddress = new JTextField();
-		txtAddress.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		txtAddress.setEditable(false);
-		txtAddress.setText("Address");
-		txtAddress.setBounds(411, 262, 219, 50);
-		add(txtAddress);
-		txtAddress.setColumns(10);
+		tfAddress = new JTextField();
+		tfAddress.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		tfAddress.setEditable(false);
+		tfAddress.setText("Address");
+		tfAddress.setBounds(411, 262, 219, 50);
+		add(tfAddress);
+		tfAddress.setColumns(10);
 		
 		txtDateOfEvent = new JTextField();
 		txtDateOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -109,28 +112,15 @@ public class AddEvent extends MasterPanel {
 		tfAddress.setBounds(708, 262, 221, 50);
 		add(tfAddress);
 		tfAddress.setColumns(10);
+				
+		tfDateOfEvent = new JTextField();
+		tfDateOfEvent.setBounds(708, 323, 221, 49);
+		add(tfDateOfEvent);
+		tfDateOfEvent.setColumns(10);
 		
 		JTextArea taDescription = new JTextArea();
 		taDescription.setBounds(708, 383, 221, 201);
 		add(taDescription);
-		
-		JComboBox cbDay = new JComboBox();
-		cbDay.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cbDay.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
-		cbDay.setBounds(707, 323, 50, 49);
-		add(cbDay);
-		
-		JComboBox cbMonth = new JComboBox();
-		cbMonth.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cbMonth.setModel(new DefaultComboBoxModel(new String[] {"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"}));
-		cbMonth.setBounds(767, 323, 78, 49);
-		add(cbMonth);
-		
-		JComboBox cbYear = new JComboBox();
-		cbYear.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cbYear.setModel(new DefaultComboBoxModel(new String[] {"2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"}));
-		cbYear.setBounds(855, 323, 74, 49);
-		add(cbYear);
 		
 		JButton Back = new JButton("Back");
 		Back.addActionListener(new ActionListener() {
@@ -154,14 +144,17 @@ public class AddEvent extends MasterPanel {
 		JButton AddEvent = new JButton("Add Event");
 		AddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				adminAddEvent adminAddEvent = new adminAddEvent(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(adminAddEvent);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-			}
-		});
+				 EventDetails eventDetails = new EventDetails();
+			     eventDetails.setEventName(tfEventName.getText());
+			     eventDetails.setEventAddress(tfAddress.getText());
+			     	adminAddEvent adminAddEvent = new adminAddEvent(f);
+			     	f.getContentPane().removeAll();
+			     	f.getContentPane().add(adminAddEvent);
+			     	f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
+			});
 		AddEvent.setForeground(Color.DARK_GRAY);
 		AddEvent.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		AddEvent.setFocusPainted(false);
@@ -170,8 +163,10 @@ public class AddEvent extends MasterPanel {
 		AddEvent.setBounds(779, 603, 150, 75);
 		add(AddEvent);
 
+
 		
 		super.setLayout();
 
 	}
 }
+
