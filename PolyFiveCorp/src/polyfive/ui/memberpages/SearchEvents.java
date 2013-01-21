@@ -22,7 +22,9 @@ import java.awt.Cursor;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SortOrder;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -32,6 +34,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -55,6 +58,7 @@ public class SearchEvents extends MasterPanel {
 	 */
 	
 	public SearchEvents(MainFrame frame) {
+		setEnabled(false);
 		
 		f = frame;
 		setSize(new Dimension(1366, 768));
@@ -114,13 +118,20 @@ public class SearchEvents extends MasterPanel {
 		// adding table here + scrollpane
 
 		final JTable table = new JTable(new JTableModel());
+		
+		table.getTableHeader().setReorderingAllowed(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		table.setEnabled(false);
+		table.setFocusTraversalKeysEnabled(false);
+		table.setFocusable(false);
+		table.setDragEnabled(true);
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(359, 208, 660, 397);
 		add(scrollPane);
 		table.setFillsViewportHeight(true);
-
+		table.setAutoCreateRowSorter(true);
 		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
 		table.getColumn("Event Details").setCellRenderer(buttonRenderer);
 		// table.getColumn("Button2").setCellRenderer(buttonRenderer);
@@ -144,8 +155,14 @@ public class SearchEvents extends MasterPanel {
 						}
 					}
 				});
-
-		// Whenever filterText changes, invoke newFilter.
+		
+/*		List <RowSorter.SortKey> sortKeys 
+	    = new ArrayList<RowSorter.SortKey>();
+	sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
+	RowSorter sorter = null;
+	sorter.setSortKeys(sortKeys); 
+	table.setRowSorter(sorter);
+	*/	// Whenever filterText changes, invoke newFilter.
 
 		//
 

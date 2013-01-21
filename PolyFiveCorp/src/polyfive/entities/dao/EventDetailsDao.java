@@ -162,7 +162,7 @@ return EventsList;
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-			String getMax = "select Max(idEvent) from Events";
+			String getMax = "select count(idEvent) from Events";
 			ResultSet rs1 = null;
 			try {
 				rs1 = stmt.executeQuery(getMax);
@@ -183,7 +183,7 @@ return EventsList;
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			int nextId = maxId + 1;
+			int nextId = maxId ;
 
 		return nextId;
 	}

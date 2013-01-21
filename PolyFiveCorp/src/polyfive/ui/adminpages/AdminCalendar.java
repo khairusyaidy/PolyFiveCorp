@@ -101,7 +101,27 @@ public class AdminCalendar extends MasterPanel {
 		String rankName = null;
 		
 		JLabel lblNewLabel = new JLabel();
-		lblNewLabel.setText("Welcome Timothy(Admin)");
+		switch (rank){
+		case 0: lblNewLabel.setForeground(Color.BLACK);
+		rankName = "Regular Member";
+		break;
+		case 1: lblNewLabel.setForeground(Color.BLUE);
+		rankName = "Basic";
+		break;
+		case 2: lblNewLabel.setForeground(new Color(210, 105, 30));
+		rankName = "Bronze";
+		break;
+		case 3: lblNewLabel.setForeground(new Color(105, 105, 105));
+		rankName = "Silver";
+		break;
+		case 4: lblNewLabel.setForeground(new Color(184, 134, 11));
+		rankName = "Gold";
+		break;
+		case 5: lblNewLabel.setForeground(new Color(255, 165, 0));
+		rankName = "Admin";
+		break;
+		}
+		lblNewLabel.setText("Welcome "+ user.getFirstName()+ " " + user.getLastName()+" (" + rankName + ")");
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -146,7 +166,7 @@ public class AdminCalendar extends MasterPanel {
 		addEvent.setFocusPainted(false);
 		addEvent.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
 		addEvent.setBackground(new Color(255, 165, 0));
-		addEvent.setBounds(181, 664, 150, 75);
+		addEvent.setBounds(212, 664, 160, 75);
 		add(addEvent);
 		
 
