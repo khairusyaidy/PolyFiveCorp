@@ -157,6 +157,7 @@ public class AdminCalendar extends MasterPanel {
 		add(lblNewLabel);
 		
 		final org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
+		calendar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		calendar.setDayOfWeekFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendar.setDayFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));

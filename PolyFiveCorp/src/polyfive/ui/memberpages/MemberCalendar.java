@@ -1,7 +1,9 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
+import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.master.*;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -33,7 +35,6 @@ import com.toedter.calendar.JDateChooser;
 public class MemberCalendar extends MasterPanel {
 
 	private MainFrame f = null;
-	private JTextField eventDate;
 
 
 	/**
@@ -80,7 +81,7 @@ public class MemberCalendar extends MasterPanel {
 		btnFindEvents.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnFindEvents.setBackground(new Color(255, 165, 0));
-		btnFindEvents.setBounds(849, 95, 170, 50);
+		btnFindEvents.setBounds(985, 95, 170, 50);
 		add(btnFindEvents);
 		btnLogOut.setForeground(Color.DARK_GRAY);
 		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -161,10 +162,32 @@ public class MemberCalendar extends MasterPanel {
 		add(lblNewLabel);
 		System.out.println();
 		
-		eventDate = new JTextField();
-		eventDate.setBounds(268, 95, 543, 50);
-		add(eventDate);
-		eventDate.setColumns(10);
+		final org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
+		calendar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		calendar.setDayOfWeekFont(new Font("Tahoma", Font.PLAIN, 18));
+		calendar.setDayFont(new Font("Tahoma", Font.PLAIN, 18));
+		calendar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		calendar.setBounds(166, 191, 989, 427);
+		calendar.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
+		calendar.addDateListener(new DateListener() {
+			public void dateChanged(DateEvent arg0) {
+			 String date = calendar.getDate().toString();
+			 String fullDate = EventDetailsDao.fullDate(date);
+			 EventAttributes event = new EventAttributes();
+			 event.setEventDate(fullDate);
+			 f.setStoreEvents(event);
+			 
+				SearchEventsByDate searchEventsByDate= new SearchEventsByDate(f);
+			    f.getContentPane().removeAll();
+			    f.getContentPane().add(searchEventsByDate);
+			    f.repaint();
+			    f.revalidate();
+			    f.setVisible(true);
+				
+			 
+			}
+		});
+		add(calendar);
 
 		super.setLayout();
 	}
