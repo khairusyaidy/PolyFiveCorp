@@ -38,6 +38,7 @@ public class MainFrame extends JFrame {
 	private static paymentDetails paymentDetails;
 	private static PaymentPanel paymentPanel;
 	private static Member session;
+	private static Member editAccountSession;
 	private static adminAddEvent adminAddEvent;
 	private static AddEvent addEvent;
 	private static AdminCalendar adminCalendar;
@@ -51,6 +52,15 @@ public class MainFrame extends JFrame {
 		MainFrame.storeEvents = storeEvents;
 	}
 
+	public static Member getEditAccountSession() {
+		return editAccountSession;
+	}
+
+	public static void setEditAccountSession(Member editAccountSession) {
+		MainFrame.editAccountSession = editAccountSession;
+	}
+	
+	
 	public static Member getSession() {
 		return session;
 	}
