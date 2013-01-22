@@ -15,6 +15,12 @@ import java.util.ArrayList;
 
 public class EventDetailsDao extends MasterPanel{
 	private static MainFrame f = null;
+	
+	static Connection currentCon = null;
+	static ResultSet rs = null;
+	static PreparedStatement pstmt = null;
+	static ResultSet rs1 = null;
+	static PreparedStatement pstmt1 = null;
 
 	public static ArrayList <EventAttributes> RetrieveAll() {
 		EventAttributes event = null;
@@ -75,11 +81,7 @@ return EventsList;
 		
 	}
 
-	static Connection currentCon = null;
-	static ResultSet rs = null;
-	static PreparedStatement pstmt = null;
-	static ResultSet rs1 = null;
-	static PreparedStatement pstmt1 = null;
+
 
 	// added in another comment
 	// added in another comment to test conflict2

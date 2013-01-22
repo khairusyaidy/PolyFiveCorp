@@ -72,7 +72,7 @@ public class AdminCalendar extends MasterPanel {
 		btnFindEvents.setFocusPainted(false);
 		btnFindEvents.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
 		btnFindEvents.setBackground(new Color(255, 165, 0));
-		btnFindEvents.setBounds(849, 95, 170, 50);
+		btnFindEvents.setBounds(985, 93, 170, 50);
 		add(btnFindEvents);
 		logout.setForeground(Color.DARK_GRAY);
 		logout.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -168,6 +168,25 @@ public class AdminCalendar extends MasterPanel {
 		addEvent.setBackground(new Color(255, 165, 0));
 		addEvent.setBounds(212, 664, 160, 75);
 		add(addEvent);
+		
+		JButton btnUserSettings = new JButton("User Settings");
+		btnUserSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UserSetting userSetting= new UserSetting(f);
+			    f.getContentPane().removeAll();
+			    f.getContentPane().add(userSetting);
+			    f.repaint();
+			    f.revalidate();
+			    f.setVisible(true);
+			}
+		});
+		btnUserSettings.setForeground(Color.DARK_GRAY);
+		btnUserSettings.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnUserSettings.setFocusPainted(false);
+		btnUserSettings.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		btnUserSettings.setBackground(new Color(255, 165, 0));
+		btnUserSettings.setBounds(786, 93, 170, 50);
+		add(btnUserSettings);
 		
 
 		

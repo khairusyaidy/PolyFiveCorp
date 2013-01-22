@@ -54,6 +54,10 @@ public void setRankName(String rankName) {
 	this.rankName = rankName;
 }
 
+public String getRankName(){
+	return rankName;
+}
+
 
 
 public String getFirstName() {

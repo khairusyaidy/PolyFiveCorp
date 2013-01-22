@@ -310,15 +310,15 @@ public class AccountDetails extends JPanel {
 		accountManagement.add(lblPasswords);
 
 		oldPass = new JPasswordField();
-		oldPass.setBounds(97, 34, 280, 20);
+		oldPass.setBounds(133, 34, 244, 20);
 		accountManagement.add(oldPass);
 
 		newPass = new JPasswordField();
-		newPass.setBounds(97, 67, 280, 20);
+		newPass.setBounds(133, 67, 244, 20);
 		accountManagement.add(newPass);
 
 		confirmNew = new JPasswordField();
-		confirmNew.setBounds(97, 96, 280, 20);
+		confirmNew.setBounds(133, 96, 244, 20);
 		accountManagement.add(confirmNew);
 
 		JLabel lblPoly5Corp = new JLabel("POLYFIVE CORP");
