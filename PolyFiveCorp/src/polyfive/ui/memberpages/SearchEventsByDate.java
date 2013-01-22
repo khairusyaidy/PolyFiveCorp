@@ -46,7 +46,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 
-public class SearchEvents extends MasterPanel {
+public class SearchEventsByDate extends MasterPanel {
 	
 	
 	private JTextField filterText;
@@ -57,15 +57,21 @@ public class SearchEvents extends MasterPanel {
 	private JTextArea textArea;
 	private JButton button_1;
 	private JTextField statusText;
+	public static String Date;
+	
 
 	/**
 	 * Create the panel.
 	 */
-	
-	public SearchEvents(MainFrame frame) {
-		setEnabled(false);
-		
+
+	public SearchEventsByDate(MainFrame frame) {
+
+
 		f = frame;
+		EventAttributes event = new EventAttributes();
+		event = f.getStoreEvents();
+		Date = event.getEventDate();
+		
 		setSize(new Dimension(1366, 768));
 		setFocusable(false);
 		setBackground(Color.BLACK);
@@ -138,7 +144,7 @@ public class SearchEvents extends MasterPanel {
 		add(scrollPane);
 		table.setFillsViewportHeight(true);
 		
-	    
+
 
 		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
 		table.getColumn("Event Details").setCellRenderer(buttonRenderer);
@@ -219,7 +225,6 @@ public class SearchEvents extends MasterPanel {
 		statusText.setColumns(10);
 
 		super.setLayout();
-
 	}
 
 
@@ -265,14 +270,18 @@ public class SearchEvents extends MasterPanel {
 
 	public static class JTableModel extends AbstractTableModel {
 		
+		
+		
 		private static final long serialVersionUID = 1L;
 		private static final String[] COLUMN_NAMES = new String[] {
 				"Event Names", "Date of Events", "Event Details" };
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {
 				String.class, Date.class, JButton.class };
-
+		
+	
+		
 		ArrayList<EventAttributes> eventDetails = EventDetailsDao
-				.RetrieveAll();
+				.RetrieveAllByDate(Date);
 
 		@Override
 		public int getColumnCount() {
@@ -282,7 +291,7 @@ public class SearchEvents extends MasterPanel {
 		@Override
 		public int getRowCount() {
 			
-			int row = EventDetailsDao.getMax();
+			int row = EventDetailsDao.getMaxByDate(Date);
 			return row;
 		}
 

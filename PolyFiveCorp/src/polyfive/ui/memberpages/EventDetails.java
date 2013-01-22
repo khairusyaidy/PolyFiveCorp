@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -396,7 +397,6 @@ public class EventDetails extends MasterPanel {
 					EventAttributes eventAttributes = new EventAttributes();
 					eventAttributes = f.getStoreEvents();
 					String eventName = eventAttributes.getEventName();
-					System.out.println(eventName);
 					String sql = "DELETE FROM events WHERE eventName ='"+eventName+"'";
 					try {
 						//DBConnectionManager.rs = DBConnectionManager.stmt.execute(sql);

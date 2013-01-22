@@ -1,10 +1,13 @@
 package polyfive.ui.adminpages;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.JDialog;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -13,20 +16,31 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
 import polyfive.ui.*;
+import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
+import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 import polyfive.ui.memberpages.AccountDetails;
 import polyfive.ui.memberpages.LoginPanel;
 import polyfive.ui.memberpages.SearchEvents;
+import polyfive.ui.memberpages.SearchEventsByDate;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.border.EtchedBorder;
+
+import org.freixas.jcalendar.DateEvent;
+import org.freixas.jcalendar.DateListener;
 
 public class AdminCalendar extends MasterPanel {
 
@@ -58,9 +72,9 @@ public class AdminCalendar extends MasterPanel {
 		JButton btnFindEvents = new JButton("Find Events");
 		btnFindEvents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			  AdminSearchEvents adminSearchEvents = new AdminSearchEvents(f);
+			  SearchEvents searchEvents = new SearchEvents(f);
 			    f.getContentPane().removeAll();
-			    f.getContentPane().add(adminSearchEvents);
+			    f.getContentPane().add(searchEvents);
 			    f.repaint();
 			    f.revalidate();
 			    f.setVisible(true);
@@ -142,11 +156,30 @@ public class AdminCalendar extends MasterPanel {
 		lblNewLabel.setBounds(587, 11, 395, 35);
 		add(lblNewLabel);
 		
-		org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
+		final org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
 		calendar.setDayOfWeekFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendar.setDayFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		calendar.setBounds(166, 191, 989, 427);
+		calendar.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
+		calendar.addDateListener(new DateListener() {
+			public void dateChanged(DateEvent arg0) {
+			 String date = calendar.getDate().toString();
+			 String fullDate = EventDetailsDao.fullDate(date);
+			 EventAttributes event = new EventAttributes();
+			 event.setEventDate(fullDate);
+			 f.setStoreEvents(event);
+			 
+				SearchEventsByDate searchEventsByDate= new SearchEventsByDate(f);
+			    f.getContentPane().removeAll();
+			    f.getContentPane().add(searchEventsByDate);
+			    f.repaint();
+			    f.revalidate();
+			    f.setVisible(true);
+				
+			 
+			}
+		});
 		add(calendar);
 		
 		JButton addEvent = new JButton("Add Event");
@@ -162,11 +195,11 @@ public class AdminCalendar extends MasterPanel {
 			}
 		});
 		addEvent.setForeground(Color.DARK_GRAY);
-		addEvent.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		addEvent.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		addEvent.setFocusPainted(false);
 		addEvent.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
 		addEvent.setBackground(new Color(255, 165, 0));
-		addEvent.setBounds(212, 664, 160, 75);
+		addEvent.setBounds(783, 93, 170, 50);
 		add(addEvent);
 		
 		JButton btnUserSettings = new JButton("User Settings");
@@ -185,7 +218,7 @@ public class AdminCalendar extends MasterPanel {
 		btnUserSettings.setFocusPainted(false);
 		btnUserSettings.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
 		btnUserSettings.setBackground(new Color(255, 165, 0));
-		btnUserSettings.setBounds(786, 93, 170, 50);
+		btnUserSettings.setBounds(576, 93, 170, 50);
 		add(btnUserSettings);
 		
 

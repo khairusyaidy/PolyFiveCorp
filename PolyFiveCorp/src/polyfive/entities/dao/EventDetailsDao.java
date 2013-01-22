@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 
@@ -21,6 +23,7 @@ public class EventDetailsDao extends MasterPanel{
 	static PreparedStatement pstmt = null;
 	static ResultSet rs1 = null;
 	static PreparedStatement pstmt1 = null;
+	static String date1 = null;
 
 	public static ArrayList <EventAttributes> RetrieveAll() {
 		EventAttributes event = null;
@@ -189,4 +192,92 @@ return EventsList;
 
 		return nextId;
 	}
+	
+	
+	
+	public static int getMaxByDate(String date){
+
+
+		Statement stmt = null;
+		try {
+			stmt = currentCon.createStatement();
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		String getMax = "select count(idEvent) from Events where eventDate='"+date+"'";
+		ResultSet rs1 = null;
+		try {
+			rs1 = stmt.executeQuery(getMax);
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			rs1.next();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		int maxId = 0;
+		try {
+			maxId = rs1.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int nextId = maxId ;
+
+	return nextId;
+}
+	
+	
+	
+	public static String fullDate(String date){
+		String day = date.substring(8, 10);
+		String month = date.substring(4, 7);
+		String year = date.substring(24,28);
+		
+		String fullDate = day +" " + month+ " " + year ;
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
+
+		return fullDate;
+	}
+	
+	public static ArrayList <EventAttributes> RetrieveAllByDate(String date) {
+		
+		
+		EventAttributes event = null;
+		ArrayList <EventAttributes> EventsList = new ArrayList<>();
+		Statement stmt = null;
+        String searchQuery = "select * from events where eventDate ='" +date+"'";
+
+        try {
+            // connect to DB
+            currentCon = DBConnectionManager.getConnection();
+            stmt = currentCon.createStatement();
+            rs = stmt.executeQuery(searchQuery);
+            while (rs.next()) {
+            
+           //     String memberId = rs.getString("member_id");
+                String eventName = rs.getString("eventName");
+                String eventDate = rs.getString("eventDate");
+                String eventAdd = rs.getString("eventAdd");
+                String eventDes = rs.getString("eventDes");
+                event = new EventAttributes();
+                event.setEventName(eventName);
+                event.setEventDate(eventDate);
+                event.setEventAddress(eventAdd);
+                event.setDescription(eventDes);
+             //   member.setPassword(password);
+                EventsList.add(event);
+            }
+        } catch (Exception e) {
+         e.printStackTrace();
+        }
+
+return EventsList;
+
+}
 }

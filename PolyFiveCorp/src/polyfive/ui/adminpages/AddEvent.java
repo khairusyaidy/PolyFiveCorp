@@ -121,21 +121,21 @@ public class AddEvent extends MasterPanel {
 		tfEventName = new JTextField();
 		tfEventName.setBorder(new LineBorder(Color.BLACK));
 		tfEventName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		tfEventName.setBounds(657, 157, 221, 49);
+		tfEventName.setBounds(657, 163, 283, 35);
 		add(tfEventName);
 		tfEventName.setColumns(10);
 		
 		tfAddress_1 = new JTextField();
 		tfAddress_1.setBorder(new LineBorder(Color.BLACK));
 		tfAddress_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		tfAddress_1.setBounds(657, 234, 221, 50);
+		tfAddress_1.setBounds(657, 239, 283, 35);
 		add(tfAddress_1);
 		tfAddress_1.setColumns(10);
 		
 		final JTextArea taDescription = new JTextArea();
 		taDescription.setBorder(new LineBorder(new Color(0, 0, 0)));
 		taDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		taDescription.setBounds(657, 383, 307, 201);
+		taDescription.setBounds(657, 394, 423, 158);
 		add(taDescription);
 		
 		JButton Back = new JButton("Back");
@@ -168,23 +168,26 @@ public class AddEvent extends MasterPanel {
 		panel.setLayout(null);
 		
 		final JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBox_2.setBounds(188, 11, 75, 34);
 		panel.add(comboBox_2);
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"2012", "2013", "2014"}));
 		comboBox_2.setSelectedIndex(0);
 		
 		final JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBox_1.setBounds(81, 11, 97, 34);
 		panel.add(comboBox_1);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}));
 		comboBox_1.setSelectedIndex(0);
 		
 		
 		
 		final JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBox.setBounds(20, 11, 42, 34);
 		panel.add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		comboBox.setSelectedIndex(0);
 		
 		
