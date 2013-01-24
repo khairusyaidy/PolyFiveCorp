@@ -33,11 +33,13 @@ import java.sql.SQLException;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.JTextPane;
+import javax.swing.JSeparator;
 
 public class EventDetails extends MasterPanel {
 	private JTextField eventAddressTf;
 	private MainFrame f = null;
 	private JTextField eventDateTf;
+	private JTextField eventPriceTf;
 
 	/**
 	 * Create the panel.
@@ -70,6 +72,11 @@ public class EventDetails extends MasterPanel {
 				eventAttributes.setDescription(DBConnectionManager.rs.getString("eventDes"));
 				eventAttributes.setEventName(DBConnectionManager.rs.getString("eventName"));
 				eventAttributes.setEventDate(DBConnectionManager.rs.getString("eventDate"));
+				eventAttributes.setEventPrice(DBConnectionManager.rs.getFloat("eventPrice"));
+				eventAttributes.setEventType(DBConnectionManager.rs.getString("eventType"));
+				eventAttributes.setEventNoOfTickets(DBConnectionManager.rs.getInt("eventNoOfTickets"));
+				
+				f.setStoreEvents(eventAttributes);
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -86,8 +93,21 @@ public class EventDetails extends MasterPanel {
 		panel.setBorder(null);
 		panel.setBackground(Color.BLACK);
 		panel.setBounds(62, 117, 1247, 534);
-
 		add(panel);
+		
+		String eventPrice = Double.toString(eventAttributes.getEventPrice());
+		eventPriceTf = new JTextField();
+		eventPriceTf.setText(eventPrice);
+		eventPriceTf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		eventPriceTf.setEditable(false);
+		eventPriceTf.setDisabledTextColor(Color.BLACK);
+		eventPriceTf.setColumns(10);
+		eventPriceTf.setBorder(new LineBorder(Color.BLACK));
+		eventPriceTf.setBackground(Color.WHITE);
+		eventPriceTf.setBounds(200, 258, 86, 40);
+		panel.add(eventPriceTf);
+		
+		
 
 		eventAddressTf = new JTextField();
 		eventAddressTf.setDisabledTextColor(Color.BLACK);
@@ -96,8 +116,8 @@ public class EventDetails extends MasterPanel {
 		eventAddressTf.setBackground(new Color(255, 255, 255));
 		eventAddressTf.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		eventAddressTf
-				.setText("Address: "+ eventAttributes.getEventAddress());
-		eventAddressTf.setBounds(37, 222, 1200, 50);
+				.setText(eventAttributes.getEventAddress());
+		eventAddressTf.setBounds(200, 207, 996, 40);
 		panel.add(eventAddressTf);
 		eventAddressTf.setColumns(10);
 
@@ -106,25 +126,28 @@ public class EventDetails extends MasterPanel {
 		eventMap.setHorizontalAlignment(SwingConstants.CENTER);
 		eventMap.setIcon(new ImageIcon(EventDetails.class
 				.getResource("/polyFive/ui/images/Map.PNG")));
-		eventMap.setBounds(37, 11, 1200, 120);
+		eventMap.setBounds(66, 11, 1130, 120);
 		panel.add(eventMap);
 
 		JButton btnProceedToPayment = new JButton("Buy Ticket(s)");
 		if(user.getRank() >= 5)
 			btnProceedToPayment.setVisible(false);
 		btnProceedToPayment.setFocusPainted(false);
-		btnProceedToPayment.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
-				Color.DARK_GRAY, null));
-		btnProceedToPayment.setCursor(Cursor
-				.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnProceedToPayment.setBorder(new EtchedBorder(EtchedBorder.LOWERED,Color.DARK_GRAY, null));
+		btnProceedToPayment.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SeatAllocation seatAllocation = new SeatAllocation(f);
+
+
+				
+				TicketsPurchase ticketsPurchase = new TicketsPurchase(f);
 				f.getContentPane().removeAll();
-				f.getContentPane().add(seatAllocation);
+				f.getContentPane().add(ticketsPurchase);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
+				
 			}
 		});
 		btnProceedToPayment.setForeground(Color.DARK_GRAY);
@@ -137,21 +160,21 @@ public class EventDetails extends MasterPanel {
 		eventDesTf.setDisabledTextColor(Color.BLACK);
 		eventDesTf.setBorder(new LineBorder(new Color(0, 0, 0)));
 		eventDesTf.setEditable(false);
-		eventDesTf.setText("Description: "+ eventAttributes.getDescription());
+		eventDesTf.setText(eventAttributes.getDescription());
 		eventDesTf.setRows(10);
 		eventDesTf.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		eventDesTf.setBounds(37, 295, 1200, 162);
+		eventDesTf.setBounds(200, 367, 996, 90);
 		panel.add(eventDesTf);
 		
 		eventDateTf = new JTextField();
-		eventDateTf.setText("Date : " + eventAttributes.getEventDate());
+		eventDateTf.setText(eventAttributes.getEventDate());
 		eventDateTf.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		eventDateTf.setEditable(false);
 		eventDateTf.setDisabledTextColor(Color.BLACK);
 		eventDateTf.setColumns(10);
 		eventDateTf.setBorder(new LineBorder(Color.BLACK));
 		eventDateTf.setBackground(Color.WHITE);
-		eventDateTf.setBounds(37, 156, 312, 50);
+		eventDateTf.setBounds(200, 156, 226, 40);
 		panel.add(eventDateTf);
 		
 		final JPanel panel_1 = new JPanel();
@@ -159,22 +182,25 @@ public class EventDetails extends MasterPanel {
 		panel_1.setOpaque(false);
 		panel_1.setBorder(null);
 		panel_1.setVisible(false);
-		panel_1.setBounds(373, 152, 426, 59);
+		panel_1.setBounds(470, 152, 426, 59);
 		panel.add(panel_1);
 		
 		final JComboBox comboBox3 = new JComboBox();
-		comboBox3.setModel(new DefaultComboBoxModel(new String[] {"2012", "2013", "2014"}));
+		comboBox3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboBox3.setModel(new DefaultComboBoxModel(new String[] {"2013", "2014"}));
 		comboBox3.setSelectedIndex(0);
 		comboBox3.setBounds(169, 11, 75, 34);
 		panel_1.add(comboBox3);
 		
 		final JComboBox comboBox2 = new JComboBox();
-		comboBox2.setModel(new DefaultComboBoxModel(new String[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}));
+		comboBox2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboBox2.setModel(new DefaultComboBoxModel(new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}));
 		comboBox2.setSelectedIndex(0);
 		comboBox2.setBounds(62, 11, 97, 34);
 		panel_1.add(comboBox2);
 		
 		final JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		comboBox.setSelectedIndex(0);
 		comboBox.setBounds(10, 11, 42, 34);
@@ -201,6 +227,52 @@ public class EventDetails extends MasterPanel {
 		btnSetDate.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 						Color.DARK_GRAY, null));
 		btnSetDate.setBackground(new Color(255, 165, 0));
+		
+		JLabel lblNewLabel = new JLabel("Date :");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel.setBounds(40, 163, 71, 25);
+		panel.add(lblNewLabel);
+		
+		JLabel lblAddress = new JLabel("Address :");
+		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblAddress.setBounds(40, 214, 116, 25);
+		panel.add(lblAddress);
+		
+		JLabel lblDescription = new JLabel("Description :");
+		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblDescription.setBounds(40, 368, 116, 25);
+		panel.add(lblDescription);
+		
+		JLabel lblPrice = new JLabel("Price :");
+		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPrice.setBounds(40, 265, 116, 25);
+		panel.add(lblPrice);
+		
+		JLabel lblEventType = new JLabel("Event Type :");
+		lblEventType.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEventType.setBounds(40, 317, 116, 25);
+		panel.add(lblEventType);
+		
+		JLabel lblEventTypeDynamic = new JLabel(eventAttributes.getEventType());
+		lblEventTypeDynamic.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEventTypeDynamic.setBounds(200, 317, 116, 25);
+		panel.add(lblEventTypeDynamic);
+		
+		JLabel lblTicketsLeft = new JLabel("Tickets Left :");
+		lblTicketsLeft.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTicketsLeft.setBounds(357, 317, 116, 25);
+		panel.add(lblTicketsLeft);
+		
+		if(eventAttributes.getEventNoOfTickets() == 0){
+			btnProceedToPayment.setEnabled(false);
+		}
+		String eventNoOfTickets = Integer.toString(eventAttributes.getEventNoOfTickets());
+		JLabel lblTicketsLeftDynamic = new JLabel(eventNoOfTickets);
+		lblTicketsLeftDynamic.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTicketsLeftDynamic.setBounds(503, 317, 116, 25);
+		panel.add(lblTicketsLeftDynamic);
+		
+
 
 		JButton button = new JButton("Back");
 		button.setFocusPainted(false);
@@ -261,9 +333,12 @@ public class EventDetails extends MasterPanel {
 			public void actionPerformed(ActionEvent e) {
 				EventAttributes eventAttributes = new EventAttributes();
 				eventAttributes = f.getStoreEvents();
+				System.out.println("test"+eventAttributes.getEventName());
+				
 				
 				eventAddressTf.setEditable(true);
 				eventDesTf.setEditable(true);
+				eventPriceTf.setEditable(true);
 				
 				eventAddressTf.setText(eventAttributes.getEventAddress());
 				eventDesTf.setText(eventAttributes.getDescription());
@@ -281,17 +356,24 @@ public class EventDetails extends MasterPanel {
 			public void actionPerformed(ActionEvent e) {
 				EventAttributes eventAttributes = new EventAttributes();
 				eventAttributes = f.getStoreEvents();
+				
+				String price = eventPriceTf.getText();
+				String expression = "^\\d{1,5}(\\.\\d{0,2})?$";
+				if (price.matches(expression)){
 				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to update?");
 				if (reply == JOptionPane.YES_OPTION){
 					String eventAddNew = eventAddressTf.getText();
 					String eventDesNew = eventDesTf.getText();
 					String eventDate = eventDateTf.getText();
+					String eventPrice = eventPriceTf.getText();
+					// String to double
+					double eventPriceInt = Double.parseDouble(eventPrice);
 
 					try {
 
 
 						String sql3 = "update Events set eventAdd='" + eventAddNew
-								+ "' , eventDes='" + eventDesNew + "', eventDate='"+eventDate
+								+ "' , eventDes='" + eventDesNew + "', eventDate='"+eventDate+"', eventPrice='"+eventPrice		
 								+ "' where eventName='"
 								+ eventAttributes.getEventName() + "' ";
 						DBConnectionManager.pstmt = DBConnectionManager.con
@@ -306,13 +388,17 @@ public class EventDetails extends MasterPanel {
 					
 					eventAddressTf.setEditable(false);
 					eventDesTf.setEditable(false);
+					eventPriceTf.setEditable(false);
 					
 					panel_1.setVisible(false);
 					btnUpdate.setVisible(false);
 					modify.setVisible(true);
 					
+					JOptionPane.showMessageDialog(null, "Event is updated");
 				}
-				else {
+				
+				
+				else if (reply == JOptionPane.NO_OPTION) {
 
 
 					eventAddressTf.setEditable(false);
@@ -321,6 +407,10 @@ public class EventDetails extends MasterPanel {
 					btnUpdate.setVisible(false);
 					panel_1.setVisible(false);
 					modify.setVisible(true);
+				}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Please enter only integers or with decimal points for text field 'Price' \n(Two decimal points only)");
 				}
 				
 				
@@ -342,10 +432,16 @@ public class EventDetails extends MasterPanel {
 								.getString("eventName"));
 						eventAttributes.setEventDate(DBConnectionManager.rs
 								.getString("eventDate"));
+						eventAttributes.setEventPrice(DBConnectionManager.rs
+								.getFloat("eventPrice"));
 
-						eventAddressTf.setText("Address: "+ eventAttributes.getEventAddress());
-						eventDesTf.setText("Description: "+ eventAttributes.getDescription());
-						eventDateTf.setText("Date: "+ eventAttributes.getEventDate());
+						eventAddressTf.setText(eventAttributes.getEventAddress());
+						eventDesTf.setText(eventAttributes.getDescription());
+						eventDateTf.setText( eventAttributes.getEventDate());
+						
+						String eventPriceString = Double.toString(eventAttributes.getEventPrice());
+						eventPriceTf.setText(eventPriceString);
+
 						f.setStoreEvents(eventAttributes);
 
 					}
@@ -397,7 +493,9 @@ public class EventDetails extends MasterPanel {
 					EventAttributes eventAttributes = new EventAttributes();
 					eventAttributes = f.getStoreEvents();
 					String eventName = eventAttributes.getEventName();
-					String sql = "DELETE FROM events WHERE eventName ='"+eventName+"'";
+					String eventDate = eventAttributes.getEventDate();
+					String eventAdd = eventAttributes.getEventAddress();
+					String sql = "DELETE FROM events WHERE eventName ='"+eventName+"' and eventDate='"+eventDate+"' and eventAdd='"+eventAdd+"'";
 					try {
 						//DBConnectionManager.rs = DBConnectionManager.stmt.execute(sql);
 						DBConnectionManager.pstmt = DBConnectionManager.con
@@ -442,11 +540,16 @@ public class EventDetails extends MasterPanel {
 		delete.setBounds(407, 662, 150, 75);
 		add(delete);
 		
-		JTextPane txtpnA = new JTextPane();
-		txtpnA.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		txtpnA.setText(eventAttributes.getEventName());
-		txtpnA.setBounds(321, 62, 459, 58);
-		add(txtpnA);
+		JLabel eventHeader = new JLabel();
+		eventHeader.setHorizontalAlignment(SwingConstants.CENTER);
+		eventHeader.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		eventHeader.setText(eventAttributes.getEventName());
+		eventHeader.setBounds(357, 42, 405, 43);
+		add(eventHeader);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(395, 91, 353, 10);
+		add(separator);
 		
 
 

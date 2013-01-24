@@ -228,8 +228,26 @@ final JTable table = new JTable(new JTableModel());
 					public void actionPerformed(ActionEvent arg0) {
 						
 						String username = allUsers.get(rowIndex).getUsername();
+						int telNo = allUsers.get(rowIndex).getPhoneNumber();
+						String firstName = allUsers.get(rowIndex).getFirstName();
+						String lastName = allUsers.get(rowIndex).getLastName();
+						String creationDate = allUsers.get(rowIndex).getCreationDate();
+						int rank = allUsers.get(rowIndex).getRank();
+						String email = allUsers.get(rowIndex).getEmail();
+						String pass_IcNo = allUsers.get(rowIndex).getPass_icNo();
+						
+						
 						Member editUser = new Member();
+						
+						
 						editUser.setUsername(username);
+						editUser.setPhoneNumber(telNo);
+						editUser.setFirstName(firstName);
+						editUser.setLastName(lastName);
+						editUser.setCreationDate(creationDate);
+						editUser.setRank(rank);
+						editUser.setEmail(email);
+						editUser.setPass_icNo(pass_IcNo);
 						f.setEditAccountSession(editUser);
 						
 						

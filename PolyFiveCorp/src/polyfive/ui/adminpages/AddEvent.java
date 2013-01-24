@@ -27,6 +27,9 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.JPanel;
+import javax.swing.JCheckBox;
+import javax.swing.JSeparator;
+import javax.swing.JLabel;
 ;
 
 public class AddEvent extends MasterPanel {
@@ -34,9 +37,14 @@ public class AddEvent extends MasterPanel {
 	private JTextField txtDateOfEvent;
 	private JTextField txtDescription;
 	private JTextField tfEventName;
+	private JTextField txtAddress;
 	private JTextField tfAddress;
-	private JTextField tfAddress_1;
 	private MainFrame f = null;
+	private JTextField txtTypeOfEvent;
+	private JTextField txtPrice;
+	private JTextField tfPrice;
+	private JTextField textNoOfTickets;
+	private JTextField tfNoOfTickets;
 	
 	
 	
@@ -81,20 +89,20 @@ public class AddEvent extends MasterPanel {
 		txtEventName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtEventName.setEditable(false);
 		txtEventName.setText("Event Name :");
-		txtEventName.setBounds(435, 156, 219, 49);
+		txtEventName.setBounds(364, 156, 219, 49);
 		add(txtEventName);
 		txtEventName.setColumns(10);
 		
-		tfAddress = new JTextField();
-		tfAddress.setBorder(null);
-		tfAddress.setOpaque(false);
-		tfAddress.setHorizontalAlignment(SwingConstants.CENTER);
-		tfAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		tfAddress.setEditable(false);
-		tfAddress.setText("Address       :");
-		tfAddress.setBounds(435, 232, 219, 50);
-		add(tfAddress);
-		tfAddress.setColumns(10);
+		txtAddress = new JTextField();
+		txtAddress.setBorder(null);
+		txtAddress.setOpaque(false);
+		txtAddress.setHorizontalAlignment(SwingConstants.CENTER);
+		txtAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtAddress.setEditable(false);
+		txtAddress.setText("Address       :");
+		txtAddress.setBounds(374, 216, 219, 50);
+		add(txtAddress);
+		txtAddress.setColumns(10);
 		
 		txtDateOfEvent = new JTextField();
 		txtDateOfEvent.setOpaque(false);
@@ -103,7 +111,7 @@ public class AddEvent extends MasterPanel {
 		txtDateOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtDateOfEvent.setEditable(false);
 		txtDateOfEvent.setText("Date of Event :");
-		txtDateOfEvent.setBounds(424, 305, 218, 49);
+		txtDateOfEvent.setBounds(365, 277, 218, 49);
 		add(txtDateOfEvent);
 		txtDateOfEvent.setColumns(10);
 		
@@ -114,28 +122,28 @@ public class AddEvent extends MasterPanel {
 		txtDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtDescription.setEditable(false);
 		txtDescription.setText("Description :");
-		txtDescription.setBounds(435, 383, 219, 49);
+		txtDescription.setBounds(374, 404, 219, 49);
 		add(txtDescription);
 		txtDescription.setColumns(10);
 		
 		tfEventName = new JTextField();
 		tfEventName.setBorder(new LineBorder(Color.BLACK));
 		tfEventName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		tfEventName.setBounds(657, 163, 283, 35);
+		tfEventName.setBounds(593, 163, 283, 35);
 		add(tfEventName);
 		tfEventName.setColumns(10);
 		
-		tfAddress_1 = new JTextField();
-		tfAddress_1.setBorder(new LineBorder(Color.BLACK));
-		tfAddress_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		tfAddress_1.setBounds(657, 239, 283, 35);
-		add(tfAddress_1);
-		tfAddress_1.setColumns(10);
+		tfAddress = new JTextField();
+		tfAddress.setBorder(new LineBorder(Color.BLACK));
+		tfAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		tfAddress.setBounds(593, 223, 283, 35);
+		add(tfAddress);
+		tfAddress.setColumns(10);
 		
 		final JTextArea taDescription = new JTextArea();
 		taDescription.setBorder(new LineBorder(new Color(0, 0, 0)));
 		taDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		taDescription.setBounds(657, 394, 423, 158);
+		taDescription.setBounds(590, 415, 423, 119);
 		add(taDescription);
 		
 		JButton Back = new JButton("Back");
@@ -154,7 +162,7 @@ public class AddEvent extends MasterPanel {
 		Back.setFocusPainted(false);
 		Back.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
 		Back.setBackground(new Color(255, 165, 0));
-		Back.setBounds(243, 603, 150, 75);
+		Back.setBounds(21, 664, 150, 75);
 		add(Back);
 
 
@@ -163,7 +171,7 @@ public class AddEvent extends MasterPanel {
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBorder(null);
-		panel.setBounds(657, 305, 273, 59);
+		panel.setBounds(574, 277, 273, 59);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -171,7 +179,7 @@ public class AddEvent extends MasterPanel {
 		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBox_2.setBounds(188, 11, 75, 34);
 		panel.add(comboBox_2);
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"2012", "2013", "2014"}));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"2013", "2014"}));
 		comboBox_2.setSelectedIndex(0);
 		
 		final JComboBox comboBox_1 = new JComboBox();
@@ -191,7 +199,107 @@ public class AddEvent extends MasterPanel {
 		comboBox.setSelectedIndex(0);
 		
 		
-		JButton AddEvent = new JButton("Add Event");
+		final JButton AddEvent = new JButton("Add Event");
+		AddEvent.setVisible(false);
+	
+		AddEvent.setForeground(Color.DARK_GRAY);
+		AddEvent.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		AddEvent.setFocusPainted(false);
+		AddEvent.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		AddEvent.setBackground(new Color(255, 165, 0));
+		AddEvent.setBounds(1188, 664, 150, 75);
+		add(AddEvent);
+		
+		
+		txtPrice = new JTextField();
+		txtPrice.setText("Price of Ticket :");
+		txtPrice.setOpaque(false);
+		txtPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtPrice.setEditable(false);
+		txtPrice.setColumns(10);
+		txtPrice.setBorder(null);
+		txtPrice.setVisible(false);
+		txtPrice.setBounds(364, 565, 218, 49);
+		add(txtPrice);
+		
+		tfPrice = new JTextField();
+		tfPrice.setVisible(false);
+		tfPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		tfPrice.setColumns(10);
+		tfPrice.setBorder(new LineBorder(Color.BLACK));
+		tfPrice.setBounds(593, 572, 80, 35);
+		add(tfPrice);
+		
+		
+		
+		
+		final JCheckBox chckbxStanding = new JCheckBox("Standing");
+		chckbxStanding.setFocusPainted(false);
+		chckbxStanding.setOpaque(false);
+		chckbxStanding.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxStanding.setBounds(593, 352, 97, 23);
+		add(chckbxStanding);
+		
+		final JCheckBox chckbxSitting = new JCheckBox("Sitting");
+		chckbxSitting.setFocusPainted(false);
+		chckbxSitting.setOpaque(false);
+		chckbxSitting.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxSitting.setBounds(692, 352, 97, 23);
+		add(chckbxSitting);
+		
+		final JButton btnNext = new JButton("Next");
+		btnNext.setVisible(false);
+		btnNext.setForeground(Color.DARK_GRAY);
+		btnNext.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnNext.setFocusPainted(false);
+		btnNext.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
+		btnNext.setBackground(new Color(255, 165, 0));
+		btnNext.setBounds(1188, 664, 150, 75);
+		add(btnNext);
+		
+		
+		
+		chckbxStanding.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean check = chckbxStanding.isSelected();
+				if(check == true){
+				AddEvent.setVisible(true);
+				chckbxSitting.setEnabled(false);
+				txtPrice.setVisible(true);
+				tfPrice.setVisible(true);
+				textNoOfTickets.setVisible(true);
+				tfNoOfTickets.setVisible(true);
+				
+				}
+				else if(check == false){
+					AddEvent.setVisible(false);
+				chckbxSitting.setEnabled(true);
+				txtPrice.setVisible(false);
+				tfPrice.setVisible(false);
+				textNoOfTickets.setVisible(false);
+				tfNoOfTickets.setVisible(false);
+				}
+			}
+		});
+		
+		
+		chckbxSitting.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean check = chckbxSitting.isSelected();
+				if(check == true){
+				chckbxStanding.setEnabled(false);
+				btnNext.setVisible(true);
+				}
+				else if (check == false){
+				btnNext.setVisible(false);
+				chckbxStanding.setEnabled(true);
+				}
+			}
+		});
+		
+		
+		
 		AddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 		/*		 EventDetails eventDetails = new EventDetails();
@@ -203,63 +311,137 @@ public class AddEvent extends MasterPanel {
 			     	f.repaint();
 					f.revalidate();
 					f.setVisible(true);
-			*/
+			*/	String price = tfPrice.getText();
+				String expression = "^\\d{1,5}(\\.\\d{0,2})?$";
+				
+				String noOfTickets = tfNoOfTickets.getText();
+				String expression2 = "^(0|[1-9][0-9]*)$";
+				 
+				if ((price.matches(expression)) && (noOfTickets.matches(expression2))){
+					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to add this new event ?");
+					if (reply == JOptionPane.YES_OPTION){
+						String eventName = tfEventName.getText();
+						String eventAdd = tfAddress.getText();
+						String des = taDescription.getText();
+						
+						//Change string to double
+						String eventPrice = tfPrice.getText();
+						float eventPriceInt = Float.parseFloat(eventPrice);
+						
+						String eventNoOfTickets = tfNoOfTickets.getText();
+						int eventNoOfTicketsInt = Integer.parseInt(eventNoOfTickets);
+						
+				//		String eventNoOfTickets = tfEventNoOFtickets.
+						String eventType = null;
+						
+						if(chckbxSitting.isSelected()){
+							eventType = chckbxSitting.getText();
+						}
+						else if (chckbxStanding.isSelected()){
+							eventType = chckbxStanding.getText();
+						}
+						
 
-				
-				
-				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to add this new event ?");
-				if (reply == JOptionPane.YES_OPTION){
-					String eventName = tfEventName.getText();
-					String eventAdd = tfAddress_1.getText();
-					String des = taDescription.getText();
-					EventAttributes addEvent = new EventAttributes();
-					
-					String date = (String)comboBox.getSelectedItem();
-					String month = (String)comboBox_1.getSelectedItem();
-					String year = (String)comboBox_2.getSelectedItem();
-					
-					final String fullDate = date+ " " +month+ " " + year ;
-					
-					addEvent.setEventName(eventName);
-					addEvent.setEventAddress(eventAdd);
-					addEvent.setEventDate(fullDate);
-					addEvent.setDescription(des);
-					
-					EventDetailsDao.insertEventDetails(addEvent);
-					JOptionPane.showMessageDialog(null, "Event is added");
+						EventAttributes addEvent = new EventAttributes();
+						
+						String date = (String)comboBox.getSelectedItem();
+						String month = (String)comboBox_1.getSelectedItem();
+						String year = (String)comboBox_2.getSelectedItem();
+						
+						final String fullDate = date+ " " +month+ " " + year ;
+						
+						addEvent.setEventName(eventName);
+						addEvent.setEventAddress(eventAdd);
+						addEvent.setEventDate(fullDate);
+						addEvent.setDescription(des);
+						addEvent.setEventPrice(eventPriceInt);
+						addEvent.setEventType(eventType);
+						addEvent.setEventNoOfTickets(eventNoOfTicketsInt);
+						
+						try{
+						EventDetailsDao.insertEventDetails(addEvent);
+						
+						}
+						catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Event is not added \n" +ex);
+						SearchEvents searchEvents= new SearchEvents(f);
+						f.getContentPane().removeAll();
+						f.getContentPane().add(searchEvents);
+						f.repaint();
+						f.revalidate();
+						f.setVisible(true);
+						
+						}
+						
+						JOptionPane.showMessageDialog(null, "Event is added");
+						SearchEvents searchEvents= new SearchEvents(f);
+						f.getContentPane().removeAll();
+						f.getContentPane().add(searchEvents);
+						f.repaint();
+						f.revalidate();
+						f.setVisible(true);
+
+						
+					}
+					else if (reply == JOptionPane.NO_OPTION){
+						JOptionPane.showMessageDialog(null, "Event is not added");
 					SearchEvents searchEvents= new SearchEvents(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(searchEvents);
 					f.repaint();
 					f.revalidate();
 					f.setVisible(true);
+					}
 					
 				}
-				else 
-					JOptionPane.showMessageDialog(null, "Event is not added");
-				SearchEvents searchEvents= new SearchEvents(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(searchEvents);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				
+				else {
+					JOptionPane.showMessageDialog(null, "Please enter only integers or with decimal points for text field 'Price of Ticket' \n(Two decimal points only) \nOR\nEnter whole number for number of tickets.");
+
+				}
+
 				}
 			});
-		AddEvent.setForeground(Color.DARK_GRAY);
-		AddEvent.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		AddEvent.setFocusPainted(false);
-		AddEvent.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY, null));
-		AddEvent.setBackground(new Color(255, 165, 0));
-		AddEvent.setBounds(822, 603, 150, 75);
-		add(AddEvent);
-		
 
+		txtTypeOfEvent = new JTextField();
+		txtTypeOfEvent.setText("Type of Event :");
+		txtTypeOfEvent.setOpaque(false);
+		txtTypeOfEvent.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTypeOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtTypeOfEvent.setEditable(false);
+		txtTypeOfEvent.setColumns(10);
+		txtTypeOfEvent.setBorder(null);
+		txtTypeOfEvent.setBounds(365, 337, 218, 49);
+		add(txtTypeOfEvent);
 		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(374, 111, 299, 10);
+		add(separator);
 		
+		JLabel lblNewLabel = new JLabel("Add Event");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel.setBounds(392, 69, 243, 35);
+		add(lblNewLabel);
 		
+		textNoOfTickets = new JTextField();
+		textNoOfTickets.setText("No of Tickets Selling :");
+		textNoOfTickets.setOpaque(false);
+		textNoOfTickets.setHorizontalAlignment(SwingConstants.CENTER);
+		textNoOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textNoOfTickets.setEditable(false);
+		textNoOfTickets.setColumns(10);
+		textNoOfTickets.setBorder(null);
+		textNoOfTickets.setVisible(false);
+		textNoOfTickets.setBounds(341, 627, 219, 49);
+		add(textNoOfTickets);
 		
-
+		tfNoOfTickets = new JTextField();
+		tfNoOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		tfNoOfTickets.setVisible(false);
+		tfNoOfTickets.setColumns(10);
+		tfNoOfTickets.setBorder(new LineBorder(Color.BLACK));
+		tfNoOfTickets.setBounds(593, 641, 80, 35);
+		add(tfNoOfTickets);
 		
 		super.setLayout();
 

@@ -1,6 +1,9 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.EventAttributes;
+import polyfive.entities.JSpinnerAttributes;
 import polyfive.entities.Member;
+import polyfive.entities.dao.TicketsPurchaseDao;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -15,35 +18,36 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTextPane;
-import javax.swing.JSeparator;
-import javax.swing.JScrollBar;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.JProgressBar;
+
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
 import java.awt.Dimension;
 
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.JSeparator;
+
 public class TicketsPurchase extends MasterPanel {
-	private JTextField textField;
-	private JButton btnBack;
+	private JTextField txtTicketsLeft;
+	private JButton btnCancel;
 	private JTextField txtPrice;
 	private MainFrame f = null;
+	private JTextField txtPriceAfterDiscount;
 
 	/**
 	 * Create the panel.
 	 */
 	public TicketsPurchase(MainFrame frame) {
 		f = frame;
+
+
+		EventAttributes eventAttributes = new EventAttributes();
+		eventAttributes = f.getStoreEvents();
+
 		setSize(new Dimension(1366, 768));
 		setBorder(new LineBorder(new Color(255, 140, 0), 0));
 		setBackground(Color.WHITE);
@@ -56,59 +60,185 @@ public class TicketsPurchase extends MasterPanel {
 		panel.setBorder(null);
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setForeground(Color.WHITE);
-		panel.setBounds(57, 120, 1288, 516);
+		panel.setBounds(-48, 174, 1288, 516);
 		add(panel);
 		panel.setLayout(null);
 
-		JLabel lblEnterTransactionId = new JLabel("No.of Tickets:");
+		JLabel lblEnterTransactionId = new JLabel("No.of Tickets :");
 		lblEnterTransactionId.setHorizontalAlignment(SwingConstants.LEFT);
-		lblEnterTransactionId.setBounds(38, 116, 359, 61);
-		lblEnterTransactionId.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		lblEnterTransactionId.setBounds(255, 124, 230, 61);
+		lblEnterTransactionId.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		panel.add(lblEnterTransactionId);
 
-		JLabel lblTicketsLeft = new JLabel("Tickets Left:\r\n");
-		lblTicketsLeft.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		lblTicketsLeft.setBounds(70, 224, 359, 97);
-		panel.add(lblTicketsLeft);
+		JLabel lblTicketsLeft = new JLabel("Tickets Left :\r\n");
+		lblTicketsLeft.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblTicketsLeft.setBounds(275, 198, 210, 78);
 
-		textField = new JTextField();
-		textField.setBackground(new Color(255, 255, 255));
-		textField.setEditable(false);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setBounds(368, 252, 216, 48);
-		panel.add(textField);
-		textField.setColumns(10);
+	//	final JSpinner spinner1 = new JSpinner();
+	//	spinner.setEditor(new JSpinner.DefaultEditor(spinner));
+		
+	    int min = 0;
+	    int max = 8;
+	    int step = 1;
+	    int initValue = 0;
+		
+
+		
+		//spinner.setValue(0);
+		// change int to stirng
+	    
+	    
+	    if (eventAttributes.getEventNoOfTickets()<8){
+	    	max = eventAttributes.getEventNoOfTickets();
+	    	
+	    }
+
+	    final SpinnerModel model = new SpinnerNumberModel(initValue,min,max,step);
+	    final JSpinner spinner = new JSpinner(model);
+	    spinner.setEditor(new JSpinner.DefaultEditor(spinner));
+		spinner.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		//spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinner.setBounds(497, 131, 225, 48);
+		panel.add(spinner);
+	    
+	    
+		String evetNoOfTicketsString = Integer.toString(eventAttributes
+				.getEventNoOfTickets());
+		
+		
+		txtTicketsLeft = new JTextField();
+		txtTicketsLeft.setText(evetNoOfTicketsString);
+		txtTicketsLeft.setBackground(new Color(255, 255, 255));
+		txtTicketsLeft.setEditable(false);
+		txtTicketsLeft.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		txtTicketsLeft.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTicketsLeft.setBounds(497, 209, 225, 48);
+		panel.add(txtTicketsLeft);
+
+		panel.add(lblTicketsLeft);
+		txtTicketsLeft.setColumns(10);
 
 		txtPrice = new JTextField();
+		String currentValueString = Double.toString(eventAttributes
+				.getEventPrice());
+		txtPrice.setText(currentValueString);
 		txtPrice.setEditable(false);
 		txtPrice.setBackground(new Color(255, 255, 255));
 		txtPrice.setHorizontalAlignment(SwingConstants.LEFT);
 		txtPrice.setForeground(new Color(0, 0, 0));
 		txtPrice.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		txtPrice.setBounds(885, 124, 225, 52);
+		txtPrice.setBounds(497, 333, 225, 52);
+
 		panel.add(txtPrice);
 		txtPrice.setColumns(10);
 
-		JLabel lblPrice = new JLabel("Price:");
+		JLabel lblPrice = new JLabel("Price(SGD) :  $");
 		lblPrice.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		lblPrice.setBounds(735, 122, 154, 48);
+		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblPrice.setBounds(290, 337, 253, 48);
 		panel.add(lblPrice);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(485, 293, 253, 19);
+		panel.add(separator);
+		
+		JLabel lblPriceAfterDiscount = new JLabel("Price(SGD) :  $");
+		lblPriceAfterDiscount.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPriceAfterDiscount.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblPriceAfterDiscount.setBounds(793, 337, 253, 48);
+		panel.add(lblPriceAfterDiscount);
+		//get member discount
+		
 
-		JSpinner spinner = new JSpinner();
-		spinner.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		spinner.setModel(new SpinnerNumberModel(1, 1, 8, 1));
-		spinner.setBounds(368, 124, 216, 48);
-		panel.add(spinner);
+		txtPriceAfterDiscount = new JTextField();
+		txtPriceAfterDiscount.setText(currentValueString);
+		txtPriceAfterDiscount.setHorizontalAlignment(SwingConstants.LEFT);
+		txtPriceAfterDiscount.setForeground(Color.BLACK);
+		txtPriceAfterDiscount.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		txtPriceAfterDiscount.setEditable(false);
+		txtPriceAfterDiscount.setColumns(10);
+		txtPriceAfterDiscount.setBackground(Color.WHITE);
+		txtPriceAfterDiscount.setBounds(1010, 333, 225, 52);
+		panel.add(txtPriceAfterDiscount);
 
-		btnBack = new JButton("Cancel");
-		btnBack.setFocusPainted(false);
-		btnBack.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnBack.setBorder(null);
-		btnBack.setBounds(21, 664, 150, 75);
-		add(btnBack);
-		btnBack.addActionListener(new ActionListener() {
+		final JSpinnerAttributes jspinnerValue = new JSpinnerAttributes();
+		final int currentValue = (int) spinner.getValue();
+		jspinnerValue.setValue(currentValue);
+
+		final String ticketsLeft = txtTicketsLeft.getText();
+		int ticketsLeftInt = Integer.parseInt(ticketsLeft);
+
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				int value =  (int) spinner.getValue();
+				int ticketsLeftInt = Integer.parseInt(ticketsLeft);
+				EventAttributes eventAttributes = new EventAttributes();
+				eventAttributes = f.getStoreEvents();
+				Member member = new Member();
+				member = f.getSession();
+				double discount = member.getDisount(member.getRank());
+
+				// System.out.println()
+
+				if (value > jspinnerValue.getValue()) {
+					// up was pressed
+					jspinnerValue.setValue(jspinnerValue.getValue() + 1);
+					String ticketsLeft = txtTicketsLeft.getText();
+					ticketsLeftInt = Integer.parseInt(ticketsLeft) - 1;
+					String ticketsLeftAfterString = Integer.toString(ticketsLeftInt);
+					txtTicketsLeft.setText(ticketsLeftAfterString);
+					
+					//default price
+					String totalPrice = Double.toString((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()));
+					String totalPriceAfterDiscount = Float.toString((float) ((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()) * discount) );
+					txtPrice.setText(totalPrice);
+					txtPriceAfterDiscount.setText(totalPriceAfterDiscount);
+					value = jspinnerValue.getValue();
+
+					txtPrice.updateUI();
+					txtPriceAfterDiscount.updateUI();
+
+				} else if (value < jspinnerValue.getValue()) {
+					// down was pressed
+					jspinnerValue.setValue(jspinnerValue.getValue() - 1);
+					String ticketsLeft = txtTicketsLeft.getText();
+					ticketsLeftInt = Integer.parseInt(ticketsLeft) + 1;
+					String ticketsLeftAfterString = Integer
+							.toString(ticketsLeftInt);
+					txtTicketsLeft.setText(ticketsLeftAfterString);
+					
+					
+					//default price
+					String totalPrice = Double.toString((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()));
+					String totalPriceAfterDiscount = Float.toString((float) ((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()) * discount) );
+
+					txtPrice.setText(totalPrice);
+					txtPriceAfterDiscount.setText(totalPriceAfterDiscount);
+
+					value = jspinnerValue.getValue();
+
+					txtPrice.updateUI();
+					txtPriceAfterDiscount.updateUI();
+				}
+
+				String ticketsLeftAfterString = Integer
+						.toString(ticketsLeftInt);
+				txtTicketsLeft.setText(ticketsLeftAfterString);
+				txtTicketsLeft.updateUI();
+				txtPrice.updateUI();
+
+			}
+		});
+
+
+
+		btnCancel = new JButton("Cancel");
+		btnCancel.setFocusPainted(false);
+		btnCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancel.setBorder(new LineBorder(Color.DARK_GRAY));
+		btnCancel.setBounds(21, 664, 150, 75);
+		add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SearchEvents searchEvents = new SearchEvents(f);
 				f.getContentPane().removeAll();
@@ -118,42 +248,35 @@ public class TicketsPurchase extends MasterPanel {
 				f.setVisible(true);
 			}
 		});
-		btnBack.setForeground(new Color(255, 255, 255));
-		btnBack.setBackground(new Color(255, 165, 0));
-		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnCancel.setForeground(Color.DARK_GRAY);
+		btnCancel.setBackground(new Color(255, 165, 0));
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 
-		JButton btnNewButton = new JButton("Proceed to payment\r\n");
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setBorder(null);
-		btnNewButton.setBounds(1115, 664, 230, 75);
-		add(btnNewButton);
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(255, 165, 0));
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-
+		JButton btnProceedToPayment = new JButton("Proceed to Payment\r\n");
+		btnProceedToPayment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnProceedToPayment.setFocusPainted(false);
+		btnProceedToPayment.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnProceedToPayment.setBorder(new LineBorder(Color.DARK_GRAY));
+		btnProceedToPayment.setBounds(1115, 664, 230, 75);
+		btnProceedToPayment.setForeground(Color.DARK_GRAY);
+		btnProceedToPayment.setBackground(new Color(255, 165, 0));
+		btnProceedToPayment.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		add(btnProceedToPayment);
+		
+		
 		JButton button = new JButton("");
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Member user = new Member();
-				user = f.getSession();
-				if(user.getRank() <= 4 ){
 				MemberCalendar memberCalendar = new MemberCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(memberCalendar);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
-				}
-				else {
-					AdminCalendar adminCalendar = new AdminCalendar(f);
-					f.getContentPane().removeAll();
-					f.getContentPane().add(adminCalendar);
-					f.repaint();
-					f.revalidate();
-					f.setVisible(true);
-				}
 			}
 		});
 		button.setIcon(new ImageIcon(TicketsPurchase.class
@@ -161,15 +284,19 @@ public class TicketsPurchase extends MasterPanel {
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(374, 111, 309, 19);
+		add(separator_1);
+		
+		JLabel lblNewLabel = new JLabel("Tickets Purchase");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel.setBounds(393, 59, 263, 52);
+		add(lblNewLabel);
+		
 
 		super.setLayout();
 
 	}
-
-
-
 }

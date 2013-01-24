@@ -6,6 +6,34 @@ public class EventAttributes {
 	private String tfEventDate;
 	private String tfEventAddress;
 	private String txtDescription;
+	private float eventPrice;
+	private String eventType;
+	private int eventNoOfTickets;
+	
+
+	public int getEventNoOfTickets() {
+		return eventNoOfTickets;
+	}
+
+	public void setEventNoOfTickets(int eventNoOfTickets) {
+		this.eventNoOfTickets = eventNoOfTickets;
+	}
+
+	public String getEventType() {
+		return eventType;
+	}
+
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
+	}
+
+	public double getEventPrice() {
+		return eventPrice;
+	}
+
+	public void setEventPrice(float eventPrice) {
+		this.eventPrice = eventPrice;
+	}
 
 	public String getEventName() {
 		return tfEventName;

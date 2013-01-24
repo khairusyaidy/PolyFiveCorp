@@ -401,7 +401,7 @@ public class AdminAccountDetails extends JPanel {
 				 * newPaymentMethod.setEditable(false);
 				 */
 				Member userRefresh = new Member();
-				userRefresh = f.getSession();
+				userRefresh = f.getEditAccountSession();
 				String rankName = userRefresh.setRankName(userRefresh.getRank());
 				rank.setText(rankName + "\r\n");
 				phoneNumber.setText(userRefresh.getPhoneNumber() + "\r\n");

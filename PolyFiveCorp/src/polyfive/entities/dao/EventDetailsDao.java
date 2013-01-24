@@ -38,17 +38,21 @@ public class EventDetailsDao extends MasterPanel{
             rs = stmt.executeQuery(searchQuery);
             while (rs.next()) {
             
-           //     String memberId = rs.getString("member_id");
+            
+           //   String memberId = rs.getString("member_id");
                 String eventName = rs.getString("eventName");
                 String eventDate = rs.getString("eventDate");
                 String eventAdd = rs.getString("eventAdd");
                 String eventDes = rs.getString("eventDes");
+                float eventPrice = rs.getFloat("eventPrice");
+                String eventType = rs.getString("eventType");
                 event = new EventAttributes();
                 event.setEventName(eventName);
                 event.setEventDate(eventDate);
                 event.setEventAddress(eventAdd);
                 event.setDescription(eventDes);
-             //   member.setPassword(password);
+                event.setEventPrice(eventPrice);
+                event.setEventType(eventType);
                 EventsList.add(event);
             }
         } catch (Exception e) {
@@ -57,30 +61,6 @@ public class EventDetailsDao extends MasterPanel{
 
 return EventsList;
 
-
-
-	/*	
-		StoreEventsNonDB event1 = new StoreEventsNonDB();
-		StoreEventsNonDB event2 = new StoreEventsNonDB();
-		StoreEventsNonDB event3 = new StoreEventsNonDB();
-		StoreEventsNonDB event4 = new StoreEventsNonDB();
-
-		event1.setEventName("Rock and Roll");
-		event1.setEventDate("15 Jan 2012");
-		eventDetails.add(event1);
-
-		event2.setEventName("Disney");
-		event2.setEventDate("16 Jan 2012");
-		eventDetails.add(event2);
-
-		event3.setEventName("Event 3");
-		event3.setEventDate("17 Jan 2012");
-		eventDetails.add(event3);
-
-		event4.setEventName("Event 4");
-		event4.setEventDate("18 Jan 2012");
-		eventDetails.add(event4);
-*/
 		
 	}
 
@@ -94,6 +74,9 @@ return EventsList;
 		String eventDate = addEvent.getEventDate();
 		String eventAdd = addEvent.getEventAddress();
 		String eventDes = addEvent.getDescription();
+		double eventPrice = addEvent.getEventPrice();
+		String eventType = addEvent.getEventType();
+		int eventNoOfTickets = addEvent.getEventNoOfTickets();
 		// get the last member ID 
 		try {
 			
@@ -108,17 +91,9 @@ return EventsList;
             // query for inserting into the table
 
            
-            String query = "insert into Events(idEvent,eventName,eventDate,eventAdd,eventDes) values('"+nextId+"','"+eventName+"','"+eventDate+"','"+eventAdd+"','"+eventDes+"')";
-            
+            String query = "insert into Events(idEvent, eventName, eventDate, eventAdd, eventDes, eventPrice, eventType, eventNoOfTickets) values('"+nextId+"','"+eventName+"','"+eventDate+"','"+eventAdd+"','"+eventDes+"','"+eventPrice+"','"+eventType+"','"+eventNoOfTickets+"' )";   
             pstmt = currentCon.prepareStatement(query);
-            // inserting values
-            
-         
-     /*       pstmt.setString(1,addEvent.getEventName());
-            pstmt.setString(2,addEvent.getEventDate());
-            pstmt.setString(3, addEvent.getEventAddress());  
-            pstmt.setString(4,addEvent.getDescription());
-       */
+
             pstmt.executeUpdate();
             
 		} catch (Exception ex) {

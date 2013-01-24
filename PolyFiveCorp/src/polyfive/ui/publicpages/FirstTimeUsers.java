@@ -148,7 +148,7 @@ public class FirstTimeUsers extends MasterPanel {
 		JTextArea GoldTextArea = new JTextArea();
 		GoldTextArea.setWrapStyleWord(true);
 		GoldTextArea
-				.setText("  \u2022 Meet and Greet\r\n    Session\r\n\r\n  \u2022 Priority Entrance\r\n\r\n  \u2022 Free Signed \r\n     Merchandise\r\n\r\n  \u2022 Advance Booking\r\n\r\n  \u2022 Discount(10%)");
+				.setText("  \u2022 Meet and Greet\r\n    Session\r\n\r\n  \u2022 Priority Entrance\r\n\r\n  \u2022 Free Signed \r\n     Merchandise\r\n\r\n  \u2022 Advance Booking\r\n\r\n  \u2022 Discount(15%)");
 		GoldTextArea.setLineWrap(true);
 		GoldTextArea.setForeground(new Color(184, 134, 11));
 		GoldTextArea.setFont(new Font("Tahoma", Font.PLAIN, 16));

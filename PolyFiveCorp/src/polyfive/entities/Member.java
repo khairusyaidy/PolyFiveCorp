@@ -11,12 +11,34 @@ private String pass_icNo;
 private String firstName;
 private String lastName;
 private String rankName;
+public float discount;
+
+
 
 public Member(){
 	
 }
 
-
+public float getDisount(int rank){
+	switch (rank){
+	//guest non-member
+	case 0: this.discount = 1;
+	break;
+	// basic(registered)
+	case 1: this.discount = 1;
+	break;
+	//bronze
+	case 2: this.discount = 0.95f;
+	break;
+	case 3: this.discount = 0.9f;
+	break;
+	case 4: this.discount = 0.85f;
+	break;
+	case 5: this.discount = 1;
+	break;
+	}
+	return discount;
+}
 
 public String getPassword() {
 	return password;

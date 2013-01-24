@@ -267,7 +267,7 @@ public class SearchEvents extends MasterPanel {
 		
 		private static final long serialVersionUID = 1L;
 		private static final String[] COLUMN_NAMES = new String[] {
-				"Event Names", "Date of Events", "Event Details" };
+				"Event Names", "Date of Events",  "Event Details" };
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {
 				String.class, Date.class, JButton.class };
 
@@ -321,8 +321,12 @@ public class SearchEvents extends MasterPanel {
 					public void actionPerformed(ActionEvent arg0) {
 						
 						String eventName = eventDetails.get(rowIndex).getEventName();
+						String eventDate = eventDetails.get(rowIndex).getEventDate();
+						String eventAdd = eventDetails.get(rowIndex).getEventAddress();
 						EventAttributes eventAttributes = new EventAttributes();
 						eventAttributes.setEventName(eventName);
+						eventAttributes.setEventDate(eventDate);
+						eventAttributes.setEventAddress(eventAdd);
 						f.setStoreEvents(eventAttributes);
 						
 						
