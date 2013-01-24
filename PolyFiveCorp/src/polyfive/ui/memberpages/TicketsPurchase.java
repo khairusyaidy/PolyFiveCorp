@@ -3,7 +3,6 @@ package polyfive.ui.memberpages;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.JSpinnerAttributes;
 import polyfive.entities.Member;
-import polyfive.entities.dao.TicketsPurchaseDao;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
