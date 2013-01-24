@@ -3,27 +3,19 @@ package polyfive.ui.memberpages;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
-import polyfive.ui.images.*;
 import polyfive.ui.master.*;
-import polyfive.ui.publicpages.*;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.SQLException;
@@ -31,7 +23,7 @@ import java.sql.SQLException;
 import javax.swing.JPasswordField;
 import javax.swing.border.EtchedBorder;
 
-public class AccountDetails extends JPanel {
+public class AccountDetails extends MasterPanel {
 	private JTextField creationDate;
 	private JTextField rank;
 	private JTextField phoneNumber;
@@ -60,6 +52,7 @@ public class AccountDetails extends JPanel {
 	public AccountDetails(MainFrame frame) {
 		f = frame;
 		DBConnectionManager.getConnection();
+		setLayout(null);
 
 		Member user = new Member();
 		user = f.getSession();
@@ -321,19 +314,8 @@ public class AccountDetails extends JPanel {
 		confirmNew.setBounds(133, 96, 244, 20);
 		accountManagement.add(confirmNew);
 
-		JLabel lblPoly5Corp = new JLabel("POLYFIVE CORP");
-		lblPoly5Corp.setBounds(35, 30, 185, 35);
-		lblPoly5Corp.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		add(lblPoly5Corp);
-
-		JComboBox chooseLanguage = new JComboBox();
-		chooseLanguage.setBounds(1120, 30, 225, 45);
-		chooseLanguage.setModel(new DefaultComboBoxModel(new String[] {
-				"Select Language", "English", "Tamil", "Malay", "Mandarin" }));
-		add(chooseLanguage);
-
 		JPanel topBar = new JPanel();
-		topBar.setBounds(35, 90, 1292, 45);
+		topBar.setBounds(35, 107, 1292, 45);
 		add(topBar);
 		topBar.setLayout(null);
 
@@ -722,12 +704,14 @@ public class AccountDetails extends JPanel {
 		feedbackText2.setColumns(10);
 		feedbackText2.setBounds(20, 422, 425, 20);
 		miscDetails.add(feedbackText2);
-
-		JLabel background = new JLabel("");
-		background.setIcon(new ImageIcon(AccountDetails.class
-				.getResource("/polyfive/ui/images/p5cbg.png")));
-		background.setBounds(0, 0, 1366, 768);
-		add(background);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(AccountDetails.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
+		button.setBorder(null);
+		button.setBounds(24, 21, 75, 75);
+		add(button);
+		
+		super.setLayout();
 
 	}
 }

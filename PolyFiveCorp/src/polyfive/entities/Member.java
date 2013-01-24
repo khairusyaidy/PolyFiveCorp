@@ -22,10 +22,10 @@ public Member(){
 public float getDisount(int rank){
 	switch (rank){
 	//guest non-member
-	case 0: this.discount = 1;
+	case 0: this.discount = 1f;
 	break;
 	// basic(registered)
-	case 1: this.discount = 1;
+	case 1: this.discount = 1f;
 	break;
 	//bronze
 	case 2: this.discount = 0.95f;
@@ -34,7 +34,7 @@ public float getDisount(int rank){
 	break;
 	case 4: this.discount = 0.85f;
 	break;
-	case 5: this.discount = 1;
+	case 5: this.discount = 1f;
 	break;
 	}
 	return discount;

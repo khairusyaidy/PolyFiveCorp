@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
+import polyfive.ui.memberpages.CreateSeatPanel;
 import polyfive.ui.memberpages.MemberCalendar;
 import polyfive.ui.memberpages.SearchEvents;
 import polyfive.entities.EventAttributes;
@@ -249,6 +250,17 @@ public class AddEvent extends MasterPanel {
 		add(chckbxSitting);
 		
 		final JButton btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateSeatPanel createSeatPanel= new CreateSeatPanel(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(createSeatPanel);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+				////
+			}
+		});
 		btnNext.setVisible(false);
 		btnNext.setForeground(Color.DARK_GRAY);
 		btnNext.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -444,6 +456,7 @@ public class AddEvent extends MasterPanel {
 		add(tfNoOfTickets);
 		
 		super.setLayout();
+		
 
 	}
 }

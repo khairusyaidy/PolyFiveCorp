@@ -31,7 +31,6 @@ public class MainFrame extends JFrame {
 	private static MemberCalendar memberCalendar;
 	private static AdminSearchEvents searchEvents;
 	private static EventDetails eventDetails;
-	private static EventDetailsRNR eventDetailsRNR;
 	private static SeatAllocation seatAllocation;
 	private static TicketsPurchase ticketsPurchase;
 	private static AccountDetails accountDetails;
@@ -41,8 +40,17 @@ public class MainFrame extends JFrame {
 	private static Member editAccountSession;
 	private static adminAddEvent adminAddEvent;
 	private static AddEvent addEvent;
+	private static CreateSeatPanel createSeatPanel;
 	private static AdminCalendar adminCalendar;
 	private static EventAttributes storeEvents;
+
+	public static CreateSeatPanel getCreateSeatPanel() {
+		return createSeatPanel;
+	}
+
+	public static void setCreateSeatPanel(CreateSeatPanel createSeatPanel) {
+		MainFrame.createSeatPanel = createSeatPanel;
+	}
 
 	public static EventAttributes getStoreEvents() {
 		return storeEvents;
@@ -105,9 +113,6 @@ public class MainFrame extends JFrame {
 		return eventDetails;
 	}
 
-	public EventDetailsRNR getEventDetailsRNR() {
-		return eventDetailsRNR;
-	}
 
 	public SeatAllocation getSeatAllocation() {
 		return seatAllocation;

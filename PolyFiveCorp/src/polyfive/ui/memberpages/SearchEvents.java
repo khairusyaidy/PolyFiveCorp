@@ -113,8 +113,7 @@ public class SearchEvents extends MasterPanel {
 				}
 			}
 		});
-		button.setIcon(new ImageIcon(SearchEvents2.class
-				.getResource("/polyFive/ui/images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(SearchEvents.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);

@@ -74,7 +74,7 @@ return EventsList;
 		String eventDate = addEvent.getEventDate();
 		String eventAdd = addEvent.getEventAddress();
 		String eventDes = addEvent.getDescription();
-		double eventPrice = addEvent.getEventPrice();
+		float eventPrice = addEvent.getEventPrice();
 		String eventType = addEvent.getEventType();
 		int eventNoOfTickets = addEvent.getEventNoOfTickets();
 		// get the last member ID 

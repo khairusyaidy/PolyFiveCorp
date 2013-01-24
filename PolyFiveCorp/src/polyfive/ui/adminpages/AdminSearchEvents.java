@@ -7,9 +7,8 @@ import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.*;
 import polyfive.ui.memberpages.EventDetails;
-import polyfive.ui.memberpages.EventDetailsRNR;
+
 import polyfive.ui.memberpages.MemberCalendar;
-import polyfive.ui.memberpages.SearchEvents2;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -214,40 +213,6 @@ public class AdminSearchEvents extends MasterPanel {
 		chckbxNewCheckBox_2.setOpaque(false);
 		chckbxNewCheckBox_2.setBounds(312, 7, 97, 23);
 		panel.add(chckbxNewCheckBox_2);
-
-		JButton btnNewButton = new JButton("Disney");
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EventDetails eventDetails = new EventDetails(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(eventDetails);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-			}
-		});
-		btnNewButton.setBorder(null);
-		btnNewButton.setBounds(930, 630, 89, 23);
-		add(btnNewButton);
-
-		JButton btnRockNRoll = new JButton("Rock N Roll");
-		btnRockNRoll.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRockNRoll.setFocusPainted(false);
-		btnRockNRoll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EventDetailsRNR eventDetailsRNR = new EventDetailsRNR(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(eventDetailsRNR);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-			}
-		});
-		btnRockNRoll.setBorder(null);
-		btnRockNRoll.setBounds(818, 630, 89, 23);
-		add(btnRockNRoll);
 
 		statusText = new JTextField();
 		statusText.setBounds(359, 119, 470, 31);

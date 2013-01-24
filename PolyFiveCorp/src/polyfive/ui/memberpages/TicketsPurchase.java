@@ -16,6 +16,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.geom.AffineTransform;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -25,6 +27,10 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Shape;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -59,7 +65,7 @@ public class TicketsPurchase extends MasterPanel {
 		panel.setBorder(null);
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setForeground(Color.WHITE);
-		panel.setBounds(-48, 174, 1288, 516);
+		panel.setBounds(21, 141, 1288, 516);
 		add(panel);
 		panel.setLayout(null);
 
@@ -120,7 +126,7 @@ public class TicketsPurchase extends MasterPanel {
 		txtPrice = new JTextField();
 		String currentValueString = Double.toString(eventAttributes
 				.getEventPrice());
-		txtPrice.setText(currentValueString);
+	//	txtPrice.setText(currentValueString);
 		txtPrice.setEditable(false);
 		txtPrice.setBackground(new Color(255, 255, 255));
 		txtPrice.setHorizontalAlignment(SwingConstants.LEFT);
@@ -150,7 +156,7 @@ public class TicketsPurchase extends MasterPanel {
 		
 
 		txtPriceAfterDiscount = new JTextField();
-		txtPriceAfterDiscount.setText(currentValueString);
+		//txtPriceAfterDiscount.setText(currentValueString);
 		txtPriceAfterDiscount.setHorizontalAlignment(SwingConstants.LEFT);
 		txtPriceAfterDiscount.setForeground(Color.BLACK);
 		txtPriceAfterDiscount.setFont(new Font("Tahoma", Font.PLAIN, 40));
@@ -159,6 +165,16 @@ public class TicketsPurchase extends MasterPanel {
 		txtPriceAfterDiscount.setBackground(Color.WHITE);
 		txtPriceAfterDiscount.setBounds(1010, 333, 225, 52);
 		panel.add(txtPriceAfterDiscount);
+		
+		JLabel lblAfterDiscount = new JLabel("After discount");
+		lblAfterDiscount.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAfterDiscount.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblAfterDiscount.setBounds(870, 165, 263, 52);
+		panel.add(lblAfterDiscount);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(856, 221, 309, 19);
+		panel.add(separator_2);
 
 		final JSpinnerAttributes jspinnerValue = new JSpinnerAttributes();
 		final int currentValue = (int) spinner.getValue();
@@ -169,13 +185,13 @@ public class TicketsPurchase extends MasterPanel {
 
 		spinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				int value =  (int) spinner.getValue();
+				float value =  (int) spinner.getValue();
 				int ticketsLeftInt = Integer.parseInt(ticketsLeft);
 				EventAttributes eventAttributes = new EventAttributes();
 				eventAttributes = f.getStoreEvents();
 				Member member = new Member();
 				member = f.getSession();
-				double discount = member.getDisount(member.getRank());
+				float discount = member.getDisount(member.getRank());
 
 				// System.out.println()
 
@@ -188,10 +204,19 @@ public class TicketsPurchase extends MasterPanel {
 					txtTicketsLeft.setText(ticketsLeftAfterString);
 					
 					//default price
-					String totalPrice = Double.toString((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()));
-					String totalPriceAfterDiscount = Float.toString((float) ((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()) * discount) );
+					float totalPriceFloat = ( ((jspinnerValue.getValue()) * (eventAttributes.getEventPrice())));
+					String totalPrice = String.format("%.2f", totalPriceFloat);
 					txtPrice.setText(totalPrice);
+					/////////
+					
+					
+					//discounted price 2 d.c
+					float totalPriceAfterDiscountFloat = (((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()) * discount) );
+					String totalPriceAfterDiscount =  String.format("%.2f", totalPriceAfterDiscountFloat);
 					txtPriceAfterDiscount.setText(totalPriceAfterDiscount);
+					///////////////
+					
+
 					value = jspinnerValue.getValue();
 
 					txtPrice.updateUI();
@@ -202,18 +227,24 @@ public class TicketsPurchase extends MasterPanel {
 					jspinnerValue.setValue(jspinnerValue.getValue() - 1);
 					String ticketsLeft = txtTicketsLeft.getText();
 					ticketsLeftInt = Integer.parseInt(ticketsLeft) + 1;
-					String ticketsLeftAfterString = Integer
-							.toString(ticketsLeftInt);
+					String ticketsLeftAfterString = Integer.toString(ticketsLeftInt);
 					txtTicketsLeft.setText(ticketsLeftAfterString);
 					
 					
 					//default price
-					String totalPrice = Double.toString((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()));
-					String totalPriceAfterDiscount = Float.toString((float) ((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()) * discount) );
-
+					float totalPriceFloat = ( ((jspinnerValue.getValue()) * (eventAttributes.getEventPrice())));
+					String totalPrice = String.format("%.2f", totalPriceFloat);
 					txtPrice.setText(totalPrice);
+					/////////
+					
+					
+					//discounted price 2 d.c
+					float totalPriceAfterDiscountFloat = (((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()) * discount) );
+					String totalPriceAfterDiscount = String.format("%.2f", totalPriceAfterDiscountFloat);
 					txtPriceAfterDiscount.setText(totalPriceAfterDiscount);
-
+					////////////
+					
+					
 					value = jspinnerValue.getValue();
 
 					txtPrice.updateUI();

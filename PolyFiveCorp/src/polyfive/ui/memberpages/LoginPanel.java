@@ -74,7 +74,6 @@ public class LoginPanel extends MasterPanel {
 	public LoginPanel(MainFrame frame) {
 		f = frame;
 		DBConnectionManager.connect();
-
 		setSize(new Dimension(1366, 768));
 		setBackground(SystemColor.text);
 		setLayout(null);

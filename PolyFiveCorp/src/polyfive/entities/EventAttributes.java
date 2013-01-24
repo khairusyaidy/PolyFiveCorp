@@ -27,7 +27,7 @@ public class EventAttributes {
 		this.eventType = eventType;
 	}
 
-	public double getEventPrice() {
+	public float getEventPrice() {
 		return eventPrice;
 	}
 
