@@ -30,7 +30,6 @@ public class Register extends MasterPanel {
 	private JTextField email;
 	private JTextField confirmEmail;
 	private JTextField passport_IC;
-	private JTextField captcha;
 	private JTextField enterCaptcha;
 	private JLabel lblPassword;
 	private JLabel lblConfirmPassword;
@@ -45,6 +44,8 @@ public class Register extends MasterPanel {
 	private JButton btnNewButton;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
+	private JButton genCaptcha;
+	private static final String ALPHA_NUM = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	/**
 	 * Create the panel.
@@ -90,11 +91,6 @@ public class Register extends MasterPanel {
 		passport_IC.setBounds(380, 170, 350, 45);
 		passport_IC.setColumns(10);
 		registerDetails.add(passport_IC);
-
-		captcha = new JTextField();
-		captcha.setBounds(380, 245, 170, 45);
-		captcha.setColumns(10);
-		registerDetails.add(captcha);
 
 		enterCaptcha = new JTextField();
 		enterCaptcha.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -151,6 +147,20 @@ public class Register extends MasterPanel {
 		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		passwordField_1.setBounds(0, 170, 350, 45);
 		registerDetails.add(passwordField_1);
+		
+		genCaptcha = new JButton("Generate Captcha");
+		genCaptcha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String sx="";
+				for (int i = 0; i < 12; i++) {
+				int ndx = (int) (Math.random() * ALPHA_NUM.length());
+				sx.concat(""+ALPHA_NUM.charAt(ndx));
+				   }
+				genCaptcha.setText(sx);
+				}
+		});
+		genCaptcha.setBounds(380, 245, 170, 45);
+		registerDetails.add(genCaptcha);
 
 		membershipType = new JComboBox();
 		membershipType.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -216,6 +226,4 @@ public class Register extends MasterPanel {
 		super.setLayout();
 
 	}
-
-
 }
