@@ -63,24 +63,10 @@ public class Register extends MasterPanel {
 	public Register(MainFrame frame) {
 		f = frame;
 		DBConnectionManager.getConnection();
-		Member register  = new Member();
 		setBackground(new Color(255, 255, 255));
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
 		
-		Member user = new Member();
-		user = f.getSession();
-		String userName = user.getUsername();
-		int rankNo = user.getRank();
-		String rankName = user.setRankName(rankNo);
-
-		String sql = "select * from Users where Username = '" + userName + "'";
-		try {
-			DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
 		JPanel registerDetails = new JPanel();
 		registerDetails.setBounds(319, 342, 730, 324);

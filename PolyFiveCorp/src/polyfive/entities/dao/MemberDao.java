@@ -146,7 +146,7 @@ public class MemberDao extends MasterPanel {
 			
 			currentCon = DBConnectionManager.getConnection();
 			stmt = currentCon.createStatement();
-			String getMax = "select Max(idEvent) from Users";
+			String getMax = "select Max(idUser) from Users";
 			rs1 = stmt.executeQuery(getMax);
 			rs1.next();
 			int maxId = rs1.getInt(1);
@@ -155,7 +155,7 @@ public class MemberDao extends MasterPanel {
             // query for inserting into the table
 
            
-            String query = "insert into Events(idUser, Username, Password, telNo, firstName, lastName, creationDate, rank, email, pass_icNo) values('"+nextId+"','"+username+"','"+password+"','"+telNo+"','"+firstName+"','"+lastName+"','"+fullDate+"','"+rank+"','"+email+"','"+pass_icNo+"')";   
+            String query = "insert into Users(idUser, Username, Password, telNo, firstName, lastName, creationDate, rank, email, pass_icNo) values('"+nextId+"','"+username+"','"+password+"','"+telNo+"','"+firstName+"','"+lastName+"','"+fullDate+"','"+rank+"','"+email+"','"+pass_icNo+"')";   
             pstmt = currentCon.prepareStatement(query);
 
             pstmt.executeUpdate();

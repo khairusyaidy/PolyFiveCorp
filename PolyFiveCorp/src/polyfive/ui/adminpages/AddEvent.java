@@ -335,7 +335,7 @@ public class AddEvent extends MasterPanel {
 				String noOfTickets = tfNoOfTickets.getText();
 				String expression2 = "^(0|[1-9][0-9]*)$";
 				
-				String eventMapFileName = tfMapFileName.getText();
+				String eventMapFileName = tfMapFileName.getText().trim();
 				String expression3 = "^[a-zA-Z]+$";
 				
 				// && (eventMapFileName.matches(expression3)) asd
