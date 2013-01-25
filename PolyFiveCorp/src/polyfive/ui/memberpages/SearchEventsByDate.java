@@ -329,8 +329,10 @@ public class SearchEventsByDate extends MasterPanel {
 					public void actionPerformed(ActionEvent arg0) {
 						
 						String eventName = eventDetails.get(rowIndex).getEventName();
+						String eventDate = eventDetails.get(rowIndex).getEventDate();
 						EventAttributes eventAttributes = new EventAttributes();
 						eventAttributes.setEventName(eventName);
+						eventAttributes.setEventDate(eventDate);
 						f.setStoreEvents(eventAttributes);
 						
 						

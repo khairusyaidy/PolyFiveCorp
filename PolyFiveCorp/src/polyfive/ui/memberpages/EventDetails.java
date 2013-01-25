@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.border.EtchedBorder;
@@ -63,7 +64,8 @@ public class EventDetails extends MasterPanel {
 		
 
 		String eventName = eventAttributes.getEventName();
-		String sql = "select * from Events where eventName= '" + eventName + "'";
+		String eventDate = eventAttributes.getEventDate();
+		String sql = "select * from Events where eventName= '" + eventName + "' and eventDate='" + eventDate +"'";
 
 		try {
 			DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql);
@@ -75,6 +77,7 @@ public class EventDetails extends MasterPanel {
 				eventAttributes.setEventPrice(DBConnectionManager.rs.getFloat("eventPrice"));
 				eventAttributes.setEventType(DBConnectionManager.rs.getString("eventType"));
 				eventAttributes.setEventNoOfTickets(DBConnectionManager.rs.getInt("eventNoOfTickets"));
+				eventAttributes.setMapFileName(DBConnectionManager.rs.getString("eventMapFileName"));
 				
 				f.setStoreEvents(eventAttributes);
 			}
@@ -120,14 +123,6 @@ public class EventDetails extends MasterPanel {
 		eventAddressTf.setBounds(200, 207, 996, 40);
 		panel.add(eventAddressTf);
 		eventAddressTf.setColumns(10);
-
-		JLabel eventMap = new JLabel("");
-		eventMap.setBorder(new LineBorder(new Color(0, 0, 0)));
-		eventMap.setHorizontalAlignment(SwingConstants.CENTER);
-		eventMap.setIcon(new ImageIcon(EventDetails.class
-				.getResource("/polyFive/ui/images/Map.PNG")));
-		eventMap.setBounds(66, 11, 1130, 120);
-		panel.add(eventMap);
 
 		JButton btnProceedToPayment = new JButton("Buy Ticket(s)");
 		if(user.getRank() >= 5)
@@ -271,6 +266,35 @@ public class EventDetails extends MasterPanel {
 		lblTicketsLeftDynamic.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTicketsLeftDynamic.setBounds(503, 317, 116, 25);
 		panel.add(lblTicketsLeftDynamic);
+		
+		final JButton btnNewButton = new JButton("");
+		btnNewButton.setDisabledIcon(new ImageIcon(EventDetails.class.getResource("/polyfive/ui/images/Map.PNG")));
+		if(eventAttributes.getMapFileName().equals("")){
+			btnNewButton.setEnabled(false);
+		}
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventAttributes eventAttributes = new EventAttributes();
+				eventAttributes = f.getStoreEvents();
+					String[] cmd = new String[4];
+					cmd[0] = "cmd.exe";
+					cmd[1] = "/C";
+					cmd[2] = "start";
+					cmd[3] = "C:/maps/"+eventAttributes.getMapFileName()+".html";
+					try {
+						Process p = Runtime.getRuntime().exec(cmd);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+
+				
+		});
+		btnNewButton.setIcon(new ImageIcon(EventDetails.class.getResource("/polyfive/ui/images/Map.PNG")));
+		btnNewButton.setBounds(66, 11, 1130, 120);
+		panel.add(btnNewButton);
 		
 
 

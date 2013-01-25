@@ -34,18 +34,12 @@ import javax.swing.JLabel;
 ;
 
 public class AddEvent extends MasterPanel {
-	private JTextField txtEventName;
-	private JTextField txtDateOfEvent;
-	private JTextField txtDescription;
 	private JTextField tfEventName;
-	private JTextField txtAddress;
 	private JTextField tfAddress;
 	private MainFrame f = null;
-	private JTextField txtTypeOfEvent;
-	private JTextField txtPrice;
 	private JTextField tfPrice;
-	private JTextField textNoOfTickets;
 	private JTextField tfNoOfTickets;
+	private JTextField tfMapFileName;
 	
 	
 	
@@ -83,49 +77,64 @@ public class AddEvent extends MasterPanel {
 		button.setBounds(21, 21, 75, 75);
 		add(button);
 		
-		txtEventName = new JTextField();
-		txtEventName.setOpaque(false);
-		txtEventName.setBorder(null);
-		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
-		txtEventName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtEventName.setEditable(false);
-		txtEventName.setText("Event Name :");
-		txtEventName.setBounds(364, 156, 219, 49);
-		add(txtEventName);
-		txtEventName.setColumns(10);
+		final JLabel lblPriceOfTickets = new JLabel("Price of Ticket :   $");
+		lblPriceOfTickets.setVisible(false);
+		lblPriceOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPriceOfTickets.setBounds(726, 623, 175, 40);
+		add(lblPriceOfTickets);
 		
-		txtAddress = new JTextField();
-		txtAddress.setBorder(null);
-		txtAddress.setOpaque(false);
-		txtAddress.setHorizontalAlignment(SwingConstants.CENTER);
-		txtAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtAddress.setEditable(false);
-		txtAddress.setText("Address       :");
-		txtAddress.setBounds(374, 216, 219, 50);
-		add(txtAddress);
-		txtAddress.setColumns(10);
+		JLabel lblMapFileName = new JLabel("Map File Name :");
+		lblMapFileName.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblMapFileName.setBounds(418, 519, 175, 35);
+		add(lblMapFileName);
 		
-		txtDateOfEvent = new JTextField();
-		txtDateOfEvent.setOpaque(false);
-		txtDateOfEvent.setBorder(null);
-		txtDateOfEvent.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDateOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtDateOfEvent.setEditable(false);
-		txtDateOfEvent.setText("Date of Event :");
-		txtDateOfEvent.setBounds(365, 277, 218, 49);
-		add(txtDateOfEvent);
-		txtDateOfEvent.setColumns(10);
+		JLabel lblDescription = new JLabel("Description :");
+		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblDescription.setBounds(441, 400, 175, 35);
+		add(lblDescription);
 		
-		txtDescription = new JTextField();
-		txtDescription.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDescription.setOpaque(false);
-		txtDescription.setBorder(null);
-		txtDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtDescription.setEditable(false);
-		txtDescription.setText("Description :");
-		txtDescription.setBounds(374, 404, 219, 49);
-		add(txtDescription);
-		txtDescription.setColumns(10);
+		JLabel lblTypeOfEvent = new JLabel("Type of Event :");
+		lblTypeOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTypeOfEvent.setBounds(418, 344, 175, 35);
+		add(lblTypeOfEvent);
+		
+		JLabel lblDateOfEvent = new JLabel("Date of Event :");
+		lblDateOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblDateOfEvent.setBounds(418, 287, 175, 35);
+		add(lblDateOfEvent);
+		
+		JLabel lblAddress = new JLabel("Address :");
+		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblAddress.setBounds(471, 223, 175, 35);
+		add(lblAddress);
+		
+		JLabel lblEventName = new JLabel("Event Name :");
+		lblEventName.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEventName.setBounds(430, 163, 175, 35);
+		add(lblEventName);
+		
+		JLabel lblMap = new JLabel("*Place map file in ' C:/maps ' after creating it");
+		lblMap.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMap.setBounds(590, 577, 357, 35);
+		add(lblMap);
+		
+		final JLabel lblTickets = new JLabel("*Enter only whole numbers");
+		lblTickets.setVisible(false);
+		lblTickets.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTickets.setBounds(490, 664, 357, 35);
+		add(lblTickets);
+		
+		final JLabel lblPrice = new JLabel("*Only accepts whole numbers or with 2 decimal places");
+		lblPrice.setVisible(false);
+		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPrice.setBounds(739, 664, 357, 35);
+		add(lblPrice);
+		
+		final JLabel lblNoOfTicketsSelling = new JLabel("No of Tickets Selling :");
+		lblNoOfTicketsSelling.setVisible(false);
+		lblNoOfTicketsSelling.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNoOfTicketsSelling.setBounds(358, 619, 210, 49);
+		add(lblNoOfTicketsSelling);
 		
 		tfEventName = new JTextField();
 		tfEventName.setBorder(new LineBorder(Color.BLACK));
@@ -144,7 +153,7 @@ public class AddEvent extends MasterPanel {
 		final JTextArea taDescription = new JTextArea();
 		taDescription.setBorder(new LineBorder(new Color(0, 0, 0)));
 		taDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		taDescription.setBounds(590, 415, 423, 119);
+		taDescription.setBounds(590, 404, 423, 91);
 		add(taDescription);
 		
 		JButton Back = new JButton("Back");
@@ -175,6 +184,10 @@ public class AddEvent extends MasterPanel {
 		panel.setBounds(574, 277, 273, 59);
 		add(panel);
 		panel.setLayout(null);
+		
+		
+		
+		
 		
 		final JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -211,25 +224,12 @@ public class AddEvent extends MasterPanel {
 		AddEvent.setBounds(1188, 664, 150, 75);
 		add(AddEvent);
 		
-		
-		txtPrice = new JTextField();
-		txtPrice.setText("Price of Ticket :");
-		txtPrice.setOpaque(false);
-		txtPrice.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtPrice.setEditable(false);
-		txtPrice.setColumns(10);
-		txtPrice.setBorder(null);
-		txtPrice.setVisible(false);
-		txtPrice.setBounds(364, 565, 218, 49);
-		add(txtPrice);
-		
 		tfPrice = new JTextField();
 		tfPrice.setVisible(false);
 		tfPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		tfPrice.setColumns(10);
 		tfPrice.setBorder(new LineBorder(Color.BLACK));
-		tfPrice.setBounds(593, 572, 80, 35);
+		tfPrice.setBounds(911, 626, 80, 35);
 		add(tfPrice);
 		
 		
@@ -278,19 +278,24 @@ public class AddEvent extends MasterPanel {
 				if(check == true){
 				AddEvent.setVisible(true);
 				chckbxSitting.setEnabled(false);
-				txtPrice.setVisible(true);
+				lblPriceOfTickets.setVisible(true);
 				tfPrice.setVisible(true);
-				textNoOfTickets.setVisible(true);
+				lblNoOfTicketsSelling.setVisible(true);
 				tfNoOfTickets.setVisible(true);
+				lblTickets.setVisible(true);
+				lblPrice.setVisible(true);
+				
 				
 				}
 				else if(check == false){
 					AddEvent.setVisible(false);
 				chckbxSitting.setEnabled(true);
-				txtPrice.setVisible(false);
+				lblPriceOfTickets.setVisible(false);
 				tfPrice.setVisible(false);
-				textNoOfTickets.setVisible(false);
+				lblNoOfTicketsSelling.setVisible(false);
 				tfNoOfTickets.setVisible(false);
+				lblTickets.setVisible(false);
+				lblPrice.setVisible(false);
 				}
 			}
 		});
@@ -328,8 +333,11 @@ public class AddEvent extends MasterPanel {
 				
 				String noOfTickets = tfNoOfTickets.getText();
 				String expression2 = "^(0|[1-9][0-9]*)$";
+				
+				String eventMapFileName = tfMapFileName.getText();
+				String expression3 = "^[a-zA-Z]+$";
 				 
-				if ((price.matches(expression)) && (noOfTickets.matches(expression2))){
+				if ((price.matches(expression)) && (noOfTickets.matches(expression2)) && (eventMapFileName.matches(expression3))){
 					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to add this new event ?");
 					if (reply == JOptionPane.YES_OPTION){
 						String eventName = tfEventName.getText();
@@ -362,6 +370,9 @@ public class AddEvent extends MasterPanel {
 						
 						final String fullDate = date+ " " +month+ " " + year ;
 						
+						
+						
+						
 						addEvent.setEventName(eventName);
 						addEvent.setEventAddress(eventAdd);
 						addEvent.setEventDate(fullDate);
@@ -369,6 +380,7 @@ public class AddEvent extends MasterPanel {
 						addEvent.setEventPrice(eventPriceInt);
 						addEvent.setEventType(eventType);
 						addEvent.setEventNoOfTickets(eventNoOfTicketsInt);
+						addEvent.setMapFileName(eventMapFileName);
 						
 						try{
 						EventDetailsDao.insertEventDetails(addEvent);
@@ -407,23 +419,12 @@ public class AddEvent extends MasterPanel {
 					
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Please enter only integers or with decimal points for text field 'Price of Ticket' \n(Two decimal points only) \nOR\nEnter whole number for number of tickets.");
+					JOptionPane.showMessageDialog(null, "Please make sure that you filled in accurately");
 
 				}
 
 				}
 			});
-
-		txtTypeOfEvent = new JTextField();
-		txtTypeOfEvent.setText("Type of Event :");
-		txtTypeOfEvent.setOpaque(false);
-		txtTypeOfEvent.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTypeOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtTypeOfEvent.setEditable(false);
-		txtTypeOfEvent.setColumns(10);
-		txtTypeOfEvent.setBorder(null);
-		txtTypeOfEvent.setBounds(365, 337, 218, 49);
-		add(txtTypeOfEvent);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(374, 111, 299, 10);
@@ -435,25 +436,31 @@ public class AddEvent extends MasterPanel {
 		lblNewLabel.setBounds(392, 69, 243, 35);
 		add(lblNewLabel);
 		
-		textNoOfTickets = new JTextField();
-		textNoOfTickets.setText("No of Tickets Selling :");
-		textNoOfTickets.setOpaque(false);
-		textNoOfTickets.setHorizontalAlignment(SwingConstants.CENTER);
-		textNoOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textNoOfTickets.setEditable(false);
-		textNoOfTickets.setColumns(10);
-		textNoOfTickets.setBorder(null);
-		textNoOfTickets.setVisible(false);
-		textNoOfTickets.setBounds(341, 627, 219, 49);
-		add(textNoOfTickets);
-		
 		tfNoOfTickets = new JTextField();
 		tfNoOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		tfNoOfTickets.setVisible(false);
 		tfNoOfTickets.setColumns(10);
 		tfNoOfTickets.setBorder(new LineBorder(Color.BLACK));
-		tfNoOfTickets.setBounds(593, 641, 80, 35);
+		tfNoOfTickets.setBounds(590, 626, 80, 35);
 		add(tfNoOfTickets);
+		
+		tfMapFileName = new JTextField();
+		tfMapFileName.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		tfMapFileName.setColumns(10);
+		tfMapFileName.setBorder(new LineBorder(Color.BLACK));
+		tfMapFileName.setBounds(590, 519, 283, 35);
+		add(tfMapFileName);
+		
+		JLabel lblonlyLettersWith = new JLabel("*Only letters with no spaces");
+		lblonlyLettersWith.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblonlyLettersWith.setBounds(590, 553, 357, 35);
+		add(lblonlyLettersWith);
+		
+
+		
+
+		
+
 		
 		super.setLayout();
 		

@@ -46,6 +46,9 @@ public class EventDetailsDao extends MasterPanel{
                 String eventDes = rs.getString("eventDes");
                 float eventPrice = rs.getFloat("eventPrice");
                 String eventType = rs.getString("eventType");
+                int eventNoOfTickets = rs.getInt("eventNoOfTickets");
+                String eventMapFileName = rs.getString("eventMapFileName");
+                
                 event = new EventAttributes();
                 event.setEventName(eventName);
                 event.setEventDate(eventDate);
@@ -53,6 +56,8 @@ public class EventDetailsDao extends MasterPanel{
                 event.setDescription(eventDes);
                 event.setEventPrice(eventPrice);
                 event.setEventType(eventType);
+                event.setEventNoOfTickets(eventNoOfTickets);
+                event.setMapFileName(eventMapFileName);
                 EventsList.add(event);
             }
         } catch (Exception e) {
@@ -77,6 +82,7 @@ return EventsList;
 		float eventPrice = addEvent.getEventPrice();
 		String eventType = addEvent.getEventType();
 		int eventNoOfTickets = addEvent.getEventNoOfTickets();
+		String eventMapFileName = addEvent.getMapFileName();
 		// get the last member ID 
 		try {
 			
@@ -91,7 +97,7 @@ return EventsList;
             // query for inserting into the table
 
            
-            String query = "insert into Events(idEvent, eventName, eventDate, eventAdd, eventDes, eventPrice, eventType, eventNoOfTickets) values('"+nextId+"','"+eventName+"','"+eventDate+"','"+eventAdd+"','"+eventDes+"','"+eventPrice+"','"+eventType+"','"+eventNoOfTickets+"' )";   
+            String query = "insert into Events(idEvent, eventName, eventDate, eventAdd, eventDes, eventPrice, eventType, eventNoOfTickets,eventMapFileName) values('"+nextId+"','"+eventName+"','"+eventDate+"','"+eventAdd+"','"+eventDes+"','"+eventPrice+"','"+eventType+"','"+eventNoOfTickets+"','"+eventMapFileName+"')";   
             pstmt = currentCon.prepareStatement(query);
 
             pstmt.executeUpdate();

@@ -9,7 +9,16 @@ public class EventAttributes {
 	private float eventPrice;
 	private String eventType;
 	private int eventNoOfTickets;
+	private String mapFileName;
 	
+
+	public String getMapFileName() {
+		return mapFileName;
+	}
+
+	public void setMapFileName(String mapFileName) {
+		this.mapFileName = mapFileName;
+	}
 
 	public int getEventNoOfTickets() {
 		return eventNoOfTickets;

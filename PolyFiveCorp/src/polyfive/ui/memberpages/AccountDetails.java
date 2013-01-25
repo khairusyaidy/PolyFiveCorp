@@ -135,7 +135,7 @@ public class AccountDetails extends MasterPanel {
 
 		currentMember = new JTextField();
 		currentMember.setEditable(false);
-		currentMember.setText("Basic Member\r\n");
+		currentMember.setText(rankName);
 		currentMember.setBounds(140, 147, 240, 20);
 		panel.add(currentMember);
 		currentMember.setColumns(10);
@@ -145,7 +145,6 @@ public class AccountDetails extends MasterPanel {
 		panel.add(lblCurrentMember);
 
 		upgradingTo = new JTextField();
-		upgradingTo.setText("Basic Member\r\n");
 		upgradingTo.setEditable(false);
 		upgradingTo.setColumns(10);
 		upgradingTo.setBounds(140, 173, 240, 20);
@@ -162,15 +161,15 @@ public class AccountDetails extends MasterPanel {
 		accountManagement.setLayout(null);
 
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(10, 37, 77, 14);
+		lblPassword.setBounds(10, 37, 130, 14);
 		accountManagement.add(lblPassword);
 
 		JLabel lblNewPassword = new JLabel("New Password:");
-		lblNewPassword.setBounds(10, 70, 77, 14);
+		lblNewPassword.setBounds(10, 70, 130, 14);
 		accountManagement.add(lblNewPassword);
 
 		JLabel lblConfirmNew = new JLabel("Confirm New:");
-		lblConfirmNew.setBounds(10, 99, 77, 14);
+		lblConfirmNew.setBounds(10, 99, 130, 14);
 		accountManagement.add(lblConfirmNew);
 
 		JButton resetPasswords = new JButton("Reset Changes");
@@ -442,7 +441,7 @@ public class AccountDetails extends MasterPanel {
 		account.add(paymentMethod);
 
 		JLabel lblPaymentMethod = new JLabel("Payment Method:");
-		lblPaymentMethod.setBounds(10, 205, 90, 20);
+		lblPaymentMethod.setBounds(10, 205, 120, 20);
 		account.add(lblPaymentMethod);
 
 		JButton changeDetails = new JButton("Change Details");
@@ -572,7 +571,7 @@ public class AccountDetails extends MasterPanel {
 		editDetails.add(newPaymentMethod);
 
 		JLabel lblNewPaymentMethod = new JLabel("Payment Method:");
-		lblNewPaymentMethod.setBounds(10, 205, 90, 20);
+		lblNewPaymentMethod.setBounds(10, 205, 120, 20);
 		editDetails.add(lblNewPaymentMethod);
 
 		JButton confirmChanges = new JButton("Confirm Changes");
@@ -706,9 +705,31 @@ public class AccountDetails extends MasterPanel {
 		miscDetails.add(feedbackText2);
 		
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Member user = new Member();
+				user = f.getSession();
+				if(user.getRank() <= 4 ){
+				MemberCalendar memberCalendar = new MemberCalendar(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(memberCalendar);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+				}
+				else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
+			}
+		});
 		button.setIcon(new ImageIcon(AccountDetails.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
-		button.setBounds(24, 21, 75, 75);
+		button.setBounds(21, 21, 75, 75);
 		add(button);
 		
 		super.setLayout();

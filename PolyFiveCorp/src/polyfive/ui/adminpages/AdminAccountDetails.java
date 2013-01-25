@@ -5,6 +5,7 @@ import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
+import polyfive.ui.memberpages.MemberCalendar;
 import polyfive.ui.publicpages.*;
 
 import javax.swing.JPanel;
@@ -32,7 +33,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.SwingConstants;
 
-public class AdminAccountDetails extends JPanel {
+public class AdminAccountDetails extends MasterPanel {
 	private JTextField creationDate;
 	private JTextField rank;
 	private JTextField phoneNumber;
@@ -142,7 +143,7 @@ public class AdminAccountDetails extends JPanel {
 
 		currentMember = new JTextField();
 		currentMember.setEditable(false);
-		currentMember.setText("Basic Member\r\n");
+		currentMember.setText(rankName);
 		currentMember.setBounds(140, 147, 240, 20);
 		panel.add(currentMember);
 		currentMember.setColumns(10);
@@ -152,7 +153,7 @@ public class AdminAccountDetails extends JPanel {
 		panel.add(lblCurrentMember);
 
 		upgradingTo = new JTextField();
-		upgradingTo.setText("Basic Member\r\n");
+	//	upgradingTo.setText();
 		upgradingTo.setEditable(false);
 		upgradingTo.setColumns(10);
 		upgradingTo.setBounds(140, 173, 240, 20);
@@ -221,19 +222,8 @@ public class AdminAccountDetails extends JPanel {
 		lblPasswords.setBounds(10, 11, 116, 14);
 		accountManagement.add(lblPasswords);
 
-		JLabel lblPoly5Corp = new JLabel("POLYFIVE CORP");
-		lblPoly5Corp.setBounds(35, 30, 185, 35);
-		lblPoly5Corp.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		add(lblPoly5Corp);
-
-		JComboBox chooseLanguage = new JComboBox();
-		chooseLanguage.setBounds(1120, 30, 225, 45);
-		chooseLanguage.setModel(new DefaultComboBoxModel(new String[] {
-				"Select Language", "English", "Tamil", "Malay", "Mandarin" }));
-		add(chooseLanguage);
-
 		JPanel topBar = new JPanel();
-		topBar.setBounds(35, 90, 1292, 45);
+		topBar.setBounds(35, 107, 1292, 45);
 		add(topBar);
 		topBar.setLayout(null);
 
@@ -355,7 +345,7 @@ public class AdminAccountDetails extends JPanel {
 		account.add(paymentMethod);
 
 		JLabel lblPaymentMethod = new JLabel("Payment Method:");
-		lblPaymentMethod.setBounds(10, 205, 90, 20);
+		lblPaymentMethod.setBounds(10, 205, 137, 20);
 		account.add(lblPaymentMethod);
 
 		JButton changeDetails = new JButton("Change Details");
@@ -485,7 +475,7 @@ public class AdminAccountDetails extends JPanel {
 		editDetails.add(newPaymentMethod);
 
 		JLabel lblNewPaymentMethod = new JLabel("Payment Method:");
-		lblNewPaymentMethod.setBounds(10, 205, 90, 20);
+		lblNewPaymentMethod.setBounds(10, 205, 130, 20);
 		editDetails.add(lblNewPaymentMethod);
 
 		JButton confirmChanges = new JButton("Confirm Changes");
@@ -617,12 +607,36 @@ public class AdminAccountDetails extends JPanel {
 		feedbackText2.setColumns(10);
 		feedbackText2.setBounds(20, 422, 425, 20);
 		miscDetails.add(feedbackText2);
-
-		JLabel background = new JLabel("");
-		background.setIcon(new ImageIcon(AdminAccountDetails.class
-				.getResource("/polyfive/ui/images/p5cbg.png")));
-		background.setBounds(0, 0, 1366, 768);
-		add(background);
+		
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Member user = new Member();
+				user = f.getSession();
+				if(user.getRank() <= 4 ){
+				MemberCalendar memberCalendar = new MemberCalendar(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(memberCalendar);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+				}
+				else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
+			}
+		});
+		button.setIcon(new ImageIcon(AdminAccountDetails.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
+		button.setBorder(null);
+		button.setBounds(21, 21, 75, 75);
+		add(button);
+		
+		super.setLayout();
 
 	}
 }
