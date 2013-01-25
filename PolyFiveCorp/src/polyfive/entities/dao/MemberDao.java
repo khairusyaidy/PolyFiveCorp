@@ -12,7 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MemberDao extends MasterPanel {
 	private static MainFrame f= null;
@@ -107,5 +109,94 @@ public class MemberDao extends MasterPanel {
 
 	return nextId;
 }
+	
+	
+	
+	
+	public static String fullDate(String date){
+		String day = date.substring(8, 10);
+		String month = date.substring(4, 7);
+		String year = date.substring(24,28);
+		
+		String fullDate = day +" " + month+ " " + year ;
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
+
+		return fullDate;
+	}
+	
+	
+	
+	
+	public static Member insertMemberDetails(Member addMember) {
+		Statement stmt = null;
+		String username = addMember.getUsername();
+		String password = addMember.getPassword();
+		int telNo = addMember.getPhoneNumber();
+		String firstName = addMember.getFirstName();
+		String lastName= addMember.getLastName();
+		String fullDate = addMember.getCreationDate();
+		int rank = addMember.getRank();
+		String email = addMember.getEmail();
+		String pass_icNo = addMember.getPass_icNo();
+
+
+		// get the last member ID 
+		try {
+			
+			currentCon = DBConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			String getMax = "select Max(idEvent) from Users";
+			rs1 = stmt.executeQuery(getMax);
+			rs1.next();
+			int maxId = rs1.getInt(1);
+			int nextId = maxId + 1;
+			
+            // query for inserting into the table
+
+           
+            String query = "insert into Events(idUser, Username, Password, telNo, firstName, lastName, creationDate, rank, email, pass_icNo) values('"+nextId+"','"+username+"','"+password+"','"+telNo+"','"+firstName+"','"+lastName+"','"+fullDate+"','"+rank+"','"+email+"','"+pass_icNo+"')";   
+            pstmt = currentCon.prepareStatement(query);
+
+            pstmt.executeUpdate();
+            
+		} catch (Exception ex) {
+
+			System.out.println("Addition of Event failed: An Exception has occurred! " + ex);
+		}
+
+		// exception handling
+		finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {
+				}
+				rs = null;
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (Exception e) {
+				}
+				stmt = null;
+			}
+
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+
+				currentCon = null;
+			}
+		}
+		return addMember;
+
+	}
+	
+	
+	
 
 }

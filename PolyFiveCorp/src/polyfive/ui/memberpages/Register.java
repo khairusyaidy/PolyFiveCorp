@@ -2,6 +2,7 @@ package polyfive.ui.memberpages;
 
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
+import polyfive.entities.dao.MemberDao;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -28,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Register extends MasterPanel {
@@ -52,6 +54,8 @@ public class Register extends MasterPanel {
 	private JPasswordField passwordField_1;
 	private JButton genCaptcha;
 	private static final String ALPHA_NUM = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private JTextField firstName;
+	private JTextField lastName;
 
 	/**
 	 * Create the panel.
@@ -59,6 +63,7 @@ public class Register extends MasterPanel {
 	public Register(MainFrame frame) {
 		f = frame;
 		DBConnectionManager.getConnection();
+		Member register  = new Member();
 		setBackground(new Color(255, 255, 255));
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
@@ -185,14 +190,14 @@ public class Register extends MasterPanel {
 
 		membershipType = new JComboBox();
 		membershipType.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		membershipType.setBounds(580, 274, 225, 45);
+		membershipType.setBounds(574, 161, 225, 45);
 		membershipType.setModel(new DefaultComboBoxModel(new String[] {
 				"Basic", "Bronze", "Silver", "Gold" }));
 		add(membershipType);
 
 		lblChooseYourMembership = new JLabel("Choose your membership type:");
 		lblChooseYourMembership.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblChooseYourMembership.setBounds(551, 228, 291, 35);
+		lblChooseYourMembership.setBounds(545, 109, 291, 35);
 		add(lblChooseYourMembership);
 
 		JButton backButton = new JButton("Back");
@@ -225,65 +230,94 @@ public class Register extends MasterPanel {
 				 * password.getPassword = confirmPassword.getPassword
 				 * After that, it will redirect you to the next page.
 				 */
-				Member userChangeDetails = new Member();
-				userChangeDetails = f.getSession();
-				String captcha = genCaptcha.getText();
-				String enteredCap = enterCaptcha.getText();
+				
+				int rank = membershipType.getSelectedIndex();
+				
+				if (rank >= 2){
+					Member register = new Member();
+					String fn = firstName.getText(); 
+					String ln = lastName.getText();
+					//fullName = fn + ln;
+					String un = accountName.getText();
+					String pass = passwordField.getText();
+					String telNo = phoneNumber.getText();
+					int telNoInt = Integer.parseInt(telNo);
+					String em = email.getText();
+					String passIc = passport_IC.getText();
+					
+					Date date = new Date();
+					String dateString = date.toString();
+					String fulldate = MemberDao.fullDate(dateString);
+					
+					register.setFirstName(fn);
+					register.setLastName(ln);
+					register.setUsername(un);
+					register.setPassword(pass);
+					register.setPhoneNumber(telNoInt);
+					register.setEmail(em);
+					register.setPass_icNo(passIc);
+					register.setCreationDate(fulldate);
+					
+					f.setRegisterAccountSession(register);
+					
+					
+					///
+					//add payment page
+				}
+				else{
+				Member register = new Member();
+				
+				
+				String fn = firstName.getText(); 
+				String ln = lastName.getText();
+				//fullName = fn + ln;
+				String un = accountName.getText();
+				String pass = passwordField.getText();
+				String telNo = phoneNumber.getText();
+				int telNoInt = Integer.parseInt(telNo);
 				String em = email.getText();
-				String cem = confirmEmail.getText();
-				boolean matchCaptcha = false;
-				boolean matchEmail = false;
+				String passIc = passport_IC.getText();
 				
-				if (captcha.equals(enteredCap) && em.equals(cem)){
-					
+				Date date = new Date();
+				String dateString = date.toString();
+				String fulldate = MemberDao.fullDate(dateString);
 				
-				try {
-					
-
-					String sql = "update Users set accountName='" + accountName
-							+ "' , password='" + password + "', phoneNumber='" + phoneNumber
-							+ "' , email='" + email + "' , passportIC='" + passportIC
-							+ "' , rank='" + rank
-							+ "' where username='"
-							+ userChangeDetails.getUsername() + "' ";
-					DBConnectionManager.pstmt = DBConnectionManager.con
-							.prepareStatement(sql);
-					DBConnectionManager.pstmt.execute();
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(null, e);
-					e.printStackTrace();
+				register.setFirstName(fn);
+				register.setLastName(ln);
+				register.setUsername(un);
+				register.setPassword(pass);
+				register.setPhoneNumber(telNoInt);
+				register.setEmail(em);
+				register.setPass_icNo(passIc);
+				register.setCreationDate(fulldate);
+				
+				f.setRegisterAccountSession(register);
+				
+				try {				
+				MemberDao.insertMemberDetails(register);
+				}
+				catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Registration fail" +ex);
 				}
 				
-				String sql2 = "select * from Users where Username = '"
-						+ userChangeDetails.getUsername() + "'";
+				
+				JOptionPane.showConfirmDialog(null, "Registration successful");
+				LoginPanel loginPanel = new LoginPanel(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(loginPanel);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+				
+				
+				
+				
+				}
+				
+				
+				
+			
 
-				try {
-					DBConnectionManager.rs = DBConnectionManager.stmt
-							.executeQuery(sql2);
-					while (DBConnectionManager.rs.next()) {
-                        userChangeDetails.setAccName(DBConnectionManager.rs
-                        		.getString(accountName));
-						userChangeDetails.setPassword(DBConnectionManager.rs
-								.getString("password"));
-						userChangeDetails
-						.setPhoneNumber(DBConnectionManager.rs
-								.getInt("phoneNumber"));
-						userChangeDetails.setEmail(DBConnectionManager.rs
-								.getString("email"));
-						userChangeDetails.setPass_icNo(DBConnectionManager.rs
-								.getString("pass_icNo"));
-						userChangeDetails.setRank(DBConnectionManager.rs
-								.getInt("rank"));
-
-						f.setSession(userChangeDetails);
-
-					}
-
-				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-			}
-		  }
 		}
 		});
 		registerButton
@@ -313,6 +347,26 @@ public class Register extends MasterPanel {
 		btnNewButton.setIcon(new ImageIcon(Register.class
 				.getResource("/polyFive/ui/images/p5cicon7575.png")));
 		btnNewButton.setBorder(null);
+		
+		firstName = new JTextField();
+		firstName.setBounds(319, 286, 350, 45);
+		add(firstName);
+		firstName.setColumns(10);
+		
+		lastName = new JTextField();
+		lastName.setBounds(699, 286, 350, 45);
+		add(lastName);
+		lastName.setColumns(10);
+		
+		JLabel lblFirstName = new JLabel("Enter your first name here:");
+		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblFirstName.setBounds(330, 268, 230, 20);
+		add(lblFirstName);
+		
+		JLabel lblEnterYourLast = new JLabel("Enter your last name here:");
+		lblEnterYourLast.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblEnterYourLast.setBounds(709, 268, 230, 20);
+		add(lblEnterYourLast);
 
 		super.setLayout();
 

@@ -38,12 +38,22 @@ public class MainFrame extends JFrame {
 	private static PaymentPanel paymentPanel;
 	private static Member session;
 	private static Member editAccountSession;
+	private static Member registerAccountSession;
 	private static adminAddEvent adminAddEvent;
 	private static AddEvent addEvent;
 	private static CreateSeatPanel createSeatPanel;
 	private static AdminCalendar adminCalendar;
 	private static EventAttributes storeEvents;
 
+	public static Member getRegisterAccountSession() {
+		return registerAccountSession;
+	}
+
+	public static void setRegisterAccountSession(Member registerAccountSession) {
+		MainFrame.registerAccountSession = registerAccountSession;
+	}
+
+	
 	public static CreateSeatPanel getCreateSeatPanel() {
 		return createSeatPanel;
 	}

@@ -25,11 +25,10 @@ import java.util.Date;
 import org.freixas.jcalendar.DateListener;
 import org.freixas.jcalendar.DateEvent;
 
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDayChooser;
+
 
 import javax.swing.JTextField;
-import com.toedter.calendar.JDateChooser;
+
 
 
 public class MemberCalendar extends MasterPanel {
