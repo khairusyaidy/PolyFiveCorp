@@ -48,8 +48,8 @@ public class Register extends MasterPanel {
 	private JLabel lblChooseYourMembership;
 	private MainFrame f = null;
 	private JButton btnNewButton;
-	private JPasswordField password;
-	private JPasswordField confirmPassword;
+	private JPasswordField passwordField;
+	private JPasswordField passwordField_1;
 	private JButton genCaptcha;
 	private static final String ALPHA_NUM = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -159,15 +159,15 @@ public class Register extends MasterPanel {
 		lblPassport_IC.setBounds(390, 150, 211, 20);
 		registerDetails.add(lblPassport_IC);
 
-		password = new JPasswordField();
-		password.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		password.setBounds(0, 95, 350, 45);
-		registerDetails.add(password);
+		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		passwordField.setBounds(0, 95, 350, 45);
+		registerDetails.add(passwordField);
 
-		confirmPassword = new JPasswordField();
-		confirmPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		confirmPassword.setBounds(0, 170, 350, 45);
-		registerDetails.add(confirmPassword);
+		passwordField_1 = new JPasswordField();
+		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		passwordField_1.setBounds(0, 170, 350, 45);
+		registerDetails.add(passwordField_1);
 		
 		genCaptcha = new JButton("Generate Captcha");
 		genCaptcha.addActionListener(new ActionListener() {
@@ -225,13 +225,25 @@ public class Register extends MasterPanel {
 				 * password.getPassword = confirmPassword.getPassword
 				 * After that, it will redirect you to the next page.
 				 */
+				Member userChangeDetails = new Member();
+				userChangeDetails = f.getSession();
+				String captcha = genCaptcha.getText();
+				String enteredCap = enterCaptcha.getText();
+				String em = email.getText();
+				String cem = confirmEmail.getText();
+				boolean matchCaptcha = false;
+				boolean matchEmail = false;
+				
+				if (captcha.equals(enteredCap) && em.equals(cem)){
+					
+				
 				try {
-					Member userChangeDetails = new Member();
-					userChangeDetails = f.getSession();
+					
 
 					String sql = "update Users set accountName='" + accountName
 							+ "' , password='" + password + "', phoneNumber='" + phoneNumber
-							+ "' , email='" + email + "' , passportIC='" 
+							+ "' , email='" + email + "' , passportIC='" + passportIC
+							+ "' , rank='" + rank
 							+ "' where username='"
 							+ userChangeDetails.getUsername() + "' ";
 					DBConnectionManager.pstmt = DBConnectionManager.con
@@ -241,7 +253,38 @@ public class Register extends MasterPanel {
 					JOptionPane.showMessageDialog(null, e);
 					e.printStackTrace();
 				}
+				
+				String sql2 = "select * from Users where Username = '"
+						+ userChangeDetails.getUsername() + "'";
+
+				try {
+					DBConnectionManager.rs = DBConnectionManager.stmt
+							.executeQuery(sql2);
+					while (DBConnectionManager.rs.next()) {
+                        userChangeDetails.setAccName(DBConnectionManager.rs
+                        		.getString(accountName));
+						userChangeDetails.setPassword(DBConnectionManager.rs
+								.getString("password"));
+						userChangeDetails
+						.setPhoneNumber(DBConnectionManager.rs
+								.getInt("phoneNumber"));
+						userChangeDetails.setEmail(DBConnectionManager.rs
+								.getString("email"));
+						userChangeDetails.setPass_icNo(DBConnectionManager.rs
+								.getString("pass_icNo"));
+						userChangeDetails.setRank(DBConnectionManager.rs
+								.getInt("rank"));
+
+						f.setSession(userChangeDetails);
+
+					}
+
+				} catch (SQLException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
 			}
+		  }
+		}
 		});
 		registerButton
 				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
