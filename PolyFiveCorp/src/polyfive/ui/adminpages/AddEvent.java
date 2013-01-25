@@ -328,7 +328,8 @@ public class AddEvent extends MasterPanel {
 			     	f.repaint();
 					f.revalidate();
 					f.setVisible(true);
-			*/	String price = tfPrice.getText();
+			*/	
+				String price = tfPrice.getText();
 				String expression = "^\\d{1,5}(\\.\\d{0,2})?$";
 				
 				String noOfTickets = tfNoOfTickets.getText();
@@ -337,7 +338,7 @@ public class AddEvent extends MasterPanel {
 				String eventMapFileName = tfMapFileName.getText();
 				String expression3 = "^[a-zA-Z]+$";
 				
-				// && (eventMapFileName.matches(expression3))
+				// && (eventMapFileName.matches(expression3)) asd
 				 
 				if ((price.matches(expression)) && (noOfTickets.matches(expression2)) ){
 					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to add this new event ?");
