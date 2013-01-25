@@ -1,5 +1,7 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.Member;
+import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -8,6 +10,8 @@ import polyfive.ui.publicpages.*;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -22,6 +26,8 @@ import java.awt.Cursor;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
+
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class Register extends MasterPanel {
@@ -42,8 +48,8 @@ public class Register extends MasterPanel {
 	private JLabel lblChooseYourMembership;
 	private MainFrame f = null;
 	private JButton btnNewButton;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JPasswordField password;
+	private JPasswordField confirmPassword;
 	private JButton genCaptcha;
 	private static final String ALPHA_NUM = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -52,9 +58,24 @@ public class Register extends MasterPanel {
 	 */
 	public Register(MainFrame frame) {
 		f = frame;
+		DBConnectionManager.getConnection();
 		setBackground(new Color(255, 255, 255));
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
+		
+		Member user = new Member();
+		user = f.getSession();
+		String userName = user.getUsername();
+		int rankNo = user.getRank();
+		String rankName = user.setRankName(rankNo);
+
+		String sql = "select * from Users where Username = '" + userName + "'";
+		try {
+			DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		JPanel registerDetails = new JPanel();
 		registerDetails.setBounds(319, 342, 730, 324);
@@ -138,15 +159,15 @@ public class Register extends MasterPanel {
 		lblPassport_IC.setBounds(390, 150, 211, 20);
 		registerDetails.add(lblPassport_IC);
 
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		passwordField.setBounds(0, 95, 350, 45);
-		registerDetails.add(passwordField);
+		password = new JPasswordField();
+		password.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		password.setBounds(0, 95, 350, 45);
+		registerDetails.add(password);
 
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		passwordField_1.setBounds(0, 170, 350, 45);
-		registerDetails.add(passwordField_1);
+		confirmPassword = new JPasswordField();
+		confirmPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		confirmPassword.setBounds(0, 170, 350, 45);
+		registerDetails.add(confirmPassword);
 		
 		genCaptcha = new JButton("Generate Captcha");
 		genCaptcha.addActionListener(new ActionListener() {
@@ -195,6 +216,33 @@ public class Register extends MasterPanel {
 		add(backButton);
 
 		JButton registerButton = new JButton("Register");
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				/* Save all of the entered fields upon meeting criteria below:
+				 * entercaptcha.getText = genCaptcha.getText
+				 * no fields are blank (accountName, password, phoneNumber, email, passportIC)
+				 * email.getText = confirmEmail.getText
+				 * password.getPassword = confirmPassword.getPassword
+				 * After that, it will redirect you to the next page.
+				 */
+				try {
+					Member userChangeDetails = new Member();
+					userChangeDetails = f.getSession();
+
+					String sql = "update Users set accountName='" + accountName
+							+ "' , password='" + password + "', phoneNumber='" + phoneNumber
+							+ "' , email='" + email + "' , passportIC='" 
+							+ "' where username='"
+							+ userChangeDetails.getUsername() + "' ";
+					DBConnectionManager.pstmt = DBConnectionManager.con
+							.prepareStatement(sql);
+					DBConnectionManager.pstmt.execute();
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(null, e);
+					e.printStackTrace();
+				}
+			}
+		});
 		registerButton
 				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		registerButton.setFocusPainted(false);
