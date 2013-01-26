@@ -18,12 +18,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
+import polyfive.entities.ChangeLanguage;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 import polyfive.ui.master.WelcomePanel;
+import javax.swing.SwingConstants;
 
 public class LoginPanel extends MasterPanel {
 	private JTextField UsernameField;
@@ -72,6 +74,11 @@ public class LoginPanel extends MasterPanel {
 	 */
 
 	public LoginPanel(MainFrame frame) {
+		ChangeLanguage changeLanguage= new ChangeLanguage();
+		changeLanguage = f.getStoreLanguage();
+		int language = changeLanguage.getChangeLanguage();
+		
+		
 		f = frame;
 		DBConnectionManager.connect();
 		setSize(new Dimension(1366, 768));
@@ -92,14 +99,16 @@ public class LoginPanel extends MasterPanel {
 		panel.add(UsernameField);
 		UsernameField.setColumns(10);
 
-		JLabel lblNric = new JLabel("Password\r\n");
-		lblNric.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNric.setBounds(72, 181, 100, 45);
-		panel.add(lblNric);
+		JLabel lblPassword = new JLabel("Password\r\n");
+		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPassword.setFont(new Font("Tahoma", Font.ITALIC, 20));
+		lblPassword.setBounds(32, 181, 182, 45);
+		panel.add(lblPassword);
 
 		JLabel lblName = new JLabel("Username");
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblName.setBounds(72, 118, 100, 45);
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblName.setFont(new Font("Tahoma", Font.ITALIC, 20));
+		lblName.setBounds(32, 118, 182, 45);
 		panel.add(lblName);
 
 		PasswordField = new JPasswordField();
@@ -317,6 +326,20 @@ public class LoginPanel extends MasterPanel {
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
+		
+		if (language == 0){
+			lblName.setText (WelcomePanel.BUNDLE.getString("LoginPanel.lblName.text") );
+			lblPassword.setText( WelcomePanel.BUNDLE.getString("LoginPanel.lblNric.text") );
+			btnBack.setText(WelcomePanel.BUNDLE.getString("LoginPanel.btnBack.text") );
+			Login.setText(WelcomePanel.BUNDLE.getString("LoginPanel.Login.text") );
+		}
+		else if (language == 1){
+			lblName.setText (WelcomePanel.BUNDLE2.getString("LoginPanel.lblName.text") );
+			lblPassword.setText( WelcomePanel.BUNDLE2.getString("LoginPanel.lblNric.text") );
+			btnBack.setText(WelcomePanel.BUNDLE2.getString("LoginPanel.btnBack.text") );
+			Login.setText(WelcomePanel.BUNDLE2.getString("LoginPanel.Login.text") );
+			
+		}
 
 		super.setLayout();
 

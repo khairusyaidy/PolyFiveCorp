@@ -46,9 +46,11 @@ public class EventDetails extends MasterPanel {
 	 * Create the panel.
 	 */
 	public EventDetails(MainFrame frame) {
-		DBConnectionManager.getConnection();
+		//DBConnectionManager.getConnection();
+		
 		Member user = new Member();
 		user = f.getSession();
+		f.setSession(user);
 		
 		EventAttributes eventAttributes = new EventAttributes();
 		eventAttributes = f.getStoreEvents();
@@ -62,12 +64,13 @@ public class EventDetails extends MasterPanel {
 		setLayout(null);
 
 		
-
+		DBConnectionManager.getConnection();
 		String eventName = eventAttributes.getEventName();
 		String eventDate = eventAttributes.getEventDate();
 		String sql = "select * from Events where eventName= '" + eventName + "' and eventDate='" + eventDate +"'";
 
 		try {
+			
 			DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql);
 			while (DBConnectionManager.rs.next()){
 				eventAttributes.setEventAddress(DBConnectionManager.rs.getString("eventAdd"));
@@ -83,6 +86,7 @@ public class EventDetails extends MasterPanel {
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
+			System.out.println(e1);
 			e1.printStackTrace();
 		}
 
@@ -100,6 +104,7 @@ public class EventDetails extends MasterPanel {
 		
 		String eventPrice = Double.toString(eventAttributes.getEventPrice());
 		eventPriceTf = new JTextField();
+		eventPriceTf.setHorizontalAlignment(SwingConstants.CENTER);
 		eventPriceTf.setText(eventPrice);
 		eventPriceTf.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		eventPriceTf.setEditable(false);
@@ -113,6 +118,7 @@ public class EventDetails extends MasterPanel {
 		
 
 		eventAddressTf = new JTextField();
+		eventAddressTf.setHorizontalAlignment(SwingConstants.CENTER);
 		eventAddressTf.setDisabledTextColor(Color.BLACK);
 		eventAddressTf.setEditable(false);
 		eventAddressTf.setBorder(new LineBorder(Color.BLACK));
@@ -162,6 +168,7 @@ public class EventDetails extends MasterPanel {
 		panel.add(eventDesTf);
 		
 		eventDateTf = new JTextField();
+		eventDateTf.setHorizontalAlignment(SwingConstants.CENTER);
 		eventDateTf.setText(eventAttributes.getEventDate());
 		eventDateTf.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		eventDateTf.setEditable(false);
@@ -169,7 +176,7 @@ public class EventDetails extends MasterPanel {
 		eventDateTf.setColumns(10);
 		eventDateTf.setBorder(new LineBorder(Color.BLACK));
 		eventDateTf.setBackground(Color.WHITE);
-		eventDateTf.setBounds(200, 156, 226, 40);
+		eventDateTf.setBounds(200, 156, 162, 40);
 		panel.add(eventDateTf);
 		
 		final JPanel panel_1 = new JPanel();
@@ -224,27 +231,27 @@ public class EventDetails extends MasterPanel {
 		btnSetDate.setBackground(new Color(255, 165, 0));
 		
 		JLabel lblNewLabel = new JLabel("Date :");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblNewLabel.setBounds(40, 163, 71, 25);
 		panel.add(lblNewLabel);
 		
 		JLabel lblAddress = new JLabel("Address :");
-		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblAddress.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblAddress.setBounds(40, 214, 116, 25);
 		panel.add(lblAddress);
 		
 		JLabel lblDescription = new JLabel("Description :");
-		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblDescription.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblDescription.setBounds(40, 368, 116, 25);
 		panel.add(lblDescription);
 		
 		JLabel lblPrice = new JLabel("Price :");
-		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPrice.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblPrice.setBounds(40, 265, 116, 25);
 		panel.add(lblPrice);
 		
 		JLabel lblEventType = new JLabel("Event Type :");
-		lblEventType.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEventType.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblEventType.setBounds(40, 317, 116, 25);
 		panel.add(lblEventType);
 		
@@ -254,7 +261,7 @@ public class EventDetails extends MasterPanel {
 		panel.add(lblEventTypeDynamic);
 		
 		JLabel lblTicketsLeft = new JLabel("Tickets Left :");
-		lblTicketsLeft.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTicketsLeft.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblTicketsLeft.setBounds(357, 317, 116, 25);
 		panel.add(lblTicketsLeft);
 		
@@ -298,19 +305,37 @@ public class EventDetails extends MasterPanel {
 		
 
 
-		JButton button = new JButton("Back");
+		JButton button = new JButton("Cancel");
 		button.setFocusPainted(false);
 		button.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchEvents searchEvents = new SearchEvents(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(searchEvents);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
+				Member user = new Member();
+				user = f.getSession();
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
 			}
 		});
 		button.setBounds(21, 664, 150, 75);
@@ -566,13 +591,13 @@ public class EventDetails extends MasterPanel {
 		
 		JLabel eventHeader = new JLabel();
 		eventHeader.setHorizontalAlignment(SwingConstants.CENTER);
-		eventHeader.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		eventHeader.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		eventHeader.setText(eventAttributes.getEventName());
-		eventHeader.setBounds(357, 42, 405, 43);
+		eventHeader.setBounds(407, 41, 405, 43);
 		add(eventHeader);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(395, 91, 353, 10);
+		separator.setBounds(446, 86, 353, 10);
 		add(separator);
 		
 

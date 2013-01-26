@@ -1,10 +1,12 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.ChangeLanguage;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
 import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.master.*;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -45,6 +47,10 @@ public class MemberCalendar extends MasterPanel {
 		DBConnectionManager.connect();
 		
 		
+		ChangeLanguage changeLanguage= new ChangeLanguage();
+		changeLanguage = f.getStoreLanguage();
+		int language = changeLanguage.getChangeLanguage();
+		
 		setSize(new Dimension(1366, 768));
 		setBackground(Color.WHITE);
 		setLayout(null);
@@ -83,7 +89,7 @@ public class MemberCalendar extends MasterPanel {
 		btnFindEvents.setBounds(985, 95, 170, 50);
 		add(btnFindEvents);
 		btnLogOut.setForeground(Color.DARK_GRAY);
-		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnLogOut.setFocusPainted(false);
 		btnLogOut.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
@@ -132,7 +138,7 @@ public class MemberCalendar extends MasterPanel {
 		});
 		switch (rank){
 		case 0: lblNewLabel.setForeground(Color.BLACK);
-		rankName = "Regular Member";
+		rankName = "Guest";
 		break;
 		case 1: lblNewLabel.setForeground(Color.BLUE);
 		rankName = "Basic";
@@ -155,9 +161,9 @@ public class MemberCalendar extends MasterPanel {
 		
 		
 		
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(513, 11, 469, 35);
+		lblNewLabel.setBounds(567, 21, 588, 50);
 		add(lblNewLabel);
 		System.out.println();
 		
@@ -187,6 +193,20 @@ public class MemberCalendar extends MasterPanel {
 			}
 		});
 		add(calendar);
+		
+		
+		
+		if (language == 0){
+			btnFindEvents.setText (WelcomePanel.BUNDLE.getString("MemberCalendar.btnFindEvents.text") );
+			btnLogOut.setText (WelcomePanel.BUNDLE.getString("MemberCalendar.btnLogOut.text") );
+		}
+		else if (language == 1){
+			btnFindEvents.setText (WelcomePanel.BUNDLE2.getString("MemberCalendar.btnFindEvents.text") );
+			btnLogOut.setText (WelcomePanel.BUNDLE2.getString("MemberCalendar.btnLogOut.text") );
+
+			
+		}
+		
 
 		super.setLayout();
 	}

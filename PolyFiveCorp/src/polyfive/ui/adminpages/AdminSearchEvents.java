@@ -40,19 +40,17 @@ import java.util.ArrayList;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.JLabel;
+import javax.swing.JSeparator;
 
 
 public class AdminSearchEvents extends MasterPanel {
-	
-	
-	private JTextField filterText;
 	private JButton button;
 	private static MainFrame f = null;
 	private JTable table;
 	private int numberOfUsers;
 	private JTextArea textArea;
 	private JButton button_1;
-	private JTextField statusText;
 
 	/**
 	 * Create the panel.
@@ -66,24 +64,6 @@ public class AdminSearchEvents extends MasterPanel {
 		setBackground(Color.BLACK);
 
 		setLayout(null);
-
-		filterText = new JTextField();
-		filterText.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		filterText.setBounds(359, 77, 470, 31);
-		add(filterText);
-		filterText.setColumns(10);
-
-		JButton btnNewButton_1 = new JButton("Search");
-		btnNewButton_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
-				Color.DARK_GRAY, null));
-		btnNewButton_1
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_1.setFocusPainted(false);
-		btnNewButton_1.setBackground(new Color(255, 165, 0));
-		btnNewButton_1.setForeground(Color.DARK_GRAY);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnNewButton_1.setBounds(839, 75, 130, 36);
-		add(btnNewButton_1);
 
 		button = new JButton("");
 		button.addActionListener(new ActionListener() {
@@ -120,7 +100,7 @@ public class AdminSearchEvents extends MasterPanel {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(359, 208, 660, 397);
+		scrollPane.setBounds(327, 178, 700, 430);
 		add(scrollPane);
 		table.setFillsViewportHeight(true);
 
@@ -130,23 +110,7 @@ public class AdminSearchEvents extends MasterPanel {
 		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.setRowHeight(60);
 
-		table.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent event) {
-						int viewRow = table.getSelectedRow();
-						if (viewRow < 0) {
-							// Selection got filtered away.
-							statusText.setText("");
-						} else {
-							int modelRow = table
-									.convertRowIndexToModel(viewRow);
-							statusText.setText(String.format(
-									"Selected Row in view: %d. "
-											+ "Selected Row in model: %d.",
-									viewRow, modelRow));
-						}
-					}
-				});
+
 
 		// Whenever filterText changes, invoke newFilter.
 
@@ -185,39 +149,15 @@ public class AdminSearchEvents extends MasterPanel {
 		button_1.setBackground(new Color(255, 165, 0));
 		button_1.setBounds(21, 664, 150, 75);
 		add(button_1);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
-		panel.setOpaque(false);
-		panel.setBounds(361, 161, 470, 36);
-		add(panel);
-		panel.setLayout(null);
-
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Sort by Date");
-		chckbxNewCheckBox.setFocusPainted(false);
-		chckbxNewCheckBox.setOpaque(false);
-		chckbxNewCheckBox.setBounds(191, 7, 97, 23);
-		panel.add(chckbxNewCheckBox);
-
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox(
-				"Alphabetical Order ( A - Z )");
-		chckbxNewCheckBox_1.setFocusPainted(false);
-		chckbxNewCheckBox_1.setOpaque(false);
-		chckbxNewCheckBox_1.setBackground(Color.WHITE);
-		chckbxNewCheckBox_1.setBounds(6, 7, 198, 23);
-		panel.add(chckbxNewCheckBox_1);
-
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Location");
-		chckbxNewCheckBox_2.setForeground(Color.BLACK);
-		chckbxNewCheckBox_2.setFocusPainted(false);
-		chckbxNewCheckBox_2.setOpaque(false);
-		chckbxNewCheckBox_2.setBounds(312, 7, 97, 23);
-		panel.add(chckbxNewCheckBox_2);
-
-		statusText = new JTextField();
-		statusText.setBounds(359, 119, 470, 31);
-		add(statusText);
-		statusText.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("List of Events");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel.setBounds(357, 42, 191, 57);
+		add(lblNewLabel);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(311, 99, 296, 2);
+		add(separator);
 
 		super.setLayout();
 

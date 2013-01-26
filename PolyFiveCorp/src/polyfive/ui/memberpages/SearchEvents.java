@@ -6,6 +6,8 @@ import polyfive.entities.dao.DBConnectionManager;
 import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.*;
+import polyfive.ui.publicpages.PublicCalendar;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -44,27 +46,28 @@ import java.util.List;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
+import javax.swing.JLabel;
+import javax.swing.JSeparator;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class SearchEvents extends MasterPanel {
-	
-	
-	private JTextField filterText;
 	private JButton button;
 	private static MainFrame f = null;
 	private JTable table;
 	private int numberOfUsers;
 	private JTextArea textArea;
 	private JButton button_1;
-	private JTextField statusText;
+	private JLabel label;
+	private JSeparator separator;
 
 	/**
 	 * Create the panel.
 	 */
-	
+
 	public SearchEvents(MainFrame frame) {
 		setEnabled(false);
-		
+
 		f = frame;
 		setSize(new Dimension(1366, 768));
 		setFocusable(false);
@@ -72,38 +75,19 @@ public class SearchEvents extends MasterPanel {
 
 		setLayout(null);
 
-		filterText = new JTextField();
-		filterText.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		filterText.setBounds(359, 77, 470, 31);
-		add(filterText);
-		filterText.setColumns(10);
-
-		JButton btnNewButton_1 = new JButton("Search");
-		btnNewButton_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
-				Color.DARK_GRAY, null));
-		btnNewButton_1
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_1.setFocusPainted(false);
-		btnNewButton_1.setBackground(new Color(255, 165, 0));
-		btnNewButton_1.setForeground(Color.DARK_GRAY);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnNewButton_1.setBounds(839, 75, 130, 36);
-		add(btnNewButton_1);
-
 		button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+				if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);
@@ -113,7 +97,8 @@ public class SearchEvents extends MasterPanel {
 				}
 			}
 		});
-		button.setIcon(new ImageIcon(SearchEvents.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(SearchEvents.class
+				.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
@@ -126,55 +111,29 @@ public class SearchEvents extends MasterPanel {
 
 		table.setAutoCreateRowSorter(true);
 		table.setGridColor(new Color(0, 0, 0));
-		
+
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		scrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(359, 208, 660, 397);
+		scrollPane.setBounds(212, 162, 947, 443);
 		add(scrollPane);
 		table.setFillsViewportHeight(true);
-		
-	    
 
 		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
 		table.getColumn("Event Details").setCellRenderer(buttonRenderer);
 		// table.getColumn("Button2").setCellRenderer(buttonRenderer);
 		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.setRowHeight(60);
-		
-		
-		
 
-
-
-		table.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent event) {
-						int viewRow = table.getSelectedRow();
-						if (viewRow < 0) {
-							// Selection got filtered away.
-							statusText.setText("");
-						} else {
-							int modelRow = table
-									.convertRowIndexToModel(viewRow);
-							statusText.setText(String.format(
-									"Selected Row in view: %d. "
-											+ "Selected Row in model: %d.",
-									viewRow, modelRow));
-						}
-					}
-				});
-		
-/*		List <RowSorter.SortKey> sortKeys 
-	    = new ArrayList<RowSorter.SortKey>();
-	sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
-	RowSorter sorter = null;
-	sorter.setSortKeys(sortKeys); 
-	table.setRowSorter(sorter);
-	*/	// Whenever filterText changes, invoke newFilter.
+		/*
+		 * List <RowSorter.SortKey> sortKeys = new
+		 * ArrayList<RowSorter.SortKey>(); sortKeys.add(new RowSorter.SortKey(1,
+		 * SortOrder.ASCENDING)); RowSorter sorter = null;
+		 * sorter.setSortKeys(sortKeys); table.setRowSorter(sorter);
+		 */// Whenever filterText changes, invoke newFilter.
 
 		//
 
@@ -185,15 +144,22 @@ public class SearchEvents extends MasterPanel {
 
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);
@@ -212,16 +178,18 @@ public class SearchEvents extends MasterPanel {
 		button_1.setBounds(21, 664, 150, 75);
 		add(button_1);
 
-		statusText = new JTextField();
-		statusText.setBounds(359, 119, 470, 31);
-		add(statusText);
-		statusText.setColumns(10);
+		label = new JLabel("List of Events");
+		label.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
+		label.setBounds(459, 58, 265, 57);
+		add(label);
+
+		separator = new JSeparator();
+		separator.setBounds(397, 113, 320, 2);
+		add(separator);
 
 		super.setLayout();
 
 	}
-
-
 
 	public class JTableButtonRenderer implements TableCellRenderer {
 		@Override
@@ -263,15 +231,14 @@ public class SearchEvents extends MasterPanel {
 	}
 
 	public static class JTableModel extends AbstractTableModel {
-		
+
 		private static final long serialVersionUID = 1L;
 		private static final String[] COLUMN_NAMES = new String[] {
-				"Event Names", "Date of Events",  "Event Details" };
+				"Event Names", "Date of Events", "Event Details" };
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {
 				String.class, Date.class, JButton.class };
 
-		ArrayList<EventAttributes> eventDetails = EventDetailsDao
-				.RetrieveAll();
+		ArrayList<EventAttributes> eventDetails = EventDetailsDao.RetrieveAll();
 
 		@Override
 		public int getColumnCount() {
@@ -280,7 +247,7 @@ public class SearchEvents extends MasterPanel {
 
 		@Override
 		public int getRowCount() {
-			
+
 			int row = EventDetailsDao.getMax();
 			return row;
 		}
@@ -294,67 +261,64 @@ public class SearchEvents extends MasterPanel {
 		public Class<?> getColumnClass(int columnIndex) {
 			return COLUMN_TYPES[columnIndex];
 		}
-		
+
 		@Override
 		public Object getValueAt(final int rowIndex, final int columnIndex) {
 			switch (columnIndex) {
 			case 0:
 				return eventDetails.get(rowIndex).getEventName();
 			case 1:
-				
-					String date = eventDetails.get(rowIndex).getEventDate();
-					SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
+
+				String date = eventDetails.get(rowIndex).getEventDate();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
 				try {
 					Date convertedDate = dateFormat.parse(date);
-					 return convertedDate;
+					return convertedDate;
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} 
-				    
-				    
+				}
+
 				// case 2: // fall through
 			case 2:
 				final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
-						String eventName = eventDetails.get(rowIndex).getEventName();
-						String eventDate = eventDetails.get(rowIndex).getEventDate();
-						String eventAdd = eventDetails.get(rowIndex).getEventAddress();
+
+						String eventName = eventDetails.get(rowIndex)
+								.getEventName();
+						String eventDate = eventDetails.get(rowIndex)
+								.getEventDate();
+						String eventAdd = eventDetails.get(rowIndex)
+								.getEventAddress();
 						EventAttributes eventAttributes = new EventAttributes();
 						eventAttributes.setEventName(eventName);
 						eventAttributes.setEventDate(eventDate);
 						eventAttributes.setEventAddress(eventAdd);
 						f.setStoreEvents(eventAttributes);
-						
-						
+
 						EventDetails eventDetailsPage = new EventDetails(f);
 						f.getContentPane().removeAll();
 						f.getContentPane().add(eventDetailsPage);
 						f.repaint();
 						f.revalidate();
 						f.setVisible(true);
-						
-					/*	EventDetailsRNR eventDetailsRNR = new EventDetailsRNR(f);
-						/*EventDetails eventDetails = new EventDetails(f);
-						if (rowIndex == 0) {
-							f.getContentPane().removeAll();
-							f.getContentPane().add(eventDetailsRNR);
-							f.repaint();
-							f.revalidate();
-							f.setVisible(true);
-						} else {
-							f.getContentPane().removeAll();
-							f.getContentPane().add(eventDetails);
-							f.repaint();
-							f.revalidate();
-							f.setVisible(true);
-						
-						}
-				*/
+
+						/*
+						 * EventDetailsRNR eventDetailsRNR = new
+						 * EventDetailsRNR(f); /*EventDetails eventDetails = new
+						 * EventDetails(f); if (rowIndex == 0) {
+						 * f.getContentPane().removeAll();
+						 * f.getContentPane().add(eventDetailsRNR); f.repaint();
+						 * f.revalidate(); f.setVisible(true); } else {
+						 * f.getContentPane().removeAll();
+						 * f.getContentPane().add(eventDetails); f.repaint();
+						 * f.revalidate(); f.setVisible(true);
+						 * 
+						 * }
+						 */
 					}
-					
+
 				});
 				return button;
 			default:

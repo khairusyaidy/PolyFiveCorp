@@ -1,5 +1,6 @@
 package polyfive.ui.master;
 
+import polyfive.entities.ChangeLanguage;
 import polyfive.entities.Member;
 import polyfive.entities.EventAttributes;
 import polyfive.ui.adminpages.*;
@@ -44,6 +45,15 @@ public class MainFrame extends JFrame {
 	private static CreateSeatPanel createSeatPanel;
 	private static AdminCalendar adminCalendar;
 	private static EventAttributes storeEvents;
+	private static ChangeLanguage storeLanguage;
+
+	public static ChangeLanguage getStoreLanguage() {
+		return storeLanguage;
+	}
+
+	public static void setStoreLanguage(ChangeLanguage storeLanguage) {
+		MainFrame.storeLanguage = storeLanguage;
+	}
 
 	public static Member getRegisterAccountSession() {
 		return registerAccountSession;
