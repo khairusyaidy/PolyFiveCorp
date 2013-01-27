@@ -7,6 +7,7 @@ import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
 import polyfive.ui.publicpages.*;
+import polyfive.encryption.*;
 
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -35,6 +36,7 @@ import java.util.ResourceBundle;
 import javax.swing.border.LineBorder;
 import java.awt.event.KeyAdapter;
 
+
 public class Register extends MasterPanel {
 	private JTextField accountName;
 	private JTextField phoneNumber;
@@ -56,6 +58,8 @@ public class Register extends MasterPanel {
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
 	private JButton genCaptcha;
+	private static final int max = 9999999;
+	private static final int min = 1000000;
 	private static final String ALPHA_NUM = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private JTextField firstName;
 	private JTextField lastName;
@@ -181,13 +185,11 @@ public class Register extends MasterPanel {
 		genCaptcha = new JButton("Generate Captcha");
 		genCaptcha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String sx = null;
-				for (int i = 0; i < 12; i++) {
-					int ndx = (int) (Math.random() * ALPHA_NUM.length());
-					sx.concat("" + ALPHA_NUM.charAt(ndx));
-				}
-				genCaptcha.setText(sx);
-				genCaptcha.updateUI();
+	            //should work now
+				java.util.Random foo = new java.util.Random();
+		        int randomNumber = foo.nextInt((max + 1) - min) + min;
+		        String randomNo = Integer.toString(randomNumber);
+				genCaptcha.setText(randomNo);
 			}
 		});
 		genCaptcha.setBounds(380, 245, 170, 45);
@@ -238,54 +240,61 @@ public class Register extends MasterPanel {
 				 */
 				boolean isInteger;
 				int rank = membershipType.getSelectedIndex();
+				int sumRank = rank + 1;
 				Member register = new Member();
 				isInteger = Member.isInteger(phoneNumber.getText());
 				
-				String fn = firstName.getText();
-				String ln = lastName.getText();
-				// fullName = fn + ln;
-				String un = accountName.getText();
-				String pass = passwordField.getText();
-				String telNo = phoneNumber.getText().trim();
-				int telNoInt = Integer.parseInt(telNo);
-				String em = email.getText();
-				String passIc = passport_IC.getText();
 
+				System.out.println(genCaptcha.getText());
 				if (!firstName.getText().isEmpty()
-						|| !lastName.getText().isEmpty()
-						|| !accountName.getText().isEmpty()
-						|| !passwordField.getText().isEmpty()
-						|| !passwordField_1.getText().isEmpty()
-						|| !phoneNumber.getText().isEmpty()
-						|| !email.getText().isEmpty()
-						|| !confirmEmail.getText().isEmpty()
-						|| !passport_IC.getText().isEmpty()) {
+						&& !lastName.getText().isEmpty()
+						&& !accountName.getText().isEmpty()
+						&& !passwordField.getText().isEmpty()
+						&& !passwordField_1.getText().isEmpty()
+						&& !phoneNumber.getText().isEmpty()
+						&& !email.getText().isEmpty()
+						&& !confirmEmail.getText().isEmpty()
+						&& !passport_IC.getText().isEmpty()
+						&& !enterCaptcha.getText().isEmpty()) {
+					
 					 if (email.getText().equals(confirmEmail.getText())) {
-						if (passwordField.getText().equals(
-								passwordField_1.getText())) {
+						if (passwordField.getText().equals(passwordField_1.getText())) {
+							if (genCaptcha.getText().equals(enterCaptcha.getText())) {
 							System.out.println("test");
-							
-							
-							
-							
-							
-							if (rank > 0) {
+							if (sumRank > 1) {
 								System.out.println("Test");
-							} else if (rank == 0) {
+							} else if (sumRank == 1) {
 								System.out.println("Test");
-
-
-
-
-								
-
 
 
 								int reply = JOptionPane
 										.showConfirmDialog(null,
 												"Are you sure you want to register with the following details ?");
 								if (reply == JOptionPane.YES_OPTION) {
+									String fn = firstName.getText();
+									String ln = lastName.getText();
+									// fullName = fn + ln;
+									String un = accountName.getText();
+									String pass = passwordField.getText();
+									String passEncrypted = RailFence.encrypt(pass);
+									String telNo = phoneNumber.getText().trim();
+									int telNoInt = Integer.parseInt(telNo);
+									String em = email.getText();
+									String passIc = passport_IC.getText();
+									String passIcEncrypted = RailFence.encrypt(passIc);
 									
+									Date date = new Date();
+									String dateString = date.toString();
+									String fulldate = MemberDao.fullDate(dateString);
+									register.setFirstName(fn);
+									register.setLastName(ln);
+									register.setUsername(un);
+									register.setPassword(passEncrypted);
+									register.setPhoneNumber(telNoInt);
+									register.setEmail(em);
+									register.setPass_icNo(passIcEncrypted);
+									register.setCreationDate(fulldate);
+									register.setRank(sumRank);
 									DBConnectionManager.connect();
 										
 										
@@ -321,18 +330,9 @@ public class Register extends MasterPanel {
 											}
 											JOptionPane.showMessageDialog(null,
 													"Registration successful");
-											Date date = new Date();
-											String dateString = date.toString();
-											String fulldate = MemberDao.fullDate(dateString);
 
-											register.setFirstName(fn);
-											register.setLastName(ln);
-											register.setUsername(un);
-											register.setPassword(pass);
-											register.setPhoneNumber(telNoInt);
-											register.setEmail(em);
-											register.setPass_icNo(passIc);
-											register.setCreationDate(fulldate);
+
+											
 											LoginPanel loginPanel = new LoginPanel(f);
 											f.getContentPane().removeAll();
 											f.getContentPane().add(loginPanel);
@@ -343,59 +343,59 @@ public class Register extends MasterPanel {
 											f.setRegisterAccountSession(register);
 										}
 
-		
-
 								}
 							
 							}
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
+								
 						}
+							else if (!genCaptcha.getText().equals(enterCaptcha.getText())){
+								JOptionPane.showMessageDialog(null, "Captcha does not match");
+							}
+						}	
+					
 						
-						else if (!passwordField.getText().equals(
-								passwordField_1.getText())) {
-							JOptionPane.showMessageDialog(null,
-									"Password does not match");
+						else if (!passwordField.getText().equals(passwordField_1.getText())) {
+							JOptionPane.showMessageDialog(null,"Password does not match");
 						}
+					 
 					 }
-						
 					 
-					 
-					 
-					 
-					 
-					else if (passwordField.getText().equals(
-							passwordField_1.getText())) {
-						if (!email.getText().equals(confirmEmail.getText())) {
+					else if (!email.getText().equals(confirmEmail.getText())) {
 							JOptionPane.showMessageDialog(null,
 									"Email does not match");
 						}
-					
+			/*		
 
-					} else if (!email.getText().equals(confirmEmail.getText())) {
+					 else if (!email.getText().equals(confirmEmail.getText())) {
 						if (!passwordField.getText().equals(
-								passwordField_1.getText())) {
+								passwordField_1.getText())) 
 							JOptionPane.showMessageDialog(null,
 									"Email & Password does not match");
 						}
+					
+					 
+					else if (!genCaptcha.getText().equals(enterCaptcha.getText())){
+						JOptionPane.showMessageDialog(null, "Captcha does not match");
 					}
+					 */
+				}
+				
+				else if (firstName.getText().isEmpty()
+						|| lastName.getText().isEmpty()
+						|| accountName.getText().isEmpty()
+						|| passwordField.getText().isEmpty()
+						|| passwordField_1.getText().isEmpty()
+						|| phoneNumber.getText().isEmpty()
+						|| email.getText().isEmpty()
+						|| confirmEmail.getText().isEmpty()
+						|| passport_IC.getText().isEmpty()
+						|| enterCaptcha.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Please fill in all the fields");
 				}
 			}
 
-		
-				 
+				
+			
 
 	/*			
 			

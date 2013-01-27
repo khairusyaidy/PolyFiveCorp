@@ -151,9 +151,9 @@ public class AdminCalendar extends MasterPanel {
 			}
 		});
 		lblNewLabel.setForeground(Color.BLACK);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(587, 11, 395, 35);
+		lblNewLabel.setBounds(567, 21, 588, 50);
 		add(lblNewLabel);
 		
 		final org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();

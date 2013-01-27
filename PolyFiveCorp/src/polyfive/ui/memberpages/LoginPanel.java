@@ -26,6 +26,7 @@ import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 import polyfive.ui.master.WelcomePanel;
 import javax.swing.SwingConstants;
+import polyfive.encryption.*;
 
 public class LoginPanel extends MasterPanel {
 	private JTextField UsernameField;
@@ -155,6 +156,9 @@ public class LoginPanel extends MasterPanel {
 		Login = new JButton("Login");
 		Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Check if user enter the password that is the same in the database. If same reject. If user enter the password then 
+				//encrypt, same == accept
 				/*
 				 * MemberCalendar memberCalendar = f.getMemberCalendar();
 				 * f.getContentPane().removeAll();
@@ -164,11 +168,12 @@ public class LoginPanel extends MasterPanel {
 				try {
 					String username = UsernameField.getText().trim();
 					String password = PasswordField.getText();
+					String passwordEncrypt = RailFence.encrypt(password);
 					
 					
 
 					String sql = "select Username, Password from Users where Username = '"
-							+ username + "'and Password ='" + password + "'";
+							+ username + "'and Password ='" + passwordEncrypt + "'";
 					DBConnectionManager.rs = DBConnectionManager.stmt
 							.executeQuery(sql);
 
@@ -180,20 +185,20 @@ public class LoginPanel extends MasterPanel {
 					if (count == 1) {
 						String pass_icNo = (JOptionPane
 								.showInputDialog(null,"Please enter your NRIC/Passport number below: \nCase sensitive "));
-
+						String pass_icNoEncrypt = RailFence.encrypt(pass_icNo);
 						String sql2 = "select * from Users where Username = '"
 								+ username
 								+ "'and Password ='"
-								+ password
+								+ passwordEncrypt
 								+ "' and pass_icNo = '"
-								+ pass_icNo
+								+ pass_icNoEncrypt
 								+ "'";
 						DBConnectionManager.rs = DBConnectionManager.stmt
 								.executeQuery(sql2);
 						
 						boolean checkPass_icNo = false;
 						while (DBConnectionManager.rs.next()) {
-							if (pass_icNo.equals(DBConnectionManager.rs.getString("pass_icNo")))
+							if (pass_icNoEncrypt.equals(DBConnectionManager.rs.getString("pass_icNo")))
 								checkPass_icNo = true;
 							else
 								checkPass_icNo = false;

@@ -27,9 +27,12 @@ import javax.swing.JTable;
 import javax.swing.RowSorter;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SortOrder;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JCheckBox;
@@ -107,11 +110,17 @@ public class SearchEvents extends MasterPanel {
 		// adding table here + scrollpane
 
 		final JTable table = new JTable(new JTableModel());
+	
+		TableColumn col = table.getColumnModel().getColumn(0);
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();    
+        dtcr.setHorizontalAlignment(dtcr.CENTER); 
+        col.setCellRenderer(dtcr);
+		
+		
 		table.setDragEnabled(false);
 
 		table.setAutoCreateRowSorter(true);
 		table.setGridColor(new Color(0, 0, 0));
-
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -124,6 +133,7 @@ public class SearchEvents extends MasterPanel {
 
 		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
 		table.getColumn("Event Details").setCellRenderer(buttonRenderer);
+		
 		// table.getColumn("Button2").setCellRenderer(buttonRenderer);
 		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.setRowHeight(60);

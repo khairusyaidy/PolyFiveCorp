@@ -1,5 +1,6 @@
 package polyfive.ui.memberpages;
 
+import polyfive.encryption.RailFence;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
@@ -197,38 +198,43 @@ public class AccountDetails extends MasterPanel {
 				userChangePass = f.getSession();
 
 				String oldPassword = userChangePass.getPassword();
-
+				String oldPasswordDecrypt = RailFence.decrypt(oldPassword);
+				
 				String oldPassTf = null;
 				oldPassTf  = oldPass.getText();
+				
 				String newPassTf = null;
 				newPassTf = newPass.getText();
+				String newPassTfEncrypted = RailFence.encrypt(newPassTf);
+				
 				String newPassTf2 = null;
 				newPassTf2 = confirmNew.getText();
+				String newPassTf2Encrypted = RailFence.encrypt(newPassTf2);
 				
 				boolean matchPassword = false;
 				boolean matchPassword2 = false;
 				
 				
 				if(!oldPassTf.isEmpty() && !newPassTf.isEmpty() && !newPassTf2.isEmpty()){
-					if(!oldPass.getText().equals(oldPassword)  ){
+					if(!oldPassTf.equals(oldPasswordDecrypt)  ){
 						feedbackText.setText("Password does not match your previous password.");
 						matchPassword = false;
 					}
 
-					 if ( !newPassTf.equals(newPassTf2) && oldPass.getText().equals(oldPassword)){
+					 if ( !newPassTfEncrypted.equals(newPassTf2Encrypted) && oldPassTf.equals(oldPasswordDecrypt)){
 						feedbackText2.setText("New password does not match.");
 						feedbackText.setText("");
 						matchPassword2 = false;
 					}
 					
 					
-					else if (newPassTf.equals(newPassTf2) && (oldPass.getText().equals(oldPassword)) ){
+					else if (newPassTfEncrypted.equals(newPassTf2Encrypted) && (oldPassTf.equals(oldPasswordDecrypt)) ){
 						
 						
 						try {
 
 							String sql3 = "update Users set password='"
-									+ newPass.getText() + "' where username='"
+									+ newPassTfEncrypted + "' where username='"
 									+ userChangePass.getUsername() + "' ";
 							DBConnectionManager.pstmt = DBConnectionManager.con
 									.prepareStatement(sql3);
@@ -323,7 +329,7 @@ public class AccountDetails extends MasterPanel {
 				+ rankName + ")");
 		lblYouAreLogged.setBounds(5, 5, 800, 35);
 		topBar.add(lblYouAreLogged);
-		lblYouAreLogged.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblYouAreLogged.setFont(new Font("Tahoma", Font.ITALIC, 24));
 
 		JButton LogOutButton = new JButton("Log Out");
 		LogOutButton.setFocusPainted(false);
@@ -423,7 +429,7 @@ public class AccountDetails extends MasterPanel {
 		account.add(lblEmail);
 
 		passportIC = new JTextField();
-		passportIC.setText(user.getPass_icNo());
+		passportIC.setText(RailFence.decrypt(user.getPass_icNo()));
 		passportIC.setEditable(false);
 		passportIC.setColumns(10);
 		passportIC.setBounds(127, 174, 250, 20);
@@ -584,20 +590,17 @@ public class AccountDetails extends MasterPanel {
 				// rank.setText(ra);
 
 				String telNo = newPhoneNumber.getText();
-				// phoneNumber.setText(phoneNum);
 				String em = newEmail.getText();
-				// email.setText(em);
 				String passIC = newPassportIC.getText();
-				// passportIC.setText(passIC);
+				String passICEncrypt = RailFence.encrypt(passIC);
 				String pay = newPaymentMethod.getText();
-				// paymentMethod.setText(pay);
 
 				try {
 					Member userChangeDetails = new Member();
 					userChangeDetails = f.getSession();
 
 					String sql3 = "update Users set telNo='" + telNo
-							+ "' , email='" + em + "', pass_IcNo='" + passIC
+							+ "' , email='" + em + "', pass_IcNo='" + passICEncrypt
 							+ "' where username='"
 							+ userChangeDetails.getUsername() + "' ";
 					DBConnectionManager.pstmt = DBConnectionManager.con
