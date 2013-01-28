@@ -49,7 +49,7 @@ public class CreateSeatPanel extends MasterPanel {
 		
 		EventAttributes eventAttributes = new EventAttributes ();
 		eventAttributes = f.getStoreEvents();
-		final int eventId = eventAttributes.getEventId() -1;
+		final int eventId = eventAttributes.getEventId();
 		System.out.println(eventId);
 		
 		rowTextField = new JTextField();

@@ -266,21 +266,12 @@ public class AddEvent extends MasterPanel {
 				int nextId = maxId + 1;
 				
 				
-				
-				
-		/*		
-				
-				
-				
-				
-				String price = tfPrice.getText();
-				String expression = "^\\d{1,5}(\\.\\d{0,2})?$";
-				
-				String noOfTickets = tfNoOfTickets.getText();
-				String expression2 = "^(0|[1-9][0-9]*)$";
+				EventAttributes eventAttributes = new EventAttributes();
+				eventAttributes.setEventId(nextId);
+				f.setStoreEvents(eventAttributes);
 				
 				String eventMapFileName = tfMapFileName.getText().trim();
-				String expression3 = "^[a-zA-Z]+$";
+
 				
 				// && (eventMapFileName.matches(expression3)) asd
 				 
@@ -320,21 +311,15 @@ public class AddEvent extends MasterPanel {
 						addEvent.setEventDate(fullDate);
 						addEvent.setDescription(des);
 						addEvent.setEventType(eventType);
-						addEvent.setEventNoOfTickets(eventNoOfTicketsInt);
 						addEvent.setMapFileName(eventMapFileName);
 						
 						try{
-						EventDetailsDao.insertEventDetails(addEvent);
+						EventDetailsDao.insertEventDetails2(addEvent);
 						
 						}
 						catch(Exception ex){
 						JOptionPane.showMessageDialog(null, "Event is not added \n" +ex);
-						SearchEvents searchEvents= new SearchEvents(f);
-						f.getContentPane().removeAll();
-						f.getContentPane().add(searchEvents);
-						f.repaint();
-						f.revalidate();
-						f.setVisible(true);
+						
 						
 						}
 						
@@ -357,26 +342,7 @@ public class AddEvent extends MasterPanel {
 					f.revalidate();
 					f.setVisible(true);
 					}
-					
-
-
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				EventAttributes eventAttributes = new EventAttributes();
-				eventAttributes.setEventId(nextId);
-				f.setStoreEvents(eventAttributes);
-				
+						
 				}
 				catch (Exception ex){
 					
@@ -385,12 +351,8 @@ public class AddEvent extends MasterPanel {
 				////
 				 
 				
-				 */
 				 
-				}
-				catch (Exception ex){
-					
-				}
+				 
 			}
 			
 		});

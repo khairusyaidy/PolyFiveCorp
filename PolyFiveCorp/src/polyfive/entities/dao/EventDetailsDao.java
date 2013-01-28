@@ -139,6 +139,86 @@ return EventsList;
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static EventAttributes insertEventDetails2(EventAttributes addEvent) {
+		Statement stmt = null;
+		String eventName = addEvent.getEventName();
+		String eventDate = addEvent.getEventDate();
+		String eventAdd = addEvent.getEventAddress();
+		String eventDes = addEvent.getDescription();
+		String eventType = addEvent.getEventType();
+		String eventMapFileName = addEvent.getMapFileName();
+		// get the last member ID 
+		try {
+			
+			currentCon = DBConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			String getMax = "select Max(idEvent) from Events";
+			rs1 = stmt.executeQuery(getMax);
+			rs1.next();
+			int maxId = rs1.getInt(1);
+			int nextId = maxId + 1;
+			
+            // query for inserting into the table
+
+           
+            String query = "insert into Events(idEvent, eventName, eventDate, eventAdd, eventDes, eventType, eventMapFileName) values('"+nextId+"','"+eventName+"','"+eventDate+"','"+eventAdd+"','"+eventDes+"','"+eventType+"','"+eventMapFileName+"')";   
+            pstmt = currentCon.prepareStatement(query);
+
+            pstmt.executeUpdate();
+            
+		} catch (Exception ex) {
+
+			System.out.println("Addition of Event failed: An Exception has occurred! " + ex);
+		}
+
+		// exception handling
+		finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {
+				}
+				rs = null;
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (Exception e) {
+				}
+				stmt = null;
+			}
+
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+
+				currentCon = null;
+			}
+		}
+		return addEvent;
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static int getMax(){
 
 
