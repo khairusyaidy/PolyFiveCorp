@@ -21,9 +21,11 @@ import polyfive.entities.dao.MemberDao;
 import polyfive.ui.master.*;
 import polyfive.ui.memberpages.AccountDetails;
 import polyfive.ui.memberpages.EventDetails;
+import polyfive.ui.memberpages.MemberCalendar;
 import polyfive.ui.memberpages.SearchEvents.JTableButtonMouseListener;
 import polyfive.ui.memberpages.SearchEvents.JTableButtonRenderer;
 import polyfive.ui.memberpages.SearchEvents.JTableModel;
+import polyfive.ui.publicpages.PublicCalendar;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -38,6 +40,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
+import javax.swing.ImageIcon;
 
 public class UserSetting extends MasterPanel {
 	private static MainFrame f = null;
@@ -113,6 +116,42 @@ final JTable table = new JTable(new JTableModel());
 		JSeparator separator = new JSeparator();
 		separator.setBounds(397, 113, 320, 2);
 		add(separator);
+		
+		JButton button_2 = new JButton("");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Member user = new Member();
+				user = f.getSession();
+
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
+			}
+		});
+		button_2.setIcon(new ImageIcon(UserSetting.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
+		button_2.setBorder(null);
+		button_2.setBounds(21, 21, 75, 75);
+		add(button_2);
 		
 		
 		super.setLayout();

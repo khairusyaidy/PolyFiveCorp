@@ -16,6 +16,7 @@ import polyfive.ui.master.MasterPanel;
 import polyfive.ui.memberpages.CreateSeatPanel;
 import polyfive.ui.memberpages.MemberCalendar;
 import polyfive.ui.memberpages.SearchEvents;
+import polyfive.ui.publicpages.PublicCalendar;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
@@ -55,17 +56,25 @@ public class AddEvent extends MasterPanel {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);
@@ -171,6 +180,7 @@ public class AddEvent extends MasterPanel {
 				f.setVisible(true);
 			}
 		});
+		Back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		Back.setForeground(Color.DARK_GRAY);
 		Back.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		Back.setFocusPainted(false);
@@ -219,7 +229,7 @@ public class AddEvent extends MasterPanel {
 		
 		final JButton AddEvent = new JButton("Add Event");
 		AddEvent.setVisible(false);
-	
+		AddEvent.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		AddEvent.setForeground(Color.DARK_GRAY);
 		AddEvent.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		AddEvent.setFocusPainted(false);

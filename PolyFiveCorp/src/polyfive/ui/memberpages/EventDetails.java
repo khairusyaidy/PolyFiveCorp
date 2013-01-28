@@ -213,6 +213,7 @@ public class EventDetails extends MasterPanel {
 		panel_1.add(comboBox);
 		
 		JButton btnSetDate = new JButton("Set Date");
+		btnSetDate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSetDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String date = (String)comboBox.getSelectedItem();
@@ -380,7 +381,9 @@ public class EventDetails extends MasterPanel {
 		
 		
 		final JButton btnUpdate = new JButton("Update");
+		btnUpdate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		final JButton modify = new JButton("Modify");
+		modify.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		modify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -567,6 +570,7 @@ public class EventDetails extends MasterPanel {
 		add(modify);
 		
 		JButton delete = new JButton("Delete");
+		delete.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			int reply =	JOptionPane.showConfirmDialog(null, "Warning! Are you sure you want to delete the event?");

@@ -94,6 +94,10 @@ public class PublicCalendar extends MasterPanel {
 		add(btnBack);
 
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setIcon(new ImageIcon(PublicCalendar.class
 				.getResource("/polyFive/ui/images/p5cicon7575.png")));

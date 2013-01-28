@@ -6,6 +6,7 @@ import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
+import polyfive.ui.memberpages.LoginPanel;
 import polyfive.ui.memberpages.MemberCalendar;
 import polyfive.ui.publicpages.*;
 
@@ -26,6 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.SQLException;
@@ -88,6 +90,7 @@ public class AdminAccountDetails extends MasterPanel {
 		panel.setLayout(null);
 
 		JButton btnGoldMember = new JButton("Gold Member\r\n");
+		btnGoldMember.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnGoldMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnGoldMember.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -104,6 +107,7 @@ public class AdminAccountDetails extends MasterPanel {
 		panel.add(btnGoldMember);
 
 		JButton btnSilverMember = new JButton("Silver Member");
+		btnSilverMember.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSilverMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnSilverMember.setFocusPainted(false);
@@ -119,6 +123,7 @@ public class AdminAccountDetails extends MasterPanel {
 		panel.add(btnSilverMember);
 
 		JButton btnBronzeMember = new JButton("Bronze Member");
+		btnBronzeMember.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBronzeMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnBronzeMember.setFocusPainted(false);
@@ -180,6 +185,7 @@ public class AdminAccountDetails extends MasterPanel {
 		accountManagement.add(lblConfirmNew);
 
 		JButton confirmPasswords = new JButton("Delete");
+		confirmPasswords.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		confirmPasswords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int reply = JOptionPane.showConfirmDialog(null,  " Are you sure you want to delete this account ? ");
@@ -240,9 +246,9 @@ public class AdminAccountDetails extends MasterPanel {
 		JButton LogOutButton = new JButton("Log Out");
 		LogOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WelcomePanel welcomePanel = new WelcomePanel(f);
+				LoginPanel loginPanel= new LoginPanel(f);
 				f.getContentPane().removeAll();
-				f.getContentPane().add(welcomePanel);
+				f.getContentPane().add(loginPanel);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
@@ -257,6 +263,7 @@ public class AdminAccountDetails extends MasterPanel {
 		topBar.add(LogOutButton);
 
 		JButton ReturnButton = new JButton("Back");
+		ReturnButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		ReturnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UserSetting userSetting = new UserSetting(f);
@@ -352,6 +359,7 @@ public class AdminAccountDetails extends MasterPanel {
 		account.add(lblPaymentMethod);
 
 		JButton changeDetails = new JButton("Change Details");
+		changeDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		changeDetails.setForeground(Color.DARK_GRAY);
 		changeDetails.setFocusPainted(false);
 		changeDetails.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
@@ -383,6 +391,7 @@ public class AdminAccountDetails extends MasterPanel {
 		account.add(changeDetails);
 
 		JButton lockChanges = new JButton("Refresh");
+		lockChanges.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lockChanges.setFocusPainted(false);
 		lockChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -482,6 +491,7 @@ public class AdminAccountDetails extends MasterPanel {
 		editDetails.add(lblNewPaymentMethod);
 
 		JButton confirmChanges = new JButton("Confirm Changes");
+		confirmChanges.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		confirmChanges.setFocusPainted(false);
 		confirmChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -556,6 +566,7 @@ public class AdminAccountDetails extends MasterPanel {
 		editDetails.add(confirmChanges);
 
 		JButton resetChanges = new JButton("Reset Changes");
+		resetChanges.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		resetChanges.setFocusPainted(false);
 		resetChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -615,17 +626,25 @@ public class AdminAccountDetails extends MasterPanel {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);

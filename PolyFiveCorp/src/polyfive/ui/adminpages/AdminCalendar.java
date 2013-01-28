@@ -161,7 +161,7 @@ public class AdminCalendar extends MasterPanel {
 		//lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(499, 21, 656, 50);
+		lblNewLabel.setBounds(376, 21, 779, 50);
 		add(lblNewLabel);
 		
 		final org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
@@ -203,6 +203,7 @@ public class AdminCalendar extends MasterPanel {
 				
 			}
 		});
+		addEvent.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		addEvent.setForeground(Color.DARK_GRAY);
 		addEvent.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		addEvent.setFocusPainted(false);
@@ -222,6 +223,7 @@ public class AdminCalendar extends MasterPanel {
 			    f.setVisible(true);
 			}
 		});
+		btnUserSettings.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnUserSettings.setForeground(Color.DARK_GRAY);
 		btnUserSettings.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnUserSettings.setFocusPainted(false);
