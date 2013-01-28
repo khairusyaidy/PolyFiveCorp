@@ -1,6 +1,7 @@
 package polyfive.ui.publicpages;
 
 import polyfive.entities.ChangeLanguage;
+import polyfive.entities.CheckDate;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
@@ -108,10 +109,23 @@ public class PublicCalendar extends MasterPanel {
 		calendar.setBounds(166, 191, 989, 427);
 		calendar.addDateListener(new DateListener() {
 			public void dateChanged(DateEvent arg0) {
-			
+				CheckDate checkDate = new CheckDate();
+				
 			Calendar currentDateAfter1Month = Calendar.getInstance();
 			currentDateAfter1Month.add(Calendar.MONTH, 1);
+			Date dateNow = new Date();
 			Date onClickDate = calendar.getDate();
+			
+			
+			if (onClickDate.before(dateNow)){
+				
+				checkDate.setCheckDate(true);
+				f.setCheckDate(checkDate);
+			}
+			else {
+				checkDate.setCheckDate(false);
+				f.setCheckDate(checkDate);
+			}
 			
 			if (onClickDate.after(currentDateAfter1Month.getTime())){
 				JOptionPane.showMessageDialog(null, "Guest are only allowed to buy tickets withing 1 month range from today");

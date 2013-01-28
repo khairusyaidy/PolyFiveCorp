@@ -1,5 +1,6 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.ChangeLanguage;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
@@ -68,6 +69,11 @@ public class SearchEventsByDate extends MasterPanel {
 		EventAttributes event = new EventAttributes();
 		event = f.getStoreEvents();
 		Date = event.getEventDate();
+		
+		ChangeLanguage changeLanguage= new ChangeLanguage();
+		changeLanguage = f.getStoreLanguage();
+		int language = changeLanguage.getChangeLanguage();
+		
 		
 		Member user = new Member();
 		user = f.getSession();
@@ -185,13 +191,26 @@ public class SearchEventsByDate extends MasterPanel {
 		
 		JLabel lblListOfEvents = new JLabel("List of Events by Date");
 		lblListOfEvents.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
-		lblListOfEvents.setBounds(459, 58, 351, 57);
+		lblListOfEvents.setBounds(459, 58, 547, 57);
 		add(lblListOfEvents);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(425, 113, 420, 2);
+		separator.setBounds(378, 113, 490, 2);
 		add(separator);
 
+		
+		
+		if (language == 0){
+			lblListOfEvents.setText(WelcomePanel.BUNDLE.getString("SearchEventsByDate.lblListOfEvents.text"));
+		}
+		else if (language == 1){
+			lblListOfEvents.setText(WelcomePanel.BUNDLE2.getString("SearchEventsByDate.lblListOfEvents.text"));
+			separator.setBounds(378, 113, 630, 2);
+			
+		}
+		
+		
+		
 		super.setLayout();
 	}
 
@@ -294,7 +313,7 @@ public class SearchEventsByDate extends MasterPanel {
 								.getEventName();
 						String eventDate = eventDetails.get(rowIndex)
 								.getEventDate();
-						int eventId = eventDetails.get(rowIndex).getEventId();
+						
 						
 						EventAttributes eventAttributes = new EventAttributes();
 						eventAttributes.setEventName(eventName);

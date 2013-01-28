@@ -1,5 +1,6 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.CheckDate;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
@@ -47,6 +48,9 @@ public class EventDetails extends MasterPanel {
 	 */
 	public EventDetails(MainFrame frame) {
 		//DBConnectionManager.getConnection();
+		CheckDate checkDate = new CheckDate();
+		checkDate = f.getCheckDate();
+
 		
 		Member user = new Member();
 		user = f.getSession();
@@ -627,6 +631,13 @@ public class EventDetails extends MasterPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(446, 86, 353, 10);
 		add(separator);
+		
+		if(checkDate.isCheckDate() == true){
+			btnProceedToPayment.setEnabled(false);
+		}
+		
+		else 
+			btnProceedToPayment.setEnabled(true);
 		
 
 

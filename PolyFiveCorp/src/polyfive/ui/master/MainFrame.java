@@ -1,6 +1,7 @@
 package polyfive.ui.master;
 
 import polyfive.entities.ChangeLanguage;
+import polyfive.entities.CheckDate;
 import polyfive.entities.Member;
 import polyfive.entities.EventAttributes;
 import polyfive.ui.adminpages.*;
@@ -46,6 +47,15 @@ public class MainFrame extends JFrame {
 	private static AdminCalendar adminCalendar;
 	private static EventAttributes storeEvents;
 	private static ChangeLanguage storeLanguage;
+	private static CheckDate checkDate;
+
+	public static CheckDate getCheckDate() {
+		return checkDate;
+	}
+
+	public static void setCheckDate(CheckDate checkDate) {
+		MainFrame.checkDate = checkDate;
+	}
 
 	public static ChangeLanguage getStoreLanguage() {
 		return storeLanguage;
