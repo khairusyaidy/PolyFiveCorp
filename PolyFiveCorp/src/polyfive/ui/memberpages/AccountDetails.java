@@ -5,6 +5,7 @@ import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.master.*;
+import polyfive.ui.publicpages.PublicCalendar;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -80,7 +81,7 @@ public class AccountDetails extends MasterPanel {
 		JButton btnGoldMember = new JButton("Gold Member\r\n");
 		btnGoldMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
-		btnGoldMember.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnGoldMember.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnGoldMember.setFocusPainted(false);
 		btnGoldMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -94,6 +95,7 @@ public class AccountDetails extends MasterPanel {
 		panel.add(btnGoldMember);
 
 		JButton btnSilverMember = new JButton("Silver Member");
+		btnSilverMember.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSilverMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnSilverMember.setFocusPainted(false);
@@ -109,6 +111,7 @@ public class AccountDetails extends MasterPanel {
 		panel.add(btnSilverMember);
 
 		JButton btnBronzeMember = new JButton("Bronze Member");
+		btnBronzeMember.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnBronzeMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnBronzeMember.setFocusPainted(false);
@@ -174,6 +177,7 @@ public class AccountDetails extends MasterPanel {
 		accountManagement.add(lblConfirmNew);
 
 		JButton resetPasswords = new JButton("Reset Changes");
+		resetPasswords.setFont(new Font("Tahoma", Font.BOLD, 11));
 		resetPasswords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				oldPass.setText("");
@@ -191,6 +195,7 @@ public class AccountDetails extends MasterPanel {
 		accountManagement.add(resetPasswords);
 
 		JButton confirmPasswords = new JButton("Confirm Changes");
+		confirmPasswords.setFont(new Font("Tahoma", Font.BOLD, 11));
 		confirmPasswords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -341,21 +346,26 @@ public class AccountDetails extends MasterPanel {
 		topBar.add(LogOutButton);
 
 		JButton ReturnButton = new JButton("Back");
+		ReturnButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		ReturnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);
@@ -451,6 +461,7 @@ public class AccountDetails extends MasterPanel {
 		account.add(lblPaymentMethod);
 
 		JButton changeDetails = new JButton("Change Details");
+		changeDetails.setFont(new Font("Tahoma", Font.BOLD, 11));
 		changeDetails.setForeground(Color.DARK_GRAY);
 		changeDetails.setFocusPainted(false);
 		changeDetails.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
@@ -482,6 +493,7 @@ public class AccountDetails extends MasterPanel {
 		account.add(changeDetails);
 
 		JButton lockChanges = new JButton("Refresh");
+		lockChanges.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lockChanges.setFocusPainted(false);
 		lockChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -581,6 +593,7 @@ public class AccountDetails extends MasterPanel {
 		editDetails.add(lblNewPaymentMethod);
 
 		JButton confirmChanges = new JButton("Confirm Changes");
+		confirmChanges.setFont(new Font("Tahoma", Font.BOLD, 11));
 		confirmChanges.setFocusPainted(false);
 		confirmChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -651,6 +664,7 @@ public class AccountDetails extends MasterPanel {
 		editDetails.add(confirmChanges);
 
 		JButton resetChanges = new JButton("Reset Changes");
+		resetChanges.setFont(new Font("Tahoma", Font.BOLD, 11));
 		resetChanges.setFocusPainted(false);
 		resetChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

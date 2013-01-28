@@ -90,7 +90,7 @@ public class AdminAccountDetails extends MasterPanel {
 		JButton btnGoldMember = new JButton("Gold Member\r\n");
 		btnGoldMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
-		btnGoldMember.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnGoldMember.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnGoldMember.setFocusPainted(false);
 		btnGoldMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
