@@ -79,60 +79,60 @@ public class AddEvent extends MasterPanel {
 		
 		final JLabel lblPriceOfTickets = new JLabel("Price of Ticket :   $");
 		lblPriceOfTickets.setVisible(false);
-		lblPriceOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPriceOfTickets.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblPriceOfTickets.setBounds(726, 623, 175, 40);
 		add(lblPriceOfTickets);
 		
 		JLabel lblMapFileName = new JLabel("Map File Name :");
-		lblMapFileName.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblMapFileName.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblMapFileName.setBounds(418, 519, 175, 35);
 		add(lblMapFileName);
 		
 		JLabel lblDescription = new JLabel("Description :");
-		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblDescription.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblDescription.setBounds(441, 400, 175, 35);
 		add(lblDescription);
 		
 		JLabel lblTypeOfEvent = new JLabel("Type of Event :");
-		lblTypeOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTypeOfEvent.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblTypeOfEvent.setBounds(418, 344, 175, 35);
 		add(lblTypeOfEvent);
 		
 		JLabel lblDateOfEvent = new JLabel("Date of Event :");
-		lblDateOfEvent.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblDateOfEvent.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblDateOfEvent.setBounds(418, 287, 175, 35);
 		add(lblDateOfEvent);
 		
 		JLabel lblAddress = new JLabel("Address :");
-		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblAddress.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblAddress.setBounds(471, 223, 175, 35);
 		add(lblAddress);
 		
 		JLabel lblEventName = new JLabel("Event Name :");
-		lblEventName.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEventName.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblEventName.setBounds(430, 163, 175, 35);
 		add(lblEventName);
 		
 		JLabel lblMap = new JLabel("*Place map file in ' C:/maps ' after creating it");
-		lblMap.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMap.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		lblMap.setBounds(590, 577, 357, 35);
 		add(lblMap);
 		
 		final JLabel lblTickets = new JLabel("*Enter only whole numbers");
 		lblTickets.setVisible(false);
-		lblTickets.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTickets.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		lblTickets.setBounds(490, 664, 357, 35);
 		add(lblTickets);
 		
 		final JLabel lblPrice = new JLabel("*Only accepts whole numbers or with 2 decimal places");
 		lblPrice.setVisible(false);
-		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPrice.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		lblPrice.setBounds(739, 664, 357, 35);
 		add(lblPrice);
 		
 		final JLabel lblNoOfTicketsSelling = new JLabel("No of Tickets Selling :");
 		lblNoOfTicketsSelling.setVisible(false);
-		lblNoOfTicketsSelling.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNoOfTicketsSelling.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblNoOfTicketsSelling.setBounds(358, 619, 210, 49);
 		add(lblNoOfTicketsSelling);
 		
@@ -430,13 +430,13 @@ public class AddEvent extends MasterPanel {
 			});
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(374, 111, 299, 10);
+		separator.setBounds(442, 110, 299, 10);
 		add(separator);
 		
 		JLabel lblNewLabel = new JLabel("Add Event");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblNewLabel.setBounds(392, 69, 243, 35);
+		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
+		lblNewLabel.setBounds(459, 58, 243, 49);
 		add(lblNewLabel);
 		
 		tfNoOfTickets = new JTextField();
@@ -455,7 +455,7 @@ public class AddEvent extends MasterPanel {
 		add(tfMapFileName);
 		
 		JLabel lblonlyLettersWith = new JLabel("*Only letters with no spaces");
-		lblonlyLettersWith.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblonlyLettersWith.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		lblonlyLettersWith.setBounds(590, 553, 357, 35);
 		add(lblonlyLettersWith);
 		

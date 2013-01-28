@@ -1,5 +1,6 @@
 package polyfive.ui.adminpages;
 
+import polyfive.encryption.RailFence;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
 import polyfive.ui.adminpages.*;
@@ -65,6 +66,8 @@ public class AdminAccountDetails extends MasterPanel {
 		String username = editUser.getUsername();
 		int rankNo = editUser.getRank();
 		String rankName = editUser.setRankName(rankNo);
+		String passIc = editUser.getPass_icNo();
+		String passIcDecrypt = RailFence.decrypt(passIc);
 
 		String sql = "select * from Users where Username = '" + username + "'";
 		try {
@@ -232,7 +235,7 @@ public class AdminAccountDetails extends MasterPanel {
 				+ rankName + ") account");
 		lblYouAreLogged.setBounds(5, 5, 800, 35);
 		topBar.add(lblYouAreLogged);
-		lblYouAreLogged.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblYouAreLogged.setFont(new Font("Tahoma", Font.ITALIC, 24));
 
 		JButton LogOutButton = new JButton("Log Out");
 		LogOutButton.addActionListener(new ActionListener() {
@@ -327,7 +330,7 @@ public class AdminAccountDetails extends MasterPanel {
 		account.add(lblEmail);
 
 		passportIC = new JTextField();
-		passportIC.setText(editUser.getPass_icNo());
+		passportIC.setText(passIcDecrypt);
 		passportIC.setEditable(false);
 		passportIC.setColumns(10);
 		passportIC.setBounds(157, 174, 220, 20);
@@ -492,6 +495,7 @@ public class AdminAccountDetails extends MasterPanel {
 				String em = newEmail.getText();
 				// email.setText(em);
 				String passIC = newPassportIC.getText();
+				String passICEncrypt = RailFence.encrypt(passIC);
 				// passportIC.setText(passIC);
 				String pay = newPaymentMethod.getText();
 				// paymentMethod.setText(pay);
@@ -501,7 +505,7 @@ public class AdminAccountDetails extends MasterPanel {
 					userChangeDetails = f.getEditAccountSession();
 
 					String sql3 = "update Users set telNo='" + telNo
-							+ "' , email='" + em + "', pass_IcNo='" + passIC
+							+ "' , email='" + em + "', pass_IcNo='" + passICEncrypt
 							+ "' where username='"
 							+ userChangeDetails.getUsername() + "' ";
 					DBConnectionManager.pstmt = DBConnectionManager.con

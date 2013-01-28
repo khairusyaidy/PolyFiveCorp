@@ -134,7 +134,15 @@ public class AdminCalendar extends MasterPanel {
 		case 5: lblNewLabel.setForeground(new Color(255, 165, 0));
 		rankName = "Admin";
 		break;
+		case 6: lblNewLabel.setForeground(Color.MAGENTA);
+		rankName = "Event Planner";
+		break;
 		}
+		
+		
+
+		
+		
 		lblNewLabel.setText("Welcome "+ user.getFirstName()+ " " + user.getLastName()+" (" + rankName + ")");
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel.addMouseListener(new MouseAdapter() {
@@ -150,10 +158,10 @@ public class AdminCalendar extends MasterPanel {
 		
 			}
 		});
-		lblNewLabel.setForeground(Color.BLACK);
+		//lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(567, 21, 588, 50);
+		lblNewLabel.setBounds(499, 21, 656, 50);
 		add(lblNewLabel);
 		
 		final org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
@@ -225,7 +233,11 @@ public class AdminCalendar extends MasterPanel {
 
 		
 		
-		
+		if (rank == 6 ){
+		btnUserSettings.setVisible(false);
+		//Event.setBounds(783, 93, 170, 50);
+		}
+
 	
 		
 		super.setLayout();

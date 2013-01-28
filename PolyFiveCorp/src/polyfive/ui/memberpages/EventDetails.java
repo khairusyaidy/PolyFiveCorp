@@ -444,6 +444,34 @@ public class EventDetails extends MasterPanel {
 					modify.setVisible(true);
 					
 					JOptionPane.showMessageDialog(null, "Event is updated");
+					
+
+					Member user = new Member();
+					user = f.getSession();
+
+					if (user.getRank() == 0) {
+						PublicCalendar publicCalendar = new PublicCalendar(f);
+						f.getContentPane().removeAll();
+						f.getContentPane().add(publicCalendar);
+						f.repaint();
+						f.revalidate();
+						f.setVisible(true);
+					} else if (user.getRank() <= 4) {
+						MemberCalendar memberCalendar = new MemberCalendar(f);
+						f.getContentPane().removeAll();
+						f.getContentPane().add(memberCalendar);
+						f.repaint();
+						f.revalidate();
+						f.setVisible(true);
+					} else {
+						AdminCalendar adminCalendar = new AdminCalendar(f);
+						f.getContentPane().removeAll();
+						f.getContentPane().add(adminCalendar);
+						f.repaint();
+						f.revalidate();
+						f.setVisible(true);
+					}
+					
 				}
 				
 				

@@ -81,7 +81,7 @@ public class Register extends MasterPanel {
 		registerDetails.setLayout(null);
 
 		accountName = new JTextField();
-		accountName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		accountName.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		accountName.setBounds(0, 20, 350, 45);
 		registerDetails.add(accountName);
 		accountName.setColumns(10);
@@ -103,31 +103,31 @@ public class Register extends MasterPanel {
 				}
 			}
 		});
-		phoneNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		phoneNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		phoneNumber.setBounds(0, 245, 350, 45);
 		phoneNumber.setColumns(10);
 		registerDetails.add(phoneNumber);
 
 		email = new JTextField();
-		email.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		email.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		email.setBounds(380, 20, 350, 45);
 		email.setColumns(10);
 		registerDetails.add(email);
 
 		confirmEmail = new JTextField();
-		confirmEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		confirmEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		confirmEmail.setBounds(380, 95, 350, 45);
 		confirmEmail.setColumns(10);
 		registerDetails.add(confirmEmail);
 
 		passport_IC = new JTextField();
-		passport_IC.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		passport_IC.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		passport_IC.setBounds(380, 170, 350, 45);
 		passport_IC.setColumns(10);
 		registerDetails.add(passport_IC);
 
 		enterCaptcha = new JTextField();
-		enterCaptcha.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		enterCaptcha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		enterCaptcha.setBounds(560, 245, 170, 45);
 		enterCaptcha.setColumns(10);
 		registerDetails.add(enterCaptcha);
@@ -173,12 +173,12 @@ public class Register extends MasterPanel {
 		registerDetails.add(lblPassport_IC);
 
 		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		passwordField.setBounds(0, 95, 350, 45);
 		registerDetails.add(passwordField);
 
 		passwordField_1 = new JPasswordField();
-		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		passwordField_1.setBounds(0, 170, 350, 45);
 		registerDetails.add(passwordField_1);
 
@@ -567,11 +567,13 @@ public class Register extends MasterPanel {
 		btnNewButton.setBorder(null);
 
 		firstName = new JTextField();
+		firstName.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		firstName.setBounds(319, 286, 350, 45);
 		add(firstName);
 		firstName.setColumns(10);
 
 		lastName = new JTextField();
+		lastName.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lastName.setBounds(699, 286, 350, 45);
 		add(lastName);
 		lastName.setColumns(10);

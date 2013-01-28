@@ -37,10 +37,10 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
 
 public class UserSetting extends MasterPanel {
 	private static MainFrame f = null;
-	private JTextField textField;
 
 
 	public UserSetting(MainFrame frame) {
@@ -65,7 +65,7 @@ public class UserSetting extends MasterPanel {
 final JTable table = new JTable(new JTableModel());
 		
 		table.getTableHeader().setReorderingAllowed(false);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		table.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		table.setEnabled(false);
 		table.setFocusTraversalKeysEnabled(false);
 		table.setFocusable(false);
@@ -73,7 +73,7 @@ final JTable table = new JTable(new JTableModel());
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(251, 208, 800, 397);
+		scrollPane.setBounds(212, 162, 947, 443);
 		add(scrollPane);
 		table.setFillsViewportHeight(true);
 		table.setAutoCreateRowSorter(true);
@@ -104,27 +104,15 @@ final JTable table = new JTable(new JTableModel());
 		button.setBounds(21, 664, 150, 75);
 		add(button);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField.setColumns(10);
-		textField.setBounds(358, 77, 470, 31);
-		add(textField);
-		
-		JButton button_2 = new JButton("Search");
-		button_2.setForeground(Color.DARK_GRAY);
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		button_2.setFocusPainted(false);
-		button_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
-						Color.DARK_GRAY, null));
-		button_2.setBackground(new Color(255, 165, 0));
-		button_2.setBounds(854, 72, 130, 36);
-		add(button_2);
-		
 		JLabel lblNewLabel = new JLabel("User Accounts");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(387, 144, 441, 41);
+		lblNewLabel.setBounds(397, 60, 326, 41);
 		add(lblNewLabel);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(397, 113, 320, 2);
+		add(separator);
 		
 		
 		super.setLayout();

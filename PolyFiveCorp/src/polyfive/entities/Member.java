@@ -66,6 +66,8 @@ public String setRankName(int rank) {
 	break;
 	case 5: this.rankName = "Admin";
 	break;
+	case 6: this.rankName = "Event Planner";
+	break;
 	}
 	return rankName;
 }

@@ -122,7 +122,7 @@ public class SearchEvents extends MasterPanel {
 		table.setAutoCreateRowSorter(true);
 		table.setGridColor(new Color(0, 0, 0));
 		table.getTableHeader().setReorderingAllowed(false);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		table.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		scrollPane
@@ -151,7 +151,7 @@ public class SearchEvents extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 				Member user = new Member();
 				user = f.getSession();
 
