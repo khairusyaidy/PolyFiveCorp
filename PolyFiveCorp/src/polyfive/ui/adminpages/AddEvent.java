@@ -18,12 +18,16 @@ import polyfive.ui.memberpages.MemberCalendar;
 import polyfive.ui.memberpages.SearchEvents;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
+import polyfive.entities.dao.DBConnectionManager;
 import polyfive.entities.dao.EventDetailsDao;
 
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -252,14 +256,143 @@ public class AddEvent extends MasterPanel {
 		final JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateSeatPanel createSeatPanel= new CreateSeatPanel(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(createSeatPanel);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
+				try {
+				Connection currentCon = DBConnectionManager.getConnection();
+				Statement stmt = currentCon.createStatement();
+				String getMax = "select Max(idEvent) from Events";
+				ResultSet rs1 = stmt.executeQuery(getMax);
+				rs1.next();
+				int maxId = rs1.getInt(1);
+				int nextId = maxId + 1;
+				
+				
+				
+				
+		/*		
+				
+				
+				
+				
+				String price = tfPrice.getText();
+				String expression = "^\\d{1,5}(\\.\\d{0,2})?$";
+				
+				String noOfTickets = tfNoOfTickets.getText();
+				String expression2 = "^(0|[1-9][0-9]*)$";
+				
+				String eventMapFileName = tfMapFileName.getText().trim();
+				String expression3 = "^[a-zA-Z]+$";
+				
+				// && (eventMapFileName.matches(expression3)) asd
+				 
+				
+					int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to add this new event ?");
+					if (reply == JOptionPane.YES_OPTION){
+						String eventName = tfEventName.getText();
+						String eventAdd = tfAddress.getText();
+						String des = taDescription.getText();
+						
+						//Change string to double
+						
+				//		String eventNoOfTickets = tfEventNoOFtickets.
+						String eventType = null;
+						
+						if(chckbxSitting.isSelected()){
+							eventType = chckbxSitting.getText();
+						}
+						else if (chckbxStanding.isSelected()){
+							eventType = chckbxStanding.getText();
+						}
+						
+
+						EventAttributes addEvent = new EventAttributes();
+						
+						String date = (String)comboBox.getSelectedItem();
+						String month = (String)comboBox_1.getSelectedItem();
+						String year = (String)comboBox_2.getSelectedItem();
+						
+						final String fullDate = date+ " " +month+ " " + year ;
+						
+						
+						
+						
+						addEvent.setEventName(eventName);
+						addEvent.setEventAddress(eventAdd);
+						addEvent.setEventDate(fullDate);
+						addEvent.setDescription(des);
+						addEvent.setEventType(eventType);
+						addEvent.setEventNoOfTickets(eventNoOfTicketsInt);
+						addEvent.setMapFileName(eventMapFileName);
+						
+						try{
+						EventDetailsDao.insertEventDetails(addEvent);
+						
+						}
+						catch(Exception ex){
+						JOptionPane.showMessageDialog(null, "Event is not added \n" +ex);
+						SearchEvents searchEvents= new SearchEvents(f);
+						f.getContentPane().removeAll();
+						f.getContentPane().add(searchEvents);
+						f.repaint();
+						f.revalidate();
+						f.setVisible(true);
+						
+						}
+						
+						JOptionPane.showMessageDialog(null, "Event is added");
+						CreateSeatPanel createSeatPanel= new CreateSeatPanel(f);
+						f.getContentPane().removeAll();
+						f.getContentPane().add(createSeatPanel);
+						f.repaint();
+						f.revalidate();
+						f.setVisible(true);
+
+						
+					}
+					else if (reply == JOptionPane.NO_OPTION){
+						JOptionPane.showMessageDialog(null, "Event is not added");
+					SearchEvents searchEvents= new SearchEvents(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(searchEvents);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+					}
+					
+
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				EventAttributes eventAttributes = new EventAttributes();
+				eventAttributes.setEventId(nextId);
+				f.setStoreEvents(eventAttributes);
+				
+				}
+				catch (Exception ex){
+					
+				}
+
 				////
+				 
+				
+				 */
+				 
+				}
+				catch (Exception ex){
+					
+				}
 			}
+			
 		});
 		btnNext.setVisible(false);
 		btnNext.setForeground(Color.DARK_GRAY);

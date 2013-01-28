@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import polyfive.entities.EventAttributes;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 
@@ -45,6 +46,11 @@ public class CreateSeatPanel extends MasterPanel {
 	public CreateSeatPanel(MainFrame frame) {
 		f = frame;
 		setLayout(null);
+		
+		EventAttributes eventAttributes = new EventAttributes ();
+		eventAttributes = f.getStoreEvents();
+		final int eventId = eventAttributes.getEventId() -1;
+		System.out.println(eventId);
 		
 		rowTextField = new JTextField();
 		rowTextField.setBounds(950, 175, 89, 31);
@@ -110,7 +116,7 @@ public class CreateSeatPanel extends MasterPanel {
 						JOptionPane.showMessageDialog(null," Row must be more than 0 and col must also be more than 0");
 					}
 					else{
-						CreateSeatLayout(rows, cols);
+						CreateSeatLayout(rows, cols, eventId);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -179,7 +185,7 @@ public class CreateSeatPanel extends MasterPanel {
 				
 			
 				
-					MyTableModel.setPricing(x,y,x2,y2,price,available);
+					MyTableModel.setPricing(x,y,x2,y2,price,available,eventId);
 				
 				//update table
 				myTableReference.updateUI();
@@ -332,7 +338,7 @@ public class CreateSeatPanel extends MasterPanel {
 	}
 	
 
-	private void CreateSeatLayout(int rows , int cols) throws Exception{
+	private void CreateSeatLayout(int rows , int cols, int eventId) throws Exception{
 		seatSelectorPanel.removeAll();
 		myTableReference = new JTable(new MyTableModel(rows, cols));
 		seatSelectorPanel.add(myTableReference);

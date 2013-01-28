@@ -72,7 +72,7 @@ public class Seat {
 	
 	
 	
-	public boolean save() {
+	public boolean save(int eventId) {
 		
 		Statement stmt = null;
 		boolean result = false;
@@ -111,15 +111,15 @@ public class Seat {
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			
+/*			
 		} finally {
 			if (currentCon != null) {
 				try {
-					currentCon.close();
+			//		currentCon.close();
 				} catch (SQLException e) {
 					//ignore
 				}
-			}
+			}*/
 		}
 		
 		return result;
@@ -151,7 +151,7 @@ public class Seat {
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			
+/*			
 		} finally {
 			if (currentCon != null) {
 				try {
@@ -159,7 +159,7 @@ public class Seat {
 				} catch (SQLException e) {
 					//ignore
 				}
-			}
+			}*/
 		}
 		
 		return seats;
@@ -194,7 +194,7 @@ public class Seat {
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			
+	/*		
 		} finally {
 			if (currentCon != null) {
 				try {
@@ -202,35 +202,9 @@ public class Seat {
 				} catch (SQLException e) {
 					//ignore
 				}
-			}
+			}*/
 		}
 		
 		return seat;
-	}
-
-	public static void main(String args[]){
-		Event event = new Event();
-		event.setEventName("new testing event");
-		event.setRows(13);
-		event.setCols(13);
-		event.save();
-		
-		ArrayList<Event> events = Event.getAllEvents();
-		int eventId = -1;
-		for (int i = 0; i < events.size(); ++i) {
-			if (events.get(i).getEventName().equalsIgnoreCase("xefrog new event")) {
-				eventId = events.get(i).getEventId();
-			}
-		}
-		System.out.println(eventId);
-		if (eventId > 0) {
-			Seat seat = new Seat();
-			seat.setPrice(10.10);
-			seat.setStatus(seat.SEAT_UNAVAILABLE);
-			seat.setRow(10);
-			seat.setCol(10);
-			seat.setEventId(seat.getEventId());
-			seat.save();
-		}
 	}
 }

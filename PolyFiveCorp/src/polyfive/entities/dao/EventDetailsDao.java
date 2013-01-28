@@ -39,7 +39,7 @@ public class EventDetailsDao extends MasterPanel{
             while (rs.next()) {
             
             
-           //   String memberId = rs.getString("member_id");
+            	int eventId = rs.getInt("IdEvent");
                 String eventName = rs.getString("eventName");
                 String eventDate = rs.getString("eventDate");
                 String eventAdd = rs.getString("eventAdd");
@@ -50,6 +50,7 @@ public class EventDetailsDao extends MasterPanel{
                 String eventMapFileName = rs.getString("eventMapFileName");
                 
                 event = new EventAttributes();
+                event.setEventId(eventId);
                 event.setEventName(eventName);
                 event.setEventDate(eventDate);
                 event.setEventAddress(eventAdd);

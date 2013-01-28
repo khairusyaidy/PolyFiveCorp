@@ -98,6 +98,7 @@ public class MyTableModel extends AbstractTableModel {
 	}
 
 	@Override
+
 	public int getRowCount() {
 		return this.rows;
 	}
@@ -147,7 +148,7 @@ public class MyTableModel extends AbstractTableModel {
 	}
 	
 	
-	public static void setPricing(int firstRow,int firstCol,int secondRow,int secondCol,double seatPrice,int available){
+	public static void setPricing(int firstRow,int firstCol,int secondRow,int secondCol,double seatPrice,int available, int id){
 				int firstRows= getSmallerRow(firstRow,secondRow);
 				int secondRows= getLargerRow(firstRow,secondRow);
 				int firstCols = getSmallerCol(firstCol,secondCol);
@@ -156,11 +157,11 @@ public class MyTableModel extends AbstractTableModel {
 					for(int j = firstCols; j<secondCols+1;j++){
 						cells[i][j].cellData = Double.toString(seatPrice);		
 					
-		//				cells[i][j].seat.setRow(i);
-		//				cells[i][j].seat.setCol(j);
-		//				cells[i][j].seat.setStatus(available);
-		//				cells[i][j].seat.setPrice(seatPrice);
-		//				cells[i][j].seat.save();
+						cells[i][j].seat.setRow(i);
+						cells[i][j].seat.setCol(j);
+						cells[i][j].seat.setStatus(available);
+						cells[i][j].seat.setPrice(seatPrice);
+						cells[i][j].seat.save(id);
 							
 					}
 				}

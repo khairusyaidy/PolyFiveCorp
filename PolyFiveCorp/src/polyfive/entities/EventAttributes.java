@@ -10,7 +10,16 @@ public class EventAttributes {
 	private String eventType;
 	private int eventNoOfTickets;
 	private String mapFileName;
+	private int eventId;
 	
+
+	public int getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
 
 	public String getMapFileName() {
 		return mapFileName;

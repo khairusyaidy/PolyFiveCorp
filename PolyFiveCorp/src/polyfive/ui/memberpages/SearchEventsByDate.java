@@ -294,6 +294,8 @@ public class SearchEventsByDate extends MasterPanel {
 								.getEventName();
 						String eventDate = eventDetails.get(rowIndex)
 								.getEventDate();
+						int eventId = eventDetails.get(rowIndex).getEventId();
+						
 						EventAttributes eventAttributes = new EventAttributes();
 						eventAttributes.setEventName(eventName);
 						eventAttributes.setEventDate(eventDate);
