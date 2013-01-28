@@ -60,7 +60,6 @@ public class Register extends MasterPanel {
 	private JButton genCaptcha;
 	private static final int max = 9999999;
 	private static final int min = 1000000;
-	private static final String ALPHA_NUM = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private JTextField firstName;
 	private JTextField lastName;
 
