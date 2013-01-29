@@ -75,9 +75,9 @@ public class PaymentDetails extends MasterPanel {
 				Color.DARK_GRAY, null));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SeatAllocation seatAllocation = new SeatAllocation(f);
+				TicketsPurchase ticketPurchase = new TicketsPurchase(f);
 				f.getContentPane().removeAll();
-				f.getContentPane().add(seatAllocation);
+				f.getContentPane().add(ticketPurchase);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
