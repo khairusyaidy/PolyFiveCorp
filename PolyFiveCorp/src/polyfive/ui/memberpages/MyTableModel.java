@@ -161,7 +161,8 @@ public class MyTableModel extends AbstractTableModel {
 						cells[i][j].seat.setCol(j);
 						cells[i][j].seat.setStatus(available);
 						cells[i][j].seat.setPrice(seatPrice);
-						cells[i][j].seat.save(id);
+						cells[i][j].seat.setEventId(id);
+						cells[i][j].seat.save();
 							
 					}
 				}

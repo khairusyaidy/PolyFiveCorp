@@ -22,8 +22,8 @@ public class Seat {
 	public static final int SEAT_FREE = 1;
 	public static final int SEAT_UNAVAILABLE = 0;
 	
-	static Connection currentCon = null;
-	static ResultSet rs = null;
+	Connection currentCon = null;
+	ResultSet rs = null;
 	
 	public Seat() {
 		// TODO Auto-generated constructor stub
@@ -72,14 +72,14 @@ public class Seat {
 	
 	
 	
-	public boolean save(int eventId) {
-		
-		Statement stmt = null;
+	public boolean save() {
+		Connection con = null;
 		boolean result = false;
 		
+		
 		try {
-            currentCon = DBConnectionManager.getConnection();
-            stmt = currentCon.createStatement();
+            currentCon = DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
+            
 			
 			if (getSeat(eventId, row, col) != null) {
 				//existing entry
@@ -111,15 +111,15 @@ public class Seat {
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-/*			
+			
 		} finally {
 			if (currentCon != null) {
 				try {
-			//		currentCon.close();
+					currentCon.close();
 				} catch (SQLException e) {
 					//ignore
 				}
-			}*/
+			}
 		}
 		
 		return result;
@@ -131,11 +131,11 @@ public class Seat {
 		ArrayList<Seat> seats = new ArrayList<Seat>();
 		
 		try {
-		       currentCon = DBConnectionManager.getConnection();
+		       con =DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
 			
 			String sql = "SELECT * FROM seat WHERE eventId=?;";
 			
-			PreparedStatement preparedStatement = currentCon.prepareStatement(sql); 
+			PreparedStatement preparedStatement = con.prepareStatement(sql); 
 			preparedStatement.setInt(1, eventId);
 			ResultSet result = preparedStatement.executeQuery();
 
@@ -151,15 +151,15 @@ public class Seat {
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-/*			
+		
 		} finally {
-			if (currentCon != null) {
+			if (con != null) {
 				try {
-					currentCon.close();
+					con.close();
 				} catch (SQLException e) {
 					//ignore
 				}
-			}*/
+			}
 		}
 		
 		return seats;
@@ -172,11 +172,11 @@ public class Seat {
 		Seat seat = null;
 		
 		try {
-			currentCon = DBConnectionManager.getConnection();
+			con = DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
 			
 			String sql = "SELECT * FROM seat WHERE eventId=? AND row=? AND col=?;";
 			
-			PreparedStatement preparedStatement = currentCon.prepareStatement(sql); 
+			PreparedStatement preparedStatement = con.prepareStatement(sql); 
 			preparedStatement.setInt(1, eventId);
 			preparedStatement.setInt(2, row);
 			preparedStatement.setInt(3, col);
@@ -194,17 +194,24 @@ public class Seat {
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-	/*		
+		
 		} finally {
-			if (currentCon != null) {
+			if (con != null) {
 				try {
-					currentCon.close();
+					con.close();
 				} catch (SQLException e) {
 					//ignore
 				}
-			}*/
+			}
 		}
 		
 		return seat;
 	}
+	//for testing purpose to get seat from database
+//	public static void main(String [] args ){
+//		Seat seat=Seat.getSeat(52, 1, 1);
+//		if (seat !=null){
+//			System.out.print("true");
+//		}
+//	}
 }

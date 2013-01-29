@@ -12,14 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
 import polyfive.entities.EventAttributes;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 
@@ -41,6 +43,13 @@ public class CreateSeatPanel extends MasterPanel {
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_7;
 	private JLabel lblNewLabel_8;
+	private JLabel storeEventName;
+	private int checksum = 0 ;
+	private int y2;
+	private int x2;
+	private int x;
+	private int y;
+	private	JScrollPane scrollPane;
 	
 	
 	public CreateSeatPanel(MainFrame frame) {
@@ -50,16 +59,23 @@ public class CreateSeatPanel extends MasterPanel {
 		EventAttributes eventAttributes = new EventAttributes ();
 		eventAttributes = f.getStoreEvents();
 		final int eventId = eventAttributes.getEventId();
+		String name = eventAttributes.getEventName();
 		System.out.println(eventId);
 		
+		storeEventName = new JLabel(name);
+		storeEventName.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		storeEventName.setBounds(906, 107, 369, 49);
+		add(storeEventName);
+		
 		rowTextField = new JTextField();
-		rowTextField.setBounds(950, 175, 89, 31);
+		rowTextField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		rowTextField.setBounds(950, 214, 89, 31);
 		add(rowTextField);
 		rowTextField.setColumns(10);
 		rowTextField.addKeyListener(new KeyAdapter(){
 			public void keyTyped(KeyEvent e){
 				String value = rowTextField.getText();
-				int l = value.length();
+				
 				if((e.getKeyChar() >= '0' && e.getKeyChar()<='9'|| e.getKeyChar()==KeyEvent.VK_BACK_SPACE)){
 					rowTextField.setEditable(true);
 				}
@@ -72,14 +88,15 @@ public class CreateSeatPanel extends MasterPanel {
 		});
 		
 		columnTextField = new JTextField();
-		columnTextField.setBounds(1213, 175, 89, 31);
+		columnTextField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		columnTextField.setBounds(1213, 214, 89, 31);
 		add(columnTextField);
 		columnTextField.setColumns(10);
 		columnTextField.addKeyListener(new KeyAdapter(){
 			public void keyTyped(KeyEvent e){
 				String value = columnTextField.getText();
-				int l = value.length();
-				if((e.getKeyChar() >= '1' && e.getKeyChar()<='7'|| e.getKeyChar()==KeyEvent.VK_BACK_SPACE)){
+				
+				if((e.getKeyChar() >= '0' && e.getKeyChar()<='9'|| e.getKeyChar()==KeyEvent.VK_BACK_SPACE)){
 					columnTextField.setEditable(true);
 				}
 				else{
@@ -109,14 +126,16 @@ public class CreateSeatPanel extends MasterPanel {
 				try{
 					rows = Integer.parseInt(rowTextField.getText());
 					cols = Integer.parseInt(columnTextField.getText());
-					if(rows>26 || cols>7){
-						JOptionPane.showMessageDialog(null," Row must be less than 26 and column not more than 7");
+					if(rows>26 || cols>26){
+						JOptionPane.showMessageDialog(null," Row must be less than 26 and column not more than 26");
 					}
 					else if(rows <= 0 || cols <= 0){
 						JOptionPane.showMessageDialog(null," Row must be more than 0 and col must also be more than 0");
 					}
 					else{
 						CreateSeatLayout(rows, cols, eventId);
+						
+						
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -129,6 +148,7 @@ public class CreateSeatPanel extends MasterPanel {
 		this.repaint();
 		
 		setPrice = new JTextField();
+		setPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		setPrice.setBounds(898, 553, 86, 31);
 		add(setPrice);
 		setPrice.setColumns(10);
@@ -148,6 +168,7 @@ public class CreateSeatPanel extends MasterPanel {
 		});
 		
 		setavailable = new JTextField();
+		setavailable.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		setavailable.setBounds(996, 497, 86, 31);
 		add(setavailable);
 		setavailable.setColumns(10);
@@ -175,13 +196,82 @@ public class CreateSeatPanel extends MasterPanel {
 				int available;
 				int row = Integer.parseInt(firstRow.getText());	
 				int col =  Integer.parseInt(firstCol.getText());
-						//myTableReference.getSelectedColumn();
 				price = Double.parseDouble(setPrice.getText());
 				available = Integer.parseInt(setavailable.getText());
-				int x = Integer.parseInt(firstRow.getText());
-				int y = Integer.parseInt(firstCol.getText());
-				int x2 = Integer.parseInt(secondRow.getText());
-				int y2 = Integer.parseInt(secondCol.getText());
+				if(checksum < Integer.parseInt(firstRow.getText())){
+					if(Integer.parseInt(rowTextField.getText())>= Integer.parseInt(firstRow.getText())){
+						x =  Integer.parseInt(firstRow.getText());
+					}
+					
+					else{
+						firstRow.setEditable(false);
+						firstRow.setText("");
+						JOptionPane.showMessageDialog(null," Enter number that is less than Row");
+					}	
+				}
+				
+				else{
+					firstRow.setEditable(false);
+					firstRow.setText("");
+					JOptionPane.showMessageDialog(null," Enter number that is more than 0");
+					}
+				
+				if(checksum < Integer.parseInt(firstCol.getText())){
+					if(Integer.parseInt(columnTextField.getText())>= Integer.parseInt(firstCol.getText())){
+					y =  Integer.parseInt(firstCol.getText());
+					}
+					
+					else{
+						firstCol.setEditable(false);
+						firstCol.setText("");
+						JOptionPane.showMessageDialog(null," Enter number that is less than Column");
+						
+					}	
+				}
+				
+				else{
+					firstCol.setEditable(false);
+					firstCol.setText("");
+					JOptionPane.showMessageDialog(null," Enter number that is more than 0");
+					}
+				
+				if(checksum < Integer.parseInt(secondCol.getText())){
+					if(Integer.parseInt(columnTextField.getText())>= Integer.parseInt(secondCol.getText())){
+						y2 =  Integer.parseInt(secondCol.getText());
+					}
+					
+					else{
+						secondCol.setEditable(false);
+						secondCol.setText("");
+						JOptionPane.showMessageDialog(null," Enter number that is less than Column");
+						
+					}	
+				}
+				
+				else{
+					secondCol.setEditable(false);
+					secondCol.setText("");
+					JOptionPane.showMessageDialog(null," Enter number that is more than 0");
+					}
+				
+				if(checksum < Integer.parseInt(secondRow.getText())){
+					if(Integer.parseInt(rowTextField.getText())>= Integer.parseInt(secondRow.getText())){
+						x2 =  Integer.parseInt(secondRow.getText());
+					}
+					
+					else{
+						secondRow.setEditable(false);
+						secondRow.setText("");
+						JOptionPane.showMessageDialog(null," Enter number that is less than Row");
+						
+					}	
+				}
+				
+				else{
+					secondRow.setEditable(false);
+					secondRow.setText("");
+					JOptionPane.showMessageDialog(null," Enter number that is more than 0");
+					}
 				
 			
 				
@@ -195,7 +285,8 @@ public class CreateSeatPanel extends MasterPanel {
 		add(btnNewButton);
 		
 		firstRow = new JTextField();
-		firstRow.setBounds(898, 383, 86, 32);
+		firstRow.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		firstRow.setBounds(950, 383, 86, 32);
 		add(firstRow);
 		firstRow.setColumns(10);
 		firstRow.addKeyListener(new KeyAdapter(){
@@ -205,6 +296,7 @@ public class CreateSeatPanel extends MasterPanel {
 				if((e.getKeyChar() >= '0' && e.getKeyChar()<='9'|| e.getKeyChar()==KeyEvent.VK_BACK_SPACE||e.getKeyChar()<Integer.parseInt(rowTextField.getText()))){
 					firstRow.setEditable(true);
 				}
+				
 				else{
 					//firstRow.setEditable(false);
 					firstRow.setText("");
@@ -214,7 +306,8 @@ public class CreateSeatPanel extends MasterPanel {
 		});
 		
 		firstCol = new JTextField();
-		firstCol.setBounds(1092, 384, 89, 31);
+		firstCol.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		firstCol.setBounds(1213, 384, 89, 31);
 		add(firstCol);
 		firstCol.setColumns(10);
 		firstCol.addKeyListener(new KeyAdapter(){
@@ -224,6 +317,7 @@ public class CreateSeatPanel extends MasterPanel {
 				if((e.getKeyChar() >= '0' && e.getKeyChar()<='9'|| e.getKeyChar()==KeyEvent.VK_BACK_SPACE||e.getKeyChar()<Integer.parseInt(columnTextField.getText()))){
 					firstCol.setEditable(true);
 				}
+				
 				else{
 					//firstCol.setEditable(false);
 					firstCol.setText("");
@@ -233,7 +327,8 @@ public class CreateSeatPanel extends MasterPanel {
 		});
 		
 		secondRow = new JTextField();
-		secondRow.setBounds(898, 437, 86, 31);
+		secondRow.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		secondRow.setBounds(950, 437, 86, 31);
 		add(secondRow);
 		secondRow.setColumns(10);
 		secondRow.addKeyListener(new KeyAdapter(){
@@ -243,6 +338,7 @@ public class CreateSeatPanel extends MasterPanel {
 				if((e.getKeyChar() >= '0' && e.getKeyChar()<='9'|| e.getKeyChar()==KeyEvent.VK_BACK_SPACE||e.getKeyChar()<Integer.parseInt(rowTextField.getText()))){
 					secondRow.setEditable(true);
 				}
+				
 				else{
 					//secondRow.setEditable(false);
 					secondRow.setText("");
@@ -252,7 +348,8 @@ public class CreateSeatPanel extends MasterPanel {
 		});
 		
 		secondCol = new JTextField();
-		secondCol.setBounds(1092, 437, 86, 31);
+		secondCol.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		secondCol.setBounds(1213, 437, 86, 31);
 		add(secondCol);
 		secondCol.setColumns(10);
 		secondCol.addKeyListener(new KeyAdapter(){
@@ -262,6 +359,7 @@ public class CreateSeatPanel extends MasterPanel {
 				if((e.getKeyChar() >= '0' && e.getKeyChar()<='9'|| e.getKeyChar()==KeyEvent.VK_BACK_SPACE||e.getKeyChar()<Integer.parseInt(columnTextField.getText()))){
 					secondCol.setEditable(true);
 				}
+				
 				else{
 					//secondCol.setEditable(false);
 					secondCol.setText("");
@@ -279,42 +377,38 @@ public class CreateSeatPanel extends MasterPanel {
 				//next page
 			}
 		});
-		NextPage.setBounds(1075, 685, 106, 29);
+		NextPage.setBounds(857, 685, 106, 29);
 		add(NextPage); 
+	
 		
 		JLabel lblRow = new JLabel("Row");
 		lblRow.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblRow.setBounds(841, 175, 46, 23);
+		lblRow.setBounds(838, 214, 46, 23);
 		add(lblRow);
 		
 		JLabel lblColumn = new JLabel("Column");
 		lblColumn.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblColumn.setBounds(1108, 171, 74, 31);
+		lblColumn.setBounds(1104, 206, 74, 31);
 		add(lblColumn);
 		
-		JLabel lblNewLabel = new JLabel("Select point (x1,y1) to(x2,y2)");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel.setBounds(842, 313, 344, 48);
-		add(lblNewLabel);
-		
-		JLabel lblNewLabel_2 = new JLabel("x1");
+		JLabel lblNewLabel_2 = new JLabel("From row");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_2.setBounds(838, 384, 46, 31);
+		lblNewLabel_2.setBounds(838, 384, 95, 31);
 		add(lblNewLabel_2);
 		
-		lblNewLabel_3 = new JLabel("y1");
+		lblNewLabel_3 = new JLabel("From column");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3.setBounds(1025, 383, 46, 32);
+		lblNewLabel_3.setBounds(1055, 383, 126, 32);
 		add(lblNewLabel_3);
 		
-		lblNewLabel_4 = new JLabel("x2");
+		lblNewLabel_4 = new JLabel("To row");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_4.setBounds(838, 433, 46, 31);
+		lblNewLabel_4.setBounds(838, 433, 89, 31);
 		add(lblNewLabel_4);
 		
-		lblNewLabel_5 = new JLabel("y2");
+		lblNewLabel_5 = new JLabel("To column");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_5.setBounds(1025, 433, 46, 31);
+		lblNewLabel_5.setBounds(1055, 433, 126, 31);
 		add(lblNewLabel_5);
 		
 		lblNewLabel_6 = new JLabel("Price");
@@ -331,17 +425,50 @@ public class CreateSeatPanel extends MasterPanel {
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_8.setBounds(885, 553, 18, 31);
 		add(lblNewLabel_8);
+		
+		JLabel lblFromRowFrom = new JLabel("Select point(x1,x2) to (y1,y2)");
+		lblFromRowFrom.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblFromRowFrom.setBounds(790, 321, 416, 29);
+		add(lblFromRowFrom);
+		
+		JLabel lblNewLabel = new JLabel("Create table");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel.setBounds(790, 172, 126, 23);
+		add(lblNewLabel);
+		
+		JButton btnNewButton_1 = new JButton("delete selected cell");
+		btnNewButton_1.setBackground(new Color(255, 165, 0));
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedRow = myTableReference.getSelectedRow();
+				int selectedColumn = myTableReference.getSelectedColumn();
+				double price = 0;
+				int available = 1;
+				MyTableModel.setPricing(selectedRow,selectedColumn,selectedRow,selectedColumn,price,available,eventId);
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnNewButton_1.setBounds(1082, 620, 193, 29);
+		add(btnNewButton_1);
+		
 		this.revalidate();
 		this.repaint(); 
 		
 		super.setLayout();
-	}
 	
-
+	
+	}
 	private void CreateSeatLayout(int rows , int cols, int eventId) throws Exception{
 		seatSelectorPanel.removeAll();
 		myTableReference = new JTable(new MyTableModel(rows, cols));
 		seatSelectorPanel.add(myTableReference);
+		scrollPane = myTableReference.createScrollPaneForTable(myTableReference);
+		seatSelectorPanel.setLayout( new BorderLayout());
+		seatSelectorPanel.add( scrollPane, BorderLayout.CENTER );
+		if (myTableReference.getTableHeader().isVisible() != false) {
+			myTableReference.getTableHeader().setVisible(false);
+			myTableReference.getTableHeader().setPreferredSize(false ? null : new Dimension(-1, 0));
+			 }
 		this.revalidate();
 		this.repaint();
 	}
