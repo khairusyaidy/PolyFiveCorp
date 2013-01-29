@@ -428,7 +428,7 @@ public class SeatAllocation extends MasterPanel {
 				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				paymentDetails paymentDetails =  new paymentDetails(f);
+				PaymentDetails paymentDetails =  new PaymentDetails(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(paymentDetails);
 				f.repaint();

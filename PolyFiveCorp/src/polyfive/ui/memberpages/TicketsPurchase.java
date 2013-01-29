@@ -306,6 +306,13 @@ public class TicketsPurchase extends MasterPanel {
 		JButton btnProceedToPayment = new JButton("Proceed to Payment\r\n");
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				PaymentDetails paymentDetails = new PaymentDetails(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(paymentDetails);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+				
 				
 				EventAttributes eventAttributes = new EventAttributes();
 				eventAttributes = f.getStoreEvents();

@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
 	private static SeatAllocation seatAllocation;
 	private static TicketsPurchase ticketsPurchase;
 	private static AccountDetails accountDetails;
-	private static paymentDetails paymentDetails;
+	private static PaymentDetails paymentDetails;
 	private static PaymentPanel paymentPanel;
 	private static Member session;
 	private static Member editAccountSession;
@@ -156,7 +156,7 @@ public class MainFrame extends JFrame {
 		return accountDetails;
 	}
 
-	public paymentDetails getPaymentDetails() {
+	public PaymentDetails getPaymentDetails() {
 		return paymentDetails;
 
 	}

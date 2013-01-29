@@ -50,7 +50,17 @@ public class PaymentPanel extends MasterPanel {
 		btnPayPal.setBounds(154, 224, 350, 220);
 		add(btnPayPal);
 
-		JButton btnCreditCard = new JButton("");
+		JButton btnCreditCard = new JButton("CreditCard");
+		btnCreditCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CreditCard creditCard = new CreditCard(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(creditCard);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+			}
+		});
 		btnCreditCard.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCreditCard.setBorder(null);
 		btnCreditCard.setIcon(new ImageIcon(PaymentPanel.class

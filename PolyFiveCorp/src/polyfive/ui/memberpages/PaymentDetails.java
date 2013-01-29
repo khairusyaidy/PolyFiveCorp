@@ -21,13 +21,13 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
 
-public class paymentDetails extends MasterPanel {
+public class PaymentDetails extends MasterPanel {
 	private MainFrame f;
 
 	/**
 	 * Create the panel.
 	 */
-	public paymentDetails(MainFrame frame) {
+	public PaymentDetails(MainFrame frame) {
 		f = frame;
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
@@ -56,7 +56,7 @@ public class paymentDetails extends MasterPanel {
 			}
 		});
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.setIcon(new ImageIcon(paymentDetails.class
+		button.setIcon(new ImageIcon(PaymentDetails.class
 				.getResource("/polyFive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
@@ -68,11 +68,7 @@ public class paymentDetails extends MasterPanel {
 		txtrPayment.setEditable(false);
 		txtrPayment.setBounds(422, 257, 593, 205);
 		add(txtrPayment);
-
-		JCheckBox chckbxEticket = new JCheckBox("E-Ticketing");
-		chckbxEticket.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		chckbxEticket.setBounds(422, 486, 149, 47);
-		add(chckbxEticket);
+		
 
 		JButton btnBack = new JButton("Back");
 		btnBack.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
