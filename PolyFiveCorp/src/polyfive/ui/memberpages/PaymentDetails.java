@@ -1,6 +1,6 @@
 package polyfive.ui.memberpages;
 
-import polyfive.entities.Member;
+import polyfive.entities.*;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -20,9 +20,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class PaymentDetails extends MasterPanel {
 	private MainFrame f;
+	private JTextField tfEventName;
+	private JTextField tfNumberOfTickets;
+	private JTextField tfTotalCost;
 
 	/**
 	 * Create the panel.
@@ -31,6 +36,9 @@ public class PaymentDetails extends MasterPanel {
 		f = frame;
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
+		
+		BuyTickets buyTickets = new BuyTickets();
+		buyTickets = f.getBuyTickets();
 
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
@@ -61,13 +69,6 @@ public class PaymentDetails extends MasterPanel {
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-
-		JTextArea txtrPayment = new JTextArea();
-		txtrPayment.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		txtrPayment.setText("Purchase Detail\r\n\r\n\r\nAmount");
-		txtrPayment.setEditable(false);
-		txtrPayment.setBounds(422, 257, 593, 205);
-		add(txtrPayment);
 		
 
 		JButton btnBack = new JButton("Back");
@@ -105,11 +106,59 @@ public class PaymentDetails extends MasterPanel {
 		btnNext.setForeground(Color.DARK_GRAY);
 		btnNext.setBackground(new Color(255, 165, 0));
 		btnNext.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnNext.setBounds(1115, 664, 150, 75);
+		btnNext.setBounds(1202, 656, 150, 75);
 		add(btnNext);
+		
+		JLabel lblPaymentDetails = new JLabel("Payment Details");
+		lblPaymentDetails.setForeground(new Color(0, 0, 0));
+		lblPaymentDetails.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblPaymentDetails.setBounds(447, 261, 292, 47);
+		add(lblPaymentDetails);
+		
+		JLabel lblEventName = new JLabel("Event Name:");
+		lblEventName.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblEventName.setBounds(447, 363, 208, 47);
+		add(lblEventName);
+		
+		JLabel lblNumberOfTickets = new JLabel("Number of Tickets:");
+		lblNumberOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblNumberOfTickets.setBounds(447, 421, 208, 47);
+		add(lblNumberOfTickets);
+		
+		JLabel lblTotalCost = new JLabel("Total Cost:");
+		lblTotalCost.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblTotalCost.setBounds(447, 479, 208, 47);
+		add(lblTotalCost);
+		
+		EventAttributes eventAttributes = new EventAttributes ();
+		eventAttributes = f.getStoreEvents();
+		final int eventId = eventAttributes.getEventId();
+		String name = eventAttributes.getEventName();
+		tfEventName = new JTextField(name);
+		tfEventName.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		tfEventName.setEditable(false);
+		tfEventName.setBounds(665, 363, 344, 47);
+		add(tfEventName);
+		tfEventName.setColumns(10);
+		
+		
+		tfNumberOfTickets = new JTextField();
+		tfNumberOfTickets.setText(buyTickets.getGetTickets());
+		tfNumberOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		tfNumberOfTickets.setEditable(false);
+		tfNumberOfTickets.setBounds(665, 421, 344, 47);
+		add(tfNumberOfTickets);
+		tfNumberOfTickets.setColumns(10);
+		
+		tfTotalCost = new JTextField();
+		tfTotalCost.setText(buyTickets.getGetPRice());
+		tfTotalCost.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		tfTotalCost.setEditable(false);
+		tfTotalCost.setBounds(665, 483, 344, 47);
+		add(tfTotalCost);
+		tfTotalCost.setColumns(10);
 
 		super.setLayout();
 
 	}
-
 }

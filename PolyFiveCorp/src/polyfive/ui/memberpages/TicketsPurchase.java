@@ -1,5 +1,6 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.BuyTickets;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.JSpinnerAttributes;
 import polyfive.entities.Member;
@@ -306,6 +307,18 @@ public class TicketsPurchase extends MasterPanel {
 		JButton btnProceedToPayment = new JButton("Proceed to Payment\r\n");
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				BuyTickets buyTickets = new BuyTickets();
+				int tickets = (int)spinner.getValue();
+				String ticketsString = Integer.toString(tickets);
+				buyTickets.setGetTickets(ticketsString);
+				
+				String ticketsPrice = txtPriceAfterDiscount.getText();
+				buyTickets.setGetPRice(ticketsPrice);
+				
+				f.setBuyTickets(buyTickets);
+				
+				
 				PaymentDetails paymentDetails = new PaymentDetails(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(paymentDetails);

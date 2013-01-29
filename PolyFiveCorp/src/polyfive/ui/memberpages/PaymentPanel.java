@@ -1,5 +1,6 @@
 package polyfive.ui.memberpages;
 
+import polyfive.entities.BuyTickets;
 import polyfive.entities.Member;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
@@ -26,6 +27,9 @@ public class PaymentPanel extends MasterPanel {
 		f = frame;
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
+		
+		BuyTickets buyTickets = new BuyTickets();
+		buyTickets = f.getBuyTickets();
 
 		JButton button_1 = new JButton("");
 		button_1.addActionListener(new ActionListener() {

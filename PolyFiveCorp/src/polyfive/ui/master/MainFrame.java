@@ -1,5 +1,6 @@
 package polyfive.ui.master;
 
+import polyfive.entities.BuyTickets;
 import polyfive.entities.ChangeLanguage;
 import polyfive.entities.CheckDate;
 import polyfive.entities.Member;
@@ -48,6 +49,15 @@ public class MainFrame extends JFrame {
 	private static EventAttributes storeEvents;
 	private static ChangeLanguage storeLanguage;
 	private static CheckDate checkDate;
+	private static BuyTickets buyTickets;
+
+	public static BuyTickets getBuyTickets() {
+		return buyTickets;
+	}
+
+	public static void setBuyTickets(BuyTickets buyTickets) {
+		MainFrame.buyTickets = buyTickets;
+	}
 
 	public static CheckDate getCheckDate() {
 		return checkDate;
