@@ -112,6 +112,8 @@ public class PublicCalendar extends MasterPanel {
 				TitledBorder.TOP, null, null));
 		calendar.setBounds(166, 191, 989, 427);
 		calendar.addDateListener(new DateListener() {
+			
+			
 			public void dateChanged(DateEvent arg0) {
 				CheckDate checkDate = new CheckDate();
 				

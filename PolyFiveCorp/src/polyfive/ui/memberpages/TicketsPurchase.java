@@ -49,7 +49,10 @@ public class TicketsPurchase extends MasterPanel {
 	public TicketsPurchase(MainFrame frame) {
 		f = frame;
 
-
+		Member user = new Member();
+		user = f.getSession();
+		int rank = user.getRank();
+		
 		EventAttributes eventAttributes = new EventAttributes();
 		eventAttributes = f.getStoreEvents();
 
@@ -356,6 +359,25 @@ public class TicketsPurchase extends MasterPanel {
 		add(lblNewLabel);
 		
 
+		
+		
+		if (rank == 0){
+			lblAfterDiscount.setVisible(false);
+			separator_2.setVisible(false);
+			lblPriceAfterDiscount.setVisible(false);
+			txtPriceAfterDiscount.setVisible(false);
+		}
+		else {
+			lblAfterDiscount.setVisible(true);
+			separator_2.setVisible(true);
+			lblPriceAfterDiscount.setVisible(true);
+			txtPriceAfterDiscount.setVisible(true);
+		}
+		
+		
+		
+		
+		
 		super.setLayout();
 
 	}

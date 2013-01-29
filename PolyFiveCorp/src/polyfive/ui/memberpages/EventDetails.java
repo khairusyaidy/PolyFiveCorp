@@ -635,7 +635,7 @@ public class EventDetails extends MasterPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(446, 86, 353, 10);
 		add(separator);
-		
+	/*	
 		if(checkDate.isCheckDate() == true){
 			btnProceedToPayment.setEnabled(false);
 		}
@@ -643,7 +643,7 @@ public class EventDetails extends MasterPanel {
 		else 
 			btnProceedToPayment.setEnabled(true);
 		
-
+*/
 
 		super.setLayout();
 
