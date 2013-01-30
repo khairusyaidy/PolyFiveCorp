@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Event {
-	
+
 	private int eventId;
 	private String eventName;
 	private int rows;
@@ -49,33 +49,34 @@ public class Event {
 	public void setCols(int cols) {
 		this.cols = cols;
 	}
-	
+
 	public boolean save() {
 		Connection con = null;
 		boolean result = false;
-		
+
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:8888/poly5","root","");
-			
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:8888/poly5", "root", "");
+
 			if (getEvent(eventId) != null) {
-				//existing entry
-				//update instead of inserting
-				
+				// existing entry
+				// update instead of inserting
+
 				String sql = "UPDATE Event SET eventName=?, rows=?, cols=? WHERE eventId=?;";
 
-				PreparedStatement preparedStatement = con.prepareStatement(sql); 
+				PreparedStatement preparedStatement = con.prepareStatement(sql);
 				preparedStatement.setString(1, eventName);
 				preparedStatement.setInt(2, rows);
 				preparedStatement.setInt(3, cols);
 				preparedStatement.setInt(4, eventId);
 				result = preparedStatement.executeUpdate() > 0;
 			} else {
-				//new entry
-				//insert
-				
+				// new entry
+				// insert
+
 				String sql = "INSERT INTO Event VALUES(?, ?, ?, ?)";
 
-				PreparedStatement preparedStatement = con.prepareStatement(sql); 
+				PreparedStatement preparedStatement = con.prepareStatement(sql);
 				preparedStatement.setInt(1, eventId);
 				preparedStatement.setString(2, eventName);
 				preparedStatement.setInt(3, rows);
@@ -85,32 +86,33 @@ public class Event {
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			
+
 		} finally {
 			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
-					//ignore
+					// ignore
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public static ArrayList<Event> getAllEvents() {
-		//SELECT * FROM Event
-		
+		// SELECT * FROM Event
+
 		Connection con = null;
 		ArrayList<Event> events = new ArrayList<Event>();
-		
+
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:8888/poly5","root","");
-			
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:8888/poly5", "root", "");
+
 			String sql = "SELECT * FROM event;";
-			
-			PreparedStatement preparedStatement = con.prepareStatement(sql); 
+
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			ResultSet result = preparedStatement.executeQuery();
 
 			while (result.next()) {
@@ -121,35 +123,36 @@ public class Event {
 				event.rows = result.getInt("rows");
 				events.add(event);
 			}
-			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			
+
 		} finally {
 			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
-					//ignore
+					// ignore
 				}
 			}
 		}
-		
+
 		return events;
 	}
-	
+
 	public static Event getEvent(int eventId) {
-		//SELECT * FROM Event WHERE eventId=eventId
-		
+		// SELECT * FROM Event WHERE eventId=eventId
+
 		Connection con = null;
 		Event event = null;
-		
+
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:8888/poly5","root","");
-			
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:8888/poly5", "root", "");
+
 			String sql = "SELECT * FROM event WHERE eventId=?;";
-			
-			PreparedStatement preparedStatement = con.prepareStatement(sql); 
+
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setInt(1, eventId);
 			ResultSet result = preparedStatement.executeQuery();
 
@@ -161,23 +164,22 @@ public class Event {
 				event.rows = result.getInt("rows");
 				break; // only returns the first match
 			}
-			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			
+
 		} finally {
 			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
-					//ignore
+					// ignore
 				}
 			}
 		}
-		
+
 		return event;
-		
+
 	}
 
 }
-

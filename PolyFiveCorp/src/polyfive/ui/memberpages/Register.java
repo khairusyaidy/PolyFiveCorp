@@ -47,7 +47,6 @@ import java.util.ResourceBundle;
 import javax.swing.border.LineBorder;
 import java.awt.event.KeyAdapter;
 
-
 public class Register extends MasterPanel {
 	private JTextField accountName;
 	private JTextField phoneNumber;
@@ -195,10 +194,10 @@ public class Register extends MasterPanel {
 		genCaptcha = new JButton("Generate Captcha");
 		genCaptcha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-	            //should work now
+				// should work now
 				java.util.Random foo = new java.util.Random();
-		        int randomNumber = foo.nextInt((max + 1) - min) + min;
-		        String randomNo = Integer.toString(randomNumber);
+				int randomNumber = foo.nextInt((max + 1) - min) + min;
+				String randomNo = Integer.toString(randomNumber);
 				genCaptcha.setText(randomNo);
 			}
 		});
@@ -253,7 +252,6 @@ public class Register extends MasterPanel {
 				int sumRank = rank + 1;
 				Member register = new Member();
 				isInteger = Member.isInteger(phoneNumber.getText());
-				
 
 				System.out.println(genCaptcha.getText());
 				if (!firstName.getText().isEmpty()
@@ -266,48 +264,52 @@ public class Register extends MasterPanel {
 						&& !confirmEmail.getText().isEmpty()
 						&& !passport_IC.getText().isEmpty()
 						&& !enterCaptcha.getText().isEmpty()) {
-					
-					 if (email.getText().equals(confirmEmail.getText())) {
-						if (passwordField.getText().equals(passwordField_1.getText())) {
-							if (genCaptcha.getText().equals(enterCaptcha.getText())) {
-							System.out.println("test");
-							if (sumRank > 1) {
-								System.out.println("Test");
-							} else if (sumRank == 1) {
-								System.out.println("Test");
 
+					if (email.getText().equals(confirmEmail.getText())) {
+						if (passwordField.getText().equals(
+								passwordField_1.getText())) {
+							if (genCaptcha.getText().equals(
+									enterCaptcha.getText())) {
+								System.out.println("test");
+								if (sumRank > 1) {
+									System.out.println("Test");
+								} else if (sumRank == 1) {
+									System.out.println("Test");
 
-								int reply = JOptionPane
-										.showConfirmDialog(null,
-												"Are you sure you want to register with the following details ?");
-								if (reply == JOptionPane.YES_OPTION) {
-									String fn = firstName.getText();
-									String ln = lastName.getText();
-									// fullName = fn + ln;
-									String un = accountName.getText();
-									String pass = passwordField.getText();
-									String passEncrypted = RailFence.encrypt(pass);
-									String telNo = phoneNumber.getText().trim();
-									int telNoInt = Integer.parseInt(telNo);
-									String em = email.getText();
-									String passIc = passport_IC.getText();
-									String passIcEncrypted = RailFence.encrypt(passIc);
-									
-									Date date = new Date();
-									String dateString = date.toString();
-									String fulldate = MemberDao.fullDate(dateString);
-									register.setFirstName(fn);
-									register.setLastName(ln);
-									register.setUsername(un);
-									register.setPassword(passEncrypted);
-									register.setPhoneNumber(telNoInt);
-									register.setEmail(em);
-									register.setPass_icNo(passIcEncrypted);
-									register.setCreationDate(fulldate);
-									register.setRank(sumRank);
-									DBConnectionManager.connect();
-										
-										
+									int reply = JOptionPane
+											.showConfirmDialog(null,
+													"Are you sure you want to register with the following details ?");
+									if (reply == JOptionPane.YES_OPTION) {
+										String fn = firstName.getText();
+										String ln = lastName.getText();
+										// fullName = fn + ln;
+										String un = accountName.getText();
+										String pass = passwordField.getText();
+										String passEncrypted = RailFence
+												.encrypt(pass);
+										String telNo = phoneNumber.getText()
+												.trim();
+										int telNoInt = Integer.parseInt(telNo);
+										String em = email.getText();
+										String passIc = passport_IC.getText();
+										String passIcEncrypted = RailFence
+												.encrypt(passIc);
+
+										Date date = new Date();
+										String dateString = date.toString();
+										String fulldate = MemberDao
+												.fullDate(dateString);
+										register.setFirstName(fn);
+										register.setLastName(ln);
+										register.setUsername(un);
+										register.setPassword(passEncrypted);
+										register.setPhoneNumber(telNoInt);
+										register.setEmail(em);
+										register.setPass_icNo(passIcEncrypted);
+										register.setCreationDate(fulldate);
+										register.setRank(sumRank);
+										DBConnectionManager.connect();
+
 										String sql = "select Username from Users where Username= '"
 												+ accountName.getText() + "'";
 										try {
@@ -320,8 +322,9 @@ public class Register extends MasterPanel {
 										}
 										int count = 0;
 										try {
-											while (DBConnectionManager.rs.next()) {
-												
+											while (DBConnectionManager.rs
+													.next()) {
+
 												count = count + 1;
 											}
 										} catch (SQLException e) {
@@ -334,62 +337,64 @@ public class Register extends MasterPanel {
 										} else if (count == 0) {
 											try {
 
-												MemberDao.insertMemberDetails(register);
+												MemberDao
+														.insertMemberDetails(register);
 											} catch (Exception ex) {
 												System.out.println(ex);
 											}
 											JOptionPane.showMessageDialog(null,
 													"Registration successful");
 
-
-											
-											LoginPanel loginPanel = new LoginPanel(f);
+											LoginPanel loginPanel = new LoginPanel(
+													f);
 											f.getContentPane().removeAll();
 											f.getContentPane().add(loginPanel);
 											f.repaint();
 											f.revalidate();
 											f.setVisible(true);
-											
+
 											f.setRegisterAccountSession(register);
 										}
 
-								}
-							
-							}
-								
-						}
-							else if (!genCaptcha.getText().equals(enterCaptcha.getText())){
-								JOptionPane.showMessageDialog(null, "Captcha does not match");
-							}
-						}	
-					
-						
-						else if (!passwordField.getText().equals(passwordField_1.getText())) {
-							JOptionPane.showMessageDialog(null,"Password does not match");
-						}
-					 
-					 }
-					 
-					else if (!email.getText().equals(confirmEmail.getText())) {
-							JOptionPane.showMessageDialog(null,
-									"Email does not match");
-						}
-			/*		
+									}
 
-					 else if (!email.getText().equals(confirmEmail.getText())) {
-						if (!passwordField.getText().equals(
-								passwordField_1.getText())) 
-							JOptionPane.showMessageDialog(null,
-									"Email & Password does not match");
+								}
+
+							} else if (!genCaptcha.getText().equals(
+									enterCaptcha.getText())) {
+								JOptionPane.showMessageDialog(null,
+										"Captcha does not match");
+							}
 						}
-					
-					 
-					else if (!genCaptcha.getText().equals(enterCaptcha.getText())){
-						JOptionPane.showMessageDialog(null, "Captcha does not match");
+
+						else if (!passwordField.getText().equals(
+								passwordField_1.getText())) {
+							JOptionPane.showMessageDialog(null,
+									"Password does not match");
+						}
+
 					}
+
+					else if (!email.getText().equals(confirmEmail.getText())) {
+						JOptionPane.showMessageDialog(null,
+								"Email does not match");
+					}
+					/*
+					 * 
+					 * else if (!email.getText().equals(confirmEmail.getText()))
+					 * { if (!passwordField.getText().equals(
+					 * passwordField_1.getText()))
+					 * JOptionPane.showMessageDialog(null,
+					 * "Email & Password does not match"); }
+					 * 
+					 * 
+					 * else if
+					 * (!genCaptcha.getText().equals(enterCaptcha.getText())){
+					 * JOptionPane.showMessageDialog(null,
+					 * "Captcha does not match"); }
 					 */
 				}
-				
+
 				else if (firstName.getText().isEmpty()
 						|| lastName.getText().isEmpty()
 						|| accountName.getText().isEmpty()
@@ -399,88 +404,57 @@ public class Register extends MasterPanel {
 						|| email.getText().isEmpty()
 						|| confirmEmail.getText().isEmpty()
 						|| passport_IC.getText().isEmpty()
-						|| enterCaptcha.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null, "Please fill in all the fields");
+						|| enterCaptcha.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null,
+							"Please fill in all the fields");
 				}
 			}
 
-				
-			
-
-	/*			
-			
-				if (rank > 1) {
-					System.out.println("Test");
-				} else if (rank <= 1) {
-					System.out.println("Test");
-					Member register = new Member();
-
-					String fn = firstName.getText();
-					String ln = lastName.getText();
-					// fullName = fn + ln;
-					String un = accountName.getText();
-					String pass = passwordField.getText();
-					String telNo = phoneNumber.getText().trim();
-					int telNoInt = Integer.parseInt(telNo);
-					String em = email.getText();
-					String passIc = passport_IC.getText();
-
-					Date date = new Date();
-					String dateString = date.toString();
-					String fulldate = MemberDao.fullDate(dateString);
-
-					register.setFirstName(fn);
-					register.setLastName(ln);
-					register.setUsername(un);
-					register.setPassword(pass);
-					register.setPhoneNumber(telNoInt);
-					register.setEmail(em);
-					register.setPass_icNo(passIc);
-					register.setCreationDate(fulldate);
-
-					f.setRegisterAccountSession(register);
-
-					int reply = JOptionPane
-							.showConfirmDialog(null,
-									"Are you sure you want to register with the following details ?");
-					if (reply == JOptionPane.YES_OPTION) {
-						try {
-							String sql = "select Username from Users where Username = '"
-									+ accountName.getText() + "'";
-							DBConnectionManager.rs = DBConnectionManager.stmt
-									.executeQuery(sql);
-							int count = 0;
-							while (DBConnectionManager.rs.next()) {
-								count = count + 1;
-							}
-							if (count >= 1) {
-								JOptionPane.showMessageDialog(null,
-										"Username already exits");
-							} else if (count == 0) {
-								try {
-
-									MemberDao.insertMemberDetails(register);
-								} catch (Exception ex) {
-									System.out.println(ex);
-								}
-								LoginPanel loginPanel = new LoginPanel(f);
-								f.getContentPane().removeAll();
-								f.getContentPane().add(loginPanel);
-								f.repaint();
-								f.revalidate();
-								f.setVisible(true);
-							}
-
-						} catch (Exception ex) {
-							// System.out.println(ex);
-						}
-
-					}
-				
-				}
-			}
-			
-		*/	
+			/*
+			 * 
+			 * if (rank > 1) { System.out.println("Test"); } else if (rank <= 1)
+			 * { System.out.println("Test"); Member register = new Member();
+			 * 
+			 * String fn = firstName.getText(); String ln = lastName.getText();
+			 * // fullName = fn + ln; String un = accountName.getText(); String
+			 * pass = passwordField.getText(); String telNo =
+			 * phoneNumber.getText().trim(); int telNoInt =
+			 * Integer.parseInt(telNo); String em = email.getText(); String
+			 * passIc = passport_IC.getText();
+			 * 
+			 * Date date = new Date(); String dateString = date.toString();
+			 * String fulldate = MemberDao.fullDate(dateString);
+			 * 
+			 * register.setFirstName(fn); register.setLastName(ln);
+			 * register.setUsername(un); register.setPassword(pass);
+			 * register.setPhoneNumber(telNoInt); register.setEmail(em);
+			 * register.setPass_icNo(passIc);
+			 * register.setCreationDate(fulldate);
+			 * 
+			 * f.setRegisterAccountSession(register);
+			 * 
+			 * int reply = JOptionPane .showConfirmDialog(null,
+			 * "Are you sure you want to register with the following details ?"
+			 * ); if (reply == JOptionPane.YES_OPTION) { try { String sql =
+			 * "select Username from Users where Username = '" +
+			 * accountName.getText() + "'"; DBConnectionManager.rs =
+			 * DBConnectionManager.stmt .executeQuery(sql); int count = 0; while
+			 * (DBConnectionManager.rs.next()) { count = count + 1; } if (count
+			 * >= 1) { JOptionPane.showMessageDialog(null,
+			 * "Username already exits"); } else if (count == 0) { try {
+			 * 
+			 * MemberDao.insertMemberDetails(register); } catch (Exception ex) {
+			 * System.out.println(ex); } LoginPanel loginPanel = new
+			 * LoginPanel(f); f.getContentPane().removeAll();
+			 * f.getContentPane().add(loginPanel); f.repaint(); f.revalidate();
+			 * f.setVisible(true); }
+			 * 
+			 * } catch (Exception ex) { // System.out.println(ex); }
+			 * 
+			 * }
+			 * 
+			 * } }
+			 */
 			// else if ()
 			// how to check for same user ? Use the username entered to check
 			// with database. if count = 1 , user exist :)

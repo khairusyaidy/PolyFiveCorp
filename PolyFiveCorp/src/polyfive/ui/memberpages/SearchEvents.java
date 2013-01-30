@@ -130,13 +130,12 @@ public class SearchEvents extends MasterPanel {
 		// adding table here + scrollpane
 
 		final JTable table = new JTable(new JTableModel());
-	
+
 		TableColumn col = table.getColumnModel().getColumn(0);
-        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();    
-        dtcr.setHorizontalAlignment(dtcr.CENTER); 
-        col.setCellRenderer(dtcr);
-		
-		
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(dtcr.CENTER);
+		col.setCellRenderer(dtcr);
+
 		table.setDragEnabled(false);
 
 		table.setAutoCreateRowSorter(true);
@@ -153,7 +152,7 @@ public class SearchEvents extends MasterPanel {
 
 		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
 		table.getColumn("Event Details").setCellRenderer(buttonRenderer);
-		
+
 		// table.getColumn("Button2").setCellRenderer(buttonRenderer);
 		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.setRowHeight(60);
@@ -171,7 +170,7 @@ public class SearchEvents extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Member user = new Member();
 				user = f.getSession();
 
@@ -322,13 +321,13 @@ public class SearchEvents extends MasterPanel {
 						String eventAdd = eventDetails.get(rowIndex)
 								.getEventAddress();
 						int eventId = eventDetails.get(rowIndex).getEventId();
-						
+
 						EventAttributes eventAttributes = new EventAttributes();
 						eventAttributes.setEventName(eventName);
 						eventAttributes.setEventDate(eventDate);
 						eventAttributes.setEventAddress(eventAdd);
 						eventAttributes.setEventId(eventId);
-						
+
 						f.setStoreEvents(eventAttributes);
 
 						EventDetails eventDetailsPage = new EventDetails(f);

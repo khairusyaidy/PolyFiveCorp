@@ -63,21 +63,19 @@ import javax.swing.border.EtchedBorder;
 import java.util.ResourceBundle;
 
 public class WelcomePanel extends MasterPanel {
-	public static final ResourceBundle BUNDLE = ResourceBundle.getBundle("polyfive.ui.master.messages"); //$NON-NLS-1$
-	public static final ResourceBundle BUNDLE2 = ResourceBundle.getBundle("polyfive.ui.master.messages_ms_MY");
+	public static final ResourceBundle BUNDLE = ResourceBundle
+			.getBundle("polyfive.ui.master.messages"); //$NON-NLS-1$
+	public static final ResourceBundle BUNDLE2 = ResourceBundle
+			.getBundle("polyfive.ui.master.messages_ms_MY");
 	private final Action action = new SwingAction();
 	private MainFrame f = null;
 
 	/**
 	 * Create the panel.
 	 */
-	
-
-	
 
 	public WelcomePanel(MainFrame frame) {
 
-		
 		f = frame;
 		setSize(new Dimension(1366, 768));
 		setMinimumSize(new Dimension(1366, 768));
@@ -103,10 +101,11 @@ public class WelcomePanel extends MasterPanel {
 		panel_1.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
-		final JButton btnNewButton = new JButton(BUNDLE.getString("WelcomePanel.btnNewButton.text")); //$NON-NLS-1$
+		final JButton btnNewButton = new JButton(
+				BUNDLE.getString("WelcomePanel.btnNewButton.text")); //$NON-NLS-1$
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FirstTimeUsers firstTimeUsers =  new FirstTimeUsers(f);
+				FirstTimeUsers firstTimeUsers = new FirstTimeUsers(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(firstTimeUsers);
 				f.repaint();
@@ -130,7 +129,8 @@ public class WelcomePanel extends MasterPanel {
 		panel_1.add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
 
-		final JButton btnNewButton_1 = new JButton(BUNDLE.getString("WelcomePanel.btnNewButton_1.text")); //$NON-NLS-1$
+		final JButton btnNewButton_1 = new JButton(
+				BUNDLE.getString("WelcomePanel.btnNewButton_1.text")); //$NON-NLS-1$
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPanel loginPanel = new LoginPanel(f);
@@ -157,14 +157,15 @@ public class WelcomePanel extends MasterPanel {
 		panel_1.add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 
-		final JButton btnNewButton_2 = new JButton(BUNDLE.getString("WelcomePanel.btnNewButton_2.text")); //$NON-NLS-1$
+		final JButton btnNewButton_2 = new JButton(
+				BUNDLE.getString("WelcomePanel.btnNewButton_2.text")); //$NON-NLS-1$
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Member user = new Member();
 				user.setRank(0);
 				f.setSession(user);
-				
+
 				PublicCalendar publicUsers = new PublicCalendar(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(publicUsers);
@@ -207,45 +208,48 @@ public class WelcomePanel extends MasterPanel {
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-		
+
 		final JComboBox comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ChangeLanguage changeLanguage = new ChangeLanguage();
-				if (comboBox.getSelectedIndex() == 1){
-					
-					btnNewButton.setText( BUNDLE2.getString("WelcomePanel.btnNewButton.text") );
-					btnNewButton_1.setText( BUNDLE2.getString("WelcomePanel.btnNewButton_1.text") );
-					btnNewButton_2.setText( BUNDLE2.getString("WelcomePanel.btnNewButton_2.text") );
+				if (comboBox.getSelectedIndex() == 1) {
+
+					btnNewButton.setText(BUNDLE2
+							.getString("WelcomePanel.btnNewButton.text"));
+					btnNewButton_1.setText(BUNDLE2
+							.getString("WelcomePanel.btnNewButton_1.text"));
+					btnNewButton_2.setText(BUNDLE2
+							.getString("WelcomePanel.btnNewButton_2.text"));
 					changeLanguage.setChangeLanguage(1);
-				}
-				else if (comboBox.getSelectedIndex() == 0){
-					btnNewButton.setText( BUNDLE.getString("WelcomePanel.btnNewButton.text") );
-					btnNewButton_1.setText( BUNDLE.getString("WelcomePanel.btnNewButton_1.text") );
-					btnNewButton_2.setText( BUNDLE.getString("WelcomePanel.btnNewButton_2.text") );
+				} else if (comboBox.getSelectedIndex() == 0) {
+					btnNewButton.setText(BUNDLE
+							.getString("WelcomePanel.btnNewButton.text"));
+					btnNewButton_1.setText(BUNDLE
+							.getString("WelcomePanel.btnNewButton_1.text"));
+					btnNewButton_2.setText(BUNDLE
+							.getString("WelcomePanel.btnNewButton_2.text"));
 
 					changeLanguage.setChangeLanguage(0);
 				}
 				f.setStoreLanguage(changeLanguage);
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"English", "Malay"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "English",
+				"Malay" }));
 		comboBox.setForeground(Color.BLACK);
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox.setBorder(null);
 		comboBox.setBounds(1019, 21, 300, 35);
 		add(comboBox);
-		
 
-		
 		super.setLayout();
-		
+
 		ChangeLanguage changeLanguage = new ChangeLanguage();
 		changeLanguage.setChangeLanguage(0);
 		f.setStoreLanguage(changeLanguage);
 
 	}
-
 
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {

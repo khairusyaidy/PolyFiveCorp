@@ -1,17 +1,14 @@
 package polyfive.ui.memberpages;
 
-
 import polyfive.entities.Member;
 import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.*;
-
 
 import java.awt.Color;
 import java.awt.Font;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 
 import javax.swing.JButton;
 
@@ -152,15 +149,14 @@ public class EventDetailsRNR extends MasterPanel {
 			public void actionPerformed(ActionEvent e) {
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+				if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);

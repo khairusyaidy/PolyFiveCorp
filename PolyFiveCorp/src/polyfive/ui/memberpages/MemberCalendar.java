@@ -38,30 +38,25 @@ import java.util.Date;
 import org.freixas.jcalendar.DateListener;
 import org.freixas.jcalendar.DateEvent;
 
-
-
 import javax.swing.JTextField;
-
-
+import javax.swing.JSeparator;
 
 public class MemberCalendar extends MasterPanel {
 
 	private MainFrame f = null;
-
 
 	/**
 	 * Create the panel.
 	 */
 	public MemberCalendar(MainFrame frame) {
 		f = frame;
-		
+
 		DBConnectionManager.connect();
-		
-		
-		ChangeLanguage changeLanguage= new ChangeLanguage();
+
+		ChangeLanguage changeLanguage = new ChangeLanguage();
 		changeLanguage = f.getStoreLanguage();
 		int language = changeLanguage.getChangeLanguage();
-		
+
 		setSize(new Dimension(1366, 768));
 		setBackground(Color.WHITE);
 		setLayout(null);
@@ -97,7 +92,7 @@ public class MemberCalendar extends MasterPanel {
 		btnFindEvents.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnFindEvents.setBackground(new Color(255, 165, 0));
-		btnFindEvents.setBounds(985, 95, 170, 50);
+		btnFindEvents.setBounds(1029, 95, 170, 50);
 		add(btnFindEvents);
 		btnLogOut.setForeground(Color.DARK_GRAY);
 		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -125,13 +120,12 @@ public class MemberCalendar extends MasterPanel {
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-		
-		
+
 		Member user = new Member();
 		user = f.getSession();
 		int rank = user.getRank();
 		String rankName = null;
-		
+
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel.addMouseListener(new MouseAdapter() {
@@ -147,77 +141,96 @@ public class MemberCalendar extends MasterPanel {
 
 			}
 		});
-		switch (rank){
-		case 0: lblNewLabel.setForeground(Color.BLACK);
-		rankName = "Guest";
-		break;
-		case 1: lblNewLabel.setForeground(Color.BLUE);
-		rankName = "Basic";
-		break;
-		case 2: lblNewLabel.setForeground(new Color(210, 105, 30));
-		rankName = "Bronze";
-		break;
-		case 3: lblNewLabel.setForeground(new Color(105, 105, 105));
-		rankName = "Silver";
-		break;
-		case 4: lblNewLabel.setForeground(new Color(184, 134, 11));
-		rankName = "Gold";
-		break;
-		case 5: lblNewLabel.setForeground(new Color(255, 165, 0));
-		rankName = "Admin";
-		break;
+		switch (rank) {
+		case 0:
+			lblNewLabel.setForeground(Color.BLACK);
+			rankName = "Guest";
+			break;
+		case 1:
+			lblNewLabel.setForeground(Color.BLUE);
+			rankName = "Basic";
+			break;
+		case 2:
+			lblNewLabel.setForeground(new Color(210, 105, 30));
+			rankName = "Bronze";
+			break;
+		case 3:
+			lblNewLabel.setForeground(new Color(105, 105, 105));
+			rankName = "Silver";
+			break;
+		case 4:
+			lblNewLabel.setForeground(new Color(184, 134, 11));
+			rankName = "Gold";
+			break;
+		case 5:
+			lblNewLabel.setForeground(new Color(255, 165, 0));
+			rankName = "Admin";
+			break;
 		}
-		lblNewLabel.setText("Welcome "+ user.getFirstName()+ " " + user.getLastName()+" (" + rankName + ")");
-		
-		
-		
-		
+		lblNewLabel.setText("Welcome " + user.getFirstName() + " "
+				+ user.getLastName() + " (" + rankName + ")");
+
 		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(567, 21, 588, 50);
+		lblNewLabel.setBounds(550, 21, 649, 50);
 		add(lblNewLabel);
 		System.out.println();
-		
+
 		final org.freixas.jcalendar.JCalendar calendar = new org.freixas.jcalendar.JCalendar();
 		calendar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		calendar.setDayOfWeekFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendar.setDayFont(new Font("Tahoma", Font.PLAIN, 18));
-		calendar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		calendar.setBounds(166, 191, 989, 427);
+		calendar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		calendar.setBounds(210, 192, 989, 427);
 		calendar.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
 		calendar.addDateListener(new DateListener() {
 			public void dateChanged(DateEvent arg0) {
-			 String date = calendar.getDate().toString();
-			 String fullDate = EventDetailsDao.fullDate(date);
-			 EventAttributes event = new EventAttributes();
-			 event.setEventDate(fullDate);
-			 f.setStoreEvents(event);
-			 
-				SearchEventsByDate searchEventsByDate= new SearchEventsByDate(f);
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(searchEventsByDate);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
-				
-			 
+				String date = calendar.getDate().toString();
+				String fullDate = EventDetailsDao.fullDate(date);
+				EventAttributes event = new EventAttributes();
+				event.setEventDate(fullDate);
+				f.setStoreEvents(event);
+
+				SearchEventsByDateMember searchEventsByDateMember = new SearchEventsByDateMember(
+						f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(searchEventsByDateMember);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+
 			}
 		});
 		add(calendar);
-		
-		
-		
-		if (language == 0){
-			btnFindEvents.setText (WelcomePanel.BUNDLE.getString("MemberCalendar.btnFindEvents.text") );
-			btnLogOut.setText (WelcomePanel.BUNDLE.getString("MemberCalendar.btnLogOut.text") );
-		}
-		else if (language == 1){
-			btnFindEvents.setText (WelcomePanel.BUNDLE2.getString("MemberCalendar.btnFindEvents.text") );
-			btnLogOut.setText (WelcomePanel.BUNDLE2.getString("MemberCalendar.btnLogOut.text") );
 
-			
+		JLabel label = new JLabel("Calendar of Events");
+		label.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
+		label.setBounds(210, 80, 387, 75);
+		add(label);
+
+		JLabel label_1 = new JLabel(
+				"*Click on the date to find the events for that particular date");
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		label_1.setBounds(210, 156, 580, 25);
+		add(label_1);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(210, 140, 327, 2);
+		add(separator);
+
+		if (language == 0) {
+			btnFindEvents.setText(WelcomePanel.BUNDLE
+					.getString("MemberCalendar.btnFindEvents.text"));
+			btnLogOut.setText(WelcomePanel.BUNDLE
+					.getString("MemberCalendar.btnLogOut.text"));
+		} else if (language == 1) {
+			btnFindEvents.setText(WelcomePanel.BUNDLE2
+					.getString("MemberCalendar.btnFindEvents.text"));
+			btnLogOut.setText(WelcomePanel.BUNDLE2
+					.getString("MemberCalendar.btnLogOut.text"));
+
 		}
-		
 
 		super.setLayout();
 	}

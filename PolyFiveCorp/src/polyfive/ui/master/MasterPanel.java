@@ -35,7 +35,7 @@ public class MasterPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public MasterPanel() {
-		//setLayout();
+		// setLayout();
 	}
 
 	public void setLayout() {

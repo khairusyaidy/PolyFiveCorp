@@ -49,7 +49,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JTextPane;
 import javax.swing.JSeparator;
 
-public class EventDetails extends MasterPanel {
+public class EventDetailsMember extends MasterPanel {
 	private JTextField eventAddressTf;
 	private MainFrame f = null;
 	private JTextField eventDateTf;
@@ -60,13 +60,8 @@ public class EventDetails extends MasterPanel {
 	 * 
 	 * Create the panel.
 	 */
-	public EventDetails(MainFrame frame) {
+	public EventDetailsMember(MainFrame frame) {
 		// DBConnectionManager.getConnection();
-		boolean disableButton = false;
-
-		CheckDate checkDate = new CheckDate();
-		checkDate = f.getCheckDate();
-		disableButton = checkDate.isCheckDate();
 
 		Member user = new Member();
 		user = f.getSession();
@@ -160,6 +155,19 @@ public class EventDetails extends MasterPanel {
 				Color.DARK_GRAY, null));
 		btnProceedToPayment.setCursor(Cursor
 				.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		btnProceedToPayment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				TicketsPurchase ticketsPurchase = new TicketsPurchase(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(ticketsPurchase);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+
+			}
+		});
 		btnProceedToPayment.setForeground(Color.DARK_GRAY);
 		btnProceedToPayment.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnProceedToPayment.setBackground(new Color(255, 165, 0));
@@ -293,7 +301,7 @@ public class EventDetails extends MasterPanel {
 		panel.add(lblTicketsLeftDynamic);
 
 		final JButton btnNewButton = new JButton("");
-		btnNewButton.setDisabledIcon(new ImageIcon(EventDetails.class
+		btnNewButton.setDisabledIcon(new ImageIcon(EventDetailsMember.class
 				.getResource("/polyfive/ui/images/Map.PNG")));
 		if (eventAttributes.getMapFileName().equals("")) {
 			btnNewButton.setEnabled(false);
@@ -317,7 +325,7 @@ public class EventDetails extends MasterPanel {
 			}
 
 		});
-		btnNewButton.setIcon(new ImageIcon(EventDetails.class
+		btnNewButton.setIcon(new ImageIcon(EventDetailsMember.class
 				.getResource("/polyfive/ui/images/Map.PNG")));
 		btnNewButton.setBounds(66, 11, 1130, 120);
 		panel.add(btnNewButton);
@@ -384,7 +392,7 @@ public class EventDetails extends MasterPanel {
 				}
 			}
 		});
-		button_1.setIcon(new ImageIcon(EventDetails.class
+		button_1.setIcon(new ImageIcon(EventDetailsMember.class
 				.getResource("/polyFive/ui/images/p5cicon7575.png")));
 		button_1.setBorder(null);
 		button_1.setBounds(21, 21, 75, 75);
@@ -639,32 +647,6 @@ public class EventDetails extends MasterPanel {
 		separator.setBounds(446, 86, 353, 10);
 		add(separator);
 
-		if (disableButton == true) {
-			btnProceedToPayment.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JOptionPane
-							.showMessageDialog(null,
-									"Guest are only allowed to book tickets within one month range from today.");
-
-				}
-			});
-		}
-
-		else {
-			btnProceedToPayment.setEnabled(true);
-			btnProceedToPayment.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-
-					TicketsPurchase ticketsPurchase = new TicketsPurchase(f);
-					f.getContentPane().removeAll();
-					f.getContentPane().add(ticketsPurchase);
-					f.repaint();
-					f.revalidate();
-					f.setVisible(true);
-
-				}
-			});
-		}
 		super.setLayout();
 
 	}

@@ -399,15 +399,14 @@ public class SeatAllocation extends MasterPanel {
 			public void actionPerformed(ActionEvent e) {
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+				if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);
@@ -428,7 +427,7 @@ public class SeatAllocation extends MasterPanel {
 				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PaymentDetails paymentDetails =  new PaymentDetails(f);
+				PaymentDetails paymentDetails = new PaymentDetails(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(paymentDetails);
 				f.repaint();
@@ -446,8 +445,6 @@ public class SeatAllocation extends MasterPanel {
 
 		super.setLayout();
 	}
-
-
 
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {

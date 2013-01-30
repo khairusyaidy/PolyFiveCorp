@@ -53,7 +53,7 @@ public class TicketsPurchase extends MasterPanel {
 		Member user = new Member();
 		user = f.getSession();
 		int rank = user.getRank();
-		
+
 		EventAttributes eventAttributes = new EventAttributes();
 		eventAttributes = f.getStoreEvents();
 
@@ -83,38 +83,35 @@ public class TicketsPurchase extends MasterPanel {
 		lblTicketsLeft.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblTicketsLeft.setBounds(275, 198, 210, 78);
 
-	//	final JSpinner spinner1 = new JSpinner();
-	//	spinner.setEditor(new JSpinner.DefaultEditor(spinner));
-		
-	    int min = 0;
-	    int max = 8;
-	    int step = 1;
-	    int initValue = 0;
-		
+		// final JSpinner spinner1 = new JSpinner();
+		// spinner.setEditor(new JSpinner.DefaultEditor(spinner));
 
-		
-		//spinner.setValue(0);
+		int min = 0;
+		int max = 8;
+		int step = 1;
+		int initValue = 0;
+
+		// spinner.setValue(0);
 		// change int to stirng
-	    
-	    
-	    if (eventAttributes.getEventNoOfTickets()<8){
-	    	max = eventAttributes.getEventNoOfTickets();
-	    	
-	    }
 
-	    final SpinnerModel model = new SpinnerNumberModel(initValue,min,max,step);
-	    final JSpinner spinner = new JSpinner(model);
-	    spinner.setEditor(new JSpinner.DefaultEditor(spinner));
+		if (eventAttributes.getEventNoOfTickets() < 8) {
+			max = eventAttributes.getEventNoOfTickets();
+
+		}
+
+		final SpinnerModel model = new SpinnerNumberModel(initValue, min, max,
+				step);
+		final JSpinner spinner = new JSpinner(model);
+		spinner.setEditor(new JSpinner.DefaultEditor(spinner));
 		spinner.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		//spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		// spinner.setModel(new SpinnerNumberModel(new Integer(0), new
+		// Integer(0), null, new Integer(1)));
 		spinner.setBounds(497, 131, 225, 48);
 		panel.add(spinner);
-	    
-	    
+
 		String evetNoOfTicketsString = Integer.toString(eventAttributes
 				.getEventNoOfTickets());
-		
-		
+
 		txtTicketsLeft = new JTextField();
 		txtTicketsLeft.setText(evetNoOfTicketsString);
 		txtTicketsLeft.setBackground(new Color(255, 255, 255));
@@ -130,7 +127,7 @@ public class TicketsPurchase extends MasterPanel {
 		txtPrice = new JTextField();
 		String currentValueString = Double.toString(eventAttributes
 				.getEventPrice());
-	//	txtPrice.setText(currentValueString);
+		// txtPrice.setText(currentValueString);
 		txtPrice.setEditable(false);
 		txtPrice.setBackground(new Color(255, 255, 255));
 		txtPrice.setHorizontalAlignment(SwingConstants.LEFT);
@@ -146,21 +143,20 @@ public class TicketsPurchase extends MasterPanel {
 		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblPrice.setBounds(290, 337, 253, 48);
 		panel.add(lblPrice);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(485, 293, 253, 19);
 		panel.add(separator);
-		
+
 		JLabel lblPriceAfterDiscount = new JLabel("Price(SGD) :  $");
 		lblPriceAfterDiscount.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPriceAfterDiscount.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblPriceAfterDiscount.setBounds(793, 337, 253, 48);
 		panel.add(lblPriceAfterDiscount);
-		//get member discount
-		
+		// get member discount
 
 		txtPriceAfterDiscount = new JTextField();
-		//txtPriceAfterDiscount.setText(currentValueString);
+		// txtPriceAfterDiscount.setText(currentValueString);
 		txtPriceAfterDiscount.setHorizontalAlignment(SwingConstants.LEFT);
 		txtPriceAfterDiscount.setForeground(Color.BLACK);
 		txtPriceAfterDiscount.setFont(new Font("Tahoma", Font.PLAIN, 40));
@@ -169,13 +165,13 @@ public class TicketsPurchase extends MasterPanel {
 		txtPriceAfterDiscount.setBackground(Color.WHITE);
 		txtPriceAfterDiscount.setBounds(1010, 333, 225, 52);
 		panel.add(txtPriceAfterDiscount);
-		
+
 		JLabel lblAfterDiscount = new JLabel("After discount");
 		lblAfterDiscount.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAfterDiscount.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblAfterDiscount.setBounds(870, 165, 263, 52);
 		panel.add(lblAfterDiscount);
-		
+
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(856, 221, 309, 19);
 		panel.add(separator_2);
@@ -189,7 +185,7 @@ public class TicketsPurchase extends MasterPanel {
 
 		spinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				float value =  (int) spinner.getValue();
+				float value = (int) spinner.getValue();
 				int ticketsLeftInt = Integer.parseInt(ticketsLeft);
 				EventAttributes eventAttributes = new EventAttributes();
 				eventAttributes = f.getStoreEvents();
@@ -204,22 +200,24 @@ public class TicketsPurchase extends MasterPanel {
 					jspinnerValue.setValue(jspinnerValue.getValue() + 1);
 					String ticketsLeft = txtTicketsLeft.getText();
 					ticketsLeftInt = Integer.parseInt(ticketsLeft) - 1;
-					String ticketsLeftAfterString = Integer.toString(ticketsLeftInt);
+					String ticketsLeftAfterString = Integer
+							.toString(ticketsLeftInt);
 					txtTicketsLeft.setText(ticketsLeftAfterString);
-					
-					//default price
-					float totalPriceFloat = ( ((jspinnerValue.getValue()) * (eventAttributes.getEventPrice())));
+
+					// default price
+					float totalPriceFloat = (((jspinnerValue.getValue()) * (eventAttributes
+							.getEventPrice())));
 					String totalPrice = String.format("%.2f", totalPriceFloat);
 					txtPrice.setText(totalPrice);
-					/////////
-					
-					
-					//discounted price 2 d.c
-					float totalPriceAfterDiscountFloat = (((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()) * discount) );
-					String totalPriceAfterDiscount =  String.format("%.2f", totalPriceAfterDiscountFloat);
+					// ///////
+
+					// discounted price 2 d.c
+					float totalPriceAfterDiscountFloat = (((jspinnerValue
+							.getValue()) * (eventAttributes.getEventPrice()) * discount));
+					String totalPriceAfterDiscount = String.format("%.2f",
+							totalPriceAfterDiscountFloat);
 					txtPriceAfterDiscount.setText(totalPriceAfterDiscount);
-					///////////////
-					
+					// /////////////
 
 					value = jspinnerValue.getValue();
 
@@ -231,24 +229,25 @@ public class TicketsPurchase extends MasterPanel {
 					jspinnerValue.setValue(jspinnerValue.getValue() - 1);
 					String ticketsLeft = txtTicketsLeft.getText();
 					ticketsLeftInt = Integer.parseInt(ticketsLeft) + 1;
-					String ticketsLeftAfterString = Integer.toString(ticketsLeftInt);
+					String ticketsLeftAfterString = Integer
+							.toString(ticketsLeftInt);
 					txtTicketsLeft.setText(ticketsLeftAfterString);
-					
-					
-					//default price
-					float totalPriceFloat = ( ((jspinnerValue.getValue()) * (eventAttributes.getEventPrice())));
+
+					// default price
+					float totalPriceFloat = (((jspinnerValue.getValue()) * (eventAttributes
+							.getEventPrice())));
 					String totalPrice = String.format("%.2f", totalPriceFloat);
 					txtPrice.setText(totalPrice);
-					/////////
-					
-					
-					//discounted price 2 d.c
-					float totalPriceAfterDiscountFloat = (((jspinnerValue.getValue()) * (eventAttributes.getEventPrice()) * discount) );
-					String totalPriceAfterDiscount = String.format("%.2f", totalPriceAfterDiscountFloat);
+					// ///////
+
+					// discounted price 2 d.c
+					float totalPriceAfterDiscountFloat = (((jspinnerValue
+							.getValue()) * (eventAttributes.getEventPrice()) * discount));
+					String totalPriceAfterDiscount = String.format("%.2f",
+							totalPriceAfterDiscountFloat);
 					txtPriceAfterDiscount.setText(totalPriceAfterDiscount);
-					////////////
-					
-					
+					// //////////
+
 					value = jspinnerValue.getValue();
 
 					txtPrice.updateUI();
@@ -263,8 +262,6 @@ public class TicketsPurchase extends MasterPanel {
 
 			}
 		});
-
-
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFocusPainted(false);
@@ -307,49 +304,46 @@ public class TicketsPurchase extends MasterPanel {
 		JButton btnProceedToPayment = new JButton("Proceed to Payment\r\n");
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				BuyTickets buyTickets = new BuyTickets();
-				int tickets = (int)spinner.getValue();
+				int tickets = (int) spinner.getValue();
 				String ticketsString = Integer.toString(tickets);
 				buyTickets.setGetTickets(ticketsString);
-				
+
 				String ticketsPrice = txtPriceAfterDiscount.getText();
 				buyTickets.setGetPRice(ticketsPrice);
-				
+
 				f.setBuyTickets(buyTickets);
-				
-				
+
 				PaymentDetails paymentDetails = new PaymentDetails(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(paymentDetails);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
-				
-				
+
 				EventAttributes eventAttributes = new EventAttributes();
 				eventAttributes = f.getStoreEvents();
-				
+
 				String noOfTickets = txtTicketsLeft.getText();
 				int noOfTicketsInt = Integer.parseInt(noOfTickets);
-				
+
 				eventAttributes.setEventNoOfTickets(noOfTicketsInt);
-				
+
 				f.setStoreEvents(eventAttributes);
-				
-				
+
 			}
 		});
 		btnProceedToPayment.setFocusPainted(false);
-		btnProceedToPayment.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnProceedToPayment.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProceedToPayment.setBorder(new LineBorder(Color.DARK_GRAY));
 		btnProceedToPayment.setBounds(1115, 664, 230, 75);
 		btnProceedToPayment.setForeground(Color.DARK_GRAY);
 		btnProceedToPayment.setBackground(new Color(255, 165, 0));
 		btnProceedToPayment.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(btnProceedToPayment);
-		
-		
+
 		JButton button = new JButton("");
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.addActionListener(new ActionListener() {
@@ -367,37 +361,29 @@ public class TicketsPurchase extends MasterPanel {
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-		
+
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(374, 111, 309, 19);
 		add(separator_1);
-		
+
 		JLabel lblNewLabel = new JLabel("Tickets Purchase");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel.setBounds(393, 59, 263, 52);
 		add(lblNewLabel);
-		
 
-		
-		
-		if (rank == 0){
+		if (rank == 0) {
 			lblAfterDiscount.setVisible(false);
 			separator_2.setVisible(false);
 			lblPriceAfterDiscount.setVisible(false);
 			txtPriceAfterDiscount.setVisible(false);
-		}
-		else {
+		} else {
 			lblAfterDiscount.setVisible(true);
 			separator_2.setVisible(true);
 			lblPriceAfterDiscount.setVisible(true);
 			txtPriceAfterDiscount.setVisible(true);
 		}
-		
-		
-		
-		
-		
+
 		super.setLayout();
 
 	}

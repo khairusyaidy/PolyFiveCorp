@@ -80,15 +80,13 @@ public class SearchEventsByDate extends MasterPanel {
 		EventAttributes event = new EventAttributes();
 		event = f.getStoreEvents();
 		Date = event.getEventDate();
-		
-		ChangeLanguage changeLanguage= new ChangeLanguage();
+
+		ChangeLanguage changeLanguage = new ChangeLanguage();
 		changeLanguage = f.getStoreLanguage();
 		int language = changeLanguage.getChangeLanguage();
-		
-		
+
 		Member user = new Member();
 		user = f.getSession();
-		
 
 		setSize(new Dimension(1366, 768));
 		setFocusable(false);
@@ -158,7 +156,6 @@ public class SearchEventsByDate extends MasterPanel {
 		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.setRowHeight(60);
 
-
 		/*
 		 * List <RowSorter.SortKey> sortKeys = new
 		 * ArrayList<RowSorter.SortKey>(); sortKeys.add(new RowSorter.SortKey(1,
@@ -208,29 +205,26 @@ public class SearchEventsByDate extends MasterPanel {
 		button_1.setBackground(new Color(255, 165, 0));
 		button_1.setBounds(21, 664, 150, 75);
 		add(button_1);
-		
+
 		JLabel lblListOfEvents = new JLabel("List of Events by Date");
 		lblListOfEvents.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		lblListOfEvents.setBounds(459, 58, 547, 57);
 		add(lblListOfEvents);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(378, 113, 490, 2);
 		add(separator);
 
-		
-		
-		if (language == 0){
-			lblListOfEvents.setText(WelcomePanel.BUNDLE.getString("SearchEventsByDate.lblListOfEvents.text"));
-		}
-		else if (language == 1){
-			lblListOfEvents.setText(WelcomePanel.BUNDLE2.getString("SearchEventsByDate.lblListOfEvents.text"));
+		if (language == 0) {
+			lblListOfEvents.setText(WelcomePanel.BUNDLE
+					.getString("SearchEventsByDate.lblListOfEvents.text"));
+		} else if (language == 1) {
+			lblListOfEvents.setText(WelcomePanel.BUNDLE2
+					.getString("SearchEventsByDate.lblListOfEvents.text"));
 			separator.setBounds(378, 113, 630, 2);
-			
+
 		}
-		
-		
-		
+
 		super.setLayout();
 	}
 
@@ -336,13 +330,13 @@ public class SearchEventsByDate extends MasterPanel {
 						String eventAdd = eventDetails.get(rowIndex)
 								.getEventAddress();
 						int eventId = eventDetails.get(rowIndex).getEventId();
-						
+
 						EventAttributes eventAttributes = new EventAttributes();
 						eventAttributes.setEventName(eventName);
 						eventAttributes.setEventDate(eventDate);
 						eventAttributes.setEventAddress(eventAdd);
 						eventAttributes.setEventId(eventId);
-						
+
 						f.setStoreEvents(eventAttributes);
 
 						EventDetails eventDetailsPage = new EventDetails(f);

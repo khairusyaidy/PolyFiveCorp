@@ -36,7 +36,7 @@ public class PaymentDetails extends MasterPanel {
 		f = frame;
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
-		
+
 		BuyTickets buyTickets = new BuyTickets();
 		buyTickets = f.getBuyTickets();
 
@@ -45,15 +45,14 @@ public class PaymentDetails extends MasterPanel {
 			public void actionPerformed(ActionEvent e) {
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+				if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);
@@ -69,7 +68,6 @@ public class PaymentDetails extends MasterPanel {
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-		
 
 		JButton btnBack = new JButton("Back");
 		btnBack.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
@@ -108,29 +106,29 @@ public class PaymentDetails extends MasterPanel {
 		btnNext.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnNext.setBounds(1202, 656, 150, 75);
 		add(btnNext);
-		
+
 		JLabel lblPaymentDetails = new JLabel("Payment Details");
 		lblPaymentDetails.setForeground(new Color(0, 0, 0));
 		lblPaymentDetails.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblPaymentDetails.setBounds(447, 261, 292, 47);
 		add(lblPaymentDetails);
-		
+
 		JLabel lblEventName = new JLabel("Event Name:");
 		lblEventName.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblEventName.setBounds(447, 363, 208, 47);
 		add(lblEventName);
-		
+
 		JLabel lblNumberOfTickets = new JLabel("Number of Tickets:");
 		lblNumberOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblNumberOfTickets.setBounds(447, 421, 208, 47);
 		add(lblNumberOfTickets);
-		
+
 		JLabel lblTotalCost = new JLabel("Total Cost:");
 		lblTotalCost.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblTotalCost.setBounds(447, 479, 208, 47);
 		add(lblTotalCost);
-		
-		EventAttributes eventAttributes = new EventAttributes ();
+
+		EventAttributes eventAttributes = new EventAttributes();
 		eventAttributes = f.getStoreEvents();
 		final int eventId = eventAttributes.getEventId();
 		String name = eventAttributes.getEventName();
@@ -140,8 +138,7 @@ public class PaymentDetails extends MasterPanel {
 		tfEventName.setBounds(665, 363, 344, 47);
 		add(tfEventName);
 		tfEventName.setColumns(10);
-		
-		
+
 		tfNumberOfTickets = new JTextField();
 		tfNumberOfTickets.setText(buyTickets.getGetTickets());
 		tfNumberOfTickets.setFont(new Font("Tahoma", Font.PLAIN, 19));
@@ -149,7 +146,7 @@ public class PaymentDetails extends MasterPanel {
 		tfNumberOfTickets.setBounds(665, 421, 344, 47);
 		add(tfNumberOfTickets);
 		tfNumberOfTickets.setColumns(10);
-		
+
 		tfTotalCost = new JTextField();
 		tfTotalCost.setText(buyTickets.getGetPRice());
 		tfTotalCost.setFont(new Font("Tahoma", Font.PLAIN, 19));

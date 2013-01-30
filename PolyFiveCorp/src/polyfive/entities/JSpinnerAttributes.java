@@ -1,14 +1,14 @@
 package polyfive.entities;
 
 public class JSpinnerAttributes {
-private float value;
+	private float value;
 
-public float getValue() {
-	return value;
-}
+	public float getValue() {
+		return value;
+	}
 
-public void setValue(float currentValue) {
-	this.value = currentValue;
-}
+	public void setValue(float currentValue) {
+		this.value = currentValue;
+	}
 
 }

@@ -1,7 +1,5 @@
 package polyfive.entities.dao;
 
-
-
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.ui.master.MainFrame;
@@ -17,65 +15,61 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MemberDao extends MasterPanel {
-	private static MainFrame f= null;
-	
+	private static MainFrame f = null;
+
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 	static PreparedStatement pstmt = null;
 	static ResultSet rs1 = null;
 	static PreparedStatement pstmt1 = null;
-	
-	public static ArrayList<Member> RetrieveAll(){
+
+	public static ArrayList<Member> RetrieveAll() {
 		Member users = null;
 		Statement stmt = null;
-		ArrayList <Member> allUsers = new ArrayList<>();
+		ArrayList<Member> allUsers = new ArrayList<>();
 		String searchQuery = "select * from users";
-		
-		
-		
-        try {
-            // connect to DB
-            currentCon = DBConnectionManager.getConnection();
-            stmt = currentCon.createStatement();
-            rs = stmt.executeQuery(searchQuery);
-            while (rs.next()) {
-            
-           //     String memberId = rs.getString("member_id");
-                String userName = rs.getString("Username");
-                String userPass= rs.getString("Password");
-                int userTelNo = rs.getInt("telNo");
-                String userFirstName = rs.getString("firstName");
-                String userLastName = rs.getString("lastName");
-                String userCreationDate = rs.getString("creationDate");
-                int userRank = rs.getInt("rank");
-                String userEmail = rs.getString("email");
-                String userPass_IcNo = rs.getString("pass_IcNo");
-                
-                users = new Member();
-                
-                
-                String rankName = users.setRankName(userRank);
-                users.setUsername(userName);
-                users.setPassword(userPass);
-                users.setPhoneNumber(userTelNo);
-                users.setFirstName(userFirstName);
-                users.setLastName(userLastName);
-                users.setCreationDate(userCreationDate);
-                users.setRankName(rankName);
-                users.setEmail(userEmail);
-                users.setPass_icNo(userPass_IcNo);
-             //   member.setPassword(password);
-                allUsers.add(users);
-            }
-        } catch (Exception e) {
-         e.printStackTrace();
-        }
-        return allUsers;
-		
-	}
-	
-	public static int getMax(){
 
+		try {
+			// connect to DB
+			currentCon = DBConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			rs = stmt.executeQuery(searchQuery);
+			while (rs.next()) {
+
+				// String memberId = rs.getString("member_id");
+				String userName = rs.getString("Username");
+				String userPass = rs.getString("Password");
+				int userTelNo = rs.getInt("telNo");
+				String userFirstName = rs.getString("firstName");
+				String userLastName = rs.getString("lastName");
+				String userCreationDate = rs.getString("creationDate");
+				int userRank = rs.getInt("rank");
+				String userEmail = rs.getString("email");
+				String userPass_IcNo = rs.getString("pass_IcNo");
+
+				users = new Member();
+
+				String rankName = users.setRankName(userRank);
+				users.setUsername(userName);
+				users.setPassword(userPass);
+				users.setPhoneNumber(userTelNo);
+				users.setFirstName(userFirstName);
+				users.setLastName(userLastName);
+				users.setCreationDate(userCreationDate);
+				users.setRankName(rankName);
+				users.setEmail(userEmail);
+				users.setPass_icNo(userPass_IcNo);
+				// member.setPassword(password);
+				allUsers.add(users);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return allUsers;
+
+	}
+
+	public static int getMax() {
 
 		Statement stmt = null;
 		try {
@@ -105,45 +99,38 @@ public class MemberDao extends MasterPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int nextId = maxId ;
+		int nextId = maxId;
 
-	return nextId;
-}
-	
-	
-	
-	
-	public static String fullDate(String date){
+		return nextId;
+	}
+
+	public static String fullDate(String date) {
 		String day = date.substring(8, 10);
 		String month = date.substring(4, 7);
-		String year = date.substring(24,28);
-		
-		String fullDate = day +" " + month+ " " + year ;
-		
+		String year = date.substring(24, 28);
+
+		String fullDate = day + " " + month + " " + year;
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy");
 
 		return fullDate;
 	}
-	
-	
-	
-	
+
 	public static Member insertMemberDetails(Member addMember) {
 		Statement stmt = null;
 		String username = addMember.getUsername();
 		String password = addMember.getPassword();
 		int telNo = addMember.getPhoneNumber();
 		String firstName = addMember.getFirstName();
-		String lastName= addMember.getLastName();
+		String lastName = addMember.getLastName();
 		String fullDate = addMember.getCreationDate();
 		int rank = addMember.getRank();
 		String email = addMember.getEmail();
 		String pass_icNo = addMember.getPass_icNo();
 
-
-		// get the last member ID 
+		// get the last member ID
 		try {
-			
+
 			currentCon = DBConnectionManager.getConnection();
 			stmt = currentCon.createStatement();
 			String getMax = "select Max(idUser) from Users";
@@ -151,18 +138,38 @@ public class MemberDao extends MasterPanel {
 			rs1.next();
 			int maxId = rs1.getInt(1);
 			int nextId = maxId + 1;
-			
-            // query for inserting into the table
 
-           
-            String query = "insert into Users(idUser, Username, Password, telNo, firstName, lastName, creationDate, rank, email, pass_icNo) values('"+nextId+"','"+username+"','"+password+"','"+telNo+"','"+firstName+"','"+lastName+"','"+fullDate+"','"+rank+"','"+email+"','"+pass_icNo+"')";   
-            pstmt = currentCon.prepareStatement(query);
+			// query for inserting into the table
 
-            pstmt.executeUpdate();
-            
+			String query = "insert into Users(idUser, Username, Password, telNo, firstName, lastName, creationDate, rank, email, pass_icNo) values('"
+					+ nextId
+					+ "','"
+					+ username
+					+ "','"
+					+ password
+					+ "','"
+					+ telNo
+					+ "','"
+					+ firstName
+					+ "','"
+					+ lastName
+					+ "','"
+					+ fullDate
+					+ "','"
+					+ rank
+					+ "','"
+					+ email
+					+ "','"
+					+ pass_icNo + "')";
+			pstmt = currentCon.prepareStatement(query);
+
+			pstmt.executeUpdate();
+
 		} catch (Exception ex) {
 
-			System.out.println("Addition of Event failed: An Exception has occurred! " + ex);
+			System.out
+					.println("Addition of Event failed: An Exception has occurred! "
+							+ ex);
 		}
 
 		// exception handling
@@ -195,8 +202,5 @@ public class MemberDao extends MasterPanel {
 		return addMember;
 
 	}
-	
-	
-	
 
 }

@@ -70,8 +70,6 @@ public class DBConnectionManager {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
-		
-		
 
 		/*
 		 * try { while(rs.next()) { System.out.println(rs.getString("Username")

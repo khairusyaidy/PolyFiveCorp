@@ -10,6 +10,5 @@ public class ChangeLanguage {
 	public void setChangeLanguage(int changeLanguage) {
 		this.changeLanguage = changeLanguage;
 	}
-	
 
 }

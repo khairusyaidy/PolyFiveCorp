@@ -1,4 +1,3 @@
-
 package polyfive.entities.dao;
 
 import java.sql.DriverManager;
@@ -18,17 +17,17 @@ public class Seat {
 	private int row;
 	private int col;
 	private int eventId;
-	
+
 	public static final int SEAT_FREE = 1;
 	public static final int SEAT_UNAVAILABLE = 0;
-	
+
 	Connection currentCon = null;
 	ResultSet rs = null;
-	
+
 	public Seat() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public double getPrice() {
 		return price;
 	}
@@ -69,25 +68,22 @@ public class Seat {
 		this.eventId = eventId;
 	}
 
-	
-	
-	
 	public boolean save() {
 		Connection con = null;
 		boolean result = false;
-		
-		
+
 		try {
-            currentCon = DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
-            
-			
+			currentCon = DriverManager.getConnection(
+					"jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
+
 			if (getSeat(eventId, row, col) != null) {
-				//existing entry
-				//update instead of inserting
-				
+				// existing entry
+				// update instead of inserting
+
 				String sql = "UPDATE Seat SET price=?, status=? WHERE eventId=? AND row=? AND col=?;";
 
-				PreparedStatement preparedStatement = currentCon.prepareStatement(sql); 
+				PreparedStatement preparedStatement = currentCon
+						.prepareStatement(sql);
 				preparedStatement.setDouble(1, price);
 				preparedStatement.setInt(2, status);
 				preparedStatement.setInt(3, eventId);
@@ -95,12 +91,13 @@ public class Seat {
 				preparedStatement.setInt(5, col);
 				result = preparedStatement.executeUpdate() > 0;
 			} else {
-				//new entry
-				//insert
-				
+				// new entry
+				// insert
+
 				String sql = "INSERT INTO Seat VALUES(?, ?, ?, ?, ?)";
 
-				PreparedStatement preparedStatement = currentCon.prepareStatement(sql); 
+				PreparedStatement preparedStatement = currentCon
+						.prepareStatement(sql);
 				preparedStatement.setDouble(1, price);
 				preparedStatement.setInt(2, status);
 				preparedStatement.setInt(3, row);
@@ -111,63 +108,65 @@ public class Seat {
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			
+
 		} finally {
 			if (currentCon != null) {
 				try {
 					currentCon.close();
 				} catch (SQLException e) {
-					//ignore
+					// ignore
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public boolean delete(int eventid) {
 		Connection con = null;
 		boolean result = false;
-		
-		
+
 		try {
-            currentCon = DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
+			currentCon = DriverManager.getConnection(
+					"jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
 
-				//delete
-				String sql = "DELETE FROM seat  WHERE eventid='"+eventid+"'";
+			// delete
+			String sql = "DELETE FROM seat  WHERE eventid='" + eventid + "'";
 
-				PreparedStatement preparedStatement = currentCon.prepareStatement(sql); 
-				
-				result = preparedStatement.executeUpdate() > 0;
-			}
+			PreparedStatement preparedStatement = currentCon
+					.prepareStatement(sql);
 
-		 catch (SQLException ex) {
+			result = preparedStatement.executeUpdate() > 0;
+		}
+
+		catch (SQLException ex) {
 			ex.printStackTrace();
-			
+
 		} finally {
 			if (currentCon != null) {
 				try {
 					currentCon.close();
 				} catch (SQLException e) {
-					//ignore
+					// ignore
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
-	public static ArrayList<Seat> getAllSeats(int eventId){
-		
+
+	public static ArrayList<Seat> getAllSeats(int eventId) {
+
 		Connection con = null;
 		ArrayList<Seat> seats = new ArrayList<Seat>();
-		
+
 		try {
-		       con =DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
-			
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
+
 			String sql = "SELECT * FROM seat WHERE eventId=?;";
-			
-			PreparedStatement preparedStatement = con.prepareStatement(sql); 
+
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setInt(1, eventId);
 			ResultSet result = preparedStatement.executeQuery();
 
@@ -180,35 +179,37 @@ public class Seat {
 				seat.status = result.getInt("status");
 				seats.add(seat);
 			}
-			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-		
+
 		} finally {
 			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
-					//ignore
+					// ignore
 				}
 			}
 		}
-		
+
 		return seats;
 	}
-	
+
 	public static Seat getSeat(int eventId, int row, int col) {
-		//SELECT * FROM Seat WHERE eventId = eventId AND row = row AND col = col
-		
+		// SELECT * FROM Seat WHERE eventId = eventId AND row = row AND col =
+		// col
+
 		Connection con = null;
 		Seat seat = null;
-		
+
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
-			
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
+
 			String sql = "SELECT * FROM seat WHERE eventId=? AND row=? AND col=?;";
-			
-			PreparedStatement preparedStatement = con.prepareStatement(sql); 
+
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setInt(1, eventId);
 			preparedStatement.setInt(2, row);
 			preparedStatement.setInt(3, col);
@@ -223,29 +224,28 @@ public class Seat {
 				seat.status = result.getInt("status");
 				break; // only returns the first match
 			}
-			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-		
+
 		} finally {
 			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
-					//ignore
+					// ignore
 				}
 			}
 		}
-		
+
 		return seat;
 	}
-	
-	
-	//for testing purpose to get seat from database
-//	public static void main(String [] args ){
-//		Seat seat=Seat.getSeat(52, 1, 1);
-//		if (seat !=null){
-//			System.out.print("true");
-//		}
-//	}
+
+	// for testing purpose to get seat from database
+	// public static void main(String [] args ){
+	// Seat seat=Seat.getSeat(52, 1, 1);
+	// if (seat !=null){
+	// System.out.print("true");
+	// }
+	// }
 }

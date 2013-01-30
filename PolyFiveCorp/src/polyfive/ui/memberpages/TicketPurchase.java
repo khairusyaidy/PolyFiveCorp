@@ -2,12 +2,12 @@ package polyfive.ui.memberpages;
 
 public class TicketPurchase {
 	private String eventID;
-	private  float ticketPrice;
+	private float ticketPrice;
 	private int maxNumTickets;
-	private int ticketsLeft; 
-	
-	public TicketPurchase(){
-		
+	private int ticketsLeft;
+
+	public TicketPurchase() {
+
 	}
 
 	public String getEventID() {
@@ -17,8 +17,6 @@ public class TicketPurchase {
 	public void setEventID(String eventID) {
 		this.eventID = eventID;
 	}
-
-
 
 	public float getTicketPrice() {
 		return ticketPrice;
@@ -43,7 +41,5 @@ public class TicketPurchase {
 	public void setTicketsLeft(int ticketsLeft) {
 		this.ticketsLeft = ticketsLeft;
 	}
-	
+
 }
-
-

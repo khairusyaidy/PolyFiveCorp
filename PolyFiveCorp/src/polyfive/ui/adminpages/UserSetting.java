@@ -56,28 +56,24 @@ import javax.swing.ImageIcon;
 public class UserSetting extends MasterPanel {
 	private static MainFrame f = null;
 
-
 	public UserSetting(MainFrame frame) {
 		f = frame;
 		setLayout(null);
-		
-		
+
 		JButton button_1 = new JButton("");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    WelcomePanel welcomePanel = new WelcomePanel(f);
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(welcomePanel);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
+				WelcomePanel welcomePanel = new WelcomePanel(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(welcomePanel);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
 			}
 		});
-		
-		
-		
-final JTable table = new JTable(new JTableModel());
-		
+
+		final JTable table = new JTable(new JTableModel());
+
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		table.setEnabled(false);
@@ -96,7 +92,7 @@ final JTable table = new JTable(new JTableModel());
 		// table.getColumn("Button2").setCellRenderer(buttonRenderer);
 		table.addMouseListener(new JTableButtonMouseListener(table));
 		table.setRowHeight(60);
-		
+
 		JButton button = new JButton("Back");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -111,23 +107,24 @@ final JTable table = new JTable(new JTableModel());
 		button.setForeground(Color.DARK_GRAY);
 		button.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		button.setFocusPainted(false);
-		button.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
-						Color.DARK_GRAY, null));
+		button.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+
+		Color.DARK_GRAY, null));
 		button.setBackground(new Color(255, 165, 0));
 		button.setAlignmentX(1.0f);
 		button.setBounds(21, 664, 150, 75);
 		add(button);
-		
+
 		JLabel lblNewLabel = new JLabel("User Accounts");
 		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(397, 60, 326, 41);
 		add(lblNewLabel);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(397, 113, 320, 2);
 		add(separator);
-		
+
 		JButton button_2 = new JButton("");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,16 +156,15 @@ final JTable table = new JTable(new JTableModel());
 				}
 			}
 		});
-		button_2.setIcon(new ImageIcon(UserSetting.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
+		button_2.setIcon(new ImageIcon(UserSetting.class
+				.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button_2.setBorder(null);
 		button_2.setBounds(21, 21, 75, 75);
 		add(button_2);
-		
-		
+
 		super.setLayout();
 	}
-	
-	
+
 	public class JTableButtonRenderer implements TableCellRenderer {
 		@Override
 		public Component getTableCellRendererComponent(JTable table,
@@ -212,12 +208,13 @@ final JTable table = new JTable(new JTableModel());
 
 		private static final long serialVersionUID = 1L;
 		private static final String[] COLUMN_NAMES = new String[] {
-				"Usernames", "Creation Date", "First Name", "Last Name", "Rank","User Details" };
+				"Usernames", "Creation Date", "First Name", "Last Name",
+				"Rank", "User Details" };
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {
-				String.class, String.class, String.class, String.class, String.class, JButton.class };
+				String.class, String.class, String.class, String.class,
+				String.class, JButton.class };
 
 		ArrayList<Member> allUsers = MemberDao.RetrieveAll();
-
 
 		@Override
 		public int getColumnCount() {
@@ -226,7 +223,7 @@ final JTable table = new JTable(new JTableModel());
 
 		@Override
 		public int getRowCount() {
-			
+
 			int row = MemberDao.getMax();
 			return row;
 		}
@@ -240,7 +237,7 @@ final JTable table = new JTable(new JTableModel());
 		public Class<?> getColumnClass(int columnIndex) {
 			return COLUMN_TYPES[columnIndex];
 		}
-		
+
 		@Override
 		public Object getValueAt(final int rowIndex, final int columnIndex) {
 			switch (columnIndex) {
@@ -257,27 +254,27 @@ final JTable table = new JTable(new JTableModel());
 				// case 2: // fall through
 			case 4:
 				return allUsers.get(rowIndex).getRankName();
-				
-						
+
 				// case 2: // fall through
 			case 5:
 				final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
+
 						String username = allUsers.get(rowIndex).getUsername();
 						int telNo = allUsers.get(rowIndex).getPhoneNumber();
-						String firstName = allUsers.get(rowIndex).getFirstName();
+						String firstName = allUsers.get(rowIndex)
+								.getFirstName();
 						String lastName = allUsers.get(rowIndex).getLastName();
-						String creationDate = allUsers.get(rowIndex).getCreationDate();
+						String creationDate = allUsers.get(rowIndex)
+								.getCreationDate();
 						int rank = allUsers.get(rowIndex).getRank();
 						String email = allUsers.get(rowIndex).getEmail();
-						String pass_IcNo = allUsers.get(rowIndex).getPass_icNo();
-						
-						
+						String pass_IcNo = allUsers.get(rowIndex)
+								.getPass_icNo();
+
 						Member editUser = new Member();
-						
-						
+
 						editUser.setUsername(username);
 						editUser.setPhoneNumber(telNo);
 						editUser.setFirstName(firstName);
@@ -287,57 +284,63 @@ final JTable table = new JTable(new JTableModel());
 						editUser.setEmail(email);
 						editUser.setPass_icNo(pass_IcNo);
 						f.setEditAccountSession(editUser);
-						
-						
-						
-						String sql = "select * from Users where Username = '" + username + "'";
-						try {
-							DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql);
 
-						while (DBConnectionManager.rs.next()){
-							editUser.setUsername(DBConnectionManager.rs.getString("username"));
-							editUser.setPassword(DBConnectionManager.rs.getString("password"));
-							editUser.setFirstName(DBConnectionManager.rs.getString("firstName"));
-							editUser.setLastName(DBConnectionManager.rs.getString("lastName"));
-							editUser.setCreationDate(DBConnectionManager.rs.getString("creationDate"));
-							editUser.setEmail(DBConnectionManager.rs.getString("email"));
-							editUser.setPhoneNumber(DBConnectionManager.rs.getInt("telNo"));
-							editUser.setPass_icNo(DBConnectionManager.rs.getString("pass_icNo"));
-							editUser.setRank(DBConnectionManager.rs.getInt("rank"));
-							
-							f.setEditAccountSession(editUser);
-						}
+						String sql = "select * from Users where Username = '"
+								+ username + "'";
+						try {
+							DBConnectionManager.rs = DBConnectionManager.stmt
+									.executeQuery(sql);
+
+							while (DBConnectionManager.rs.next()) {
+								editUser.setUsername(DBConnectionManager.rs
+										.getString("username"));
+								editUser.setPassword(DBConnectionManager.rs
+										.getString("password"));
+								editUser.setFirstName(DBConnectionManager.rs
+										.getString("firstName"));
+								editUser.setLastName(DBConnectionManager.rs
+										.getString("lastName"));
+								editUser.setCreationDate(DBConnectionManager.rs
+										.getString("creationDate"));
+								editUser.setEmail(DBConnectionManager.rs
+										.getString("email"));
+								editUser.setPhoneNumber(DBConnectionManager.rs
+										.getInt("telNo"));
+								editUser.setPass_icNo(DBConnectionManager.rs
+										.getString("pass_icNo"));
+								editUser.setRank(DBConnectionManager.rs
+										.getInt("rank"));
+
+								f.setEditAccountSession(editUser);
+							}
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						
-						AdminAccountDetails AdminAccountDetailsPage = new AdminAccountDetails(f);
+
+						AdminAccountDetails AdminAccountDetailsPage = new AdminAccountDetails(
+								f);
 						f.getContentPane().removeAll();
 						f.getContentPane().add(AdminAccountDetailsPage);
 						f.repaint();
 						f.revalidate();
 						f.setVisible(true);
-						
-					/*	EventDetailsRNR eventDetailsRNR = new EventDetailsRNR(f);
-						/*EventDetails eventDetails = new EventDetails(f);
-						if (rowIndex == 0) {
-							f.getContentPane().removeAll();
-							f.getContentPane().add(eventDetailsRNR);
-							f.repaint();
-							f.revalidate();
-							f.setVisible(true);
-						} else {
-							f.getContentPane().removeAll();
-							f.getContentPane().add(eventDetails);
-							f.repaint();
-							f.revalidate();
-							f.setVisible(true);
-						
-						}
-				*/
+
+						/*
+						 * EventDetailsRNR eventDetailsRNR = new
+						 * EventDetailsRNR(f); /*EventDetails eventDetails = new
+						 * EventDetails(f); if (rowIndex == 0) {
+						 * f.getContentPane().removeAll();
+						 * f.getContentPane().add(eventDetailsRNR); f.repaint();
+						 * f.revalidate(); f.setVisible(true); } else {
+						 * f.getContentPane().removeAll();
+						 * f.getContentPane().add(eventDetails); f.repaint();
+						 * f.revalidate(); f.setVisible(true);
+						 * 
+						 * }
+						 */
 					}
-					
+
 				});
 				return button;
 			default:

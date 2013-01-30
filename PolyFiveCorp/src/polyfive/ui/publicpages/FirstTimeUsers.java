@@ -10,6 +10,7 @@
  */
 
 package polyfive.ui.publicpages;
+
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -170,22 +171,23 @@ public class FirstTimeUsers extends MasterPanel {
 		GoldTextArea.setBorder(new LineBorder(new Color(0, 0, 0)));
 		GoldTextArea.setBounds(32, 73, 175, 230);
 		panel_1.add(GoldTextArea);
-		
+
 		JPanel panel_6 = new JPanel();
 		panel_6.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_6.setBounds(24, 418, 1085, 119);
 		panel_5.add(panel_6);
 		panel_6.setLayout(null);
-		
+
 		JTextArea txtrAdvanceBookingGet = new JTextArea();
 		txtrAdvanceBookingGet.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtrAdvanceBookingGet.setBorder(new LineBorder(new Color(0, 0, 0)));
 		txtrAdvanceBookingGet.setEditable(false);
-		txtrAdvanceBookingGet.setText("Advance Booking: Get priority on booking over free members. The higher your rank, the more priority you have.\r\nDiscount: Pay a reduced price for events. The higher your rank, the larger your discount.\r\nFree Signed Merchandise: Get special items signed by the performers themselves.\r\nPriority Entrance: You may enter ahead of others without having to queue at the event.\r\nMeet and Greet Session: Personally meet the performers behind stage after the performance and interact with them.\r\n");
+		txtrAdvanceBookingGet
+				.setText("Advance Booking: Get priority on booking over free members. The higher your rank, the more priority you have.\r\nDiscount: Pay a reduced price for events. The higher your rank, the larger your discount.\r\nFree Signed Merchandise: Get special items signed by the performers themselves.\r\nPriority Entrance: You may enter ahead of others without having to queue at the event.\r\nMeet and Greet Session: Personally meet the performers behind stage after the performance and interact with them.\r\n");
 		txtrAdvanceBookingGet.setWrapStyleWord(true);
 		txtrAdvanceBookingGet.setBounds(167, 11, 908, 96);
 		panel_6.add(txtrAdvanceBookingGet);
-		
+
 		JTextArea txtrPerks = new JTextArea();
 		txtrPerks.setBorder(new LineBorder(new Color(0, 0, 0)));
 		txtrPerks.setEditable(false);
@@ -193,14 +195,15 @@ public class FirstTimeUsers extends MasterPanel {
 		txtrPerks.setText("Member\r\nPerks:");
 		txtrPerks.setBounds(10, 11, 147, 97);
 		panel_6.add(txtrPerks);
-		
+
 		JTextArea txtrAsAMember = new JTextArea();
 		txtrAsAMember.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtrAsAMember.setBorder(new LineBorder(new Color(0, 0, 0)));
 		txtrAsAMember.setEditable(false);
 		txtrAsAMember.setLineWrap(true);
 		txtrAsAMember.setWrapStyleWord(true);
-		txtrAsAMember.setText("As a member of PolyFive Corp, you stand to gain benefits by signing up as any rank of member. You may gain even more benefits by gaining a higher rank: purchasing membership for a higher rank or by signing up for enough events over a period of time. By signing up as a member, you will have a better experience.");
+		txtrAsAMember
+				.setText("As a member of PolyFive Corp, you stand to gain benefits by signing up as any rank of member. You may gain even more benefits by gaining a higher rank: purchasing membership for a higher rank or by signing up for enough events over a period of time. By signing up as a member, you will have a better experience.");
 		txtrAsAMember.setBounds(24, 11, 1085, 50);
 		panel_5.add(txtrAsAMember);
 

@@ -55,6 +55,7 @@ import java.text.SimpleDateFormat;
 import org.freixas.jcalendar.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JSeparator;
 
 public class PublicCalendar extends MasterPanel {
 
@@ -65,20 +66,18 @@ public class PublicCalendar extends MasterPanel {
 	 */
 	public PublicCalendar(MainFrame frame) {
 		f = frame;
-		
+
 		DBConnectionManager.connect();
-		Member user = new Member ();
+		Member user = new Member();
 		user = f.getSession();
 		int rank = user.getRank();
-		//System.out.println(rank);
+		// System.out.println(rank);
 		String rankName = null;
-		
-		
-		ChangeLanguage changeLanguage= new ChangeLanguage();
+
+		ChangeLanguage changeLanguage = new ChangeLanguage();
 		changeLanguage = f.getStoreLanguage();
 		int language = changeLanguage.getChangeLanguage();
 
-		
 		setSize(new Dimension(1366, 768));
 		setBackground(Color.WHITE);
 		setLayout(null);
@@ -121,86 +120,111 @@ public class PublicCalendar extends MasterPanel {
 		calendar.setDayFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
-		calendar.setBounds(176, 191, 989, 427);
+		calendar.setBounds(210, 191, 989, 427);
 		calendar.addDateListener(new DateListener() {
-			
-			
+
 			public void dateChanged(DateEvent arg0) {
 				CheckDate checkDate = new CheckDate();
-				
-			Calendar currentDateAfter1Month = Calendar.getInstance();
-			currentDateAfter1Month.add(Calendar.MONTH, 1);
-			Date dateNow = new Date();
-			Date onClickDate = calendar.getDate();
-			
-			
-			if (onClickDate.before(dateNow)){
-				
-				checkDate.setCheckDate(true);
-				f.setCheckDate(checkDate);
-			}
-			else {
-				checkDate.setCheckDate(false);
-				f.setCheckDate(checkDate);
-			}
-			
-			if (onClickDate.after(currentDateAfter1Month.getTime())){
-				JOptionPane.showMessageDialog(null, "Guest are only allowed to buy tickets withing 1 month range from today");
-			}
-			else {
-				
-				
-			 String date = calendar.getDate().toString();
-			 String fullDate = EventDetailsDao.fullDate(date);
-			 EventAttributes event = new EventAttributes();
-			 event.setEventDate(fullDate);
-			 f.setStoreEvents(event);
-			 
-				SearchEventsByDate searchEventsByDate= new SearchEventsByDate(f);
-			    f.getContentPane().removeAll();
-			    f.getContentPane().add(searchEventsByDate);
-			    f.repaint();
-			    f.revalidate();
-			    f.setVisible(true);
-				
-			}
+
+				Calendar currentDateAfter1Month = Calendar.getInstance();
+				currentDateAfter1Month.add(Calendar.MONTH, 1);
+				Date dateNow = new Date();
+				Date onClickDate = calendar.getDate();
+
+				/*
+				 * if (onClickDate.before(dateNow)){
+				 * 
+				 * checkDate.setCheckDate(true); f.setCheckDate(checkDate); }
+				 * else { checkDate.setCheckDate(false);
+				 * f.setCheckDate(checkDate); }
+				 */
+				if (onClickDate.after(currentDateAfter1Month.getTime())) {
+					CheckDate disableEvent = new CheckDate();
+					disableEvent.setCheckDate(true);
+					f.setCheckDate(disableEvent);
+
+					String date = calendar.getDate().toString();
+					String fullDate = EventDetailsDao.fullDate(date);
+					EventAttributes event = new EventAttributes();
+					event.setEventDate(fullDate);
+					f.setStoreEvents(event);
+
+					SearchEventsByDate searchEventsByDate = new SearchEventsByDate(
+							f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(searchEventsByDate);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+
+					// JOptionPane.showMessageDialog(null,
+					// "Guest are only allowed to buy tickets withing 1 month range from today");
+				} else {
+					CheckDate disableEvent = new CheckDate();
+					disableEvent.setCheckDate(false);
+					f.setCheckDate(disableEvent);
+
+					String date = calendar.getDate().toString();
+					String fullDate = EventDetailsDao.fullDate(date);
+					EventAttributes event = new EventAttributes();
+					event.setEventDate(fullDate);
+					f.setStoreEvents(event);
+
+					SearchEventsByDate searchEventsByDate = new SearchEventsByDate(
+							f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(searchEventsByDate);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+
+				}
 			}
 		});
 		add(calendar);
-		
-		if(rank == 0){
+
+		if (rank == 0) {
 			rankName = "Guest";
 		}
-		
+
 		JLabel lblWelcome = new JLabel();
 		lblWelcome.setText("Welcome " + rankName);
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcome.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
-		lblWelcome.setBounds(616, 21, 469, 59);
+		lblWelcome.setBounds(954, 21, 245, 59);
 		add(lblWelcome);
-		
-		JLabel lblclickOnThe = new JLabel("*Click on the date to find the events for that particular date");
+
+		JLabel lblclickOnThe = new JLabel(
+				"*Click on the date to find the events for that particular date");
 		lblclickOnThe.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblclickOnThe.setBounds(176, 155, 580, 25);
+		lblclickOnThe.setBounds(210, 155, 580, 25);
 		add(lblclickOnThe);
 
-		if (language == 0){
-		//	lblWelcome.setText(WelcomePanel.BUNDLE.getString("PublicCalendar.lblWelcome.text"));
-			lblclickOnThe.setText(WelcomePanel.BUNDLE.getString("PublicCalendar.lblclickOnThe.text"));
-			btnBack.setText (WelcomePanel.BUNDLE.getString("PublicCalendar.btnBack.text") );
-		}
-		else if (language == 1){
-			lblWelcome.setText(WelcomePanel.BUNDLE2.getString("PublicCalendar.lblWelcome.text"));
-			lblclickOnThe.setText(WelcomePanel.BUNDLE2.getString("PublicCalendar.lblclickOnThe.text"));
-			btnBack.setText (WelcomePanel.BUNDLE2.getString("PublicCalendar.btnBack.text") );
+		JLabel lblNewLabel = new JLabel("Calendar of Events");
+		lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
+		lblNewLabel.setBounds(210, 78, 387, 75);
+		add(lblNewLabel);
 
-			
+		JSeparator separator = new JSeparator();
+		separator.setBounds(210, 135, 327, 2);
+		add(separator);
+
+		if (language == 0) {
+			// lblWelcome.setText(WelcomePanel.BUNDLE.getString("PublicCalendar.lblWelcome.text"));
+			lblclickOnThe.setText(WelcomePanel.BUNDLE
+					.getString("PublicCalendar.lblclickOnThe.text"));
+			btnBack.setText(WelcomePanel.BUNDLE
+					.getString("PublicCalendar.btnBack.text"));
+		} else if (language == 1) {
+			lblWelcome.setText(WelcomePanel.BUNDLE2
+					.getString("PublicCalendar.lblWelcome.text"));
+			lblclickOnThe.setText(WelcomePanel.BUNDLE2
+					.getString("PublicCalendar.lblclickOnThe.text"));
+			btnBack.setText(WelcomePanel.BUNDLE2
+					.getString("PublicCalendar.btnBack.text"));
+
 		}
 
-		
-		
 		super.setLayout();
 	}
-
-
 }

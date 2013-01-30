@@ -82,7 +82,6 @@ public class MainFrame extends JFrame {
 		MainFrame.registerAccountSession = registerAccountSession;
 	}
 
-	
 	public static CreateSeatPanel getCreateSeatPanel() {
 		return createSeatPanel;
 	}
@@ -106,8 +105,7 @@ public class MainFrame extends JFrame {
 	public static void setEditAccountSession(Member editAccountSession) {
 		MainFrame.editAccountSession = editAccountSession;
 	}
-	
-	
+
 	public static Member getSession() {
 		return session;
 	}
@@ -139,8 +137,8 @@ public class MainFrame extends JFrame {
 	public MemberCalendar getMemberCalendar() {
 		return memberCalendar;
 	}
-	
-	public AdminCalendar getAdminCalendar(){
+
+	public AdminCalendar getAdminCalendar() {
 		return adminCalendar;
 	}
 
@@ -151,7 +149,6 @@ public class MainFrame extends JFrame {
 	public EventDetails getEventDetails() {
 		return eventDetails;
 	}
-
 
 	public TicketsPurchase getTicketsPurchase() {
 		return ticketsPurchase;
@@ -169,19 +166,18 @@ public class MainFrame extends JFrame {
 	public PaymentPanel getPaymentPanel() {
 		return paymentPanel;
 	}
-	
+
 	public adminAddEvent getAdminAddEvent() {
 		return adminAddEvent;
 	}
-	
+
 	public AdminCalendar adminCalendar() {
 		return adminCalendar;
 	}
-	
-	public AddEvent addEvent(){
+
+	public AddEvent addEvent() {
 		return addEvent;
 	}
-	
 
 	/**
 	 * Launch the application.
@@ -193,26 +189,25 @@ public class MainFrame extends JFrame {
 				try {
 					MainFrame frame = new MainFrame();
 					welcomePanel = new WelcomePanel(frame);
-					
+
 					/*
-					
-					 
-					loginPanel = new LoginPanel(frame);
-					firstTimeUsers = new FirstTimeUsers(frame);
-					register = new Register(frame);
-					publicCalendar = new PublicCalendar(frame);
-					memberCalendar = new MemberCalendar(frame);
-					searchEvents = new SearchEvents(frame);
-					eventDetails = new EventDetails(frame);
-					eventDetailsRNR = new EventDetailsRNR(frame);
-					seatAllocation = new SeatAllocation(frame);
-					ticketsPurchase = new TicketsPurchase(frame);
-					accountDetails = new AccountDetails(frame);
-					paymentDetails = new paymentDetails(frame);
-					paymentPanel = new PaymentPanel(frame);
-					adminAddEvent = new adminAddEvent(frame);
-					adminCalendar = new adminCalendar(frame);
-*/
+					 * 
+					 * 
+					 * loginPanel = new LoginPanel(frame); firstTimeUsers = new
+					 * FirstTimeUsers(frame); register = new Register(frame);
+					 * publicCalendar = new PublicCalendar(frame);
+					 * memberCalendar = new MemberCalendar(frame); searchEvents
+					 * = new SearchEvents(frame); eventDetails = new
+					 * EventDetails(frame); eventDetailsRNR = new
+					 * EventDetailsRNR(frame); seatAllocation = new
+					 * SeatAllocation(frame); ticketsPurchase = new
+					 * TicketsPurchase(frame); accountDetails = new
+					 * AccountDetails(frame); paymentDetails = new
+					 * paymentDetails(frame); paymentPanel = new
+					 * PaymentPanel(frame); adminAddEvent = new
+					 * adminAddEvent(frame); adminCalendar = new
+					 * adminCalendar(frame);
+					 */
 					frame.setUndecorated(true);
 					frame.setExtendedState(frame.MAXIMIZED_BOTH);
 					frame.getContentPane().add(welcomePanel);

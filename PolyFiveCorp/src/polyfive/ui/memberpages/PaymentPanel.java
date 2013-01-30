@@ -77,15 +77,14 @@ public class PaymentPanel extends MasterPanel {
 			public void actionPerformed(ActionEvent e) {
 				Member user = new Member();
 				user = f.getSession();
-				if(user.getRank() <= 4 ){
-				MemberCalendar memberCalendar = new MemberCalendar(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(memberCalendar);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-				}
-				else {
+				if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
 					AdminCalendar adminCalendar = new AdminCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(adminCalendar);
@@ -105,7 +104,7 @@ public class PaymentPanel extends MasterPanel {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Member user = new Member();
 				user = f.getSession();
 				if (user.getRank() == 0) {
@@ -130,7 +129,7 @@ public class PaymentPanel extends MasterPanel {
 					f.revalidate();
 					f.setVisible(true);
 				}
-				
+
 			}
 		});
 		btnCancel.setForeground(Color.DARK_GRAY);

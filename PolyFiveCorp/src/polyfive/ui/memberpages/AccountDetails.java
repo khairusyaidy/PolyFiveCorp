@@ -108,7 +108,8 @@ public class AccountDetails extends MasterPanel {
 		panel.add(btnGoldMember);
 
 		JButton btnSilverMember = new JButton("Silver Member");
-		btnSilverMember.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSilverMember.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSilverMember.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSilverMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
@@ -125,7 +126,8 @@ public class AccountDetails extends MasterPanel {
 		panel.add(btnSilverMember);
 
 		JButton btnBronzeMember = new JButton("Bronze Member");
-		btnBronzeMember.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBronzeMember.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBronzeMember.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnBronzeMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
@@ -192,7 +194,8 @@ public class AccountDetails extends MasterPanel {
 		accountManagement.add(lblConfirmNew);
 
 		JButton resetPasswords = new JButton("Reset Changes");
-		resetPasswords.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		resetPasswords
+				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		resetPasswords.setFont(new Font("Tahoma", Font.BOLD, 11));
 		resetPasswords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -211,7 +214,8 @@ public class AccountDetails extends MasterPanel {
 		accountManagement.add(resetPasswords);
 
 		JButton confirmPasswords = new JButton("Confirm Changes");
-		confirmPasswords.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		confirmPasswords.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		confirmPasswords.setFont(new Font("Tahoma", Font.BOLD, 11));
 		confirmPasswords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -221,38 +225,39 @@ public class AccountDetails extends MasterPanel {
 
 				String oldPassword = userChangePass.getPassword();
 				String oldPasswordDecrypt = RailFence.decrypt(oldPassword);
-				
+
 				String oldPassTf = null;
-				oldPassTf  = oldPass.getText();
-				
+				oldPassTf = oldPass.getText();
+
 				String newPassTf = null;
 				newPassTf = newPass.getText();
 				String newPassTfEncrypted = RailFence.encrypt(newPassTf);
-				
+
 				String newPassTf2 = null;
 				newPassTf2 = confirmNew.getText();
 				String newPassTf2Encrypted = RailFence.encrypt(newPassTf2);
-				
+
 				boolean matchPassword = false;
 				boolean matchPassword2 = false;
-				
-				
-				if(!oldPassTf.isEmpty() && !newPassTf.isEmpty() && !newPassTf2.isEmpty()){
-					if(!oldPassTf.equals(oldPasswordDecrypt)  ){
-						feedbackText.setText("Password does not match your previous password.");
+
+				if (!oldPassTf.isEmpty() && !newPassTf.isEmpty()
+						&& !newPassTf2.isEmpty()) {
+					if (!oldPassTf.equals(oldPasswordDecrypt)) {
+						feedbackText
+								.setText("Password does not match your previous password.");
 						matchPassword = false;
 					}
 
-					 if ( !newPassTfEncrypted.equals(newPassTf2Encrypted) && oldPassTf.equals(oldPasswordDecrypt)){
+					if (!newPassTfEncrypted.equals(newPassTf2Encrypted)
+							&& oldPassTf.equals(oldPasswordDecrypt)) {
 						feedbackText2.setText("New password does not match.");
 						feedbackText.setText("");
 						matchPassword2 = false;
 					}
-					
-					
-					else if (newPassTfEncrypted.equals(newPassTf2Encrypted) && (oldPassTf.equals(oldPasswordDecrypt)) ){
-						
-						
+
+					else if (newPassTfEncrypted.equals(newPassTf2Encrypted)
+							&& (oldPassTf.equals(oldPasswordDecrypt))) {
+
 						try {
 
 							String sql3 = "update Users set password='"
@@ -261,17 +266,17 @@ public class AccountDetails extends MasterPanel {
 							DBConnectionManager.pstmt = DBConnectionManager.con
 									.prepareStatement(sql3);
 							DBConnectionManager.pstmt.execute();
-							feedbackText.setText("Your password have been changed.");
+							feedbackText
+									.setText("Your password have been changed.");
 							feedbackText2.setText("");
 							oldPass.setText("");
 							newPass.setText("");
 							confirmNew.setText("");
-							
+
 						} catch (SQLException e1) {
 							JOptionPane.showMessageDialog(null, e1);
 							e1.printStackTrace();
 						}
-						
 
 						String sql2 = "select * from Users where Username = '"
 								+ userChangePass.getUsername() + "'";
@@ -280,19 +285,23 @@ public class AccountDetails extends MasterPanel {
 							DBConnectionManager.rs = DBConnectionManager.stmt
 									.executeQuery(sql2);
 							while (DBConnectionManager.rs.next()) {
-								userChangePass.setFirstName(DBConnectionManager.rs
-										.getString("firstName"));
-								userChangePass.setLastName(DBConnectionManager.rs
-										.getString("lastName"));
-								userChangePass.setPassword(DBConnectionManager.rs
-										.getString("password"));
+								userChangePass
+										.setFirstName(DBConnectionManager.rs
+												.getString("firstName"));
+								userChangePass
+										.setLastName(DBConnectionManager.rs
+												.getString("lastName"));
+								userChangePass
+										.setPassword(DBConnectionManager.rs
+												.getString("password"));
 								userChangePass.setEmail(DBConnectionManager.rs
 										.getString("email"));
 								userChangePass
 										.setPhoneNumber(DBConnectionManager.rs
 												.getInt("telNo"));
-								userChangePass.setPass_icNo(DBConnectionManager.rs
-										.getString("pass_icNo"));
+								userChangePass
+										.setPass_icNo(DBConnectionManager.rs
+												.getString("pass_icNo"));
 								userChangePass.setRank(DBConnectionManager.rs
 										.getInt("rank"));
 
@@ -304,18 +313,14 @@ public class AccountDetails extends MasterPanel {
 							// TODO Auto-generated catch block
 							ex.printStackTrace();
 						}
-						}
+					}
 				}
-				
-				else if ( oldPassTf.isEmpty() || newPassTf.isEmpty() || newPassTf.isEmpty() )
+
+				else if (oldPassTf.isEmpty() || newPassTf.isEmpty()
+						|| newPassTf.isEmpty())
 					feedbackText.setText("Please complete the field");
-				
-			
-				
-				
 
-				}
-
+			}
 
 		});
 		confirmPasswords.setForeground(Color.DARK_GRAY);
@@ -357,7 +362,7 @@ public class AccountDetails extends MasterPanel {
 		LogOutButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LogOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPanel loginPanel= new LoginPanel(f);
+				LoginPanel loginPanel = new LoginPanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(loginPanel);
 				f.repaint();
@@ -401,7 +406,7 @@ public class AccountDetails extends MasterPanel {
 					f.revalidate();
 					f.setVisible(true);
 				}
-				
+
 			}
 		});
 		ReturnButton.setFocusPainted(false);
@@ -623,7 +628,8 @@ public class AccountDetails extends MasterPanel {
 		editDetails.add(lblNewPaymentMethod);
 
 		JButton confirmChanges = new JButton("Confirm Changes");
-		confirmChanges.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		confirmChanges
+				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		confirmChanges.setFont(new Font("Tahoma", Font.BOLD, 11));
 		confirmChanges.setFocusPainted(false);
 		confirmChanges.addActionListener(new ActionListener() {
@@ -644,8 +650,8 @@ public class AccountDetails extends MasterPanel {
 					userChangeDetails = f.getSession();
 
 					String sql3 = "update Users set telNo='" + telNo
-							+ "' , email='" + em + "', pass_IcNo='" + passICEncrypt
-							+ "' where username='"
+							+ "' , email='" + em + "', pass_IcNo='"
+							+ passICEncrypt + "' where username='"
 							+ userChangeDetails.getUsername() + "' ";
 					DBConnectionManager.pstmt = DBConnectionManager.con
 							.prepareStatement(sql3);
@@ -746,13 +752,13 @@ public class AccountDetails extends MasterPanel {
 		feedbackText.setBounds(20, 391, 425, 20);
 		miscDetails.add(feedbackText);
 		feedbackText.setColumns(10);
-		
+
 		feedbackText2 = new JTextField();
 		feedbackText2.setEditable(false);
 		feedbackText2.setColumns(10);
 		feedbackText2.setBounds(20, 422, 425, 20);
 		miscDetails.add(feedbackText2);
-		
+
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -784,11 +790,12 @@ public class AccountDetails extends MasterPanel {
 				}
 			}
 		});
-		button.setIcon(new ImageIcon(AccountDetails.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(AccountDetails.class
+				.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-		
+
 		super.setLayout();
 
 	}

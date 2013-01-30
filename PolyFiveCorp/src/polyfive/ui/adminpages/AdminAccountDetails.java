@@ -89,8 +89,6 @@ public class AdminAccountDetails extends MasterPanel {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
 
 		setLayout(null);
 		setSize(new Dimension(1366, 768));
@@ -118,7 +116,8 @@ public class AdminAccountDetails extends MasterPanel {
 		panel.add(btnGoldMember);
 
 		JButton btnSilverMember = new JButton("Silver Member");
-		btnSilverMember.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSilverMember.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSilverMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnSilverMember.setFocusPainted(false);
@@ -134,7 +133,8 @@ public class AdminAccountDetails extends MasterPanel {
 		panel.add(btnSilverMember);
 
 		JButton btnBronzeMember = new JButton("Bronze Member");
-		btnBronzeMember.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBronzeMember.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBronzeMember.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		btnBronzeMember.setFocusPainted(false);
@@ -172,7 +172,7 @@ public class AdminAccountDetails extends MasterPanel {
 		panel.add(lblCurrentMember);
 
 		upgradingTo = new JTextField();
-	//	upgradingTo.setText();
+		// upgradingTo.setText();
 		upgradingTo.setEditable(false);
 		upgradingTo.setColumns(10);
 		upgradingTo.setBounds(140, 173, 240, 20);
@@ -188,7 +188,8 @@ public class AdminAccountDetails extends MasterPanel {
 		add(accountManagement);
 		accountManagement.setLayout(null);
 
-		JLabel lblConfirmNew = new JLabel("Warning ! Once account is deleted, it cannot be retrieved.");
+		JLabel lblConfirmNew = new JLabel(
+				"Warning ! Once account is deleted, it cannot be retrieved.");
 		lblConfirmNew.setForeground(Color.RED);
 		lblConfirmNew.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblConfirmNew.setHorizontalAlignment(SwingConstants.CENTER);
@@ -196,17 +197,21 @@ public class AdminAccountDetails extends MasterPanel {
 		accountManagement.add(lblConfirmNew);
 
 		JButton confirmPasswords = new JButton("Delete");
-		confirmPasswords.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		confirmPasswords.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		confirmPasswords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int reply = JOptionPane.showConfirmDialog(null,  " Are you sure you want to delete this account ? ");
-				if (reply == JOptionPane.YES_OPTION){
+				int reply = JOptionPane.showConfirmDialog(null,
+						" Are you sure you want to delete this account ? ");
+				if (reply == JOptionPane.YES_OPTION) {
 					Member deleteUser = new Member();
 					deleteUser = f.getEditAccountSession();
 					String username = deleteUser.getUsername();
-					String sql = "DELETE FROM users WHERE username ='"+username+"'";
+					String sql = "DELETE FROM users WHERE username ='"
+							+ username + "'";
 					try {
-						//DBConnectionManager.rs = DBConnectionManager.stmt.execute(sql);
+						// DBConnectionManager.rs =
+						// DBConnectionManager.stmt.execute(sql);
 						DBConnectionManager.pstmt = DBConnectionManager.con
 								.prepareStatement(sql);
 						DBConnectionManager.pstmt.execute();
@@ -214,22 +219,20 @@ public class AdminAccountDetails extends MasterPanel {
 						// TODO Auto-generated catch block
 						System.out.println(e1);
 						e1.printStackTrace();
-					}	
+					}
 					JOptionPane.showMessageDialog(null, "User is deleted");
-					
-					UserSetting userSetting= new UserSetting(f);
+
+					UserSetting userSetting = new UserSetting(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(userSetting);
 					f.repaint();
 					f.revalidate();
 					f.setVisible(true);
-					
-					
+
 				}
-				
+
 			}
 		});
-
 
 		confirmPasswords.setForeground(Color.DARK_GRAY);
 		confirmPasswords.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
@@ -248,8 +251,8 @@ public class AdminAccountDetails extends MasterPanel {
 		topBar.setLayout(null);
 
 		JLabel lblYouAreLogged = new JLabel("You are editing : "
-				+ editUser.getFirstName() + " " + editUser.getLastName() + "'s ("
-				+ rankName + ") account");
+				+ editUser.getFirstName() + " " + editUser.getLastName()
+				+ "'s (" + rankName + ") account");
 		lblYouAreLogged.setBounds(5, 5, 800, 35);
 		topBar.add(lblYouAreLogged);
 		lblYouAreLogged.setFont(new Font("Tahoma", Font.ITALIC, 24));
@@ -257,7 +260,7 @@ public class AdminAccountDetails extends MasterPanel {
 		JButton LogOutButton = new JButton("Log Out");
 		LogOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPanel loginPanel= new LoginPanel(f);
+				LoginPanel loginPanel = new LoginPanel(f);
 				f.getContentPane().removeAll();
 				f.getContentPane().add(loginPanel);
 				f.repaint();
@@ -502,7 +505,8 @@ public class AdminAccountDetails extends MasterPanel {
 		editDetails.add(lblNewPaymentMethod);
 
 		JButton confirmChanges = new JButton("Confirm Changes");
-		confirmChanges.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		confirmChanges
+				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		confirmChanges.setFocusPainted(false);
 		confirmChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -526,8 +530,8 @@ public class AdminAccountDetails extends MasterPanel {
 					userChangeDetails = f.getEditAccountSession();
 
 					String sql3 = "update Users set telNo='" + telNo
-							+ "' , email='" + em + "', pass_IcNo='" + passICEncrypt
-							+ "' where username='"
+							+ "' , email='" + em + "', pass_IcNo='"
+							+ passICEncrypt + "' where username='"
 							+ userChangeDetails.getUsername() + "' ";
 					DBConnectionManager.pstmt = DBConnectionManager.con
 							.prepareStatement(sql3);
@@ -627,13 +631,13 @@ public class AdminAccountDetails extends MasterPanel {
 		feedbackText.setBounds(20, 391, 425, 20);
 		miscDetails.add(feedbackText);
 		feedbackText.setColumns(10);
-		
+
 		feedbackText2 = new JTextField();
 		feedbackText2.setEditable(false);
 		feedbackText2.setColumns(10);
 		feedbackText2.setBounds(20, 422, 425, 20);
 		miscDetails.add(feedbackText2);
-		
+
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -665,11 +669,12 @@ public class AdminAccountDetails extends MasterPanel {
 				}
 			}
 		});
-		button.setIcon(new ImageIcon(AdminAccountDetails.class.getResource("/polyfive/ui/images/p5cicon7575.png")));
+		button.setIcon(new ImageIcon(AdminAccountDetails.class
+				.getResource("/polyfive/ui/images/p5cicon7575.png")));
 		button.setBorder(null);
 		button.setBounds(21, 21, 75, 75);
 		add(button);
-		
+
 		super.setLayout();
 
 	}
