@@ -125,6 +125,38 @@ public class Seat {
 		return result;
 	}
 	
+	public boolean delete(int eventid) {
+		Connection con = null;
+		boolean result = false;
+		
+		
+		try {
+            currentCon = DriverManager.getConnection("jdbc:mysql://localhost:8888/PolyFiveCorp", "root", "");
+
+				//delete
+				String sql = "DELETE FROM seat  WHERE eventid='"+eventid+"'";
+
+				PreparedStatement preparedStatement = currentCon.prepareStatement(sql); 
+				
+				result = preparedStatement.executeUpdate() > 0;
+			}
+
+		 catch (SQLException ex) {
+			ex.printStackTrace();
+			
+		} finally {
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (SQLException e) {
+					//ignore
+				}
+			}
+		}
+		
+		return result;
+	}
+	
 	public static ArrayList<Seat> getAllSeats(int eventId){
 		
 		Connection con = null;
@@ -207,6 +239,8 @@ public class Seat {
 		
 		return seat;
 	}
+	
+	
 	//for testing purpose to get seat from database
 //	public static void main(String [] args ){
 //		Seat seat=Seat.getSeat(52, 1, 1);

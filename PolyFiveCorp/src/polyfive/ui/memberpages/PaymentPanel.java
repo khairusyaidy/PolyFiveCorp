@@ -1,6 +1,5 @@
 package polyfive.ui.memberpages;
 
-import polyfive.entities.BuyTickets;
 import polyfive.entities.Member;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
@@ -27,9 +26,6 @@ public class PaymentPanel extends MasterPanel {
 		f = frame;
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
-		
-		BuyTickets buyTickets = new BuyTickets();
-		buyTickets = f.getBuyTickets();
 
 		JButton button_1 = new JButton("");
 		button_1.addActionListener(new ActionListener() {
@@ -54,17 +50,7 @@ public class PaymentPanel extends MasterPanel {
 		btnPayPal.setBounds(154, 224, 350, 220);
 		add(btnPayPal);
 
-		JButton btnCreditCard = new JButton("CreditCard");
-		btnCreditCard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CreditCard creditCard = new CreditCard(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(creditCard);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-			}
-		});
+		JButton btnCreditCard = new JButton("");
 		btnCreditCard.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCreditCard.setBorder(null);
 		btnCreditCard.setIcon(new ImageIcon(PaymentPanel.class
@@ -116,14 +102,44 @@ public class PaymentPanel extends MasterPanel {
 		button.setBounds(21, 21, 75, 75);
 		add(button);
 
-		JButton button_2 = new JButton("Back");
-		button_2.setForeground(Color.DARK_GRAY);
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		button_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Member user = new Member();
+				user = f.getSession();
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
+				
+			}
+		});
+		btnCancel.setForeground(Color.DARK_GRAY);
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnCancel.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
-		button_2.setBackground(new Color(255, 165, 0));
-		button_2.setBounds(21, 664, 150, 75);
-		add(button_2);
+		btnCancel.setBackground(new Color(255, 165, 0));
+		btnCancel.setBounds(21, 664, 150, 75);
+		add(btnCancel);
 
 		JLabel lblPleaseChooseYour = new JLabel(
 				"Please choose your payment modes: ");

@@ -1,3 +1,14 @@
+/* 
+ * Program Name : AdminAccountDetals.java
+ * Purpose : Display all the details of the particular event
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy (Database) , Nicholas(similar page to user account details) , Timothy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.adminpages;
 
 import polyfive.encryption.RailFence;

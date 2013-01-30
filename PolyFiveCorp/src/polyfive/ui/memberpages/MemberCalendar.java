@@ -1,3 +1,14 @@
+/* 
+ * Program Name : MemberCalendar.java
+ * Purpose : Display Calendar 
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.memberpages;
 
 import polyfive.entities.ChangeLanguage;

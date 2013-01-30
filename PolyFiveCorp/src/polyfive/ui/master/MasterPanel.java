@@ -1,3 +1,13 @@
+/* 
+ * Program Name : MasterPanel.java
+ * Purpose : Master Panel
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
 package polyfive.ui.master;
 
 import polyfive.ui.*;

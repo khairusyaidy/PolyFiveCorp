@@ -1,3 +1,14 @@
+/* 
+ * Program Name : PublicCalendar.java
+ * Purpose : For public users to select which date they want to book tickets (1 month)
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.publicpages;
 
 import polyfive.entities.ChangeLanguage;
@@ -110,7 +121,7 @@ public class PublicCalendar extends MasterPanel {
 		calendar.setDayFont(new Font("Tahoma", Font.PLAIN, 18));
 		calendar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
-		calendar.setBounds(166, 191, 989, 427);
+		calendar.setBounds(176, 191, 989, 427);
 		calendar.addDateListener(new DateListener() {
 			
 			
@@ -169,15 +180,17 @@ public class PublicCalendar extends MasterPanel {
 		add(lblWelcome);
 		
 		JLabel lblclickOnThe = new JLabel("*Click on the date to find the events for that particular date");
-		lblclickOnThe.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		lblclickOnThe.setBounds(166, 161, 421, 19);
+		lblclickOnThe.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblclickOnThe.setBounds(176, 155, 580, 25);
 		add(lblclickOnThe);
 
 		if (language == 0){
+		//	lblWelcome.setText(WelcomePanel.BUNDLE.getString("PublicCalendar.lblWelcome.text"));
 			lblclickOnThe.setText(WelcomePanel.BUNDLE.getString("PublicCalendar.lblclickOnThe.text"));
 			btnBack.setText (WelcomePanel.BUNDLE.getString("PublicCalendar.btnBack.text") );
 		}
 		else if (language == 1){
+			lblWelcome.setText(WelcomePanel.BUNDLE2.getString("PublicCalendar.lblWelcome.text"));
 			lblclickOnThe.setText(WelcomePanel.BUNDLE2.getString("PublicCalendar.lblclickOnThe.text"));
 			btnBack.setText (WelcomePanel.BUNDLE2.getString("PublicCalendar.btnBack.text") );
 

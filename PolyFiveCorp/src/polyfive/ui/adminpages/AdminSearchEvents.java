@@ -1,3 +1,15 @@
+/* 
+ * Program Name : AdminSearchEvents.java
+ * Purpose : List all events
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
+
 package polyfive.ui.adminpages;
 
 import polyfive.entities.EventAttributes;

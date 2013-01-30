@@ -1,3 +1,13 @@
+/* 
+ * Program Name : AdminAddEvent.java
+ * Purpose : Add event
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy (Database) , Timothy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
 package polyfive.ui.adminpages;
 
 import java.awt.Cursor;

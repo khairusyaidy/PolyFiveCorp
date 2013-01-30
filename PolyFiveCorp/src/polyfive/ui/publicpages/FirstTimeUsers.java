@@ -1,5 +1,15 @@
-package polyfive.ui.publicpages;
+/* 
+ * Program Name : FirstTimeUSers.java
+ * Purpose : 
+ * 
+ * Authour: Nicholas
+ * Admin No: 
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
 
+package polyfive.ui.publicpages;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;

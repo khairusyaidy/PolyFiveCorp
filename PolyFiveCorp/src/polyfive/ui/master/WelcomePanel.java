@@ -1,3 +1,14 @@
+/* 
+ * Program Name : WelcomePanel.java
+ * Purpose : For new users, member, or public user to book tickets / Changing of language 
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.master;
 
 import polyfive.entities.ChangeLanguage;

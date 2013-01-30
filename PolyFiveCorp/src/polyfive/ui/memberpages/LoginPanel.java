@@ -1,3 +1,14 @@
+/* 
+ * Program Name : LoginPanel.java
+ * Purpose : Allow the users to log in and enter their NRIC/PassportNO as 2nd factor authentication.
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.memberpages;
 
 import java.awt.Color;
@@ -27,6 +38,9 @@ import polyfive.ui.master.MasterPanel;
 import polyfive.ui.master.WelcomePanel;
 import javax.swing.SwingConstants;
 import polyfive.encryption.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JCheckBox;
 
 public class LoginPanel extends MasterPanel {
 	private JTextField UsernameField;
@@ -34,9 +48,7 @@ public class LoginPanel extends MasterPanel {
 	private JPasswordField PasswordField;
 	private JButton btnBack;
 	private MainFrame f;
-	private JPanel panel_1;
 	private JButton Login;
-	private JButton btnResetPassword;
 	private JButton button;
 
 	/**
@@ -75,11 +87,12 @@ public class LoginPanel extends MasterPanel {
 	 */
 
 	public LoginPanel(MainFrame frame) {
+		final String _2Fa = "Please enter your NRIC/Passport number below: \nCase sensitive ";
 		ChangeLanguage changeLanguage= new ChangeLanguage();
 		changeLanguage = f.getStoreLanguage();
 		int language = changeLanguage.getChangeLanguage();
 		
-		
+		//_2Fa = "as";
 		f = frame;
 		DBConnectionManager.connect();
 		setSize(new Dimension(1366, 768));
@@ -94,28 +107,29 @@ public class LoginPanel extends MasterPanel {
 		panel.setLayout(null);
 
 		UsernameField = new JTextField();
-		UsernameField.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		UsernameField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		UsernameField.setToolTipText("");
-		UsernameField.setBounds(224, 118, 350, 45);
+		UsernameField.setBounds(224, 118, 350, 32);
 		panel.add(UsernameField);
 		UsernameField.setColumns(10);
 
 		JLabel lblPassword = new JLabel("Password\r\n");
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassword.setFont(new Font("Tahoma", Font.ITALIC, 20));
-		lblPassword.setBounds(32, 181, 182, 45);
+		lblPassword.setBounds(49, 157, 182, 45);
 		panel.add(lblPassword);
 
 		JLabel lblName = new JLabel("Username");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setFont(new Font("Tahoma", Font.ITALIC, 20));
-		lblName.setBounds(32, 118, 182, 45);
+		lblName.setBounds(49, 114, 182, 45);
 		panel.add(lblName);
 
 		PasswordField = new JPasswordField();
-		PasswordField.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		PasswordField.setBounds(224, 179, 350, 45);
+		PasswordField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		PasswordField.setBounds(224, 161, 350, 32);
 		panel.add(PasswordField);
+
 
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(LoginPanel.class
@@ -147,173 +161,6 @@ public class LoginPanel extends MasterPanel {
 		btnBack.setBounds(21, 664, 150, 75);
 		add(btnBack);
 
-		panel_1 = new JPanel();
-		panel_1.setOpaque(false);
-		panel_1.setBounds(476, 683, 546, 56);
-		add(panel_1);
-		panel_1.setLayout(null);
-
-		Login = new JButton("Login");
-		Login.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				// Check if user enter the password that is the same in the database. If same reject. If user enter the password then 
-				//encrypt, same == accept
-				/*
-				 * MemberCalendar memberCalendar = f.getMemberCalendar();
-				 * f.getContentPane().removeAll();
-				 * f.getContentPane().add(memberCalendar); f.repaint();
-				 * f.revalidate(); f.setVisible(true);
-				 */
-				try {
-					String username = UsernameField.getText().trim();
-					String password = PasswordField.getText();
-					String passwordEncrypt = RailFence.encrypt(password);
-					
-					
-
-					String sql = "select Username, Password from Users where Username = '"
-							+ username + "'and Password ='" + passwordEncrypt + "'";
-					DBConnectionManager.rs = DBConnectionManager.stmt
-							.executeQuery(sql);
-
-					int count = 0;
-					while (DBConnectionManager.rs.next()) {
-						count = count + 1;
-					}
-
-					if (count == 1) {
-						String pass_icNo = (JOptionPane
-								.showInputDialog(null,"Please enter your NRIC/Passport number below: \nCase sensitive "));
-						String pass_icNoEncrypt = RailFence.encrypt(pass_icNo);
-						String sql2 = "select * from Users where Username = '"
-								+ username
-								+ "'and Password ='"
-								+ passwordEncrypt
-								+ "' and pass_icNo = '"
-								+ pass_icNoEncrypt
-								+ "'";
-						DBConnectionManager.rs = DBConnectionManager.stmt
-								.executeQuery(sql2);
-						
-						boolean checkPass_icNo = false;
-						while (DBConnectionManager.rs.next()) {
-							if (pass_icNoEncrypt.equals(DBConnectionManager.rs.getString("pass_icNo")))
-								checkPass_icNo = true;
-							else
-								checkPass_icNo = false;
-						}
-
-						
-						
-						if (checkPass_icNo == true) {
-							
-							JOptionPane.showMessageDialog(null,
-									"User Found, Access Granted",
-									"PolyFive Corp", JOptionPane.PLAIN_MESSAGE);
-							
-						//	Member user = new Member();
-							//user.setUsername("khai");
-							
-							//f.setSession(user);
-							
-						
-							DBConnectionManager.rs.beforeFirst();
-							Member user = new Member();
-							while (DBConnectionManager.rs.next()){
-							user.setUsername(DBConnectionManager.rs.getString("username"));
-							user.setPassword(DBConnectionManager.rs.getString("password"));
-							user.setFirstName(DBConnectionManager.rs.getString("firstName"));
-							user.setLastName(DBConnectionManager.rs.getString("lastName"));
-							user.setCreationDate(DBConnectionManager.rs.getString("creationDate"));
-							user.setEmail(DBConnectionManager.rs.getString("email"));
-							user.setPhoneNumber(DBConnectionManager.rs.getInt("telNo"));
-							user.setPass_icNo(DBConnectionManager.rs.getString("pass_icNo"));
-							user.setRank(DBConnectionManager.rs.getInt("rank"));
-							
-							f.setSession(user);
-							
-							}
-							
-							Member checkUserRank = new Member();
-							checkUserRank = f.getSession();
-							int rankNo = checkUserRank.getRank();
-							
-
-							if (rankNo <= 4){
-							MemberCalendar memberCalendar = new MemberCalendar(f);
-							f.getContentPane().removeAll();
-							f.getContentPane().add(memberCalendar);
-							f.repaint();
-							f.revalidate();
-							f.setVisible(true);
-						}
-							else if (rankNo > 4){
-							AdminCalendar Calendar1 = new AdminCalendar(f);
-							f.getContentPane().removeAll();
-							f.getContentPane().add(Calendar1);
-							f.repaint();
-							f.revalidate();
-							f.setVisible(true);
-							}
-							
-						}
-					
-						
-						else {
-							JOptionPane
-									.showMessageDialog(
-											null,
-											"NRIC/Passport number is incorrect. Please try again. ",
-											"PolyFive Corp",
-											JOptionPane.ERROR_MESSAGE);
-						}
-					}
-
-					
-
-					else if (count > 1) {
-						JOptionPane.showMessageDialog(null,
-								"Duplicate User, Access Denied",
-								"PolyFive Corp", JOptionPane.ERROR_MESSAGE);
-					}
-
-					else {
-						JOptionPane.showMessageDialog(null,
-								"User not found / Incorrect password.",
-								"PolyFive Corp", JOptionPane.ERROR_MESSAGE);
-
-					}
-
-				} catch (Exception ex) {
-
-					System.out.println(ex);
-
-				}
-			}
-		});
-		Login.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		Login.setFocusPainted(false);
-		Login.setForeground(Color.DARK_GRAY);
-		Login.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		Login.setBackground(new Color(255, 165, 0));
-		Login.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY,
-				null));
-		Login.setBounds(120, 0, 170, 50);
-		panel_1.add(Login);
-
-		btnResetPassword = new JButton("Reset Password");
-		btnResetPassword.setCursor(Cursor
-				.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnResetPassword.setFocusPainted(false);
-		btnResetPassword.setForeground(Color.DARK_GRAY);
-		btnResetPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnResetPassword.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
-				Color.DARK_GRAY, null));
-		btnResetPassword.setBackground(new Color(255, 165, 0));
-		btnResetPassword.setBounds(299, 0, 170, 50);
-		panel_1.add(btnResetPassword);
-
 		button = new JButton("");
 		button.setIcon(new ImageIcon(LoginPanel.class
 				.getResource("/polyFive/ui/images/p5cicon7575.png")));
@@ -332,6 +179,175 @@ public class LoginPanel extends MasterPanel {
 		button.setBounds(21, 21, 75, 75);
 		add(button);
 		
+		
+		final JCheckBox chckbxCheckPassword = new JCheckBox("Check password");
+		chckbxCheckPassword.setFocusPainted(false);
+		chckbxCheckPassword.setBounds(964, 603, 145, 23);
+		add(chckbxCheckPassword);
+		chckbxCheckPassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxCheckPassword.isSelected()){
+					PasswordField.setEchoChar((char) 0);
+				}
+				else if(!chckbxCheckPassword.isSelected()){
+					PasswordField.setEchoChar('●');
+				}
+			}
+		});
+		chckbxCheckPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxCheckPassword.setOpaque(false);
+		
+				Login = new JButton("Login");
+				Login.setBounds(685, 651, 170, 50);
+				add(Login);
+				Login.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						// Check if user enter the password that is the same in the database. If same reject. If user enter the password then 
+						//encrypt, same == accept
+						/*
+						 * MemberCalendar memberCalendar = f.getMemberCalendar();
+						 * f.getContentPane().removeAll();
+						 * f.getContentPane().add(memberCalendar); f.repaint();
+						 * f.revalidate(); f.setVisible(true);
+						 */
+						try {
+							String username = UsernameField.getText().trim();
+							String password = PasswordField.getText();
+							String passwordEncrypt = RailFence.encrypt(password);
+							
+							
+
+							String sql = "select Username, Password from Users where Username = '"
+									+ username + "'and Password ='" + passwordEncrypt + "'";
+							DBConnectionManager.rs = DBConnectionManager.stmt
+									.executeQuery(sql);
+
+							int count = 0;
+							while (DBConnectionManager.rs.next()) {
+								count = count + 1;
+							}
+
+							if (count == 1) {
+								String pass_icNo = (JOptionPane
+										.showInputDialog(null,_2Fa));
+								String pass_icNoEncrypt = RailFence.encrypt(pass_icNo);
+								String sql2 = "select * from Users where Username = '"
+										+ username
+										+ "'and Password ='"
+										+ passwordEncrypt
+										+ "' and pass_icNo = '"
+										+ pass_icNoEncrypt
+										+ "'";
+								DBConnectionManager.rs = DBConnectionManager.stmt
+										.executeQuery(sql2);
+								
+								boolean checkPass_icNo = false;
+								while (DBConnectionManager.rs.next()) {
+									if (pass_icNoEncrypt.equals(DBConnectionManager.rs.getString("pass_icNo")))
+										checkPass_icNo = true;
+									else
+										checkPass_icNo = false;
+								}
+
+								
+								
+								if (checkPass_icNo == true) {
+									
+									JOptionPane.showMessageDialog(null,
+											"User Found, Access Granted",
+											"PolyFive Corp", JOptionPane.PLAIN_MESSAGE);
+									
+								//	Member user = new Member();
+									//user.setUsername("khai");
+									
+									//f.setSession(user);
+									
+								
+									DBConnectionManager.rs.beforeFirst();
+									Member user = new Member();
+									while (DBConnectionManager.rs.next()){
+									user.setUsername(DBConnectionManager.rs.getString("username"));
+									user.setPassword(DBConnectionManager.rs.getString("password"));
+									user.setFirstName(DBConnectionManager.rs.getString("firstName"));
+									user.setLastName(DBConnectionManager.rs.getString("lastName"));
+									user.setCreationDate(DBConnectionManager.rs.getString("creationDate"));
+									user.setEmail(DBConnectionManager.rs.getString("email"));
+									user.setPhoneNumber(DBConnectionManager.rs.getInt("telNo"));
+									user.setPass_icNo(DBConnectionManager.rs.getString("pass_icNo"));
+									user.setRank(DBConnectionManager.rs.getInt("rank"));
+									
+									f.setSession(user);
+									
+									}
+									
+									Member checkUserRank = new Member();
+									checkUserRank = f.getSession();
+									int rankNo = checkUserRank.getRank();
+									
+
+									if (rankNo <= 4){
+									MemberCalendar memberCalendar = new MemberCalendar(f);
+									f.getContentPane().removeAll();
+									f.getContentPane().add(memberCalendar);
+									f.repaint();
+									f.revalidate();
+									f.setVisible(true);
+								}
+									else if (rankNo > 4){
+									AdminCalendar Calendar1 = new AdminCalendar(f);
+									f.getContentPane().removeAll();
+									f.getContentPane().add(Calendar1);
+									f.repaint();
+									f.revalidate();
+									f.setVisible(true);
+									}
+									
+								}
+							
+								
+								else {
+									JOptionPane
+											.showMessageDialog(
+													null,
+													"NRIC/Passport number is incorrect. Please try again. ",
+													"PolyFive Corp",
+													JOptionPane.ERROR_MESSAGE);
+								}
+							}
+
+							
+
+							else if (count > 1) {
+								JOptionPane.showMessageDialog(null,
+										"Duplicate User, Access Denied",
+										"PolyFive Corp", JOptionPane.ERROR_MESSAGE);
+							}
+
+							else {
+								JOptionPane.showMessageDialog(null,
+										"User not found / Incorrect password.",
+										"PolyFive Corp", JOptionPane.ERROR_MESSAGE);
+
+							}
+
+						} catch (Exception ex) {
+
+							System.out.println(ex);
+
+						}
+					}
+				});
+				Login.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				Login.setFocusPainted(false);
+				Login.setForeground(Color.DARK_GRAY);
+				Login.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				Login.setBackground(new Color(255, 165, 0));
+				Login.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.DARK_GRAY,
+						null));
+		
+
+		
 		if (language == 0){
 			lblName.setText (WelcomePanel.BUNDLE.getString("LoginPanel.lblName.text") );
 			lblPassword.setText( WelcomePanel.BUNDLE.getString("LoginPanel.lblNric.text") );
@@ -349,8 +365,5 @@ public class LoginPanel extends MasterPanel {
 		super.setLayout();
 
 	}
-
-	
-
 }
 

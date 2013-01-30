@@ -1,3 +1,14 @@
+/* 
+ * Program Name : AccountDetails.java
+ * Purpose : Display the user details
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy (Database)/Logic  ,  Nicholas
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.memberpages;
 
 import polyfive.encryption.RailFence;
@@ -25,7 +36,6 @@ import java.sql.SQLException;
 
 import javax.swing.JPasswordField;
 import javax.swing.border.EtchedBorder;
-import javax.swing.JTextArea;
 
 public class AccountDetails extends MasterPanel {
 	private JTextField creationDate;
@@ -724,20 +734,12 @@ public class AccountDetails extends MasterPanel {
 		transactionHistory.setBounds(20, 36, 425, 154);
 		miscDetails.add(transactionHistory);
 		transactionHistory.setLayout(null);
-		
-		JTextArea history = new JTextArea("You have the following transactions before: ");
-		history.setBounds(10, 11, 405, 132);
-		transactionHistory.add(history);
 
 		JPanel currentBookings = new JPanel();
 		currentBookings.setBorder(new LineBorder(new Color(0, 0, 0)));
 		currentBookings.setBounds(20, 226, 425, 154);
 		miscDetails.add(currentBookings);
-		currentBookings.setLayout(null);
-		
-		JTextArea current = new JTextArea("You have the following transactions now: ");
-		current.setBounds(10, 11, 405, 132);
-		currentBookings.add(current);
+		currentBookings.setLayout(new GridLayout(1, 0, 0, 0));
 
 		feedbackText = new JTextField();
 		feedbackText.setEditable(false);

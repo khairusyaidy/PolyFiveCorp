@@ -1,9 +1,22 @@
+/* 
+ * Program Name : EventDetails.java
+ * Purpose : Display all the details of the particular event
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy, Tinesh
+ * Admin No: 120258L, 122691N
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
+
 package polyfive.ui.memberpages;
 
 import polyfive.entities.CheckDate;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
 import polyfive.entities.dao.DBConnectionManager;
+import polyfive.entities.dao.Seat;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
@@ -44,6 +57,8 @@ public class EventDetails extends MasterPanel {
 	private JTextField eventPriceTf;
 
 	/**
+	 * 
+	 * 
 	 * Create the panel.
 	 */
 	public EventDetails(MainFrame frame) {
@@ -580,6 +595,8 @@ public class EventDetails extends MasterPanel {
 					String eventName = eventAttributes.getEventName();
 					String eventDate = eventAttributes.getEventDate();
 					String eventAdd = eventAttributes.getEventAddress();
+					Seat seat = new Seat();
+			//		seat.
 					String sql = "DELETE FROM events WHERE eventName ='"+eventName+"' and eventDate='"+eventDate+"' and eventAdd='"+eventAdd+"'";
 					try {
 						//DBConnectionManager.rs = DBConnectionManager.stmt.execute(sql);

@@ -1,3 +1,14 @@
+/* 
+ * Program Name : SearchEvents.java
+ * Purpose : Users are able to find the events for all
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.memberpages;
 
 import polyfive.entities.EventAttributes;
@@ -310,10 +321,14 @@ public class SearchEvents extends MasterPanel {
 								.getEventDate();
 						String eventAdd = eventDetails.get(rowIndex)
 								.getEventAddress();
+						int eventId = eventDetails.get(rowIndex).getEventId();
+						
 						EventAttributes eventAttributes = new EventAttributes();
 						eventAttributes.setEventName(eventName);
 						eventAttributes.setEventDate(eventDate);
 						eventAttributes.setEventAddress(eventAdd);
+						eventAttributes.setEventId(eventId);
+						
 						f.setStoreEvents(eventAttributes);
 
 						EventDetails eventDetailsPage = new EventDetails(f);

@@ -1,3 +1,14 @@
+/* 
+ * Program Name : AdminCalendar.java
+ * Purpose : Display the calendar and admin buttons with admin fucntions.
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy, Timothy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.adminpages;
 
 

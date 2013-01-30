@@ -1,3 +1,14 @@
+/* 
+ * Program Name : UserSettings.java
+ * Purpose : Display all the details of the particular event
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.ui.adminpages;
 
 import javax.swing.JPanel;

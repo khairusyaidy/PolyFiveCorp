@@ -34,7 +34,6 @@ public class MainFrame extends JFrame {
 	private static MemberCalendar memberCalendar;
 	private static AdminSearchEvents searchEvents;
 	private static EventDetails eventDetails;
-	private static SeatAllocation seatAllocation;
 	private static TicketsPurchase ticketsPurchase;
 	private static AccountDetails accountDetails;
 	private static PaymentDetails paymentDetails;
@@ -153,10 +152,6 @@ public class MainFrame extends JFrame {
 		return eventDetails;
 	}
 
-
-	public SeatAllocation getSeatAllocation() {
-		return seatAllocation;
-	}
 
 	public TicketsPurchase getTicketsPurchase() {
 		return ticketsPurchase;

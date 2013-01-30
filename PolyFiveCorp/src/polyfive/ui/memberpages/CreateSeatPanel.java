@@ -16,8 +16,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import polyfive.entities.EventAttributes;
+import polyfive.entities.Member;
+import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.MainFrame;
 import polyfive.ui.master.MasterPanel;
+import polyfive.ui.publicpages.PublicCalendar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -374,6 +377,32 @@ public class CreateSeatPanel extends MasterPanel {
 		NextPage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
+
+				Member user = new Member();
+				user = f.getSession();
+
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
 				//next page
 			}
 		});
