@@ -127,6 +127,8 @@ public class MemberDao extends MasterPanel {
 		int rank = addMember.getRank();
 		String email = addMember.getEmail();
 		String pass_icNo = addMember.getPass_icNo();
+		String activated = addMember.getActivated();
+		String activationNo = addMember.getActivationCode();
 
 		// get the last member ID
 		try {
@@ -141,7 +143,7 @@ public class MemberDao extends MasterPanel {
 
 			// query for inserting into the table
 
-			String query = "insert into Users(idUser, Username, Password, telNo, firstName, lastName, creationDate, rank, email, pass_icNo) values('"
+			String query = "insert into Users(idUser, Username, Password, telNo, firstName, lastName, creationDate, rank, email, pass_icNo,activated, activationNo) values('"
 					+ nextId
 					+ "','"
 					+ username
@@ -160,7 +162,12 @@ public class MemberDao extends MasterPanel {
 					+ "','"
 					+ email
 					+ "','"
-					+ pass_icNo + "')";
+					+ pass_icNo 
+					+ "','"
+					+activated
+					+ "','"
+					+activationNo
+					+ "')";
 			pstmt = currentCon.prepareStatement(query);
 
 			pstmt.executeUpdate();

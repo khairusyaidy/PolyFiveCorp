@@ -93,6 +93,7 @@ public class LoginPanel extends MasterPanel {
 		int language = changeLanguage.getChangeLanguage();
 
 		// _2Fa = "as";
+		final String activated = "0";
 		f = frame;
 		DBConnectionManager.connect();
 		setSize(new Dimension(1366, 768));
@@ -199,21 +200,10 @@ public class LoginPanel extends MasterPanel {
 		add(Login);
 		Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				// Check if user enter the password that is the same in the
-				// database. If same reject. If user enter the password then
-				// encrypt, same == accept
-				/*
-				 * MemberCalendar memberCalendar = f.getMemberCalendar();
-				 * f.getContentPane().removeAll();
-				 * f.getContentPane().add(memberCalendar); f.repaint();
-				 * f.revalidate(); f.setVisible(true);
-				 */
 				try {
 					String username = UsernameField.getText().trim();
 					String password = PasswordField.getText();
 					String passwordEncrypt = RailFence.encrypt(password);
-
 					String sql = "select Username, Password from Users where Username = '"
 							+ username
 							+ "'and Password ='"
@@ -221,101 +211,129 @@ public class LoginPanel extends MasterPanel {
 							+ "'";
 					DBConnectionManager.rs = DBConnectionManager.stmt
 							.executeQuery(sql);
-
 					int count = 0;
 					while (DBConnectionManager.rs.next()) {
 						count = count + 1;
 					}
 
-					if (count == 1) {
-						String pass_icNo = (JOptionPane.showInputDialog(null,
-								_2Fa));
-						String pass_icNoEncrypt = RailFence.encrypt(pass_icNo);
+					if (count == 1 ){
+						
 						String sql2 = "select * from Users where Username = '"
-								+ username + "'and Password ='"
-								+ passwordEncrypt + "' and pass_icNo = '"
-								+ pass_icNoEncrypt + "'";
+								+ username
+								+ "'";
 						DBConnectionManager.rs = DBConnectionManager.stmt
 								.executeQuery(sql2);
-
-						boolean checkPass_icNo = false;
-						while (DBConnectionManager.rs.next()) {
-							if (pass_icNoEncrypt.equals(DBConnectionManager.rs
-									.getString("pass_icNo")))
-								checkPass_icNo = true;
-							else
-								checkPass_icNo = false;
+						DBConnectionManager.rs.beforeFirst();
+						DBConnectionManager.rs.next();
+						if (activated.equals(DBConnectionManager.rs.getString("activated"))){
+							String activationNo = (JOptionPane.showInputDialog(null,
+									"Please enter your activation number to activate this account."));
+							
+							if (activationNo.equals(DBConnectionManager.rs.getString("activationNo"))){
+								String activated = "1";
+								JOptionPane.showMessageDialog(null, "Your account has been activated");
+								
+								String sql3 = "update Users set activated='"+ activated + "' where Username='"+ username + "'";
+								DBConnectionManager.pstmt = DBConnectionManager.con.prepareStatement(sql3);
+								DBConnectionManager.pstmt.execute();
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Fail to activate account due to incorrect activation number");
+							}
 						}
+						
+						
+						else if (!activated.equals(DBConnectionManager.rs.getString("activated"))){
 
-						if (checkPass_icNo == true) {
-
-							JOptionPane.showMessageDialog(null,
-									"User Found, Access Granted",
-									"PolyFive Corp", JOptionPane.PLAIN_MESSAGE);
-
-							// Member user = new Member();
-							// user.setUsername("khai");
-
-							// f.setSession(user);
-
+							String pass_icNo = (JOptionPane.showInputDialog(null,
+									_2Fa));
+							String pass_icNoEncrypt = RailFence.encrypt(pass_icNo);
+							String sql3 = "select * from Users where Username = '"
+									+ username + "'and Password ='"
+									+ passwordEncrypt + "' and pass_icNo = '"
+									+ pass_icNoEncrypt + "'";
+							
+							DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql3);
 							DBConnectionManager.rs.beforeFirst();
-							Member user = new Member();
+							boolean checkPass_icNo = false;
 							while (DBConnectionManager.rs.next()) {
-								user.setUsername(DBConnectionManager.rs
-										.getString("username"));
-								user.setPassword(DBConnectionManager.rs
-										.getString("password"));
-								user.setFirstName(DBConnectionManager.rs
-										.getString("firstName"));
-								user.setLastName(DBConnectionManager.rs
-										.getString("lastName"));
-								user.setCreationDate(DBConnectionManager.rs
-										.getString("creationDate"));
-								user.setEmail(DBConnectionManager.rs
-										.getString("email"));
-								user.setPhoneNumber(DBConnectionManager.rs
-										.getInt("telNo"));
-								user.setPass_icNo(DBConnectionManager.rs
-										.getString("pass_icNo"));
-								user.setRank(DBConnectionManager.rs
-										.getInt("rank"));
+								
+								if (pass_icNoEncrypt.equals(DBConnectionManager.rs
+										.getString("pass_icNo")))
+									checkPass_icNo = true;
+								else
+									checkPass_icNo = false;
+							}
 
-								f.setSession(user);
+							if (checkPass_icNo == true) {
+
+								JOptionPane.showMessageDialog(null,
+										"User Found, Access Granted",
+										"PolyFive Corp", JOptionPane.PLAIN_MESSAGE);
+
+								DBConnectionManager.rs.beforeFirst();
+								Member user = new Member();
+								while (DBConnectionManager.rs.next()) {
+									user.setUsername(DBConnectionManager.rs
+											.getString("username"));
+									user.setPassword(DBConnectionManager.rs
+											.getString("password"));
+									user.setFirstName(DBConnectionManager.rs
+											.getString("firstName"));
+									user.setLastName(DBConnectionManager.rs
+											.getString("lastName"));
+									user.setCreationDate(DBConnectionManager.rs
+											.getString("creationDate"));
+									user.setEmail(DBConnectionManager.rs
+											.getString("email"));
+									user.setPhoneNumber(DBConnectionManager.rs
+											.getInt("telNo"));
+									user.setPass_icNo(DBConnectionManager.rs
+											.getString("pass_icNo"));
+									user.setRank(DBConnectionManager.rs
+											.getInt("rank"));
+
+									f.setSession(user);
+
+								}
+
+								Member checkUserRank = new Member();
+								checkUserRank = f.getSession();
+								int rankNo = checkUserRank.getRank();
+
+								if (rankNo <= 4) {
+									MemberCalendar memberCalendar = new MemberCalendar(
+											f);
+									f.getContentPane().removeAll();
+									f.getContentPane().add(memberCalendar);
+									f.repaint();
+									f.revalidate();
+									f.setVisible(true);
+								} else if (rankNo > 4) {
+									AdminCalendar Calendar1 = new AdminCalendar(f);
+									f.getContentPane().removeAll();
+									f.getContentPane().add(Calendar1);
+									f.repaint();
+									f.revalidate();
+									f.setVisible(true);
+								}
 
 							}
 
-							Member checkUserRank = new Member();
-							checkUserRank = f.getSession();
-							int rankNo = checkUserRank.getRank();
-
-							if (rankNo <= 4) {
-								MemberCalendar memberCalendar = new MemberCalendar(
-										f);
-								f.getContentPane().removeAll();
-								f.getContentPane().add(memberCalendar);
-								f.repaint();
-								f.revalidate();
-								f.setVisible(true);
-							} else if (rankNo > 4) {
-								AdminCalendar Calendar1 = new AdminCalendar(f);
-								f.getContentPane().removeAll();
-								f.getContentPane().add(Calendar1);
-								f.repaint();
-								f.revalidate();
-								f.setVisible(true);
+							else {
+								JOptionPane
+										.showMessageDialog(
+												null,
+												"NRIC/Passport number is incorrect. Please try again. ",
+												"PolyFive Corp",
+												JOptionPane.ERROR_MESSAGE);
 							}
-
 						}
-
-						else {
-							JOptionPane
-									.showMessageDialog(
-											null,
-											"NRIC/Passport number is incorrect. Please try again. ",
-											"PolyFive Corp",
-											JOptionPane.ERROR_MESSAGE);
-						}
+							
 					}
+						
+						
+						
 
 					else if (count > 1) {
 						JOptionPane.showMessageDialog(null,

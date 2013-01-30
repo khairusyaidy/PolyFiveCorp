@@ -330,7 +330,7 @@ public class SearchEvents extends MasterPanel {
 
 						f.setStoreEvents(eventAttributes);
 
-						EventDetails eventDetailsPage = new EventDetails(f);
+						EventDetailsMember eventDetailsPage = new EventDetailsMember(f);
 						f.getContentPane().removeAll();
 						f.getContentPane().add(eventDetailsPage);
 						f.repaint();

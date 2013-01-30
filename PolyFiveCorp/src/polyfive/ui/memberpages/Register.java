@@ -20,6 +20,13 @@ import polyfive.ui.master.*;
 import polyfive.ui.publicpages.*;
 import polyfive.encryption.*;
 
+
+
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -43,6 +50,7 @@ import javax.swing.JPasswordField;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import javax.swing.border.LineBorder;
 import java.awt.event.KeyAdapter;
@@ -239,21 +247,14 @@ public class Register extends MasterPanel {
 		JButton registerButton = new JButton("Register");
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*
-				 * Save all of the entered fields upon meeting criteria below:
-				 * entercaptcha.getText = genCaptcha.getText no fields are blank
-				 * (accountName, password, phoneNumber, email, passportIC)
-				 * email.getText = confirmEmail.getText password.getPassword =
-				 * confirmPassword.getPassword After that, it will redirect you
-				 * to the next page.
-				 */
+
 				boolean isInteger;
 				int rank = membershipType.getSelectedIndex();
 				int sumRank = rank + 1;
 				Member register = new Member();
 				isInteger = Member.isInteger(phoneNumber.getText());
 
-				System.out.println(genCaptcha.getText());
+
 				if (!firstName.getText().isEmpty()
 						&& !lastName.getText().isEmpty()
 						&& !accountName.getText().isEmpty()
@@ -270,16 +271,27 @@ public class Register extends MasterPanel {
 								passwordField_1.getText())) {
 							if (genCaptcha.getText().equals(
 									enterCaptcha.getText())) {
-								System.out.println("test");
+	
 								if (sumRank > 1) {
-									System.out.println("Test");
+									//add payment page
+
+									
+									
 								} else if (sumRank == 1) {
-									System.out.println("Test");
+
 
 									int reply = JOptionPane
 											.showConfirmDialog(null,
 													"Are you sure you want to register with the following details ?");
 									if (reply == JOptionPane.YES_OPTION) {
+										
+										
+										
+										java.util.Random foo = new java.util.Random();
+										int randomNumber = foo.nextInt((max + 1) - min) + min;
+										String randomNo = Integer.toString(randomNumber);
+										
+										
 										String fn = firstName.getText();
 										String ln = lastName.getText();
 										// fullName = fn + ln;
@@ -308,6 +320,8 @@ public class Register extends MasterPanel {
 										register.setPass_icNo(passIcEncrypted);
 										register.setCreationDate(fulldate);
 										register.setRank(sumRank);
+										register.setActivated("0");
+										register.setActivationCode(randomNo);
 										DBConnectionManager.connect();
 
 										String sql = "select Username from Users where Username= '"
@@ -345,6 +359,80 @@ public class Register extends MasterPanel {
 											JOptionPane.showMessageDialog(null,
 													"Registration successful");
 
+											
+											
+
+					// enter your gmail username and pass.		
+											/*
+											 * 
+											 * 
+											 * 
+
+    You can download latest version of JavaMail (Version 1.2) from Java's standard website.
+
+    You can download latest version of JAF (Version 1.1.1) from Java's standard website.
+    
+    add 2 columns for users. activationNo and activated. both string
+
+											 */
+											
+					//						final String username = "";
+					// 						final String password = "";
+											final String toEmail = email.getText();
+											final String person = firstName.getText();
+									 
+											Properties props = new Properties();
+											props.put("mail.smtp.auth", "true");
+											props.put("mail.smtp.starttls.enable", "true");
+											props.put("mail.smtp.host", "smtp.gmail.com");
+											props.put("mail.smtp.port", "587");
+									 
+											Session session = Session.getInstance(props,
+											  new javax.mail.Authenticator() {
+												protected PasswordAuthentication getPasswordAuthentication() {
+													return new PasswordAuthentication(username, password);
+												}
+											  });
+									 
+											try {
+									 
+												Message message = new MimeMessage(session);
+												message.setFrom(new InternetAddress("khaimalevolency@gmail.com"));
+												message.setRecipients(Message.RecipientType.TO,
+													InternetAddress.parse(toEmail));
+												message.setSubject("Activation Number");
+												message.setText("Dear " + person +","
+													+ "\n\nHere's your activation number: " + randomNo
+													+ "\n\nPlease use this number to activate your account when you login.");
+									 
+												Transport.send(message);
+									 
+												System.out.println("Email sent");
+									 
+											} catch (MessagingException e) {
+												throw new RuntimeException(e);
+											}
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
 											LoginPanel loginPanel = new LoginPanel(
 													f);
 											f.getContentPane().removeAll();
@@ -354,6 +442,13 @@ public class Register extends MasterPanel {
 											f.setVisible(true);
 
 											f.setRegisterAccountSession(register);
+											
+											
+											
+											
+											
+											
+											
 										}
 
 									}
@@ -379,20 +474,7 @@ public class Register extends MasterPanel {
 						JOptionPane.showMessageDialog(null,
 								"Email does not match");
 					}
-					/*
-					 * 
-					 * else if (!email.getText().equals(confirmEmail.getText()))
-					 * { if (!passwordField.getText().equals(
-					 * passwordField_1.getText()))
-					 * JOptionPane.showMessageDialog(null,
-					 * "Email & Password does not match"); }
-					 * 
-					 * 
-					 * else if
-					 * (!genCaptcha.getText().equals(enterCaptcha.getText())){
-					 * JOptionPane.showMessageDialog(null,
-					 * "Captcha does not match"); }
-					 */
+
 				}
 
 				else if (firstName.getText().isEmpty()
@@ -409,117 +491,6 @@ public class Register extends MasterPanel {
 							"Please fill in all the fields");
 				}
 			}
-
-			/*
-			 * 
-			 * if (rank > 1) { System.out.println("Test"); } else if (rank <= 1)
-			 * { System.out.println("Test"); Member register = new Member();
-			 * 
-			 * String fn = firstName.getText(); String ln = lastName.getText();
-			 * // fullName = fn + ln; String un = accountName.getText(); String
-			 * pass = passwordField.getText(); String telNo =
-			 * phoneNumber.getText().trim(); int telNoInt =
-			 * Integer.parseInt(telNo); String em = email.getText(); String
-			 * passIc = passport_IC.getText();
-			 * 
-			 * Date date = new Date(); String dateString = date.toString();
-			 * String fulldate = MemberDao.fullDate(dateString);
-			 * 
-			 * register.setFirstName(fn); register.setLastName(ln);
-			 * register.setUsername(un); register.setPassword(pass);
-			 * register.setPhoneNumber(telNoInt); register.setEmail(em);
-			 * register.setPass_icNo(passIc);
-			 * register.setCreationDate(fulldate);
-			 * 
-			 * f.setRegisterAccountSession(register);
-			 * 
-			 * int reply = JOptionPane .showConfirmDialog(null,
-			 * "Are you sure you want to register with the following details ?"
-			 * ); if (reply == JOptionPane.YES_OPTION) { try { String sql =
-			 * "select Username from Users where Username = '" +
-			 * accountName.getText() + "'"; DBConnectionManager.rs =
-			 * DBConnectionManager.stmt .executeQuery(sql); int count = 0; while
-			 * (DBConnectionManager.rs.next()) { count = count + 1; } if (count
-			 * >= 1) { JOptionPane.showMessageDialog(null,
-			 * "Username already exits"); } else if (count == 0) { try {
-			 * 
-			 * MemberDao.insertMemberDetails(register); } catch (Exception ex) {
-			 * System.out.println(ex); } LoginPanel loginPanel = new
-			 * LoginPanel(f); f.getContentPane().removeAll();
-			 * f.getContentPane().add(loginPanel); f.repaint(); f.revalidate();
-			 * f.setVisible(true); }
-			 * 
-			 * } catch (Exception ex) { // System.out.println(ex); }
-			 * 
-			 * }
-			 * 
-			 * } }
-			 */
-			// else if ()
-			// how to check for same user ? Use the username entered to check
-			// with database. if count = 1 , user exist :)
-			/*
-			 * else { if (rank >= 2){ Member register = new Member(); String fn
-			 * = firstName.getText(); String ln = lastName.getText(); //fullName
-			 * = fn + ln; String un = accountName.getText(); String pass =
-			 * passwordField.getText(); String telNo = phoneNumber.getText();
-			 * int telNoInt = Integer.parseInt(telNo); String em =
-			 * email.getText(); String passIc = passport_IC.getText();
-			 * 
-			 * Date date = new Date(); String dateString = date.toString();
-			 * String fulldate = MemberDao.fullDate(dateString);
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * register.setFirstName(fn); register.setLastName(ln);
-			 * register.setUsername(un); register.setPassword(pass);
-			 * register.setPhoneNumber(telNoInt); register.setEmail(em);
-			 * register.setPass_icNo(passIc);
-			 * register.setCreationDate(fulldate);
-			 * 
-			 * f.setRegisterAccountSession(register);
-			 * 
-			 * 
-			 * /// //add payment page } else{ Member register = new Member();
-			 * 
-			 * 
-			 * String fn = firstName.getText(); String ln = lastName.getText();
-			 * //fullName = fn + ln; String un = accountName.getText(); String
-			 * pass = passwordField.getText(); String telNo =
-			 * phoneNumber.getText(); int telNoInt = Integer.parseInt(telNo);
-			 * String em = email.getText(); String passIc =
-			 * passport_IC.getText();
-			 * 
-			 * Date date = new Date(); String dateString = date.toString();
-			 * String fulldate = MemberDao.fullDate(dateString);
-			 * 
-			 * register.setFirstName(fn); register.setLastName(ln);
-			 * register.setUsername(un); register.setPassword(pass);
-			 * register.setPhoneNumber(telNoInt); register.setEmail(em);
-			 * register.setPass_icNo(passIc);
-			 * register.setCreationDate(fulldate);
-			 * 
-			 * f.setRegisterAccountSession(register);
-			 * 
-			 * try { MemberDao.insertMemberDetails(register); } catch(Exception
-			 * ex){ }
-			 * 
-			 * 
-			 * JOptionPane.showConfirmDialog(null, "Registration successful");
-			 * LoginPanel loginPanel = new LoginPanel(f);
-			 * f.getContentPane().removeAll();
-			 * f.getContentPane().add(loginPanel); f.repaint(); f.revalidate();
-			 * f.setVisible(true);
-			 * 
-			 * 
-			 * 
-			 * 
-			 * } }
-			 */
 
 		});
 		registerButton

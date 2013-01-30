@@ -12,6 +12,16 @@ public class Member {
 	private String lastName;
 	private String rankName;
 	public float discount;
+	private String activationCode;
+	private String activated;
+
+	public String getActivated() {
+		return activated;
+	}
+
+	public void setActivated(String activated) {
+		this.activated = activated;
+	}
 
 	public Member() {
 
@@ -42,6 +52,14 @@ public class Member {
 			break;
 		}
 		return discount;
+	}
+
+	public String getActivationCode() {
+		return activationCode;
+	}
+
+	public void setActivationCode(String activationCode) {
+		this.activationCode = activationCode;
 	}
 
 	public String getPassword() {

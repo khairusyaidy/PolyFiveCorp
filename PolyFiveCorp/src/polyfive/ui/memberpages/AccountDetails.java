@@ -260,9 +260,7 @@ public class AccountDetails extends MasterPanel {
 
 						try {
 
-							String sql3 = "update Users set password='"
-									+ newPassTfEncrypted + "' where username='"
-									+ userChangePass.getUsername() + "' ";
+							String sql3 = "update Users set password='" + newPassTfEncrypted + "' where username='"+ userChangePass.getUsername() + "' ";
 							DBConnectionManager.pstmt = DBConnectionManager.con
 									.prepareStatement(sql3);
 							DBConnectionManager.pstmt.execute();

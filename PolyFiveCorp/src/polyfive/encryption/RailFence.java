@@ -1,6 +1,5 @@
 package polyfive.encryption;
 
-
 public class RailFence {
 
 	public static java.lang.String encrypt(java.lang.String plainTextString) {
