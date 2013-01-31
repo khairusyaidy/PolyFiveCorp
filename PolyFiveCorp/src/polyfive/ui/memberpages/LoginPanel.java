@@ -216,50 +216,62 @@ public class LoginPanel extends MasterPanel {
 						count = count + 1;
 					}
 
-					if (count == 1 ){
-						
+					if (count == 1) {
+
 						String sql2 = "select * from Users where Username = '"
-								+ username
-								+ "'";
+								+ username + "'";
 						DBConnectionManager.rs = DBConnectionManager.stmt
 								.executeQuery(sql2);
 						DBConnectionManager.rs.beforeFirst();
 						DBConnectionManager.rs.next();
-						if (activated.equals(DBConnectionManager.rs.getString("activated"))){
-							String activationNo = (JOptionPane.showInputDialog(null,
-									"Please enter your activation number to activate this account."));
-							
-							if (activationNo.equals(DBConnectionManager.rs.getString("activationNo"))){
+						if (activated.equals(DBConnectionManager.rs
+								.getString("activated"))) {
+							String activationNo = (JOptionPane
+									.showInputDialog(null,
+											"Please enter your activation number to activate this account."));
+
+							if (activationNo.equals(DBConnectionManager.rs
+									.getString("activationNo"))) {
 								String activated = "1";
-								JOptionPane.showMessageDialog(null, "Your account has been activated");
-								
-								String sql3 = "update Users set activated='"+ activated + "' where Username='"+ username + "'";
-								DBConnectionManager.pstmt = DBConnectionManager.con.prepareStatement(sql3);
+								JOptionPane.showMessageDialog(null,
+										"Your account has been activated");
+
+								String sql3 = "update Users set activated='"
+										+ activated + "' where Username='"
+										+ username + "'";
+								DBConnectionManager.pstmt = DBConnectionManager.con
+										.prepareStatement(sql3);
 								DBConnectionManager.pstmt.execute();
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "Fail to activate account due to incorrect activation number");
+							} else {
+								JOptionPane
+										.showMessageDialog(null,
+												"Fail to activate account due to incorrect activation number");
 							}
 						}
-						
-						
-						else if (!activated.equals(DBConnectionManager.rs.getString("activated"))){
 
-							String pass_icNo = (JOptionPane.showInputDialog(null,
-									_2Fa));
-							String pass_icNoEncrypt = RailFence.encrypt(pass_icNo);
+						else if (!activated.equals(DBConnectionManager.rs
+								.getString("activated"))) {
+
+							String pass_icNo = (JOptionPane.showInputDialog(
+									null, _2Fa));
+							String pass_icNoEncrypt = RailFence
+									.encrypt(pass_icNo);
 							String sql3 = "select * from Users where Username = '"
-									+ username + "'and Password ='"
-									+ passwordEncrypt + "' and pass_icNo = '"
+									+ username
+									+ "'and Password ='"
+									+ passwordEncrypt
+									+ "' and pass_icNo = '"
 									+ pass_icNoEncrypt + "'";
-							
-							DBConnectionManager.rs = DBConnectionManager.stmt.executeQuery(sql3);
+
+							DBConnectionManager.rs = DBConnectionManager.stmt
+									.executeQuery(sql3);
 							DBConnectionManager.rs.beforeFirst();
 							boolean checkPass_icNo = false;
 							while (DBConnectionManager.rs.next()) {
-								
-								if (pass_icNoEncrypt.equals(DBConnectionManager.rs
-										.getString("pass_icNo")))
+
+								if (pass_icNoEncrypt
+										.equals(DBConnectionManager.rs
+												.getString("pass_icNo")))
 									checkPass_icNo = true;
 								else
 									checkPass_icNo = false;
@@ -269,7 +281,8 @@ public class LoginPanel extends MasterPanel {
 
 								JOptionPane.showMessageDialog(null,
 										"User Found, Access Granted",
-										"PolyFive Corp", JOptionPane.PLAIN_MESSAGE);
+										"PolyFive Corp",
+										JOptionPane.PLAIN_MESSAGE);
 
 								DBConnectionManager.rs.beforeFirst();
 								Member user = new Member();
@@ -310,7 +323,8 @@ public class LoginPanel extends MasterPanel {
 									f.revalidate();
 									f.setVisible(true);
 								} else if (rankNo > 4) {
-									AdminCalendar Calendar1 = new AdminCalendar(f);
+									AdminCalendar Calendar1 = new AdminCalendar(
+											f);
 									f.getContentPane().removeAll();
 									f.getContentPane().add(Calendar1);
 									f.repaint();
@@ -329,11 +343,8 @@ public class LoginPanel extends MasterPanel {
 												JOptionPane.ERROR_MESSAGE);
 							}
 						}
-							
+
 					}
-						
-						
-						
 
 					else if (count > 1) {
 						JOptionPane.showMessageDialog(null,

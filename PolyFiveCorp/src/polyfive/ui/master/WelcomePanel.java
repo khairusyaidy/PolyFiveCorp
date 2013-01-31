@@ -76,6 +76,10 @@ public class WelcomePanel extends MasterPanel {
 
 	public WelcomePanel(MainFrame frame) {
 
+		ChangeLanguage changeLanguage = new ChangeLanguage();
+		changeLanguage.setChangeLanguage(0);
+		f.setStoreLanguage(changeLanguage);
+
 		f = frame;
 		setSize(new Dimension(1366, 768));
 		setMinimumSize(new Dimension(1366, 768));
@@ -244,10 +248,6 @@ public class WelcomePanel extends MasterPanel {
 		add(comboBox);
 
 		super.setLayout();
-
-		ChangeLanguage changeLanguage = new ChangeLanguage();
-		changeLanguage.setChangeLanguage(0);
-		f.setStoreLanguage(changeLanguage);
 
 	}
 

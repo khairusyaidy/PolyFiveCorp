@@ -20,8 +20,6 @@ import polyfive.ui.master.*;
 import polyfive.ui.publicpages.*;
 import polyfive.encryption.*;
 
-
-
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -254,7 +252,6 @@ public class Register extends MasterPanel {
 				Member register = new Member();
 				isInteger = Member.isInteger(phoneNumber.getText());
 
-
 				if (!firstName.getText().isEmpty()
 						&& !lastName.getText().isEmpty()
 						&& !accountName.getText().isEmpty()
@@ -271,27 +268,23 @@ public class Register extends MasterPanel {
 								passwordField_1.getText())) {
 							if (genCaptcha.getText().equals(
 									enterCaptcha.getText())) {
-	
+
 								if (sumRank > 1) {
-									//add payment page
+									// add payment page
 
-									
-									
 								} else if (sumRank == 1) {
-
 
 									int reply = JOptionPane
 											.showConfirmDialog(null,
 													"Are you sure you want to register with the following details ?");
 									if (reply == JOptionPane.YES_OPTION) {
-										
-										
-										
+
 										java.util.Random foo = new java.util.Random();
-										int randomNumber = foo.nextInt((max + 1) - min) + min;
-										String randomNo = Integer.toString(randomNumber);
-										
-										
+										int randomNumber = foo
+												.nextInt((max + 1) - min) + min;
+										String randomNo = Integer
+												.toString(randomNumber);
+
 										String fn = firstName.getText();
 										String ln = lastName.getText();
 										// fullName = fn + ln;
@@ -359,80 +352,80 @@ public class Register extends MasterPanel {
 											JOptionPane.showMessageDialog(null,
 													"Registration successful");
 
-											
-											
-
-					// enter your gmail username and pass.		
+											// enter your gmail username and
+											// pass.
 											/*
 											 * 
 											 * 
 											 * 
-
-    You can download latest version of JavaMail (Version 1.2) from Java's standard website.
-
-    You can download latest version of JAF (Version 1.1.1) from Java's standard website.
-    
-    add 2 columns for users. activationNo and activated. both string
-
+											 * 
+											 * You can download latest version
+											 * of JavaMail (Version 1.2) from
+											 * Java's standard website.
+											 * 
+											 * You can download latest version
+											 * of JAF (Version 1.1.1) from
+											 * Java's standard website.
+											 * 
+											 * add 2 columns for users.
+											 * activationNo and activated. both
+											 * string
 											 */
-											
-					//						final String username = "";
-					// 						final String password = "";
-											final String toEmail = email.getText();
-											final String person = firstName.getText();
-									 
+
+											final String username = "khaimalevolency@gmail.com";
+											final String password = "diamondrose";
+											final String toEmail = email
+													.getText();
+											final String person = firstName
+													.getText();
+
 											Properties props = new Properties();
 											props.put("mail.smtp.auth", "true");
-											props.put("mail.smtp.starttls.enable", "true");
-											props.put("mail.smtp.host", "smtp.gmail.com");
+											props.put(
+													"mail.smtp.starttls.enable",
+													"true");
+											props.put("mail.smtp.host",
+													"smtp.gmail.com");
 											props.put("mail.smtp.port", "587");
-									 
-											Session session = Session.getInstance(props,
-											  new javax.mail.Authenticator() {
-												protected PasswordAuthentication getPasswordAuthentication() {
-													return new PasswordAuthentication(username, password);
-												}
-											  });
-									 
+
+											Session session = Session
+													.getInstance(
+															props,
+															new javax.mail.Authenticator() {
+																protected PasswordAuthentication getPasswordAuthentication() {
+																	return new PasswordAuthentication(
+																			username,
+																			password);
+																}
+															});
+
 											try {
-									 
-												Message message = new MimeMessage(session);
-												message.setFrom(new InternetAddress("khaimalevolency@gmail.com"));
-												message.setRecipients(Message.RecipientType.TO,
-													InternetAddress.parse(toEmail));
+
+												Message message = new MimeMessage(
+														session);
+												message.setFrom(new InternetAddress(
+														"khaimalevolency@gmail.com"));
+												message.setRecipients(
+														Message.RecipientType.TO,
+														InternetAddress
+																.parse(toEmail));
 												message.setSubject("Activation Number");
-												message.setText("Dear " + person +","
-													+ "\n\nHere's your activation number: " + randomNo
-													+ "\n\nPlease use this number to activate your account when you login.");
-									 
+												message.setText("Dear "
+														+ person
+														+ ","
+														+ "\n\nHere's your activation number: "
+														+ randomNo
+														+ "\n\nPlease use this number to activate your account when you login.");
+
 												Transport.send(message);
-									 
-												System.out.println("Email sent");
-									 
+
+												System.out
+														.println("Email sent");
+
 											} catch (MessagingException e) {
 												throw new RuntimeException(e);
 											}
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
-											
+
 											LoginPanel loginPanel = new LoginPanel(
 													f);
 											f.getContentPane().removeAll();
@@ -442,13 +435,7 @@ public class Register extends MasterPanel {
 											f.setVisible(true);
 
 											f.setRegisterAccountSession(register);
-											
-											
-											
-											
-											
-											
-											
+
 										}
 
 									}

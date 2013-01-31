@@ -162,11 +162,11 @@ public class MemberDao extends MasterPanel {
 					+ "','"
 					+ email
 					+ "','"
-					+ pass_icNo 
+					+ pass_icNo
 					+ "','"
-					+activated
+					+ activated
 					+ "','"
-					+activationNo
+					+ activationNo
 					+ "')";
 			pstmt = currentCon.prepareStatement(query);
 

@@ -11,6 +11,7 @@
 
 package polyfive.ui.memberpages;
 
+import polyfive.entities.ChangeLanguage;
 import polyfive.entities.CheckDate;
 import polyfive.entities.EventAttributes;
 import polyfive.entities.Member;
@@ -67,6 +68,10 @@ public class EventDetails extends MasterPanel {
 		CheckDate checkDate = new CheckDate();
 		checkDate = f.getCheckDate();
 		disableButton = checkDate.isCheckDate();
+
+		ChangeLanguage changeLanguage = new ChangeLanguage();
+		changeLanguage = f.getStoreLanguage();
+		int language = changeLanguage.getChangeLanguage();
 
 		Member user = new Member();
 		user = f.getSession();
@@ -259,7 +264,7 @@ public class EventDetails extends MasterPanel {
 
 		JLabel lblDescription = new JLabel("Description :");
 		lblDescription.setFont(new Font("Tahoma", Font.ITALIC, 20));
-		lblDescription.setBounds(40, 368, 116, 25);
+		lblDescription.setBounds(40, 368, 150, 25);
 		panel.add(lblDescription);
 
 		JLabel lblPrice = new JLabel("Price :");
@@ -279,7 +284,7 @@ public class EventDetails extends MasterPanel {
 
 		JLabel lblTicketsLeft = new JLabel("Tickets Left :");
 		lblTicketsLeft.setFont(new Font("Tahoma", Font.ITALIC, 20));
-		lblTicketsLeft.setBounds(357, 317, 116, 25);
+		lblTicketsLeft.setBounds(326, 317, 167, 25);
 		panel.add(lblTicketsLeft);
 
 		if (eventAttributes.getEventNoOfTickets() == 0) {
@@ -322,12 +327,12 @@ public class EventDetails extends MasterPanel {
 		btnNewButton.setBounds(66, 11, 1130, 120);
 		panel.add(btnNewButton);
 
-		JButton button = new JButton("Cancel");
-		button.setFocusPainted(false);
-		button.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setFocusPainted(false);
+		btnCancel.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
-		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.addActionListener(new ActionListener() {
+		btnCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Member user = new Member();
 				user = f.getSession();
@@ -355,11 +360,11 @@ public class EventDetails extends MasterPanel {
 				}
 			}
 		});
-		button.setBounds(21, 664, 150, 75);
-		add(button);
-		button.setForeground(Color.DARK_GRAY);
-		button.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		button.setBackground(new Color(255, 165, 0));
+		btnCancel.setBounds(21, 664, 150, 75);
+		add(btnCancel);
+		btnCancel.setForeground(Color.DARK_GRAY);
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnCancel.setBackground(new Color(255, 165, 0));
 
 		JButton button_1 = new JButton("");
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -665,6 +670,44 @@ public class EventDetails extends MasterPanel {
 				}
 			});
 		}
+
+		if (language == 0) {
+			lblNewLabel.setText(WelcomePanel.BUNDLE
+					.getString("EventDetails.lblNewLabel.text"));
+			lblAddress.setText(WelcomePanel.BUNDLE
+					.getString("EventDetails.lblAddress.text"));
+			lblPrice.setText(WelcomePanel.BUNDLE
+					.getString("EventDetails.lblPrice.text"));
+			lblEventType.setText(WelcomePanel.BUNDLE
+					.getString("EventDetails.lblEventType.text"));
+			lblTicketsLeft.setText(WelcomePanel.BUNDLE
+					.getString("EventDetails.lblTicketsLeft.text"));
+			lblDescription.setText(WelcomePanel.BUNDLE
+					.getString("EventDetails.lblDescription.text"));
+			btnProceedToPayment.setText(WelcomePanel.BUNDLE
+					.getString("EventDetails.btnProceedToPayment.text"));
+			btnCancel.setText(WelcomePanel.BUNDLE
+					.getString("EventDetails.btnCancel.text"));
+
+		} else if (language == 1) {
+			lblNewLabel.setText(WelcomePanel.BUNDLE2
+					.getString("EventDetails.lblNewLabel.text"));
+			lblAddress.setText(WelcomePanel.BUNDLE2
+					.getString("EventDetails.lblAddress.text"));
+			lblPrice.setText(WelcomePanel.BUNDLE2
+					.getString("EventDetails.lblPrice.text"));
+			lblEventType.setText(WelcomePanel.BUNDLE2
+					.getString("EventDetails.lblEventType.text"));
+			lblTicketsLeft.setText(WelcomePanel.BUNDLE2
+					.getString("EventDetails.lblTicketsLeft.text"));
+			lblDescription.setText(WelcomePanel.BUNDLE2
+					.getString("EventDetails.lblDescription.text"));
+			btnProceedToPayment.setText(WelcomePanel.BUNDLE2
+					.getString("EventDetails.btnProceedToPayment.text"));
+			btnCancel.setText(WelcomePanel.BUNDLE2
+					.getString("EventDetails.btnCancel.text"));
+		}
+
 		super.setLayout();
 
 	}

@@ -67,8 +67,11 @@ public class SearchEventsByDate extends MasterPanel {
 	private JTable table;
 	private int numberOfUsers;
 	private JTextArea textArea;
-	private JButton button_1;
+	private JButton btnBack;
 	public static String Date;
+	public static String col1 = "Event Name";
+	public static String col2 = "Event Date";
+	public static String col3 = "Event Details";
 
 	/**
 	 * Create the panel.
@@ -76,14 +79,14 @@ public class SearchEventsByDate extends MasterPanel {
 
 	public SearchEventsByDate(MainFrame frame) {
 
+		ChangeLanguage changeLanguage = new ChangeLanguage();
+		changeLanguage = f.getStoreLanguage();
+		int language = changeLanguage.getChangeLanguage();
+
 		f = frame;
 		EventAttributes event = new EventAttributes();
 		event = f.getStoreEvents();
 		Date = event.getEventDate();
-
-		ChangeLanguage changeLanguage = new ChangeLanguage();
-		changeLanguage = f.getStoreLanguage();
-		int language = changeLanguage.getChangeLanguage();
 
 		Member user = new Member();
 		user = f.getSession();
@@ -132,42 +135,9 @@ public class SearchEventsByDate extends MasterPanel {
 		button.setBounds(21, 21, 75, 75);
 		add(button);
 
-		// adding table here + scrollpane
-
-		final JTable table = new JTable(new JTableModel());
-		table.setDragEnabled(false);
-
-		table.setAutoCreateRowSorter(true);
-		table.setGridColor(new Color(0, 0, 0));
-
-		table.getTableHeader().setReorderingAllowed(false);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		scrollPane
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(212, 162, 947, 443);
-		add(scrollPane);
-		table.setFillsViewportHeight(true);
-
-		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
-		table.getColumn("Event Details").setCellRenderer(buttonRenderer);
-		// table.getColumn("Button2").setCellRenderer(buttonRenderer);
-		table.addMouseListener(new JTableButtonMouseListener(table));
-		table.setRowHeight(60);
-
-		/*
-		 * List <RowSorter.SortKey> sortKeys = new
-		 * ArrayList<RowSorter.SortKey>(); sortKeys.add(new RowSorter.SortKey(1,
-		 * SortOrder.ASCENDING)); RowSorter sorter = null;
-		 * sorter.setSortKeys(sortKeys); table.setRowSorter(sorter);
-		 */// Whenever filterText changes, invoke newFilter.
-
-		//
-
-		button_1 = new JButton("Back");
-		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button_1.addActionListener(new ActionListener() {
+		btnBack = new JButton("Back");
+		btnBack.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				Member user = new Member();
@@ -197,14 +167,14 @@ public class SearchEventsByDate extends MasterPanel {
 				}
 			}
 		});
-		button_1.setForeground(Color.DARK_GRAY);
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		button_1.setFocusPainted(false);
-		button_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+		btnBack.setForeground(Color.DARK_GRAY);
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnBack.setFocusPainted(false);
+		btnBack.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
-		button_1.setBackground(new Color(255, 165, 0));
-		button_1.setBounds(21, 664, 150, 75);
-		add(button_1);
+		btnBack.setBackground(new Color(255, 165, 0));
+		btnBack.setBounds(21, 664, 150, 75);
+		add(btnBack);
 
 		JLabel lblListOfEvents = new JLabel("List of Events by Date");
 		lblListOfEvents.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
@@ -216,14 +186,42 @@ public class SearchEventsByDate extends MasterPanel {
 		add(separator);
 
 		if (language == 0) {
+
+			btnBack.setText(WelcomePanel.BUNDLE
+					.getString("SearchEventsByDate.btnBack.text"));
 			lblListOfEvents.setText(WelcomePanel.BUNDLE
 					.getString("SearchEventsByDate.lblListOfEvents.text"));
 		} else if (language == 1) {
+
+			btnBack.setText(WelcomePanel.BUNDLE2
+					.getString("SearchEventsByDate.btnBack.text"));
 			lblListOfEvents.setText(WelcomePanel.BUNDLE2
 					.getString("SearchEventsByDate.lblListOfEvents.text"));
 			separator.setBounds(378, 113, 630, 2);
-
 		}
+
+		// adding table here + scrollpane
+
+		final JTable table = new JTable(new JTableModel());
+		table.setDragEnabled(false);
+
+		table.setAutoCreateRowSorter(true);
+		table.setGridColor(new Color(0, 0, 0));
+
+		table.getTableHeader().setReorderingAllowed(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		scrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(212, 162, 947, 443);
+		add(scrollPane);
+		table.setFillsViewportHeight(true);
+
+		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+		table.getColumn(col3).setCellRenderer(buttonRenderer);
+		table.addMouseListener(new JTableButtonMouseListener(table));
+		table.setRowHeight(60);
 
 		super.setLayout();
 	}
@@ -270,8 +268,8 @@ public class SearchEventsByDate extends MasterPanel {
 	public static class JTableModel extends AbstractTableModel {
 
 		private static final long serialVersionUID = 1L;
-		private static final String[] COLUMN_NAMES = new String[] {
-				"Event Names", "Date of Events", "Event Details" };
+		private static final String[] COLUMN_NAMES = new String[] { col1, col2,
+				col3 };
 		private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {
 				String.class, Date.class, JButton.class };
 
@@ -317,7 +315,6 @@ public class SearchEventsByDate extends MasterPanel {
 					e.printStackTrace();
 				}
 
-				// case 2: // fall through
 			case 2:
 				final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
 				button.addActionListener(new ActionListener() {
@@ -346,19 +343,6 @@ public class SearchEventsByDate extends MasterPanel {
 						f.revalidate();
 						f.setVisible(true);
 
-						/*
-						 * EventDetailsRNR eventDetailsRNR = new
-						 * EventDetailsRNR(f); /*EventDetails eventDetails = new
-						 * EventDetails(f); if (rowIndex == 0) {
-						 * f.getContentPane().removeAll();
-						 * f.getContentPane().add(eventDetailsRNR); f.repaint();
-						 * f.revalidate(); f.setVisible(true); } else {
-						 * f.getContentPane().removeAll();
-						 * f.getContentPane().add(eventDetails); f.repaint();
-						 * f.revalidate(); f.setVisible(true);
-						 * 
-						 * }
-						 */
 					}
 
 				});
@@ -368,4 +352,5 @@ public class SearchEventsByDate extends MasterPanel {
 			}
 		}
 	}
+
 }
