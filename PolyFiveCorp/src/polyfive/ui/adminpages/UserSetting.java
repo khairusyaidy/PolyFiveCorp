@@ -31,11 +31,11 @@ import polyfive.entities.dao.EventDetailsDao;
 import polyfive.entities.dao.MemberDao;
 import polyfive.ui.master.*;
 import polyfive.ui.memberpages.AccountDetails;
-import polyfive.ui.memberpages.EventDetails;
 import polyfive.ui.memberpages.MemberCalendar;
 import polyfive.ui.memberpages.SearchEvents.JTableButtonMouseListener;
 import polyfive.ui.memberpages.SearchEvents.JTableButtonRenderer;
 import polyfive.ui.memberpages.SearchEvents.JTableModel;
+import polyfive.ui.publicpages.EventDetails;
 import polyfive.ui.publicpages.PublicCalendar;
 
 import java.awt.Component;

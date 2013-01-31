@@ -69,24 +69,44 @@ public class PaymentDetails extends MasterPanel {
 		button.setBounds(21, 21, 75, 75);
 		add(button);
 
-		JButton btnBack = new JButton("Back");
-		btnBack.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
-		btnBack.addActionListener(new ActionListener() {
+		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TicketsPurchase ticketPurchase = new TicketsPurchase(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(ticketPurchase);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
+
+				Member user = new Member();
+				user = f.getSession();
+
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
+					MemberCalendar memberCalendar = new MemberCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(memberCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else {
+					AdminCalendar adminCalendar = new AdminCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(adminCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				}
 			}
 		});
-		btnBack.setForeground(Color.DARK_GRAY);
-		btnBack.setBackground(new Color(255, 165, 0));
-		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnBack.setBounds(21, 664, 150, 75);
-		add(btnBack);
+		btnCancel.setForeground(Color.DARK_GRAY);
+		btnCancel.setBackground(new Color(255, 165, 0));
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnCancel.setBounds(21, 664, 150, 75);
+		add(btnCancel);
 
 		JButton btnNext = new JButton("Next");
 		btnNext.setBorder(new EtchedBorder(EtchedBorder.LOWERED,

@@ -9,7 +9,7 @@
  * 
  */
 
-package polyfive.ui.memberpages;
+package polyfive.ui.publicpages;
 
 import polyfive.entities.ChangeLanguage;
 import polyfive.entities.CheckDate;
@@ -20,6 +20,8 @@ import polyfive.entities.dao.Seat;
 import polyfive.ui.adminpages.*;
 import polyfive.ui.images.*;
 import polyfive.ui.master.*;
+import polyfive.ui.memberpages.MemberCalendar;
+import polyfive.ui.memberpages.SearchEvents;
 import polyfive.ui.publicpages.*;
 
 import java.awt.Color;
@@ -158,6 +160,17 @@ public class EventDetails extends MasterPanel {
 		eventAddressTf.setColumns(10);
 
 		JButton btnProceedToPayment = new JButton("Buy Ticket(s)");
+		btnProceedToPayment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				TicketsPurchase ticketsPurchase = new TicketsPurchase(f);
+				f.getContentPane().removeAll();
+				f.getContentPane().add(ticketsPurchase);
+				f.repaint();
+				f.revalidate();
+				f.setVisible(true);
+			}
+		});
 		if (user.getRank() >= 5)
 			btnProceedToPayment.setVisible(false);
 		btnProceedToPayment.setFocusPainted(false);
@@ -370,9 +383,18 @@ public class EventDetails extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				Member user = new Member();
 				user = f.getSession();
-				if (user.getRank() <= 4) {
+
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
 					MemberCalendar memberCalendar = new MemberCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(memberCalendar);

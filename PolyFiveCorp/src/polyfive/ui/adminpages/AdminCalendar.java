@@ -39,7 +39,7 @@ import polyfive.ui.master.MasterPanel;
 import polyfive.ui.memberpages.AccountDetails;
 import polyfive.ui.memberpages.LoginPanel;
 import polyfive.ui.memberpages.SearchEvents;
-import polyfive.ui.memberpages.SearchEventsByDate;
+import polyfive.ui.publicpages.SearchEventsByDate;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

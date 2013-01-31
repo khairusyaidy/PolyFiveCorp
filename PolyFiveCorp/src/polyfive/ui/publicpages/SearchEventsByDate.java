@@ -9,7 +9,7 @@
  * 
  */
 
-package polyfive.ui.memberpages;
+package polyfive.ui.publicpages;
 
 import polyfive.entities.ChangeLanguage;
 import polyfive.entities.EventAttributes;
@@ -18,7 +18,7 @@ import polyfive.entities.dao.DBConnectionManager;
 import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.*;
-import polyfive.ui.publicpages.PublicCalendar;
+import polyfive.ui.memberpages.MemberCalendar;
 
 import javax.swing.JPanel;
 import java.awt.Color;

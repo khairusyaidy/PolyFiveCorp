@@ -159,9 +159,9 @@ public class EventDetailsMember extends MasterPanel {
 		btnProceedToPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				TicketsPurchase ticketsPurchase = new TicketsPurchase(f);
+				TicketsPurchaseMember ticketsPurchaseMember = new TicketsPurchaseMember(f);
 				f.getContentPane().removeAll();
-				f.getContentPane().add(ticketsPurchase);
+				f.getContentPane().add(ticketsPurchaseMember);
 				f.repaint();
 				f.revalidate();
 				f.setVisible(true);
@@ -373,9 +373,18 @@ public class EventDetailsMember extends MasterPanel {
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				Member user = new Member();
 				user = f.getSession();
-				if (user.getRank() <= 4) {
+
+				if (user.getRank() == 0) {
+					PublicCalendar publicCalendar = new PublicCalendar(f);
+					f.getContentPane().removeAll();
+					f.getContentPane().add(publicCalendar);
+					f.repaint();
+					f.revalidate();
+					f.setVisible(true);
+				} else if (user.getRank() <= 4) {
 					MemberCalendar memberCalendar = new MemberCalendar(f);
 					f.getContentPane().removeAll();
 					f.getContentPane().add(memberCalendar);

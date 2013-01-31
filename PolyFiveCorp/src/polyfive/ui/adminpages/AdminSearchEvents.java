@@ -17,9 +17,9 @@ import polyfive.entities.dao.DBConnectionManager;
 import polyfive.entities.dao.EventDetailsDao;
 import polyfive.ui.adminpages.AdminCalendar;
 import polyfive.ui.master.*;
-import polyfive.ui.memberpages.EventDetails;
 
 import polyfive.ui.memberpages.MemberCalendar;
+import polyfive.ui.publicpages.EventDetails;
 
 import javax.swing.JPanel;
 import java.awt.Color;

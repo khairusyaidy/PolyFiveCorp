@@ -103,7 +103,7 @@ public class LoginPanel extends MasterPanel {
 		panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBackground(SystemColor.text);
-		panel.setBounds(372, 438, 622, 234);
+		panel.setBounds(372, 438, 622, 210);
 		add(panel);
 		panel.setLayout(null);
 
