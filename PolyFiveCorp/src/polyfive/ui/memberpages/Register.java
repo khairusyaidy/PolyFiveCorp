@@ -372,8 +372,8 @@ public class Register extends MasterPanel {
 											 * string
 											 */
 
-											final String username = "khaimalevolency@gmail.com";
-											final String password = "diamondrose";
+											final String username = "";
+											final String password = "";
 											final String toEmail = email
 													.getText();
 											final String person = firstName
