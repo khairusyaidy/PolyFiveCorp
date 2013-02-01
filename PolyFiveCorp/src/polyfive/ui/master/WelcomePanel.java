@@ -67,6 +67,8 @@ public class WelcomePanel extends MasterPanel {
 			.getBundle("polyfive.ui.master.messages"); //$NON-NLS-1$
 	public static final ResourceBundle BUNDLE2 = ResourceBundle
 			.getBundle("polyfive.ui.master.messages_ms_MY");
+	public static final ResourceBundle BUNDLE3 = ResourceBundle
+			.getBundle("polyfive.ui.master.cn");
 	private final Action action = new SwingAction();
 	private MainFrame f = null;
 
@@ -218,7 +220,10 @@ public class WelcomePanel extends MasterPanel {
 			public void actionPerformed(ActionEvent e) {
 				ChangeLanguage changeLanguage = new ChangeLanguage();
 				if (comboBox.getSelectedIndex() == 1) {
-
+					btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
+					btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+					btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
+					
 					btnNewButton.setText(BUNDLE2
 							.getString("WelcomePanel.btnNewButton.text"));
 					btnNewButton_1.setText(BUNDLE2
@@ -227,20 +232,34 @@ public class WelcomePanel extends MasterPanel {
 							.getString("WelcomePanel.btnNewButton_2.text"));
 					changeLanguage.setChangeLanguage(1);
 				} else if (comboBox.getSelectedIndex() == 0) {
+					btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
+					btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+					btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
+					
 					btnNewButton.setText(BUNDLE
 							.getString("WelcomePanel.btnNewButton.text"));
 					btnNewButton_1.setText(BUNDLE
 							.getString("WelcomePanel.btnNewButton_1.text"));
 					btnNewButton_2.setText(BUNDLE
 							.getString("WelcomePanel.btnNewButton_2.text"));
-
 					changeLanguage.setChangeLanguage(0);
+				}
+				else if (comboBox.getSelectedIndex() == 2) {
+					btnNewButton.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+					btnNewButton_1.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+					btnNewButton_2.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+					
+					btnNewButton.setText(BUNDLE3.getString("WelcomePanel.btnNewButton.text"));
+
+					btnNewButton_1.setText(BUNDLE3.getString("WelcomePanel.btnNewButton_1.text"));
+
+					btnNewButton_2.setText(BUNDLE3.getString("WelcomePanel.btnNewButton_2.text"));
+					changeLanguage.setChangeLanguage(2);
 				}
 				f.setStoreLanguage(changeLanguage);
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "English",
-				"Malay" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"English", "Malay", "Mandrin"}));
 		comboBox.setForeground(Color.BLACK);
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox.setBorder(null);

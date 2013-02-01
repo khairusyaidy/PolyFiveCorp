@@ -198,6 +198,7 @@ public class Register extends MasterPanel {
 		registerDetails.add(passwordField_1);
 
 		genCaptcha = new JButton("Generate Captcha");
+		genCaptcha.setFocusPainted(false);
 		genCaptcha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// should work now
@@ -372,7 +373,7 @@ public class Register extends MasterPanel {
 											 * string
 											 */
 
-											final String username = "";
+											final String username = ""enter username;
 											final String password = "";
 											final String toEmail = email
 													.getText();

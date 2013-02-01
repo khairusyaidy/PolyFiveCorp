@@ -39,6 +39,7 @@ import java.awt.Rectangle;
 import java.awt.GridLayout;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -183,6 +184,7 @@ public class PublicCalendar extends MasterPanel {
 		});
 		add(calendar);
 
+		
 		if (rank == 0) {
 			rankName = "Guest";
 		}
@@ -210,18 +212,45 @@ public class PublicCalendar extends MasterPanel {
 		add(separator);
 
 		if (language == 0) {
-			// lblWelcome.setText(WelcomePanel.BUNDLE.getString("PublicCalendar.lblWelcome.text"));
+		/*	lblWelcome.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
+			lblclickOnThe.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnBack.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			*/
+			
 			lblclickOnThe.setText(WelcomePanel.BUNDLE
 					.getString("PublicCalendar.lblclickOnThe.text"));
 			btnBack.setText(WelcomePanel.BUNDLE
 					.getString("PublicCalendar.btnBack.text"));
 		} else if (language == 1) {
+		/*	lblWelcome.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
+			lblclickOnThe.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnBack.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			lblNewLabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 40));
+			*/
 			lblWelcome.setText(WelcomePanel.BUNDLE2
 					.getString("PublicCalendar.lblWelcome.text"));
 			lblclickOnThe.setText(WelcomePanel.BUNDLE2
 					.getString("PublicCalendar.lblclickOnThe.text"));
 			btnBack.setText(WelcomePanel.BUNDLE2
 					.getString("PublicCalendar.btnBack.text"));
+			lblNewLabel.setText(WelcomePanel.BUNDLE2
+					.getString("PublicCalendar.lblNewLabel.text"));
+
+		}
+		else if (language == 2 ){
+			lblWelcome.setFont(new Font("Arial Unicode MS", Font.PLAIN, 40));
+			lblclickOnThe.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			btnBack.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+			lblNewLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 40));
+
+			lblWelcome.setText(WelcomePanel.BUNDLE3
+					.getString("PublicCalendar.lblWelcome.text"));
+			lblclickOnThe.setText(WelcomePanel.BUNDLE3
+					.getString("PublicCalendar.lblclickOnThe.text"));
+			btnBack.setText(WelcomePanel.BUNDLE3
+					.getString("PublicCalendar.btnBack.text"));
+			lblNewLabel.setText(WelcomePanel.BUNDLE3
+					.getString("PublicCalendar.lblNewLabel.text"));
 
 		}
 

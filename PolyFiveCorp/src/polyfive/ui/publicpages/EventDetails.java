@@ -729,6 +729,37 @@ public class EventDetails extends MasterPanel {
 			btnCancel.setText(WelcomePanel.BUNDLE2
 					.getString("EventDetails.btnCancel.text"));
 		}
+		
+		else if (language == 2){
+			lblNewLabel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			lblAddress.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			lblPrice.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			lblEventType.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			lblTicketsLeft.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			lblDescription.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			btnProceedToPayment.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+			btnCancel.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+			
+			
+			
+			
+			lblNewLabel.setText(WelcomePanel.BUNDLE3
+					.getString("EventDetails.lblNewLabel.text"));
+			lblAddress.setText(WelcomePanel.BUNDLE3
+					.getString("EventDetails.lblAddress.text"));
+			lblPrice.setText(WelcomePanel.BUNDLE3
+					.getString("EventDetails.lblPrice.text"));
+			lblEventType.setText(WelcomePanel.BUNDLE3
+					.getString("EventDetails.lblEventType.text"));
+			lblTicketsLeft.setText(WelcomePanel.BUNDLE3
+					.getString("EventDetails.lblTicketsLeft.text"));
+			lblDescription.setText(WelcomePanel.BUNDLE3
+					.getString("EventDetails.lblDescription.text"));
+			btnProceedToPayment.setText(WelcomePanel.BUNDLE3
+					.getString("EventDetails.btnProceedToPayment.text"));
+			btnCancel.setText(WelcomePanel.BUNDLE3
+					.getString("EventDetails.btnCancel.text"));
+		}
 
 		super.setLayout();
 

@@ -394,6 +394,22 @@ public class LoginPanel extends MasterPanel {
 					.getString("LoginPanel.Login.text"));
 
 		}
+		
+		else if (language == 2){
+			lblName.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			lblPassword.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+			Login.setFont(new Font("Arial Unicode MS", Font.PLAIN, 23));
+			btnBack.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+			
+			lblName.setText(WelcomePanel.BUNDLE3
+					.getString("LoginPanel.lblName.text"));
+			lblPassword.setText(WelcomePanel.BUNDLE3
+					.getString("LoginPanel.lblNric.text"));
+			btnBack.setText(WelcomePanel.BUNDLE3
+					.getString("LoginPanel.btnBack.text"));
+			Login.setText(WelcomePanel.BUNDLE3
+					.getString("LoginPanel.Login.text"));
+		}
 
 		super.setLayout();
 

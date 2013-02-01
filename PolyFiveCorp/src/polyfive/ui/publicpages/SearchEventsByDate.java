@@ -199,6 +199,16 @@ public class SearchEventsByDate extends MasterPanel {
 					.getString("SearchEventsByDate.lblListOfEvents.text"));
 			separator.setBounds(378, 113, 630, 2);
 		}
+		else if (language == 2){
+			btnBack.setFont(new Font("Arial Unicode MS", Font.PLAIN, 30));
+			lblListOfEvents.setFont(new Font("Arial Unicode MS", Font.PLAIN, 40));
+			btnBack.setText(WelcomePanel.BUNDLE3
+					.getString("SearchEventsByDate.btnBack.text"));
+			lblListOfEvents.setText(WelcomePanel.BUNDLE3
+					.getString("SearchEventsByDate.lblListOfEvents.text"));
+			separator.setBounds(378, 113, 300, 2);
+
+		}
 
 		// adding table here + scrollpane
 
