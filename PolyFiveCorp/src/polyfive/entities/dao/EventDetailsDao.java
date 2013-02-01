@@ -44,7 +44,6 @@ public class EventDetailsDao extends MasterPanel {
 				float eventPrice = rs.getFloat("eventPrice");
 				String eventType = rs.getString("eventType");
 				int eventNoOfTickets = rs.getInt("eventNoOfTickets");
-				String eventMapFileName = rs.getString("eventMapFileName");
 
 				event = new EventAttributes();
 				event.setEventId(eventId);
@@ -55,7 +54,6 @@ public class EventDetailsDao extends MasterPanel {
 				event.setEventPrice(eventPrice);
 				event.setEventType(eventType);
 				event.setEventNoOfTickets(eventNoOfTickets);
-				event.setMapFileName(eventMapFileName);
 				EventsList.add(event);
 			}
 		} catch (Exception e) {
@@ -77,7 +75,6 @@ public class EventDetailsDao extends MasterPanel {
 		float eventPrice = addEvent.getEventPrice();
 		String eventType = addEvent.getEventType();
 		int eventNoOfTickets = addEvent.getEventNoOfTickets();
-		String eventMapFileName = addEvent.getMapFileName();
 		// get the last member ID
 		try {
 
@@ -91,7 +88,7 @@ public class EventDetailsDao extends MasterPanel {
 
 			// query for inserting into the table
 
-			String query = "insert into Events(idEvent, eventName, eventDate, eventAdd, eventDes, eventPrice, eventType, eventNoOfTickets,eventMapFileName) values('"
+			String query = "insert into Events(idEvent, eventName, eventDate, eventAdd, eventDes, eventPrice, eventType, eventNoOfTickets) values('"
 					+ nextId
 					+ "','"
 					+ eventName
@@ -106,9 +103,8 @@ public class EventDetailsDao extends MasterPanel {
 					+ "','"
 					+ eventType
 					+ "','"
-					+ eventNoOfTickets
-					+ "','"
-					+ eventMapFileName + "')";
+					+ eventNoOfTickets+
+					"')";
 			pstmt = currentCon.prepareStatement(query);
 
 			pstmt.executeUpdate();

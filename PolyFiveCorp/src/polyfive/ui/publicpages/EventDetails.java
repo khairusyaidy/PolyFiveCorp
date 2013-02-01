@@ -114,8 +114,6 @@ public class EventDetails extends MasterPanel {
 						.getString("eventType"));
 				eventAttributes.setEventNoOfTickets(DBConnectionManager.rs
 						.getInt("eventNoOfTickets"));
-				eventAttributes.setMapFileName(DBConnectionManager.rs
-						.getString("eventMapFileName"));
 
 				f.setStoreEvents(eventAttributes);
 			}
@@ -160,17 +158,6 @@ public class EventDetails extends MasterPanel {
 		eventAddressTf.setColumns(10);
 
 		JButton btnProceedToPayment = new JButton("Buy Ticket(s)");
-		btnProceedToPayment.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				TicketsPurchase ticketsPurchase = new TicketsPurchase(f);
-				f.getContentPane().removeAll();
-				f.getContentPane().add(ticketsPurchase);
-				f.repaint();
-				f.revalidate();
-				f.setVisible(true);
-			}
-		});
 		if (user.getRank() >= 5)
 			btnProceedToPayment.setVisible(false);
 		btnProceedToPayment.setFocusPainted(false);
@@ -313,28 +300,6 @@ public class EventDetails extends MasterPanel {
 		final JButton btnNewButton = new JButton("");
 		btnNewButton.setDisabledIcon(new ImageIcon(EventDetails.class
 				.getResource("/polyfive/ui/images/Map.PNG")));
-		if (eventAttributes.getMapFileName().equals("")) {
-			btnNewButton.setEnabled(false);
-		}
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EventAttributes eventAttributes = new EventAttributes();
-				eventAttributes = f.getStoreEvents();
-				String[] cmd = new String[4];
-				cmd[0] = "cmd.exe";
-				cmd[1] = "/C";
-				cmd[2] = "start";
-				cmd[3] = "C:/maps/" + eventAttributes.getMapFileName()
-						+ ".html";
-				try {
-					Process p = Runtime.getRuntime().exec(cmd);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-
-		});
 		btnNewButton.setIcon(new ImageIcon(EventDetails.class
 				.getResource("/polyfive/ui/images/Map.PNG")));
 		btnNewButton.setBounds(66, 11, 1130, 120);
@@ -677,8 +642,7 @@ public class EventDetails extends MasterPanel {
 			});
 		}
 
-		else {
-			btnProceedToPayment.setEnabled(true);
+		else if (disableButton == false){
 			btnProceedToPayment.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 

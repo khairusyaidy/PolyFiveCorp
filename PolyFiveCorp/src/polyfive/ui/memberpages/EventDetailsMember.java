@@ -102,8 +102,6 @@ public class EventDetailsMember extends MasterPanel {
 						.getString("eventType"));
 				eventAttributes.setEventNoOfTickets(DBConnectionManager.rs
 						.getInt("eventNoOfTickets"));
-				eventAttributes.setMapFileName(DBConnectionManager.rs
-						.getString("eventMapFileName"));
 
 				f.setStoreEvents(eventAttributes);
 			}
@@ -303,28 +301,6 @@ public class EventDetailsMember extends MasterPanel {
 		final JButton btnNewButton = new JButton("");
 		btnNewButton.setDisabledIcon(new ImageIcon(EventDetailsMember.class
 				.getResource("/polyfive/ui/images/Map.PNG")));
-		if (eventAttributes.getMapFileName().equals("")) {
-			btnNewButton.setEnabled(false);
-		}
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EventAttributes eventAttributes = new EventAttributes();
-				eventAttributes = f.getStoreEvents();
-				String[] cmd = new String[4];
-				cmd[0] = "cmd.exe";
-				cmd[1] = "/C";
-				cmd[2] = "start";
-				cmd[3] = "C:/maps/" + eventAttributes.getMapFileName()
-						+ ".html";
-				try {
-					Process p = Runtime.getRuntime().exec(cmd);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-
-		});
 		btnNewButton.setIcon(new ImageIcon(EventDetailsMember.class
 				.getResource("/polyfive/ui/images/Map.PNG")));
 		btnNewButton.setBounds(66, 11, 1130, 120);
