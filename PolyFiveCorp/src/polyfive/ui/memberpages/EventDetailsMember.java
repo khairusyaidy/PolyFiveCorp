@@ -1,6 +1,6 @@
 /* 
- * Program Name : EventDetails.java
- * Purpose : Display all the details of the particular event
+ * Program Name : EventDetailsMember.java
+ * Purpose : Display all the details of the particular event for members
  * 
  * Authour: Muhammad Khairyl Rusyaidy, Tinesh
  * Admin No: 120258L, 122691N
