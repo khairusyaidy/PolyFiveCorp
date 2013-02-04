@@ -3,7 +3,7 @@
  * Purpose : Display all the details of the particular event
  * 
  * Author: Muhammad Khairyl Rusyaidy (Database) , Nicholas(similar page to user account details) , Timothy
- * Admin No: 120258L, 122130G
+ * Admin No: 120258L, 122130G, 121107R
  * Module Group : IS1201
  * Last Modified: 4/2/2013
  * 

@@ -3,7 +3,7 @@
  * Purpose : Allows the admin to add event
  * 
  * Authour: Muhammad Khairyl Rusyaidy, Timothy
- * Admin No: 120258L
+ * Admin No: 120258L , 121107R
  * Module Group : IS1201
  * Last Modified: 29/1/2013
  * 

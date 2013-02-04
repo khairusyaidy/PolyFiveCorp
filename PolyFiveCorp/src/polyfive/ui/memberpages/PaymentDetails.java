@@ -1,3 +1,13 @@
+/*
+ *Program Name : AddEvent.Java 
+ *Purpose : Allows the customer to have a breif view of their purchase.
+ *
+ *Authour: Muhammad Khairyl Rusyaidy, Timothy Yeo
+ *Admin Number: 120258L, 121107R
+ *Module Group : IS1201
+ *Last Modified : 29/1/2013
+ *
+ */
 package polyfive.ui.memberpages;
 
 import polyfive.entities.*;

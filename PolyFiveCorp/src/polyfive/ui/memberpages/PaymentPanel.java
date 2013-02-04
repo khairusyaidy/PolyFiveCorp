@@ -1,3 +1,13 @@
+/*
+ *Program Name : AddEvent.Java 
+ *Purpose : Allows the User to choose the mode of payment.
+ *
+ *Authour: Timothy Yeo
+ *Admin Number: 121107R
+ *Module Group : IS1201
+ *Last Modified : 29/1/2013
+ *
+ */
 package polyfive.ui.memberpages;
 
 import polyfive.entities.Member;
@@ -39,17 +49,6 @@ public class PaymentPanel extends MasterPanel {
 			}
 		});
 
-		JButton btnPayPal = new JButton("");
-		btnPayPal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnPayPal.setBorder(null);
-		btnPayPal.setIcon(new ImageIcon(PaymentPanel.class
-				.getResource("/polyFive/ui/images/paypallogo.jpg")));
-		btnPayPal.setForeground(Color.WHITE);
-		btnPayPal.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnPayPal.setBackground(Color.WHITE);
-		btnPayPal.setBounds(154, 224, 350, 220);
-		add(btnPayPal);
-
 		JButton btnCreditCard = new JButton("");
 		btnCreditCard.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCreditCard.setBorder(null);
@@ -58,7 +57,7 @@ public class PaymentPanel extends MasterPanel {
 		btnCreditCard.setForeground(Color.WHITE);
 		btnCreditCard.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnCreditCard.setBackground(Color.WHITE);
-		btnCreditCard.setBounds(514, 224, 350, 220);
+		btnCreditCard.setBounds(347, 296, 350, 220);
 		add(btnCreditCard);
 
 		JButton btnNets = new JButton("");
@@ -69,7 +68,7 @@ public class PaymentPanel extends MasterPanel {
 		btnNets.setForeground(Color.WHITE);
 		btnNets.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnNets.setBackground(Color.WHITE);
-		btnNets.setBounds(874, 224, 360, 220);
+		btnNets.setBounds(759, 296, 360, 220);
 		add(btnNets);
 
 		JButton button = new JButton("");
@@ -143,7 +142,7 @@ public class PaymentPanel extends MasterPanel {
 		JLabel lblPleaseChooseYour = new JLabel(
 				"Please choose your payment modes: ");
 		lblPleaseChooseYour.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblPleaseChooseYour.setBounds(411, 153, 522, 45);
+		lblPleaseChooseYour.setBounds(490, 200, 522, 45);
 		add(lblPleaseChooseYour);
 
 		super.setLayout();
