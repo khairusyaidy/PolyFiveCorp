@@ -2,10 +2,10 @@
  * Program Name : AdminAccountDetals.java
  * Purpose : Display all the details of the particular event
  * 
- * Authour: Muhammad Khairyl Rusyaidy (Database) , Nicholas(similar page to user account details) , Timothy
- * Admin No: 120258L
+ * Author: Muhammad Khairyl Rusyaidy (Database) , Nicholas(similar page to user account details) , Timothy
+ * Admin No: 120258L, 122130G
  * Module Group : IS1201
- * Last Modified: 29/1/2013
+ * Last Modified: 4/2/2013
  * 
  */
 
@@ -607,14 +607,6 @@ public class AdminAccountDetails extends MasterPanel {
 		add(miscDetails);
 		miscDetails.setLayout(null);
 
-		JLabel lblTransactionHistory = new JLabel("Transaction History:");
-		lblTransactionHistory.setBounds(20, 11, 145, 14);
-		miscDetails.add(lblTransactionHistory);
-
-		JLabel lblCurrentBookings = new JLabel("Current Bookings:");
-		lblCurrentBookings.setBounds(20, 201, 120, 14);
-		miscDetails.add(lblCurrentBookings);
-
 		JPanel feedback1 = new JPanel();
 		feedback1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		feedback1.setBounds(20, 36, 425, 154);
@@ -622,6 +614,7 @@ public class AdminAccountDetails extends MasterPanel {
 		feedback1.setLayout(null);
 		
 		JTextArea ftArea = new JTextArea();
+		ftArea.setEditable(false);
 		ftArea.setBounds(10, 11, 405, 132);
 		feedback1.add(ftArea);
 
@@ -632,6 +625,7 @@ public class AdminAccountDetails extends MasterPanel {
 		feedback2.setLayout(null);
 		
 		JTextArea ftArea2 = new JTextArea();
+		ftArea2.setEditable(false);
 		ftArea2.setBounds(10, 11, 405, 132);
 		feedback2.add(ftArea2);
 

@@ -2,10 +2,10 @@
  * Program Name : AccountDetails.java
  * Purpose : Display the user details
  * 
- * Authour: Muhammad Khairyl Rusyaidy (Database)/Logic  ,  Nicholas
- * Admin No: 120258L
+ * Author: Muhammad Khairyl Rusyaidy (Database)/Logic  ,  Nicholas (UI/Logic)
+ * Admin No: 120258L, 122130G
  * Module Group : IS1201
- * Last Modified: 29/1/2013
+ * Last Modified: 4/2/2013
  * 
  */
 
@@ -743,6 +743,7 @@ public class AccountDetails extends MasterPanel {
 		feedback1.setLayout(null);
 		
 		JTextArea ftarea = new JTextArea();
+		ftarea.setEditable(false);
 		ftarea.setBounds(10, 11, 405, 132);
 		feedback1.add(ftarea);
 
@@ -753,6 +754,7 @@ public class AccountDetails extends MasterPanel {
 		feedback2.setLayout(null);
 		
 		JTextArea ftarea2 = new JTextArea();
+		ftarea2.setEditable(false);
 		ftarea2.setBounds(10, 11, 405, 132);
 		feedback2.add(ftarea2);
 
