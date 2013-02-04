@@ -1,3 +1,9 @@
+//program name Seat.java
+//purpose pass the object into the database
+//name qing hui
+//admin no 121997Q
+//module group IS 1201
+
 package polyfive.entities.dao;
 
 import java.sql.DriverManager;

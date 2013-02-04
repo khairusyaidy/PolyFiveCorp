@@ -1,3 +1,10 @@
+//program name event.java
+//purpose pass event detail into database
+//name qing hui
+//admin no 121997Q
+//module group IS 1201
+//last modified 4/2/2012
+
 package polyfive.ui.memberpages;
 
 import java.sql.Connection;
