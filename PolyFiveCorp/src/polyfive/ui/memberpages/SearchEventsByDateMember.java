@@ -1,6 +1,6 @@
 /* 
- * Program Name : SearchEventsByDate.java
- * Purpose : Users are able to find the events for that particular date clicked
+ * Program Name : SearchEventsByDateMember.java
+ * Purpose : Users are able to find the events for that particular date clicked for members
  * 
  * Authour: Muhammad Khairyl Rusyaidy
  * Admin No: 120258L

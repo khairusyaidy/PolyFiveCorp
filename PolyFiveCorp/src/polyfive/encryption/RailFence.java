@@ -1,3 +1,14 @@
+/* 
+ * Program Name : RailFence.java
+ * Purpose : Methods to encrypt password / nric and store inside database 
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy
+ * Admin No: 120258L
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
+
 package polyfive.encryption;
 
 public class RailFence {

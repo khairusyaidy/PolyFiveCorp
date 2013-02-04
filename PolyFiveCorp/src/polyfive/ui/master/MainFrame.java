@@ -41,7 +41,6 @@ public class MainFrame extends JFrame {
 	private static Member session;
 	private static Member editAccountSession;
 	private static Member registerAccountSession;
-	private static adminAddEvent adminAddEvent;
 	private static AddEvent addEvent;
 	private static CreateSeatPanel createSeatPanel;
 	private static AdminCalendar adminCalendar;
@@ -165,10 +164,6 @@ public class MainFrame extends JFrame {
 
 	public PaymentPanel getPaymentPanel() {
 		return paymentPanel;
-	}
-
-	public adminAddEvent getAdminAddEvent() {
-		return adminAddEvent;
 	}
 
 	public AdminCalendar adminCalendar() {

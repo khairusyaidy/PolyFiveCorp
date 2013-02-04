@@ -2,10 +2,10 @@
  * Program Name : AdminAccountDetals.java
  * Purpose : Display all the details of the particular event
  * 
- * Authour: Muhammad Khairyl Rusyaidy (Database) , Nicholas(similar page to user account details) , Timothy
- * Admin No: 120258L
+ * Author: Muhammad Khairyl Rusyaidy (Database) , Nicholas(similar page to user account details) , Timothy
+ * Admin No: 120258L, 122130G
  * Module Group : IS1201
- * Last Modified: 29/1/2013
+ * Last Modified: 4/2/2013
  * 
  */
 
@@ -63,8 +63,6 @@ public class AdminAccountDetails extends MasterPanel {
 	private MainFrame f = null;
 	private JTextField currentMember;
 	private JTextField upgradingTo;
-	private JTextField feedbackText;
-	private JTextField feedbackText2;
 
 	/**
 	 * Create the panel.
@@ -540,7 +538,7 @@ public class AdminAccountDetails extends MasterPanel {
 					JOptionPane.showMessageDialog(null, e);
 					e.printStackTrace();
 				}
-				feedbackText.setText("Your new details have been changed.");
+				//feedbackText.setText("Your new details have been changed.");
 				JOptionPane.showMessageDialog(null,
 						"Your new details have been changed.");
 
@@ -591,8 +589,7 @@ public class AdminAccountDetails extends MasterPanel {
 				newEmail.setText("");
 				newPassportIC.setText("");
 				newPaymentMethod.setText("");
-				feedbackText
-						.setText("Successfully cleared all new details entered.");
+				//feedbackText.setText("Successfully cleared all new details entered.");
 				JOptionPane.showMessageDialog(null,
 						"Successfully cleared all new details entered.");
 			}
@@ -610,45 +607,27 @@ public class AdminAccountDetails extends MasterPanel {
 		add(miscDetails);
 		miscDetails.setLayout(null);
 
-		JLabel lblTransactionHistory = new JLabel("Transaction History:");
-		lblTransactionHistory.setBounds(20, 11, 145, 14);
-		miscDetails.add(lblTransactionHistory);
-
-		JLabel lblCurrentBookings = new JLabel("Current Bookings:");
-		lblCurrentBookings.setBounds(20, 201, 120, 14);
-		miscDetails.add(lblCurrentBookings);
-
-		JPanel transactionHistory = new JPanel();
-		transactionHistory.setBorder(new LineBorder(new Color(0, 0, 0)));
-		transactionHistory.setBounds(20, 36, 425, 154);
-		miscDetails.add(transactionHistory);
-		transactionHistory.setLayout(null);
+		JPanel feedback1 = new JPanel();
+		feedback1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		feedback1.setBounds(20, 36, 425, 154);
+		miscDetails.add(feedback1);
+		feedback1.setLayout(null);
 		
-		JTextArea history = new JTextArea("No previous transactions.");
-		history.setBounds(10, 11, 405, 132);
-		transactionHistory.add(history);
+		JTextArea ftArea = new JTextArea();
+		ftArea.setEditable(false);
+		ftArea.setBounds(10, 11, 405, 132);
+		feedback1.add(ftArea);
 
-		JPanel currentBookings = new JPanel();
-		currentBookings.setBorder(new LineBorder(new Color(0, 0, 0)));
-		currentBookings.setBounds(20, 226, 425, 154);
-		miscDetails.add(currentBookings);
-		currentBookings.setLayout(null);
+		JPanel feedback2 = new JPanel();
+		feedback2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		feedback2.setBounds(20, 226, 425, 154);
+		miscDetails.add(feedback2);
+		feedback2.setLayout(null);
 		
-		JTextArea current = new JTextArea("No current transactions.");
-		current.setBounds(10, 11, 405, 132);
-		currentBookings.add(current);
-
-		feedbackText = new JTextField();
-		feedbackText.setEditable(false);
-		feedbackText.setBounds(20, 391, 425, 20);
-		miscDetails.add(feedbackText);
-		feedbackText.setColumns(10);
-
-		feedbackText2 = new JTextField();
-		feedbackText2.setEditable(false);
-		feedbackText2.setColumns(10);
-		feedbackText2.setBounds(20, 422, 425, 20);
-		miscDetails.add(feedbackText2);
+		JTextArea ftArea2 = new JTextArea();
+		ftArea2.setEditable(false);
+		ftArea2.setBounds(10, 11, 405, 132);
+		feedback2.add(ftArea2);
 
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
