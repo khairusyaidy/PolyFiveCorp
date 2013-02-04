@@ -1,9 +1,9 @@
 /* 
  * Program Name : TicketsPurchase.java
- * Purpose : 
+ * Purpose : For public users to select the number of tickets they want to purchase and view the total cost
  * 
- * Authour: 
- * Admin No:
+ * Authour: Muhammad Khairyl Rusyaidy, Tinesh Kumar
+ * Admin No: 120258L, 122691N
  * Module Group : IS1201
  * Last Modified: 29/1/2013
  * 

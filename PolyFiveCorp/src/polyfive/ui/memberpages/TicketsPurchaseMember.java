@@ -1,3 +1,14 @@
+/* 
+ * Program Name : TicketsPurchaseMember.java
+ * Purpose : For members to select the number of tickets they want to purchase and view the
+ * total cost before and after discount.
+ * 
+ * Authour: Muhammad Khairyl Rusyaidy, Tinesh Kumar
+ * Admin No: 120258L, 122691N
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
 package polyfive.ui.memberpages;
 
 import polyfive.entities.BuyTickets;
