@@ -57,8 +57,6 @@ public class AccountDetails extends MasterPanel {
 	private JPasswordField oldPass;
 	private JPasswordField newPass;
 	private JPasswordField confirmNew;
-	private JTextField feedbackText;
-	private JTextField feedbackText2;
 
 	/**
 	 * Create the panel.
@@ -203,7 +201,7 @@ public class AccountDetails extends MasterPanel {
 				oldPass.setText("");
 				newPass.setText("");
 				confirmNew.setText("");
-				feedbackText.setText("Successfully cleared passwords entered.");
+				//feedbackText.setText("Successfully cleared passwords entered.");
 				JOptionPane.showMessageDialog(null,
 						"Successfully cleared passwords entered.");
 			}
@@ -245,8 +243,7 @@ public class AccountDetails extends MasterPanel {
 				if (!oldPassTf.isEmpty() && !newPassTf.isEmpty()
 						&& !newPassTf2.isEmpty()) {
 					if (!oldPassTf.equals(oldPasswordDecrypt)) {
-						feedbackText
-								.setText("Password does not match your previous password.");
+						//feedbackText.setText("Password does not match your previous password.");
 						JOptionPane.showMessageDialog(null,
 								"Password does not match your previous password.");
 						matchPassword = false;
@@ -254,10 +251,10 @@ public class AccountDetails extends MasterPanel {
 
 					if (!newPassTfEncrypted.equals(newPassTf2Encrypted)
 							&& oldPassTf.equals(oldPasswordDecrypt)) {
-						feedbackText2.setText("New password does not match.");
+						//feedbackText2.setText("New password does not match.");
 						JOptionPane.showMessageDialog(null,
 								"New password does not match.");
-						feedbackText.setText("");
+						//feedbackText.setText("");
 						matchPassword2 = false;
 					}
 
@@ -272,11 +269,10 @@ public class AccountDetails extends MasterPanel {
 							DBConnectionManager.pstmt = DBConnectionManager.con
 									.prepareStatement(sql3);
 							DBConnectionManager.pstmt.execute();
-							feedbackText
-									.setText("Your password has been changed.");
+							//feedbackText.setText("Your password has been changed.");
 							JOptionPane.showMessageDialog(null,
 									"Your password has been changed.");
-							feedbackText2.setText("");
+							//feedbackText2.setText("");
 							oldPass.setText("");
 							newPass.setText("");
 							confirmNew.setText("");
@@ -326,7 +322,7 @@ public class AccountDetails extends MasterPanel {
 
 				else if (oldPassTf.isEmpty() || newPassTf.isEmpty()
 						|| newPassTf.isEmpty())
-					feedbackText.setText("Please complete the field.");
+					//feedbackText.setText("Please complete the field.");
 				JOptionPane.showMessageDialog(null,
 						"Please complete the field.");
 
@@ -670,7 +666,7 @@ public class AccountDetails extends MasterPanel {
 					JOptionPane.showMessageDialog(null, e);
 					e.printStackTrace();
 				}
-				feedbackText.setText("Your new details have been changed.");
+				//feedbackText.setText("Your new details have been changed.");
 				JOptionPane.showMessageDialog(null,
 						"Your new details have been changed.");
 
@@ -722,8 +718,7 @@ public class AccountDetails extends MasterPanel {
 				newEmail.setText("");
 				newPassportIC.setText("");
 				newPaymentMethod.setText("");
-				feedbackText
-						.setText("Successfully cleared all new details entered.");
+				//feedbackText.setText("Successfully cleared all new details entered.");
 				JOptionPane.showMessageDialog(null,
 						"Successfully cleared all new details entered.");
 			}
@@ -741,45 +736,25 @@ public class AccountDetails extends MasterPanel {
 		add(miscDetails);
 		miscDetails.setLayout(null);
 
-		JLabel lblTransactionHistory = new JLabel("Transaction History:");
-		lblTransactionHistory.setBounds(20, 11, 145, 14);
-		miscDetails.add(lblTransactionHistory);
-
-		JLabel lblCurrentBookings = new JLabel("Current Bookings:");
-		lblCurrentBookings.setBounds(20, 201, 120, 14);
-		miscDetails.add(lblCurrentBookings);
-
-		JPanel transactionHistory = new JPanel();
-		transactionHistory.setBorder(new LineBorder(new Color(0, 0, 0)));
-		transactionHistory.setBounds(20, 36, 425, 154);
-		miscDetails.add(transactionHistory);
-		transactionHistory.setLayout(null);
+		JPanel feedback1 = new JPanel();
+		feedback1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		feedback1.setBounds(20, 36, 425, 154);
+		miscDetails.add(feedback1);
+		feedback1.setLayout(null);
 		
-		JTextArea history = new JTextArea("No previous transactions.");
-		history.setBounds(10, 11, 405, 132);
-		transactionHistory.add(history);
+		JTextArea ftarea = new JTextArea();
+		ftarea.setBounds(10, 11, 405, 132);
+		feedback1.add(ftarea);
 
-		JPanel currentBookings = new JPanel();
-		currentBookings.setBorder(new LineBorder(new Color(0, 0, 0)));
-		currentBookings.setBounds(20, 226, 425, 154);
-		miscDetails.add(currentBookings);
-		currentBookings.setLayout(null);
+		JPanel feedback2 = new JPanel();
+		feedback2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		feedback2.setBounds(20, 226, 425, 154);
+		miscDetails.add(feedback2);
+		feedback2.setLayout(null);
 		
-		JTextArea current = new JTextArea("No current transactions.");
-		current.setBounds(10, 11, 405, 132);
-		currentBookings.add(current);
-
-		feedbackText = new JTextField();
-		feedbackText.setEditable(false);
-		feedbackText.setBounds(20, 391, 425, 20);
-		miscDetails.add(feedbackText);
-		feedbackText.setColumns(10);
-
-		feedbackText2 = new JTextField();
-		feedbackText2.setEditable(false);
-		feedbackText2.setColumns(10);
-		feedbackText2.setBounds(20, 422, 425, 20);
-		miscDetails.add(feedbackText2);
+		JTextArea ftarea2 = new JTextArea();
+		ftarea2.setBounds(10, 11, 405, 132);
+		feedback2.add(ftarea2);
 
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
