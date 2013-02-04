@@ -541,6 +541,8 @@ public class AdminAccountDetails extends MasterPanel {
 					e.printStackTrace();
 				}
 				feedbackText.setText("Your new details have been changed.");
+				JOptionPane.showMessageDialog(null,
+						"Your new details have been changed.");
 
 				// update Member variable
 				Member userUpdateDetails = new Member();
@@ -591,6 +593,8 @@ public class AdminAccountDetails extends MasterPanel {
 				newPaymentMethod.setText("");
 				feedbackText
 						.setText("Successfully cleared all new details entered.");
+				JOptionPane.showMessageDialog(null,
+						"Successfully cleared all new details entered.");
 			}
 		});
 		resetChanges.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
@@ -619,12 +623,20 @@ public class AdminAccountDetails extends MasterPanel {
 		transactionHistory.setBounds(20, 36, 425, 154);
 		miscDetails.add(transactionHistory);
 		transactionHistory.setLayout(null);
+		
+		JTextArea history = new JTextArea("No previous transactions.");
+		history.setBounds(10, 11, 405, 132);
+		transactionHistory.add(history);
 
 		JPanel currentBookings = new JPanel();
 		currentBookings.setBorder(new LineBorder(new Color(0, 0, 0)));
 		currentBookings.setBounds(20, 226, 425, 154);
 		miscDetails.add(currentBookings);
-		currentBookings.setLayout(new GridLayout(1, 0, 0, 0));
+		currentBookings.setLayout(null);
+		
+		JTextArea current = new JTextArea("No current transactions.");
+		current.setBounds(10, 11, 405, 132);
+		currentBookings.add(current);
 
 		feedbackText = new JTextField();
 		feedbackText.setEditable(false);

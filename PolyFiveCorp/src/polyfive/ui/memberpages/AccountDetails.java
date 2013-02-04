@@ -36,6 +36,7 @@ import java.sql.SQLException;
 
 import javax.swing.JPasswordField;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JTextArea;
 
 public class AccountDetails extends MasterPanel {
 	private JTextField creationDate;
@@ -203,7 +204,8 @@ public class AccountDetails extends MasterPanel {
 				newPass.setText("");
 				confirmNew.setText("");
 				feedbackText.setText("Successfully cleared passwords entered.");
-				// WARNING: DOES NOT CURRENTLY WORK
+				JOptionPane.showMessageDialog(null,
+						"Successfully cleared passwords entered.");
 			}
 		});
 		resetPasswords.setForeground(Color.DARK_GRAY);
@@ -245,12 +247,16 @@ public class AccountDetails extends MasterPanel {
 					if (!oldPassTf.equals(oldPasswordDecrypt)) {
 						feedbackText
 								.setText("Password does not match your previous password.");
+						JOptionPane.showMessageDialog(null,
+								"Password does not match your previous password.");
 						matchPassword = false;
 					}
 
 					if (!newPassTfEncrypted.equals(newPassTf2Encrypted)
 							&& oldPassTf.equals(oldPasswordDecrypt)) {
 						feedbackText2.setText("New password does not match.");
+						JOptionPane.showMessageDialog(null,
+								"New password does not match.");
 						feedbackText.setText("");
 						matchPassword2 = false;
 					}
@@ -267,7 +273,9 @@ public class AccountDetails extends MasterPanel {
 									.prepareStatement(sql3);
 							DBConnectionManager.pstmt.execute();
 							feedbackText
-									.setText("Your password have been changed.");
+									.setText("Your password has been changed.");
+							JOptionPane.showMessageDialog(null,
+									"Your password has been changed.");
 							feedbackText2.setText("");
 							oldPass.setText("");
 							newPass.setText("");
@@ -318,7 +326,9 @@ public class AccountDetails extends MasterPanel {
 
 				else if (oldPassTf.isEmpty() || newPassTf.isEmpty()
 						|| newPassTf.isEmpty())
-					feedbackText.setText("Please complete the field");
+					feedbackText.setText("Please complete the field.");
+				JOptionPane.showMessageDialog(null,
+						"Please complete the field.");
 
 			}
 
@@ -661,6 +671,8 @@ public class AccountDetails extends MasterPanel {
 					e.printStackTrace();
 				}
 				feedbackText.setText("Your new details have been changed.");
+				JOptionPane.showMessageDialog(null,
+						"Your new details have been changed.");
 
 				// update Member variable
 				Member userUpdateDetails = new Member();
@@ -712,6 +724,8 @@ public class AccountDetails extends MasterPanel {
 				newPaymentMethod.setText("");
 				feedbackText
 						.setText("Successfully cleared all new details entered.");
+				JOptionPane.showMessageDialog(null,
+						"Successfully cleared all new details entered.");
 			}
 		});
 		resetChanges.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
@@ -740,12 +754,20 @@ public class AccountDetails extends MasterPanel {
 		transactionHistory.setBounds(20, 36, 425, 154);
 		miscDetails.add(transactionHistory);
 		transactionHistory.setLayout(null);
+		
+		JTextArea history = new JTextArea("No previous transactions.");
+		history.setBounds(10, 11, 405, 132);
+		transactionHistory.add(history);
 
 		JPanel currentBookings = new JPanel();
 		currentBookings.setBorder(new LineBorder(new Color(0, 0, 0)));
 		currentBookings.setBounds(20, 226, 425, 154);
 		miscDetails.add(currentBookings);
-		currentBookings.setLayout(new GridLayout(1, 0, 0, 0));
+		currentBookings.setLayout(null);
+		
+		JTextArea current = new JTextArea("No current transactions.");
+		current.setBounds(10, 11, 405, 132);
+		currentBookings.add(current);
 
 		feedbackText = new JTextField();
 		feedbackText.setEditable(false);
