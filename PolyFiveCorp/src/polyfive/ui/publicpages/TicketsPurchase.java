@@ -1,3 +1,13 @@
+/* 
+ * Program Name : TicketsPurchase.java
+ * Purpose : 
+ * 
+ * Authour: 
+ * Admin No:
+ * Module Group : IS1201
+ * Last Modified: 29/1/2013
+ * 
+ */
 package polyfive.ui.publicpages;
 
 import polyfive.entities.BuyTickets;
