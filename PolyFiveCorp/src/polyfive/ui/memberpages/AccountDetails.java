@@ -85,7 +85,7 @@ public class AccountDetails extends MasterPanel {
 		setSize(new Dimension(1366, 768));
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(445, 471, 400, 204);
+		panel.setBounds(927, 471, 400, 204);
 		add(panel);
 		panel.setLayout(null);
 
@@ -566,7 +566,7 @@ public class AccountDetails extends MasterPanel {
 		JPanel editDetails = new JPanel();
 		editDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
 		editDetails.setLayout(null);
-		editDetails.setBounds(445, 175, 400, 285);
+		editDetails.setBounds(927, 175, 400, 285);
 		add(editDetails);
 
 		JLabel lblNewDetails = new JLabel("New Account Details:");
@@ -732,31 +732,9 @@ public class AccountDetails extends MasterPanel {
 
 		JPanel miscDetails = new JPanel();
 		miscDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
-		miscDetails.setBounds(855, 175, 470, 500);
+		miscDetails.setBounds(447, 175, 470, 500);
 		add(miscDetails);
 		miscDetails.setLayout(null);
-
-		JPanel feedback1 = new JPanel();
-		feedback1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		feedback1.setBounds(20, 36, 425, 154);
-		miscDetails.add(feedback1);
-		feedback1.setLayout(null);
-		
-		JTextArea ftarea = new JTextArea();
-		ftarea.setEditable(false);
-		ftarea.setBounds(10, 11, 405, 132);
-		feedback1.add(ftarea);
-
-		JPanel feedback2 = new JPanel();
-		feedback2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		feedback2.setBounds(20, 226, 425, 154);
-		miscDetails.add(feedback2);
-		feedback2.setLayout(null);
-		
-		JTextArea ftarea2 = new JTextArea();
-		ftarea2.setEditable(false);
-		ftarea2.setBounds(10, 11, 405, 132);
-		feedback2.add(ftarea2);
 
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
