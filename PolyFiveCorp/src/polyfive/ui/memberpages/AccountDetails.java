@@ -85,7 +85,7 @@ public class AccountDetails extends MasterPanel {
 		setSize(new Dimension(1366, 768));
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(927, 471, 400, 204);
+		panel.setBounds(621, 471, 706, 204);
 		add(panel);
 		panel.setLayout(null);
 
@@ -103,7 +103,7 @@ public class AccountDetails extends MasterPanel {
 		});
 		btnGoldMember.setBackground(new Color(255, 165, 0));
 		btnGoldMember.setForeground(Color.DARK_GRAY);
-		btnGoldMember.setBounds(10, 11, 120, 125);
+		btnGoldMember.setBounds(10, 11, 222, 125);
 		panel.add(btnGoldMember);
 
 		JButton btnSilverMember = new JButton("Silver Member");
@@ -121,7 +121,7 @@ public class AccountDetails extends MasterPanel {
 		});
 		btnSilverMember.setBackground(new Color(255, 165, 0));
 		btnSilverMember.setForeground(Color.DARK_GRAY);
-		btnSilverMember.setBounds(140, 11, 121, 125);
+		btnSilverMember.setBounds(242, 11, 222, 125);
 		panel.add(btnSilverMember);
 
 		JButton btnBronzeMember = new JButton("Bronze Member");
@@ -139,7 +139,7 @@ public class AccountDetails extends MasterPanel {
 		});
 		btnBronzeMember.setBackground(new Color(255, 165, 0));
 		btnBronzeMember.setForeground(Color.DARK_GRAY);
-		btnBronzeMember.setBounds(271, 12, 123, 125);
+		btnBronzeMember.setBounds(474, 11, 222, 125);
 		panel.add(btnBronzeMember);
 
 		if (rankNo >= 4) {
@@ -156,7 +156,7 @@ public class AccountDetails extends MasterPanel {
 		currentMember = new JTextField();
 		currentMember.setEditable(false);
 		currentMember.setText(rankName);
-		currentMember.setBounds(140, 147, 240, 20);
+		currentMember.setBounds(140, 147, 556, 20);
 		panel.add(currentMember);
 		currentMember.setColumns(10);
 
@@ -167,7 +167,7 @@ public class AccountDetails extends MasterPanel {
 		upgradingTo = new JTextField();
 		upgradingTo.setEditable(false);
 		upgradingTo.setColumns(10);
-		upgradingTo.setBounds(140, 173, 240, 20);
+		upgradingTo.setBounds(140, 173, 556, 20);
 		panel.add(upgradingTo);
 
 		JLabel lblUpgradingTo = new JLabel("Upgrading to:");
@@ -176,7 +176,7 @@ public class AccountDetails extends MasterPanel {
 
 		JPanel accountManagement = new JPanel();
 		accountManagement.setBorder(new LineBorder(new Color(0, 0, 0)));
-		accountManagement.setBounds(35, 471, 400, 204);
+		accountManagement.setBounds(35, 471, 576, 204);
 		add(accountManagement);
 		accountManagement.setLayout(null);
 
@@ -333,7 +333,7 @@ public class AccountDetails extends MasterPanel {
 		confirmPasswords.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		confirmPasswords.setBackground(new Color(255, 165, 0));
-		confirmPasswords.setBounds(205, 158, 185, 35);
+		confirmPasswords.setBounds(381, 158, 185, 35);
 		accountManagement.add(confirmPasswords);
 
 		JLabel lblPasswords = new JLabel("Password Changes:");
@@ -341,15 +341,15 @@ public class AccountDetails extends MasterPanel {
 		accountManagement.add(lblPasswords);
 
 		oldPass = new JPasswordField();
-		oldPass.setBounds(133, 34, 244, 20);
+		oldPass.setBounds(133, 34, 433, 20);
 		accountManagement.add(oldPass);
 
 		newPass = new JPasswordField();
-		newPass.setBounds(133, 67, 244, 20);
+		newPass.setBounds(133, 67, 433, 20);
 		accountManagement.add(newPass);
 
 		confirmNew = new JPasswordField();
-		confirmNew.setBounds(133, 96, 244, 20);
+		confirmNew.setBounds(133, 96, 433, 20);
 		accountManagement.add(confirmNew);
 
 		JPanel topBar = new JPanel();
@@ -425,7 +425,7 @@ public class AccountDetails extends MasterPanel {
 
 		JPanel account = new JPanel();
 		account.setBorder(new LineBorder(new Color(0, 0, 0)));
-		account.setBounds(35, 175, 400, 285);
+		account.setBounds(35, 175, 576, 285);
 		add(account);
 		account.setLayout(null);
 
@@ -440,7 +440,7 @@ public class AccountDetails extends MasterPanel {
 		creationDate = new JTextField();
 		creationDate.setText(user.getCreationDate());
 		creationDate.setEditable(false);
-		creationDate.setBounds(127, 50, 250, 20);
+		creationDate.setBounds(127, 50, 439, 20);
 		account.add(creationDate);
 		creationDate.setColumns(10);
 
@@ -452,14 +452,14 @@ public class AccountDetails extends MasterPanel {
 		rank.setText(rankName + "\r\n");
 		rank.setEditable(false);
 		rank.setColumns(10);
-		rank.setBounds(127, 81, 250, 20);
+		rank.setBounds(127, 81, 439, 20);
 		account.add(rank);
 
 		phoneNumber = new JTextField();
 		phoneNumber.setText(user.getPhoneNumber() + "\r\n");
 		phoneNumber.setEditable(false);
 		phoneNumber.setColumns(10);
-		phoneNumber.setBounds(127, 112, 250, 20);
+		phoneNumber.setBounds(127, 112, 439, 20);
 		account.add(phoneNumber);
 
 		JLabel lblPhoneNumber = new JLabel("Phone Number:");
@@ -470,7 +470,7 @@ public class AccountDetails extends MasterPanel {
 		email.setText(user.getEmail());
 		email.setEditable(false);
 		email.setColumns(10);
-		email.setBounds(127, 143, 250, 20);
+		email.setBounds(127, 143, 439, 20);
 		account.add(email);
 
 		JLabel lblEmail = new JLabel("Email:");
@@ -481,7 +481,7 @@ public class AccountDetails extends MasterPanel {
 		passportIC.setText(RailFence.decrypt(user.getPass_icNo()));
 		passportIC.setEditable(false);
 		passportIC.setColumns(10);
-		passportIC.setBounds(127, 174, 250, 20);
+		passportIC.setBounds(127, 174, 439, 20);
 		account.add(passportIC);
 
 		JLabel lblPassportIC = new JLabel("Passport/IC:");
@@ -492,7 +492,7 @@ public class AccountDetails extends MasterPanel {
 		paymentMethod.setText("Credit Card");
 		paymentMethod.setEditable(false);
 		paymentMethod.setColumns(10);
-		paymentMethod.setBounds(127, 205, 250, 20);
+		paymentMethod.setBounds(127, 205, 439, 20);
 		account.add(paymentMethod);
 
 		JLabel lblPaymentMethod = new JLabel("Payment Method:");
@@ -560,13 +560,13 @@ public class AccountDetails extends MasterPanel {
 		lockChanges.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
 		lockChanges.setBackground(new Color(255, 165, 0));
-		lockChanges.setBounds(205, 236, 185, 35);
+		lockChanges.setBounds(381, 236, 185, 35);
 		account.add(lockChanges);
 
 		JPanel editDetails = new JPanel();
 		editDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
 		editDetails.setLayout(null);
-		editDetails.setBounds(927, 175, 400, 285);
+		editDetails.setBounds(621, 175, 706, 285);
 		add(editDetails);
 
 		JLabel lblNewDetails = new JLabel("New Account Details:");
@@ -580,7 +580,7 @@ public class AccountDetails extends MasterPanel {
 		newCreationDate = new JTextField();
 		newCreationDate.setEditable(false);
 		newCreationDate.setColumns(10);
-		newCreationDate.setBounds(127, 50, 250, 20);
+		newCreationDate.setBounds(127, 50, 569, 20);
 		editDetails.add(newCreationDate);
 
 		JLabel lblNewRank = new JLabel("Rank:");
@@ -590,13 +590,13 @@ public class AccountDetails extends MasterPanel {
 		newRank = new JTextField();
 		newRank.setEditable(false);
 		newRank.setColumns(10);
-		newRank.setBounds(127, 81, 250, 20);
+		newRank.setBounds(127, 81, 569, 20);
 		editDetails.add(newRank);
 
 		newPhoneNumber = new JTextField();
 		newPhoneNumber.setEditable(false);
 		newPhoneNumber.setColumns(10);
-		newPhoneNumber.setBounds(127, 112, 250, 20);
+		newPhoneNumber.setBounds(127, 112, 569, 20);
 		editDetails.add(newPhoneNumber);
 
 		JLabel lblNewPhoneNumber = new JLabel("Phone Number:");
@@ -606,7 +606,7 @@ public class AccountDetails extends MasterPanel {
 		newEmail = new JTextField();
 		newEmail.setEditable(false);
 		newEmail.setColumns(10);
-		newEmail.setBounds(127, 143, 250, 20);
+		newEmail.setBounds(127, 143, 569, 20);
 		editDetails.add(newEmail);
 
 		JLabel lblNewEmail = new JLabel("Email:");
@@ -616,7 +616,7 @@ public class AccountDetails extends MasterPanel {
 		newPassportIC = new JTextField();
 		newPassportIC.setEditable(false);
 		newPassportIC.setColumns(10);
-		newPassportIC.setBounds(127, 174, 250, 20);
+		newPassportIC.setBounds(127, 174, 569, 20);
 		editDetails.add(newPassportIC);
 
 		JLabel lblNewPassportIC = new JLabel("Passport/IC:");
@@ -626,7 +626,7 @@ public class AccountDetails extends MasterPanel {
 		newPaymentMethod = new JTextField();
 		newPaymentMethod.setEditable(false);
 		newPaymentMethod.setColumns(10);
-		newPaymentMethod.setBounds(127, 205, 250, 20);
+		newPaymentMethod.setBounds(127, 205, 569, 20);
 		editDetails.add(newPaymentMethod);
 
 		JLabel lblNewPaymentMethod = new JLabel("Payment Method:");
@@ -705,7 +705,7 @@ public class AccountDetails extends MasterPanel {
 		confirmChanges.setBackground(new Color(255, 165, 0));
 		confirmChanges.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
 				Color.DARK_GRAY, null));
-		confirmChanges.setBounds(205, 236, 185, 35);
+		confirmChanges.setBounds(511, 236, 185, 35);
 		editDetails.add(confirmChanges);
 
 		JButton resetChanges = new JButton("Reset Changes");
@@ -729,12 +729,6 @@ public class AccountDetails extends MasterPanel {
 		resetChanges.setForeground(Color.DARK_GRAY);
 		resetChanges.setBounds(10, 236, 185, 35);
 		editDetails.add(resetChanges);
-
-		JPanel miscDetails = new JPanel();
-		miscDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
-		miscDetails.setBounds(447, 175, 470, 500);
-		add(miscDetails);
-		miscDetails.setLayout(null);
 
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
