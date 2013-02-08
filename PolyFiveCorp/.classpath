@@ -5,7 +5,12 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="lib/analog-clock-1.2.0-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="lib/jcalendar.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Khai/Desktop/mysql-connector-java-5.1.22/mysql-connector-java-5.1.22/mysql-connector-java-5.1.22-bin.jar"/>
-	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tinesh Kumar/Documents/Programming/mysql-connector-java-5.1.22/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tinesh Kumar/Documents/Programming/javamail-1_2/javamail-1.2/imap.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tinesh Kumar/Documents/Programming/javamail-1_2/javamail-1.2/mailapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tinesh Kumar/Documents/Programming/javamail-1_2/javamail-1.2/smtp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tinesh Kumar/Documents/Programming/javamail-1_2/javamail-1.2/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tinesh Kumar/Documents/Programming/javamail-1_2/javamail-1.2/pop3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tinesh Kumar/Documents/Programming/jaf-1_1_1/jaf-1.1.1/activation.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
