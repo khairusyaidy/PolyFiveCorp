@@ -179,7 +179,7 @@ public class LoginPanel extends MasterPanel {
 		button.setBounds(21, 21, 75, 75);
 		add(button);
 
-		final JCheckBox chckbxCheckPassword = new JCheckBox("Check password");
+		final JCheckBox chckbxCheckPassword = new JCheckBox("Show password");
 		chckbxCheckPassword.setFocusPainted(false);
 		chckbxCheckPassword.setBounds(964, 603, 145, 23);
 		add(chckbxCheckPassword);
